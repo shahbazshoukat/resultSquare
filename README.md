@@ -16,20 +16,6 @@ $ npm install
 $ npm run localserve
 ```
 
-## Appsight-server-api
-
-Clone appsight-server-api repository from dev branch
-```bash
-$ git clone https://github.com/app-sight/appsight-server-api.git
-```
-Run following commands
-```bash
-$ cd <path/to/appsight-server-api>
-$ git pull
-$ npm install
-$ node app.js --NODE_ENV=<your config file name>
-```
-
 
 ## Minio Server
 
@@ -44,6 +30,66 @@ $ minio server ~/minio/data
 - In config make sure you have `minio` set as `storage.defaultProvider`.
 - Make sure in config `storage.minio.baseUrl` & `storage.minio.delivery.baseUrl` is set to address of correct server.
 - Copy and paste your access key id & secret in config file to `storage.minio.accessKeyId` & `storage.minio.secretAccessKey` respectively.
+
+## Appsight-server-api
+
+Clone appsight-server-api repository from dev branch
+```bash
+$ git clone https://github.com/app-sight/appsight-server-api.git
+```
+Run following commands
+```bash
+$ cd <path/to/appsight-server-api>
+$ git pull
+$ npm install
+$ node app.js --NODE_ENV=<your config file name>
+```
+
+### Verify Startup Configs:
+verify the configs in `config/default.json` file and if any change required, create/edit your environment config file with desired config values.
+- Make sure in config `projectRoot` is set to correct path.
+- Make sure `database.host` and `database.dbName` is set to `localhost` and `mesmer-dev` respectively.
+- In config make sure `storage.contentBucketName` is set to `mesmer-static-content` and `storage.logsBucketName` is set to `mesmer-execution-logs`.
+- Make sure you have `minio` set as `storage.defaultProvider`.
+- Make sure in config `storage.minio.baseUrl` & `storage.minio.delivery.baseUrl` is set to address of correct server.
+- Copy and paste your access key id & secret in config file to `storage.minio.accessKeyId` & `storage.minio.secretAccessKey` respectively.
+- This is a sample for `appsight-server-api` configurations for local machine.
+
+```bash
+{
+  "projectRoot": "/Users/mesmer/mesmer/appsight-server-api",
+  "host": "localhost",
+  "database": {
+    "host": "localhost",
+    "dbName": "mesmer-dev"
+  },
+  "debug": false,
+  "appName": "Mesmer",
+  "port": 3000,
+  "storage": {
+    "contentBucketName": "mesmer-static-content",
+    "pathPrefix": "mesmer-dev",
+    "logsBucketName": "mesmer-execution-logs",
+    "defaultProvider": "minio",
+    "providers": {
+      "minio": {
+        "baseUrl": "http://127.0.0.1:9000",
+        "accessKeyId": "MBJPPD6U1UBOSDA4NYX2",
+        "secretAccessKey": "ByEcldoFqVSwvaohbariV1KaxF0Ra0Gm0Vd4tMIR",
+        "s3ForcePathStyle": true,
+        "signatureVersion": "v4",
+        "delivery": {
+          "baseUrl": "http://127.0.0.1:9000",
+	        "scriptsUrl": "http://127.0.0.1:9000",
+          "appendBucketName": true
+        }
+      }
+    }
+  }
+}
+
+```
+
 
 ## Appsight-node
 
@@ -163,6 +209,271 @@ verify the configs in `config/default.json` file and if any change required, cre
  - verify `execution` object under config if `forExecution` is `true`. Specially but not limited to these; check: `nodePath, appiumPath, adbPath, buildToolsPath, xcrunPath, fbsimctlPath, visionServiceUrl, imageCompareServiceUrl, proxyServiceUrl, domUtilityServiceUrl, visionServiceEnabled, imageCompareServiceEnabled, domServiceEnabled, proxyServiceEnabled, anacondaEnvName, anacondaActivatePath, autoHandleIOSSystemDialog, pythonPath, textClassifierEnabled, vaVisualizerEnabled, customWDAPath` 
 
 > *please note that your config file will inherit and override the configs from `default.json`*
+
+- There are following sample configurations for `ios/android` `record/replay` nodes.
+
+#### android-record
+
+```bash
+{
+  "projectRoot": "/Users/mesmer/mesmer/appsight-node-localhost",
+  "label": "localhost Record Node",
+  "host": "localhost",
+  "port": 3200,
+  "customer": "user1",
+  "forExecution": false,
+  "remoteServer": {
+    "protocol": "http",
+    "host": "localhost",
+    "port": "3000"
+  },
+  "storage": {
+      "defaultProvider": "minio",
+      "pathPrefix": "localhost",
+      "logsBucketName": "mesmer-execution-logs",
+      "providers": {
+        "aws": {
+          "delivery": {
+            "baseUrl": "https://d1prw00zxlkwmw.cloudfront.net",
+            "appendBucketName": false,
+            "signing": {
+              "enableSignedCookies": "false",
+              "nonSignedPathPattern": "public/",
+              "keyPairId": "APKAJBRFRY3Q6DVU7ELA",
+              "privateKeyFilePath": "cf-private-key.pem"
+            }
+          }
+        },
+        "minio": {
+          "baseUrl": "http://127.0.0.1:9000",
+          "accessKeyId": "MBJPPD6U1UBOSDA4NYX2",
+          "secretAccessKey": "ByEcldoFqVSwvaohbariV1KaxF0Ra0Gm0Vd4tMIR",
+          "s3ForcePathStyle": true,
+          "signatureVersion": "v4",
+          "delivery": {
+            "baseUrl": "http://127.0.0.1:9000",
+            "appendBucketName": true
+          }
+        }
+      }
+    },
+  "execution": {
+    "nodePath": "/usr/local/bin/node",
+    "appiumPath": "/usr/local/lib/node_modules/appium/build/lib/main.js",
+    "adbPath": "/Users/mesmer/Library/Android/sdk/platform-tools/adb",
+    "buildToolsPath": "/Users/mesmer/Library/Android/sdk/build-tools/29.0.0"
+  },
+  "recording": {
+    "minitouchPort": 1211,
+    "minicapPort": 1413,
+    "uiaPort": 19308,
+    "port": 19308
+  },
+  "provisionableDevices": [ "emulator-5554" ],
+  "emulatorConsoleAuthToken": "authToken"
+}
+
+```
+
+
+#### android-replay
+
+```bash
+{
+  "projectRoot": "/Users/mesmer/mesmer/appsight-node-localhost",
+  "protocol": "http",
+  "host": "localhost",
+  "label": "localhost Android Replay Node",
+  "customer": "user1",
+  "forExecution": true,
+  "port": 3500,
+  "remoteServer": {
+    "protocol": "http",
+    "host": "localhost",
+    "port": "3000"
+  },
+  "platforms": [ "android" ],
+  "execution": {
+    "nodePath": "/usr/local/bin/node",
+    "appiumPath": "/usr/local/lib/node_modules/appium/build/lib/main.js",
+    "adbPath": "/Users/mesmer/Library/Android/sdk/platform-tools/adb",
+    "buildToolsPath": "/Users/mesmer/Library/Android/sdk/build-tools/29.0.0",
+    "anacondaEnvName": "py35cv",
+    "anacondaActivatePath": "activate",
+    "pythonPath": "python2"
+  },
+  "storage": {
+      "defaultProvider": "minio",
+      "pathPrefix": "localhost",
+      "logsBucketName": "mesmer-execution-logs",
+      "providers": {
+        "aws": {
+          "delivery": {
+            "baseUrl": "https://d1prw00zxlkwmw.cloudfront.net",
+            "appendBucketName": false,
+            "signing": {
+              "enableSignedCookies": "false",
+              "nonSignedPathPattern": "public/",
+              "keyPairId": "APKAJBRFRY3Q6DVU7ELA",
+              "privateKeyFilePath": "cf-private-key.pem"
+            }
+          }
+        },
+        "minio": {
+          "baseUrl": "http://127.0.0.1:9000",
+          "accessKeyId": "MBJPPD6U1UBOSDA4NYX2",
+          "secretAccessKey": "ByEcldoFqVSwvaohbariV1KaxF0Ra0Gm0Vd4tMIR",
+          "s3ForcePathStyle": true,
+          "signatureVersion": "v4",
+          "delivery": {
+            "baseUrl": "http://127.0.0.1:9000",
+            "appendBucketName": true
+          }
+        }
+      }
+    },
+  "minitouchPort": 1411,
+  "minicapPort": 1613,
+  "uiaPort": 9108,
+  "appiumPort": 4723,
+  "wdaPort": 8100,
+  "provisionableDevices": [ "emulator-5556", "emulator-5558" ],
+  "emulatorConsoleAuthToken": "authToken"
+}
+
+```
+
+#### ios-record
+
+```bash
+{
+  "projectRoot": "/Users/mesmer/mesmer/appsight-node-localhost",
+  "label": "localhost Record Node",
+  "host": "localhost",
+  "port": 3800,
+  "customer": "user1",
+  "forExecution": false,
+  "platforms": [ "ios" ],
+  "remoteServer": {
+    "protocol": "http",
+    "host": "localhost",
+    "port": "3000"
+  },
+  "storage": {
+      "defaultProvider": "minio",
+      "pathPrefix": "localhost",
+      "logsBucketName": "mesmer-execution-logs",
+      "providers": {
+        "aws": {
+          "delivery": {
+            "baseUrl": "https://d1prw00zxlkwmw.cloudfront.net",
+            "appendBucketName": false,
+            "signing": {
+              "enableSignedCookies": "false",
+              "nonSignedPathPattern": "public/",
+              "keyPairId": "APKAJBRFRY3Q6DVU7ELA",
+              "privateKeyFilePath": "cf-private-key.pem"
+            }
+          }
+        },
+        "minio": {
+          "baseUrl": "http://127.0.0.1:9000",
+          "accessKeyId": "MBJPPD6U1UBOSDA4NYX2",
+          "secretAccessKey": "ByEcldoFqVSwvaohbariV1KaxF0Ra0Gm0Vd4tMIR",
+          "s3ForcePathStyle": true,
+          "signatureVersion": "v4",
+          "delivery": {
+            "baseUrl": "http://127.0.0.1:9000",
+            "appendBucketName": true
+          }
+        }
+      }
+    },
+  "execution": {
+    "nodePath": "/usr/local/bin/node",
+    "appiumPath": "/usr/local/lib/node_modules/appium/build/lib/main.js",
+    "xcrunPath":"/usr/bin/xcrun",
+    "fbsimctlPath":"/Users/mesmer/mesmer/appsight-node-localhost/fbsimctl/bin/fbsimctl",
+    "anacondaEnvName":"py35cv",
+    "anacondaActivatePath":"activate",
+    "pythonPath": "python2",
+    "customWDAPath": "/Users/mesmer/mesmer/appsight-node-localhost/execution_engine/mesmer-execution-wda"
+  },
+  "iosrecording": {
+    "fbsimctlPort": 9876,
+    "wdaPort": 8003,
+    "WDAPort": 8003
+  },
+  "provisionableDevices": [ "6AA793AC-5A6D-4DB3-82F8-CFFD446AB100", "39867A79-084F-48B8-80E2-9CF2B1B16F55" ]
+}
+
+```
+
+#### ios-replay
+
+```bash
+{
+  "projectRoot": "/Users/mesmer/mesmer/appsight-node-localhost",
+  "label": "localhost Execution Node",
+  "host": "localhost",
+  "port": 4100,
+  "customer": "user1",
+  "forExecution": true,
+  "platforms": [ "ios" ],
+  "remoteServer": {
+    "protocol": "http",
+    "host": "localhost",
+    "port": "3000"
+  },
+  "storage": {
+      "defaultProvider": "minio",
+      "pathPrefix": "localhost",
+      "logsBucketName": "mesmer-execution-logs",
+      "providers": {
+        "aws": {
+          "delivery": {
+            "baseUrl": "https://d1prw00zxlkwmw.cloudfront.net",
+            "appendBucketName": false,
+            "signing": {
+              "enableSignedCookies": "false",
+              "nonSignedPathPattern": "public/",
+              "keyPairId": "APKAJBRFRY3Q6DVU7ELA",
+              "privateKeyFilePath": "cf-private-key.pem"
+            }
+          }
+        },
+        "minio": {
+          "baseUrl": "http://127.0.0.1:9000",
+          "accessKeyId": "MBJPPD6U1UBOSDA4NYX2",
+          "secretAccessKey": "ByEcldoFqVSwvaohbariV1KaxF0Ra0Gm0Vd4tMIR",
+          "s3ForcePathStyle": true,
+          "signatureVersion": "v4",
+          "delivery": {
+            "baseUrl": "http://127.0.0.1:9000",
+            "appendBucketName": true
+          }
+        }
+      }
+    },
+  "execution": {
+    "nodePath": "/usr/local/bin/node",
+    "appiumPath": "/usr/local/lib/node_modules/appium/build/lib/main.js",
+    "xcrunPath":"/usr/bin/xcrun",
+    "fbsimctlPath":"/Users/mesmer/mesmer/appsight-node-localhost/fbsimctl/bin/fbsimctl",
+    "anacondaEnvName":"py35cv",
+    "anacondaActivatePath":"activate",
+    "pythonPath": "python2",
+    "customWDAPath": "/Users/mesmer/mesmer/appsight-node-localhost/execution_engine/mesmer-execution-wda"
+  },
+  "appiumPort": 8123,
+  "fbsimctlPort": 10076,
+  "wdaPort": 11100,
+  "WDAPort": 11100,
+  "provisionableDevices": [ "EC609DF8-E6C0-4BC8-A141-1DD8F99F3E4B" ]
+}
+
+```
+
 
 ### Start Server
 
