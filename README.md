@@ -42,7 +42,6 @@ Run following commands
 $ cd <path/to/appsight-server-api>
 $ git pull
 $ npm install
-$ node app.js --NODE_ENV=<your config file name>
 ```
 
 ### Verify Startup Configs:
@@ -89,7 +88,15 @@ verify the configs in `config/default.json` file and if any change required, cre
 }
 
 ```
+#### Start Server
 
+start the server
+
+```sh
+$ node app.js --NODE_ENV=<yourconfigfilename>
+```
+
+> if no config is provided, `default.json` will be used
 
 ## Appsight-node
 
