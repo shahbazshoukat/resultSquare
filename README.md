@@ -1,494 +1,237 @@
-# Mesmer Setup
-
-Complete instructions to setup Mesmer on local machine.
-
-## Appsight-webapp
-
-Clone Appsight-webapp repository from dev branch
-```bash
-$ git clone https://github.com/app-sight/appsight-webapp.git
-```
-Run following commands
-```bash
-$ cd <path/to/appsight-webapp>
-$ git pull
-$ npm install
-$ npm run localserve
-```
+# [Argon Dashboard Angular](https://demos.creative-tim.com/argon-dashboard-angular/?ref=ada-github-readme) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/home?status=Argon%20Dashboard%20is%20a%20Free%20Bootstrap%20and%20Angular%20Dashboard%20made%20using%20angular-cli%20%E2%9D%A4%EF%B8%8F%0Ahttps%3A//demos.creative-tim.com/argon-dashboard-angular%20%23angular%20%23angular-cli%20%23argon%20%23argondesign%20%23angulardashboard%20%23argonangular%20%23angulardesign%20%23bootstrap%20%23design%20%23uikit%20%23freebie%20%20via%20%40CreativeTim)
 
 
-## Minio Server
 
-To start minio server run following commands
-```bash
-$ minio server ~/minio/data
-```
-- It should print access key id and secret.
-- Go to minio dashboard generally: `http://localhost:9000`
-- Login using credentials printed in above step.
-- You can check `mesmer-execution-logs` and `mesmer-static-content` after successful login.
-- In config make sure you have `minio` set as `storage.defaultProvider`.
-- Make sure in config `storage.minio.baseUrl` & `storage.minio.delivery.baseUrl` is set to address of correct server.
-- Copy and paste your access key id & secret in config file to `storage.minio.accessKeyId` & `storage.minio.secretAccessKey` respectively.
+ ![version](https://img.shields.io/badge/version-1.0.1-blue.svg)  ![license](https://img.shields.io/badge/license-MIT-blue.svg) [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/argon-dashboard-angular.svg?maxAge=2592000)](https://github.com/creativetimofficial/argon-dashboard-angular/issues?q=is%3Aopen+is%3Aissue) [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/argon-dashboard-angular.svg?maxAge=2592000)](https://github.com/creativetimofficial/argon-dashboard-angular/issues?q=is%3Aissue+is%3Aclosed) [![Join the chat at https://gitter.im/NIT-dgp/General](https://badges.gitter.im/NIT-dgp/General.svg)](https://gitter.im/creative-tim-general/Lobby) [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/E4aHAQy)
 
-## Appsight-server-api
 
-Clone appsight-server-api repository from dev branch
-```bash
-$ git clone https://github.com/app-sight/appsight-server-api.git
-```
-Run following commands
-```bash
-$ cd <path/to/appsight-server-api>
-$ git pull
-$ npm install
-```
+![Product Gif](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-angular/argon-dashboard-angular.gif)
 
-### Verify Startup Configs:
-verify the configs in `config/default.json` file and if any change required, create/edit your environment config file with desired config values.
-- Make sure in config `projectRoot` is set to correct path.
-- Make sure `database.host` and `database.dbName` is set to `localhost` and `mesmer-dev` respectively.
-- In config make sure `storage.contentBucketName` is set to `mesmer-static-content` and `storage.logsBucketName` is set to `mesmer-execution-logs`.
-- Make sure you have `minio` set as `storage.defaultProvider`.
-- Make sure in config `storage.minio.baseUrl` & `storage.minio.delivery.baseUrl` is set to address of correct server.
-- Copy and paste your access key id & secret in config file to `storage.minio.accessKeyId` & `storage.minio.secretAccessKey` respectively.
-- This is a sample for `appsight-server-api` configurations for local machine.
+**Fully Coded Components**
 
-```bash
-{
-  "projectRoot": "/Users/mesmer/mesmer/appsight-server-api",
-  "host": "localhost",
-  "database": {
-    "host": "localhost",
-    "dbName": "mesmer-dev"
-  },
-  "debug": false,
-  "appName": "Mesmer",
-  "port": 3000,
-  "storage": {
-    "contentBucketName": "mesmer-static-content",
-    "pathPrefix": "mesmer-dev",
-    "logsBucketName": "mesmer-execution-logs",
-    "defaultProvider": "minio",
-    "providers": {
-      "minio": {
-        "baseUrl": "http://127.0.0.1:9000",
-        "accessKeyId": "MBJPPD6U1UBOSDA4NYX2",
-        "secretAccessKey": "ByEcldoFqVSwvaohbariV1KaxF0Ra0Gm0Vd4tMIR",
-        "s3ForcePathStyle": true,
-        "signatureVersion": "v4",
-        "delivery": {
-          "baseUrl": "http://127.0.0.1:9000",
-	        "scriptsUrl": "http://127.0.0.1:9000",
-          "appendBucketName": true
-        }
-      }
-    }
-  }
-}
+Argon Dashboard Angular is built with over 100 individual components, giving you the freedom of choosing and combining. All components can take variations in color, that you can easily modify using SASS files.
+You will save a lot of time going from prototyping to full-functional code, because all elements are implemented. This Dashboard is coming with pre-built examples, so the development process is seamless, switching from our pages to the real website is very easy to be done.
+Every element has multiple states for colors, styles, hover, focus, that you can easily access and use.
+
+**Complex Documentation**
+
+Each element is well presented in a very complex documentation. You can read more about the idea behind this [dashboard here](https://demos.creative-tim.com/argon-dashboard-angular/documentation/tutorial?ref=ada-github-readme). You can check the [components here](https://demos.creative-tim.com/argon-dashboard-angular/documentation/alerts?ref=ada-github-readme) and the [foundation here](https://demos.creative-tim.com/argon-dashboard-angular/documentation/colors?ref=ada-github-readme).
+
+**Example Pages**
+
+If you want to get inspiration or just show something directly to your clients, you can jump start your development with our pre-built example pages. You will be able to quickly set up the basic structure for your web project.
+
+
+## Table of Contents
+
+* [Versions](#versions)
+* [Demo](#demo)
+* [Quick Start](#quick-start)
+* [Documentation](#documentation)
+* [File Structure](#file-structure)
+* [Browser Support](#browser-support)
+* [Resources](#resources)
+* [Reporting Issues](#reporting-issues)
+* [Licensing](#licensing)
+* [Useful Links](#useful-links)
+
+## Versions
+
+[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/html-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/argon-dashboard)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/react-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/argon-dashboard-react)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/angular-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/argon-dashboard-angular)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/nodejs-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/argon-dashboard-nodejs)[<img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/laravel_logo.png" width="60" height="60" style="background:white"/>](https://www.creative-tim.com/product/argon-dashboard-laravel)[<img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/sketch-logo.jpg" width="60" height="60" />](https://github.com/creativetimofficial/argon-dashboard/tree/sketch)
+
+
+
+| HTML | React | Angular  |
+| --- | --- | ---  |
+| [![Argon Dashboard HTML](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard/argon-dashboard.jpg?raw=true)](https://www.creative-tim.com/product/argon-dashboard?ref=ada-github-readme)  | [![Argon Dashboard React](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-react/argon-dashboard-react.jpg?raw=true)](https://www.creative-tim.com/product/argon-dashboard-react?ref=ada-github-readme)  | [![Argon Dashboard Angular](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-angular/argon-dashboard-angular.jpg?raw=true)](https://www.creative-tim.com/product/argon-dashboard-angular?ref=ada-github-readme)
+
+| NodeJS | Laravel |
+| ---  | --- |
+| [![Argon Dashboard NodeJS](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-nodejs/argon-dashboard-nodejs.jpg?raw=true)](https://www.creative-tim.com/product/argon-dashboard-nodejs?ref=ada-github-readme) | [![Argon Dashboard Laravel](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-laravel/argon-dashboard-laravel.jpg?raw=true)](https://www.creative-tim.com/product/argon-dashboard-laravel?ref=ada-github-readme) |
+
+## Demo
+
+| Dashboard Page | Icons Page | User Profile Page  | Tables Page | Login Page | Register Page  |
+| --- | --- | ---  | --- | --- | ---  |
+| [![Dashboard Page](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-angular/dashboard.png)](https://demos.creative-tim.com/argon-dashboard-angular/dashboard?ref=ada-github-readme)  | [![Icons Page](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-angular/icons.png?raw=true)](https://demos.creative-tim.com/argon-dashboard-angular/icons?ref=ada-github-readme)  | [![User Profile Page](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-angular/user.png?raw=true)](https://demos.creative-tim.com/argon-dashboard-angular/user?ref=ada-github-readme)  | [![Tables Page](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-angular/tables.png)](https://demos.creative-tim.com/argon-dashboard-angular/tables?ref=ada-github-readme)  | [![Login Page](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-angular/login.png?raw=true)](https://demos.creative-tim.com/argon-dashboard-angular/login?ref=ada-github-readme)  | [![Register Page](https://github.com/creativetimofficial/public-assets/blob/master/argon-dashboard-angular/register.png?raw=true)](https://demos.creative-tim.com/argon-dashboard-angular/register?ref=ada-github-readme)  
+
+[View More](https://demos.creative-tim.com/argon-dashboard-angular/dashboard)
+
+
+## Quick start
+
+- [Download from Github](https://github.com/creativetimofficial/argon-dashboard-angular/archive/master.zip).
+- [Download from Creative Tim](https://www.creative-tim.com/product/argon-dashboard-angular?ref=ada-github-readme).
+- Clone the repo: `git clone https://github.com/creativetimofficial/argon-dashboard-angular.git`.
+
+
+## Documentation
+The documentation for the Argon Dashboard Angular is hosted at our [website](https://demos.creative-tim.com/argon-dashboard-angular/documentation/tutorial?ref=ada-github-readme).
+
+
+## File Structure
+Within the download you'll find the following directories and files:
 
 ```
-#### Start Server
-
-start the server
-
-```sh
-$ node app.js --NODE_ENV=<yourconfigfilename>
-```
-
-> if no config is provided, `default.json` will be used
-
-## Appsight-node
-
-Clone appsight-node repository from dev branch
-```bash
-$ git clone https://github.com/app-sight/appsight-node.git
-```
-
-
-### appsight-node Setup
- 
-
-navigate to project directory
-
-```sh
-$ cd <path/to/appsight-node>
-```
-
-Run following commands
-```bash
-$ git pull
-$ npm install
-```
-
-### Initialize Submodules and Install Dependencies
-
-Initialize all submodules recursively and install dependencies
-
-```bash
-$ git submodule update --init --recursive
-$ npm install
-```
-
-### Build Dependencies
-
-some of the dependencies need to be built before we use them
-
-###### 1- Build Minicap 
-
-required for Android device/simulator live view
-
-```sh
-$ cd minicap
-$ ndk-build
-$ cd ..
-```
-
-###### 2- Build Minitouch 
-
-required for android device/simulator interaction
-
-```sh
-$ cd minitouch
-$ ndk-build
-$ cd ..
-```
-
-###### 2- Build UIAutomator 
-
-required for android device/simulator interaction
-
-```sh
-$ cd uiautomator-server
-$ npm install
-$ cd ..
-```
-
-###### 3- Build FBSimulatorControl `(iOS only)`
-
-`fbsimctl` is required for iOS device/simulator actions and requires macOS with latest Xcode installed. Leave this step if not targeting iOS 
-
- ```sh
-$ cd FBSimulatorControl
-$ ./build.sh fbsimctl build ../fbsimctl
-$ cd ..
-```
-
-###### 4- Build ios-minicap `(iOS only)`
-
-`ios-minicap` is required for iOS device/simulator live stream and requires macOS with latest Xcode installed. Leave this step if not targeting iOS 
-
-make sure to install `cmake` and `libjpeg-turbo(>=1.5)`
-
- ```sh
- $ brew install cmake libjpeg-turbo
- ```
- build `ios-minicap`
-
- ```sh
-$ cd ios-minicap
-$ ./build.sh
-$ cd ..
-```
-
-###### 5- Setup Web Driver Agent(WDA) `(iOS only)`
-
-WDA is required for iOS device/simulator interaction and requires macOS with latest Xcode installed. Leave this step if not targeting iOS
-
-Assuming we are in appsight-node project folder, run following command in terminal
-
- ```sh
-$ cd WDA
-$ ./Scripts/build.sh
-$ cd ..
-```
-### Verify Startup Configs
-
-verify the configs in `config/default.json` file and if any change required, create/edit your environment config file with desired config values. 
-
- - verify the node IP and Port
- - verify the API server connection parameters (host, port and protocol)
- - verify the project root path
- - verify the `customer` id if node is a recording node and make sure that `forExecution` flag is `false`
- - verify the CDN host and credentials
- - if node is an execution/replay node, verify the `execution` configs and updated respective paths
- - For Android record/replay node to setup GPS coordinates, update `emulatorConsoleAuthToken` value with the token in file at `~/.emulator_console_auth_token`.
- - verify `execution` object under config if `forExecution` is `true`. Specially but not limited to these; check: `nodePath, appiumPath, adbPath, buildToolsPath, xcrunPath, fbsimctlPath, visionServiceUrl, imageCompareServiceUrl, proxyServiceUrl, domUtilityServiceUrl, visionServiceEnabled, imageCompareServiceEnabled, domServiceEnabled, proxyServiceEnabled, anacondaEnvName, anacondaActivatePath, autoHandleIOSSystemDialog, pythonPath, textClassifierEnabled, vaVisualizerEnabled, customWDAPath` 
-
-> *please note that your config file will inherit and override the configs from `default.json`*
-
-- There are following sample configurations for `ios/android` `record/replay` nodes.
-
-#### android-record
-
-```bash
-{
-  "projectRoot": "/Users/mesmer/mesmer/appsight-node-localhost",
-  "label": "localhost Record Node",
-  "host": "localhost",
-  "port": 3200,
-  "customer": "user1",
-  "forExecution": false,
-  "remoteServer": {
-    "protocol": "http",
-    "host": "localhost",
-    "port": "3000"
-  },
-  "storage": {
-      "defaultProvider": "minio",
-      "pathPrefix": "localhost",
-      "logsBucketName": "mesmer-execution-logs",
-      "providers": {
-        "aws": {
-          "delivery": {
-            "baseUrl": "https://d1prw00zxlkwmw.cloudfront.net",
-            "appendBucketName": false,
-            "signing": {
-              "enableSignedCookies": "false",
-              "nonSignedPathPattern": "public/",
-              "keyPairId": "APKAJBRFRY3Q6DVU7ELA",
-              "privateKeyFilePath": "cf-private-key.pem"
-            }
-          }
-        },
-        "minio": {
-          "baseUrl": "http://127.0.0.1:9000",
-          "accessKeyId": "MBJPPD6U1UBOSDA4NYX2",
-          "secretAccessKey": "ByEcldoFqVSwvaohbariV1KaxF0Ra0Gm0Vd4tMIR",
-          "s3ForcePathStyle": true,
-          "signatureVersion": "v4",
-          "delivery": {
-            "baseUrl": "http://127.0.0.1:9000",
-            "appendBucketName": true
-          }
-        }
-      }
-    },
-  "execution": {
-    "nodePath": "/usr/local/bin/node",
-    "appiumPath": "/usr/local/lib/node_modules/appium/build/lib/main.js",
-    "adbPath": "/Users/mesmer/Library/Android/sdk/platform-tools/adb",
-    "buildToolsPath": "/Users/mesmer/Library/Android/sdk/build-tools/29.0.0"
-  },
-  "recording": {
-    "minitouchPort": 1211,
-    "minicapPort": 1413,
-    "uiaPort": 19308,
-    "port": 19308
-  },
-  "provisionableDevices": [ "emulator-5554" ],
-  "emulatorConsoleAuthToken": "authToken"
-}
-
+argon-dashboard-angular
+├── CHANGELOG.md
+├── README.md
+├── angular.json
+├── e2e
+├── package.json
+├── src
+│   ├── app
+│   │   ├── app.component.html
+│   │   ├── app.component.scss
+│   │   ├── app.component.spec.ts
+│   │   ├── app.component.ts
+│   │   ├── app.module.ts
+│   │   ├── app.routing.ts
+│   │   ├── components
+│   │   │   ├── components.module.spec.ts
+│   │   │   ├── components.module.ts
+│   │   │   ├── footer
+│   │   │   │   ├── footer.component.html
+│   │   │   │   ├── footer.component.scss
+│   │   │   │   ├── footer.component.spec.ts
+│   │   │   │   └── footer.component.ts
+│   │   │   ├── navbar
+│   │   │   │   ├── navbar.component.html
+│   │   │   │   ├── navbar.component.scss
+│   │   │   │   ├── navbar.component.spec.ts
+│   │   │   │   └── navbar.component.ts
+│   │   │   └── sidebar
+│   │   │       ├── sidebar.component.html
+│   │   │       ├── sidebar.component.scss
+│   │   │       ├── sidebar.component.spec.ts
+│   │   │       └── sidebar.component.ts
+│   │   ├── layouts
+│   │   │   ├── admin-layout
+│   │   │   │   ├── admin-layout.component.html
+│   │   │   │   ├── admin-layout.component.scss
+│   │   │   │   ├── admin-layout.component.spec.ts
+│   │   │   │   ├── admin-layout.component.ts
+│   │   │   │   ├── admin-layout.module.ts
+│   │   │   │   └── admin-layout.routing.ts
+│   │   │   └── auth-layout
+│   │   │       ├── auth-layout.component.html
+│   │   │       ├── auth-layout.component.scss
+│   │   │       ├── auth-layout.component.spec.ts
+│   │   │       ├── auth-layout.component.ts
+│   │   │       ├── auth-layout.module.ts
+│   │   │       └── auth-layout.routing.ts
+│   │   ├── pages
+│   │   │   ├── dashboard
+│   │   │   │   ├── dashboard.component.html
+│   │   │   │   ├── dashboard.component.scss
+│   │   │   │   ├── dashboard.component.spec.ts
+│   │   │   │   └── dashboard.component.ts
+│   │   │   ├── icons
+│   │   │   │   ├── icons.component.html
+│   │   │   │   ├── icons.component.scss
+│   │   │   │   ├── icons.component.spec.ts
+│   │   │   │   └── icons.component.ts
+│   │   │   ├── login
+│   │   │   │   ├── login.component.html
+│   │   │   │   ├── login.component.scss
+│   │   │   │   ├── login.component.spec.ts
+│   │   │   │   └── login.component.ts
+│   │   │   ├── maps
+│   │   │   │   ├── maps.component.html
+│   │   │   │   ├── maps.component.scss
+│   │   │   │   ├── maps.component.spec.ts
+│   │   │   │   └── maps.component.ts
+│   │   │   ├── register
+│   │   │   │   ├── register.component.html
+│   │   │   │   ├── register.component.scss
+│   │   │   │   ├── register.component.spec.ts
+│   │   │   │   └── register.component.ts
+│   │   │   ├── tables
+│   │   │   │   ├── tables.component.html
+│   │   │   │   ├── tables.component.scss
+│   │   │   │   ├── tables.component.spec.ts
+│   │   │   │   └── tables.component.ts
+│   │   │   └── user-profile
+│   │   │       ├── user-profile.component.html
+│   │   │       ├── user-profile.component.scss
+│   │   │       ├── user-profile.component.spec.ts
+│   │   │       └── user-profile.component.ts
+│   │   └── variables
+│   │       └── charts.ts
+│   ├── assets
+│   │   ├── fonts
+│   │   ├── img
+│   │   ├── scss
+│   │   │   ├── angular-differences
+│   │   │   ├── argon.scss
+│   │   │   ├── core
+│   │   │   └── custom
+│   │   └── vendor
+│   ├── browserslist
+│   ├── environments
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── main.ts
+│   ├── polyfills.ts
+│   ├── styles.scss
+│   ├── test.ts
+│   ├── tsconfig.app.json
+│   ├── tsconfig.spec.json
+│   └── tslint.json
+├── tsconfig.json
+└── tslint.json
 ```
 
 
-#### android-replay
+## Browser Support
 
-```bash
-{
-  "projectRoot": "/Users/mesmer/mesmer/appsight-node-localhost",
-  "protocol": "http",
-  "host": "localhost",
-  "label": "localhost Android Replay Node",
-  "customer": "user1",
-  "forExecution": true,
-  "port": 3500,
-  "remoteServer": {
-    "protocol": "http",
-    "host": "localhost",
-    "port": "3000"
-  },
-  "platforms": [ "android" ],
-  "execution": {
-    "nodePath": "/usr/local/bin/node",
-    "appiumPath": "/usr/local/lib/node_modules/appium/build/lib/main.js",
-    "adbPath": "/Users/mesmer/Library/Android/sdk/platform-tools/adb",
-    "buildToolsPath": "/Users/mesmer/Library/Android/sdk/build-tools/29.0.0",
-    "anacondaEnvName": "py35cv",
-    "anacondaActivatePath": "activate",
-    "pythonPath": "python2"
-  },
-  "storage": {
-      "defaultProvider": "minio",
-      "pathPrefix": "localhost",
-      "logsBucketName": "mesmer-execution-logs",
-      "providers": {
-        "aws": {
-          "delivery": {
-            "baseUrl": "https://d1prw00zxlkwmw.cloudfront.net",
-            "appendBucketName": false,
-            "signing": {
-              "enableSignedCookies": "false",
-              "nonSignedPathPattern": "public/",
-              "keyPairId": "APKAJBRFRY3Q6DVU7ELA",
-              "privateKeyFilePath": "cf-private-key.pem"
-            }
-          }
-        },
-        "minio": {
-          "baseUrl": "http://127.0.0.1:9000",
-          "accessKeyId": "MBJPPD6U1UBOSDA4NYX2",
-          "secretAccessKey": "ByEcldoFqVSwvaohbariV1KaxF0Ra0Gm0Vd4tMIR",
-          "s3ForcePathStyle": true,
-          "signatureVersion": "v4",
-          "delivery": {
-            "baseUrl": "http://127.0.0.1:9000",
-            "appendBucketName": true
-          }
-        }
-      }
-    },
-  "minitouchPort": 1411,
-  "minicapPort": 1613,
-  "uiaPort": 9108,
-  "appiumPort": 4723,
-  "wdaPort": 8100,
-  "provisionableDevices": [ "emulator-5556", "emulator-5558" ],
-  "emulatorConsoleAuthToken": "authToken"
-}
+At present, we officially aim to support the last two versions of the following browsers:
 
-```
-
-#### ios-record
-
-```bash
-{
-  "projectRoot": "/Users/mesmer/mesmer/appsight-node-localhost",
-  "label": "localhost Record Node",
-  "host": "localhost",
-  "port": 3800,
-  "customer": "user1",
-  "forExecution": false,
-  "platforms": [ "ios" ],
-  "remoteServer": {
-    "protocol": "http",
-    "host": "localhost",
-    "port": "3000"
-  },
-  "storage": {
-      "defaultProvider": "minio",
-      "pathPrefix": "localhost",
-      "logsBucketName": "mesmer-execution-logs",
-      "providers": {
-        "aws": {
-          "delivery": {
-            "baseUrl": "https://d1prw00zxlkwmw.cloudfront.net",
-            "appendBucketName": false,
-            "signing": {
-              "enableSignedCookies": "false",
-              "nonSignedPathPattern": "public/",
-              "keyPairId": "APKAJBRFRY3Q6DVU7ELA",
-              "privateKeyFilePath": "cf-private-key.pem"
-            }
-          }
-        },
-        "minio": {
-          "baseUrl": "http://127.0.0.1:9000",
-          "accessKeyId": "MBJPPD6U1UBOSDA4NYX2",
-          "secretAccessKey": "ByEcldoFqVSwvaohbariV1KaxF0Ra0Gm0Vd4tMIR",
-          "s3ForcePathStyle": true,
-          "signatureVersion": "v4",
-          "delivery": {
-            "baseUrl": "http://127.0.0.1:9000",
-            "appendBucketName": true
-          }
-        }
-      }
-    },
-  "execution": {
-    "nodePath": "/usr/local/bin/node",
-    "appiumPath": "/usr/local/lib/node_modules/appium/build/lib/main.js",
-    "xcrunPath":"/usr/bin/xcrun",
-    "fbsimctlPath":"/Users/mesmer/mesmer/appsight-node-localhost/fbsimctl/bin/fbsimctl",
-    "anacondaEnvName":"py35cv",
-    "anacondaActivatePath":"activate",
-    "pythonPath": "python2",
-    "customWDAPath": "/Users/mesmer/mesmer/appsight-node-localhost/execution_engine/mesmer-execution-wda"
-  },
-  "iosrecording": {
-    "fbsimctlPort": 9876,
-    "wdaPort": 8003,
-    "WDAPort": 8003
-  },
-  "provisionableDevices": [ "6AA793AC-5A6D-4DB3-82F8-CFFD446AB100", "39867A79-084F-48B8-80E2-9CF2B1B16F55" ]
-}
-
-```
-
-#### ios-replay
-
-```bash
-{
-  "projectRoot": "/Users/mesmer/mesmer/appsight-node-localhost",
-  "label": "localhost Execution Node",
-  "host": "localhost",
-  "port": 4100,
-  "customer": "user1",
-  "forExecution": true,
-  "platforms": [ "ios" ],
-  "remoteServer": {
-    "protocol": "http",
-    "host": "localhost",
-    "port": "3000"
-  },
-  "storage": {
-      "defaultProvider": "minio",
-      "pathPrefix": "localhost",
-      "logsBucketName": "mesmer-execution-logs",
-      "providers": {
-        "aws": {
-          "delivery": {
-            "baseUrl": "https://d1prw00zxlkwmw.cloudfront.net",
-            "appendBucketName": false,
-            "signing": {
-              "enableSignedCookies": "false",
-              "nonSignedPathPattern": "public/",
-              "keyPairId": "APKAJBRFRY3Q6DVU7ELA",
-              "privateKeyFilePath": "cf-private-key.pem"
-            }
-          }
-        },
-        "minio": {
-          "baseUrl": "http://127.0.0.1:9000",
-          "accessKeyId": "MBJPPD6U1UBOSDA4NYX2",
-          "secretAccessKey": "ByEcldoFqVSwvaohbariV1KaxF0Ra0Gm0Vd4tMIR",
-          "s3ForcePathStyle": true,
-          "signatureVersion": "v4",
-          "delivery": {
-            "baseUrl": "http://127.0.0.1:9000",
-            "appendBucketName": true
-          }
-        }
-      }
-    },
-  "execution": {
-    "nodePath": "/usr/local/bin/node",
-    "appiumPath": "/usr/local/lib/node_modules/appium/build/lib/main.js",
-    "xcrunPath":"/usr/bin/xcrun",
-    "fbsimctlPath":"/Users/mesmer/mesmer/appsight-node-localhost/fbsimctl/bin/fbsimctl",
-    "anacondaEnvName":"py35cv",
-    "anacondaActivatePath":"activate",
-    "pythonPath": "python2",
-    "customWDAPath": "/Users/mesmer/mesmer/appsight-node-localhost/execution_engine/mesmer-execution-wda"
-  },
-  "appiumPort": 8123,
-  "fbsimctlPort": 10076,
-  "wdaPort": 11100,
-  "WDAPort": 11100,
-  "provisionableDevices": [ "EC609DF8-E6C0-4BC8-A141-1DD8F99F3E4B" ]
-}
-
-```
+<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/chrome-logo.png?raw=true" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/firefox-logo.png" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/edge-logo.png" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/safari-logo.png" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/opera-logo.png" width="64" height="64">
 
 
-### Start Server
 
-start the server
+## Resources
+- Demo: <https://demos.creative-tim.com/argon-dashboard-angular/dashboard?ref=ada-github-readme>
+- Download Page: <https://www.creative-tim.com/product/argon-dashboard-angular?ref=ada-github-readme>
+- Documentation: <https://demos.creative-tim.com/argon-dashboard-angular/documentation/tutorial?ref=ada-github-readme>
+- License Agreement: <https://www.creative-tim.com/license?ref=ada-github-readme>
+- Support: <https://www.creative-tim.com/contact-us?ref=ada-github-readme>
+- Issues: [Github Issues Page](https://github.com/creativetimofficial/argon-dashboard-angular/issues?ref=ada-github-readme)
 
-```sh
-$ node server.js --NODE_ENV=<yourconfigfilename>
-```
+## Reporting Issues
 
-> if no config is provided, `default.json` will be used
+We use GitHub Issues as the official bug tracker for the Material Kit. Here are some advices for our users that want to report an issue:
 
+1. Make sure that you are using the latest version of the Material Kit. Check the CHANGELOG from your dashboard on our [website](https://www.creative-tim.com/?ref=ada-github-readme).
+2. Providing us reproducible steps for the issue will shorten the time it takes for it to be fixed.
+3. Some issues may be browser specific, so specifying in what browser you encountered the issue might help.
+
+## Licensing
+
+- Copyright 2018 Creative Tim (https://www.creative-tim.com/?ref=ada-github-readme)
+
+- Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-angular/blob/master/LICENSE.md)
+
+## Useful Links
+
+- [Tutorials](https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w?ref=creativetim)
+- [Affiliate Program](https://www.creative-tim.com/affiliates/new?ref=ada-github-readme) (earn money)
+- [Blog Creative Tim](http://blog.creative-tim.com/?ref=ada-github-readme)
+- [Free Products](https://www.creative-tim.com/bootstrap-themes/free?ref=ada-github-readme) from Creative Tim
+- [Premium Products](https://www.creative-tim.com/bootstrap-themes/premium?ref=ada-github-readme) from Creative Tim
+- [React Products](https://www.creative-tim.com/bootstrap-themes/react-themes?ref=ada-github-readme) from Creative Tim
+- [Angular Products](https://www.creative-tim.com/bootstrap-themes/angular-themes?ref=ada-github-readme) from Creative Tim
+- [VueJS Products](https://www.creative-tim.com/bootstrap-themes/vuejs-themes?ref=ada-github-readme) from Creative Tim
+- [More products](https://www.creative-tim.com/bootstrap-themes?ref=ada-github-readme) from Creative Tim
+- Check our Bundles [here](https://www.creative-tim.com/bundles?ref=ada-github-readme)
+
+### Social Media
+
+Twitter: <https://twitter.com/CreativeTim?ref=creativetim>
+
+Facebook: <https://www.facebook.com/CreativeTim?ref=creativetim>
+
+Dribbble: <https://dribbble.com/creativetim?ref=creativetim>
+
+Instagram: <https://www.instagram.com/CreativeTimOfficial?ref=creativetim>

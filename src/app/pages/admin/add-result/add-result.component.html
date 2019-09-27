@@ -1,0 +1,154 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" >
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+   
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Add a Result</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form>
+            <h6 class="heading-small text-muted mb-4">User information</h6>
+            <div class="pl-lg-4">
+              <div class="row" >
+                  <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-city">Announce Status</label>
+                        <span class="clearfix"></span>
+                        <label class="custom-toggle">
+                            <input type="checkbox" checked="">
+                            <span class="custom-toggle-slider rounded-circle"></span>
+                          </label>
+                      </div>
+                    </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-board">Class</label>
+                    <select class="form-control form-control-alternative">
+                      <option value="" disabled>Choose Class</option>
+                      <option >9th</option>
+                   </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-board">Board</label>
+                    <select class="form-control form-control-alternative">
+                      <option value="" disabled>Choose board</option>
+                      <option >BISE Lahore</option>
+                   </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-board">Year</label>
+                    <select class="form-control form-control-alternative">
+                      <option value="" disabled>Select Year</option>
+                      <option >2019</option>
+                   </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-control-label" for="input-board">Announce Date</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                    </div>
+                    <input class="form-control datepicker" placeholder="Select date" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"/>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-board">Exam Type</label>
+                      <select class="form-control form-control-alternative">
+                        <option value="" disabled>Select Exam Type</option>
+                        <option >Annual</option>
+                        <option >Supply</option>
+                     </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-board">API Mode</label>
+                        <select class="form-control form-control-alternative">
+                          <option value="" disabled>Select API Mode</option>
+                          <option >API</option>
+                          <option >Scraping</option>
+                          <option>URL</option>
+                       </select>
+                      </div>
+                  </div>
+                  
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Result URL</label>
+                        <input id="input-address" class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">API URL</label>
+                        <input id="input-address" class="form-control form-control-alternative" placeholder="API URL" value="" type="text">
+                      </div>
+                    </div>
+                    <div class="row" >
+                      <div class="form-group" style="padding-left: 30px;" >
+                          <label class="form-control-label" for="input-address">Request</label>
+                          <span class="clearfix" ></span>
+                            <span class="custom-radio mb-3" style="padding: 30px;" >
+                              <input name="custom-radio-2" class="custom-control-input" id="customRadio5" type="radio">
+                              <label class="custom-control-label" for="customRadio5">GET</label>
+                            </span>
+                            <span class=" custom-radio mb-3" style="padding: 30px;">
+                              <input name="custom-radio-2" class="custom-control-input" id="customRadio6" checked="" type="radio">
+                              <label class="custom-control-label" for="customRadio6">POST</label>
+                            </span>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">API Parameters</label>
+                        <input id="input-address" class="form-control form-control-alternative" placeholder="API Params" value="" type="text">
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Tags</label>
+                        <input id="input-address" class="form-control form-control-alternative" placeholder="Tags" value="" type="text">
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+              <button type="button" class="btn btn-primary my-4">Add Result</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
