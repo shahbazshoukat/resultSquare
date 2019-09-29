@@ -1,4 +1,4 @@
-const UserHandler = require("../handlers/userHandler");
+const UserHandler = require("./userHandler");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mailer = require("../utils/mailer");
@@ -32,7 +32,7 @@ class UserManager {
       }
       const token = await jwt.sign(
         { email: fetchedUser.email, userId: fetchedUser._id },
-        process.env.JWT_KEY,
+        "pakistan_zindabad",
         { expiresIn: "1h" }
       );
       return {
@@ -58,7 +58,7 @@ class UserManager {
       fetchedUser = doc;
       const token = await jwt.sign(
         { email: fetchedUser.email, userId: fetchedUser._id },
-        process.env.JWT_KEY,
+        "pakistan_zindabad",
         { expiresIn: "1h" }
       );
       await mailer.sendEmail(data.email, token);
@@ -88,7 +88,7 @@ class UserManager {
     }
   }
   static async resetPassword(token, nPass) {
-    const decodedToken = await jwt.verify(token, process.env.JWT_KEY);
+    const decodedToken = await jwt.verify(token, "pakistan_zindabad");
     try {
       const doc = await UserHandler.resetPassword(decodedToken.userId, nPass);
       return doc;

@@ -20,10 +20,7 @@ export class ClassService{
   }
 
   getAllClasses(){
-    this.http.get<{data: any}>(BACKEND_URL + '/sections')
-    .subscribe(classesData =>{
-      return classesData;
-    })
+    return this.http.get<{data: any}>(BACKEND_URL + '/sections');
   }
 
   getClassById(classId: string) {

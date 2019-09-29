@@ -41,6 +41,7 @@ export class BoardService{
       apiParams: apiParams,
       tags: tags
     };
+    console.log(boardData);
     this.http.post<{data: any}>(BACKEND_URL + '/board', boardData)
     .subscribe(responseData => {
       console.log(responseData);

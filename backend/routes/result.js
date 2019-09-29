@@ -4,7 +4,7 @@ const checkAuth = require("../middleware/check-auth");
 const ResultController = require("../result/resultCtrl");
 
 
-router.post("/result", checkAuth, ResultController.createResult);
+router.post("/result", ResultController.createResult);
 
 router.get("/results", checkAuth, ResultController.getAllResults);
 

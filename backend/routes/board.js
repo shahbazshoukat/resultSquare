@@ -4,9 +4,9 @@ const checkAuth = require("../middleware/check-auth");
 const BoardController = require("../board/boardCtrl");
 
 
-router.post("/board", checkAuth, BoardController.createBoard);
+router.post("/board", BoardController.createBoard);
 
-router.get("/boards", checkAuth, BoardController.getAllBoards);
+router.get("/boards", BoardController.getAllBoards);
 
 router.get("/board:boardId", checkAuth, BoardController.getBoard);
 

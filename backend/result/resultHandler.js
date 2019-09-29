@@ -2,9 +2,9 @@ const Result = require("./result");
 
 class ResultHandler {
   static createResult(data) {
-    const Result = new Result({
-      status: data.stats,
-      class: data.classId,
+    const result = new Result({
+      status: data.status,
+      section: data.sectionId,
       Board: data.boardId,
       year:data.year,
       announceDate: data.announceDate,
@@ -16,7 +16,7 @@ class ResultHandler {
       apiParams: data.apiParams,
       tags: data.tags
     });
-    return Result.save();
+    return result.save();
   }
 
   static getResult(resultId) {
@@ -35,8 +35,8 @@ class ResultHandler {
   static updateResult(resultId, data) {
     const q = { _id: resultId };
     const update = {
-      status: data.stats,
-      class: data.classId,
+      status: data.status,
+      section: data.sectionId,
       Board: data.boardId,
       year:data.year,
       announceDate: data.announceDate,

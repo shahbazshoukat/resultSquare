@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const resultSchema = mongoose.Schema({
-  status: {type: Number, required: true}, // 0 = not announced, 1 = announced 
-  class: { type: mongoose.Schema.Types.ObjectId, ref: "Class", required: true},
+  status: {type: Boolean, required: false}, // 0 = not announced, 1 = announced 
+  section: { type: mongoose.Schema.Types.ObjectId, ref: "Section", required: false},
   Board: { type: mongoose.Schema.Types.ObjectId, ref: "Board", require: false},
   year:{ type: String, require: false},
-  announceDate: {type: String, require: false},
+  announceDate: {type: Object, require: false},
   examType: {type: Number, require: false}, // 0 = annual, 1 = supply, 2 = test, 3 = retotal
   apiMode:{ type: Number, require: false}, //0 = api, 1 = scrapping, 2 = url
   resultUrl:{type: String, required: true},

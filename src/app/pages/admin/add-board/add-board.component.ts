@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { NgForm } from '@angular/forms';
+import { ClassService } from 'src/app/services/class.service';
+import { BoardService } from 'src/app/services/board.service';
 
 @Component({
   selector: 'add-board',
@@ -10,15 +13,26 @@ export class AddBoardComponent implements OnInit {
 
   examTypes = [];
   selectedExamTypes = [];
+  selectedET = [];
   examTypesSettings: IDropdownSettings = {};
   classes = [];
+  params: string[] = [];
+  tags: string[] = [];
   selectedClasses = [];
+  selectedCls = [];
   classesSettings: IDropdownSettings = {};
   
 
-  constructor() { }
+  constructor(private classService: ClassService, private boardService: BoardService) { }
 
   ngOnInit() {
+
+    this.classService.getAllClasses().subscribe(response => {
+      console.log(response);
+      if(response.data) {
+        this.classes = response.data;
+      }
+    })
     this.examTypes = [
       {e_id:1, e_type: 'Annual'},
       {e_id:2, e_type: 'Supply'},
@@ -34,29 +48,53 @@ export class AddBoardComponent implements OnInit {
       itemsShowLimit: 5,
       allowSearchFilter: true
     };
-    this.classes = [
-      { c_id: 1, class: '5th' },
-      { c_id: 2, class: '8th' },
-      { c_id: 3, class: '9th' },
-      { c_id: 4, class: '10th' },
-      { c_id: 5, class: '11th' }
-    ];
-   
     this.classesSettings = {
       singleSelection: false,
-      idField: 'c_id',
-      textField: 'class',
+      idField: '_id',
+      textField: 'title',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 5,
       allowSearchFilter: true
     };
   }
-  onItemSelect(item: any) {
-    console.log(item);
+  onClassesSelect(item: any) {
+    const cId = item._id;
+    this.selectedCls.push(item._id);
   }
-  onSelectAll(items: any) {
-    console.log(items);
+  onClassesSelectAll(items: any) {
+    items.forEach(item => {
+      this.selectedCls.push(item._id);
+    });
   }
+
+  onExamTypesSelect(item: any) {
+    this.selectedET.push(item.e_id);
+  }
+  onExamTypesSelectAll(items: any) {
+    items.forEach(item => {
+      this.selectedET.push(item.e_id);
+    });
+  }
+
+
+  addTag(form: NgForm) {
+    console.log(form.value.tagTitle);
+    this.tags.push(form.value.tagTitle);
+  }
+
+  addParam(form: NgForm) {
+    console.log(form.value.paramTitle);
+    this.params.push(form.value.paramTitle);
+  }
+
+  addBoard(form: NgForm){
+    if(form.invalid){
+      return;
+    }
+    this.boardService.addBoard(null, form.value.title, form.value.province, form.value.city, this.selectedET, this.selectedCls, form.value.apiMode, form.value.webUrl, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags);
+    form.resetForm();
+  }
+
 
 }

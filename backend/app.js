@@ -3,16 +3,12 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const socketIO = require("socket.io-client")("http://localhost:4200");
 const app = express();
-const tasksRoutes = require("./routes/tasks");
-const listsRoutes = require("./routes/lists");
+const sectionRoutes = require("./routes/section");
+const boardRoutes = require("./routes/board");
 const usersRoutes = require("./routes/users");
-const labelsRoutes = require("./routes/labels");
-const groupsRoutes = require("./routes/groups");
-const requestsRoutes = require("./routes/requests");
+const resultRoutes = require("./routes/result");
 mongoose
-  .connect(
-    "mongodb+srv://shahbazshoukat:" + process.env.MONGO_ATLAS_PW + "@cluster0-0qyfn.mongodb.net/todoDB?retryWrites=true&w=majority"
-  )
+  .connect("mongodb://localhost:27017/result-square")
   .then(() => {
     console.log("Connected to Database!");
   })
@@ -39,15 +35,10 @@ app.use((req, res, next) => {
 
 app.use("/api", usersRoutes);
 
-app.use("/api", tasksRoutes);
+app.use("/api", sectionRoutes);
 
-app.use("/api", listsRoutes);
+app.use("/api", boardRoutes);
 
-app.use("/api", labelsRoutes);
-
-app.use("/api", groupsRoutes);
-
-app.use("/api", requestsRoutes);
-
+app.use("/api", resultRoutes);
 
 module.exports = app;

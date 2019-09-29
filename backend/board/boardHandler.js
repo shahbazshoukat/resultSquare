@@ -2,12 +2,12 @@ const Board = require("./board");
 
 class BoardHandler {
   static createBoard(data) {
-    const Board = new Board({
+    const board = new Board({
       title: data.title,
       province: data.province,
       city: data.city,
       examTypes: data.examTypes,
-      classes: data.classes,
+      sections: data.classes,
       apiMode: data.apiMode,
       webUrl: data.webUrl,
       resultUrl: data.resultUrl,
@@ -16,7 +16,7 @@ class BoardHandler {
       apiParams: data.apiParams,
       tags: data.tags
     });
-    return Board.save();
+    return board.save();
   }
 
   static getBoard(boardId) {
@@ -39,7 +39,7 @@ class BoardHandler {
       province: data.province,
       city: data.city,
       examTypes: data.examTypes,
-      classes: data.classes,
+      sections: data.classes,
       apiMode: data.apiMode,
       webUrl: data.webUrl,
       resultUrl: data.resultUrl,
