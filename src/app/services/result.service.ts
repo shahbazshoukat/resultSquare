@@ -13,7 +13,7 @@ export class ResultService{
 
   addResult(
     _id: string,
-    status: string,
+    status: boolean,
     section: string,
     board: string,
     year: string,
@@ -49,10 +49,7 @@ export class ResultService{
   }
 
   getAllResultes(){
-    this.http.get<{data: any}>(BACKEND_URL + '/results')
-    .subscribe(resultsData =>{
-      return resultsData;
-    })
+    return this.http.get<{data: any}>(BACKEND_URL + '/results');
   }
 
   getResultById(resultId: string) {
@@ -64,7 +61,7 @@ export class ResultService{
 
   updateResult( 
     resultId: string,
-    status: string,
+    status: boolean,
     section: string,
     board: string,
     year: string,

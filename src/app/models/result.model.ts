@@ -1,6 +1,6 @@
 export interface Result{
   _id: string,
-  status: string,
+  status: boolean,
   sectionId: string,
   board: string,
   year: string,

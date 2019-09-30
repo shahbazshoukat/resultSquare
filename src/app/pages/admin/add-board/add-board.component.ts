@@ -32,7 +32,7 @@ export class AddBoardComponent implements OnInit {
       if(response.data) {
         this.classes = response.data;
       }
-    })
+    });
     this.examTypes = [
       {e_id:1, e_type: 'Annual'},
       {e_id:2, e_type: 'Supply'},
@@ -79,12 +79,10 @@ export class AddBoardComponent implements OnInit {
 
 
   addTag(form: NgForm) {
-    console.log(form.value.tagTitle);
     this.tags.push(form.value.tagTitle);
   }
 
   addParam(form: NgForm) {
-    console.log(form.value.paramTitle);
     this.params.push(form.value.paramTitle);
   }
 

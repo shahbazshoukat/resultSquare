@@ -6,7 +6,7 @@ const ResultController = require("../result/resultCtrl");
 
 router.post("/result", ResultController.createResult);
 
-router.get("/results", checkAuth, ResultController.getAllResults);
+router.get("/results", ResultController.getAllResults);
 
 router.get("/result:resultId", checkAuth, ResultController.getResult);
 

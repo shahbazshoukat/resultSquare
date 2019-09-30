@@ -26,7 +26,7 @@
                         <label class="form-control-label" for="input-city">Announce Status</label>
                         <span class="clearfix"></span>
                         <label class="custom-toggle">
-                            <input name="status" ngModel type="checkbox" checked="">
+                            <input name="status" ngModel type="checkbox" >
                             <span class="custom-toggle-slider rounded-circle"></span>
                           </label>
                       </div>
@@ -36,18 +36,16 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-board">Class</label>
-                    <select name="clas" ngModel class="form-control form-control-alternative">
-                      <option value="" disabled>Choose Class</option>
-                      <option value="9th" >9th</option>
+                    <select  name="clas" ngModel class="form-control form-control-alternative">
+                      <option *ngFor="let cls of classes" value="{{cls._id}}" >{{cls.title}}</option>
                    </select>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-board">Board</label>
-                    <select name="board" ngModel class="form-control form-control-alternative">
-                      <option value="" disabled>Choose board</option>
-                      <option value="BISE Lahore" >BISE Lahore</option>
+                    <select  name="board" ngModel class="form-control form-control-alternative">
+                      <option *ngFor="let board of boards" value="{{board._id}}" >{{board.title}}</option>
                    </select>
                   </div>
                 </div>
@@ -129,20 +127,36 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-address">API Parameters</label>
-                        <input name="apiParams" ngModel id="input-address" class="form-control form-control-alternative" placeholder="API Params" value="" type="text">
-                      </div>
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-address">API Params</label>
+                        <form (submit) = "addParam(paramForm)" #paramForm = "ngForm" >
+                          <input name="paramTitle" ngModel id="input-address" class="form-control form-control-alternative" placeholder="Api params" value="" type="text">
+                          <button class="btn btn-sm btn-primary" style="margin-top: 10px;" type="submit"  >Add</button>
+                        </form>
                     </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8" *ngFor="let param of params">
+                  <span class="badge badge-primary" >{{param}}</span>
                 </div>
+              </div>
                 <div class="row">
                     <div class="col-md-8">
                       <div class="form-group">
                         <label class="form-control-label" for="input-address">Tags</label>
-                        <input name="tags" ngModel id="input-address" class="form-control form-control-alternative" placeholder="Tags" value="" type="text">
+                          <form (submit) = "addTag(tagForm)" #tagForm = "ngForm" >
+                            <input name="tagTitle" ngModel id="input-address" class="form-control form-control-alternative" placeholder="Tags" value="" type="text">
+                            <button class="btn btn-sm btn-primary" style="margin-top: 10px;" type="submit"  >Add</button>
+                          </form>
                       </div>
                     </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-8" *ngFor="let tag of tags">
+                    <span class="badge badge-primary" >{{tag}}</span>
+                  </div>
                 </div>
             </div>
             <div class="text-center">

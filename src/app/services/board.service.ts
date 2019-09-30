@@ -49,10 +49,7 @@ export class BoardService{
   }
 
   getAllBoardes(){
-    this.http.get<{data: any}>(BACKEND_URL + '/boards')
-    .subscribe(BoardsData =>{
-      return BoardsData;
-    })
+    return this.http.get<{data: any}>(BACKEND_URL + '/boards');
   }
 
   getBoardById(boardId: string) {
