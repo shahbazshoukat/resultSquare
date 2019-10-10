@@ -22,7 +22,7 @@ const routes: Routes =[
   {
     path: 'rs-admin',
     component: AdminLayoutComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',

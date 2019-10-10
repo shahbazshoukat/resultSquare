@@ -30,7 +30,7 @@ export class ResultService{
       _id: _id,
       status: status,
       sectionId: section,
-      board: board,
+      boardId: board,
       year: year,
       announceDate: announceDate,
       examType: examType,
@@ -41,29 +41,22 @@ export class ResultService{
       apiParams: apiParams,
       tags: tags
     };
-    console.log(resultData);
-    this.http.post<{data: any}>(BACKEND_URL + '/result', resultData)
-    .subscribe(responseData => {
-      console.log(responseData);
-    })
+    return this.http.post<{success: boolean, message: string, data: any}>(BACKEND_URL + '/result', resultData);
   }
 
   getAllResultes(){
-    return this.http.get<{data: any}>(BACKEND_URL + '/results');
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/results');
   }
 
   getResultById(resultId: string) {
-    this.http.get<{data: any}>(BACKEND_URL + '/result' + resultId)
-    .subscribe(resultData =>{
-      return resultData;
-    })
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/result' + resultId);
   }
 
   updateResult( 
     resultId: string,
     status: boolean,
     section: string,
-    board: string,
+    boardId: string,
     year: string,
     announceDate: string,
     examType: number,
@@ -77,7 +70,7 @@ export class ResultService{
     const update = { 
       status: status,
       sectionId: section,
-      board: board,
+      boardId: boardId,
       year: year,
       announceDate: announceDate,
       examType: examType,
@@ -88,21 +81,17 @@ export class ResultService{
       apiParams: apiParams,
       tags: tags
      };
-    this.http
-      .put(BACKEND_URL +  "/updateResult/" + resultId, update)
-      .subscribe(response => {
-        console.log(response);
-      });
+      return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateResult" + resultId, update);
   }
 
 
   deleteResult(resultId: string) {
-    return this.http
-      .delete(BACKEND_URL + "/deleteResult/" + resultId).subscribe(res => {
-        console.log(res);
-      });
+    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + "/deleteResult" + resultId);
+  }
+
+  changeResultStatus(resultId: string, value: boolean) {
+    const update = {status: value};
+    return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateStatus" + resultId, update);
   }
 
 }
-
-

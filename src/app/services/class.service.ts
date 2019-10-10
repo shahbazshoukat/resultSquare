@@ -13,38 +13,25 @@ export class ClassService{
 
   addClass(title: string, type: string){
     const classData: any = { title: title, type: type};
-    this.http.post<{data: any}>(BACKEND_URL + '/section', classData)
-    .subscribe(responseData => {
-      console.log(responseData);
-    })
+    return this.http.post<{success: boolean, message: string, data: any}>(BACKEND_URL + '/section', classData);
   }
 
   getAllClasses(){
-    return this.http.get<{data: any}>(BACKEND_URL + '/sections');
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/sections');
   }
 
   getClassById(classId: string) {
-    this.http.get<{data: any}>(BACKEND_URL + '/section' + classId)
-    .subscribe(classData =>{
-      return classData;
-    })
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/section' + classId);
   }
 
   updateClass( classId: string, title: string, type: string ) {
     const update = { title: title, type: type };
-    this.http
-      .put(BACKEND_URL +  "/updateSection/" + classId, update)
-      .subscribe(response => {
-        console.log(response);
-      });
+    return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateSection" + classId, update);
   }
 
 
   deleteClass(classId: string) {
-    return this.http
-      .delete(BACKEND_URL + "/deleteSection/" + classId).subscribe(res => {
-        console.log(res);
-      });
+    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + "/deleteSection" + classId);
   }
 
 }

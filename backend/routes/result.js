@@ -8,10 +8,12 @@ router.post("/result", ResultController.createResult);
 
 router.get("/results", ResultController.getAllResults);
 
-router.get("/result:resultId", checkAuth, ResultController.getResult);
+router.get("/result:resultId", ResultController.getResult);
 
-router.put("/updateResult:resultId", checkAuth, ResultController.updateResult);
+router.put("/updateResult:resultId", ResultController.updateResult);
 
-router.delete("/deleteResult/:resultId", checkAuth, ResultController.deleteResult);
+router.delete("/deleteResult:resultId", ResultController.deleteResult);
+
+router.put("/updateStatus:resultId", ResultController.updateResultStatus);
 
 module.exports = router;

@@ -3,6 +3,8 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NgForm } from '@angular/forms';
 import { ClassService } from 'src/app/services/class.service';
 import { BoardService } from 'src/app/services/board.service';
+import { Route } from '@angular/compiler/src/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
   selector: 'add-board',
@@ -21,28 +23,24 @@ export class AddBoardComponent implements OnInit {
   selectedClasses = [];
   selectedCls = [];
   classesSettings: IDropdownSettings = {};
-  
+  cities:string[] = [];
+  boardToUpdate = null;
+  boardToUpdateId;
+  isEdit: boolean = false;
 
-  constructor(private classService: ClassService, private boardService: BoardService) { }
+  constructor(private classService: ClassService, private boardService: BoardService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-
-    this.classService.getAllClasses().subscribe(response => {
-      console.log(response);
-      if(response.data) {
-        this.classes = response.data;
-      }
-    });
     this.examTypes = [
-      {e_id:1, e_type: 'Annual'},
-      {e_id:2, e_type: 'Supply'},
-      {e_id:3, e_type: 'Test'},
-      {e_id:4, e_type: 'Retotal'},
+      {_id:0, title: 'Annual'},
+      {_id:1, title: 'Supply'},
+      {_id:2, title: 'Test'},
+      {_id:3, title: 'Retotal'},
     ];
     this.examTypesSettings = {
       singleSelection: false,
-      idField: 'e_id',
-      textField: 'e_type',
+      idField: '_id',
+      textField: 'title',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 5,
@@ -57,40 +55,89 @@ export class AddBoardComponent implements OnInit {
       itemsShowLimit: 5,
       allowSearchFilter: true
     };
-  }
-  onClassesSelect(item: any) {
-    const cId = item._id;
-    this.selectedCls.push(item._id);
-  }
-  onClassesSelectAll(items: any) {
-    items.forEach(item => {
-      this.selectedCls.push(item._id);
-    });
-  }
 
-  onExamTypesSelect(item: any) {
-    this.selectedET.push(item.e_id);
-  }
-  onExamTypesSelectAll(items: any) {
-    items.forEach(item => {
-      this.selectedET.push(item.e_id);
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if(paramMap.has("boardId")){
+        this.boardToUpdateId = paramMap.get("boardId");
+        this.boardService.getBoardById(this.boardToUpdateId).subscribe(response => {
+          if(response.data && response.success) {
+            this.boardToUpdate = response.data;
+            this.isEdit = true;
+            this.params = this.boardToUpdate.apiParams;
+            this.tags = this.boardToUpdate.tags;
+            this.selectedClasses = this.boardToUpdate.sections;
+            this.selectedExamTypes = this.boardToUpdate.examTypes;
+          }
+        })
+      }
     });
-  }
 
+    this.classService.getAllClasses().subscribe(response => {
+      if(response.data && response.success) {
+        this.classes = response.data;
+      }
+    });
+    
+  }
 
   addTag(form: NgForm) {
     this.tags.push(form.value.tagTitle);
+  }
+
+  removeTag(tag: any) {
+    const index = this.tags.indexOf(tag, 0);
+    if (index > -1) {
+      this.tags.splice(index, 1);
+    }
   }
 
   addParam(form: NgForm) {
     this.params.push(form.value.paramTitle);
   }
 
+  removeParam(param: any) {
+    const index = this.params.indexOf(param, 0);
+    if (index > -1) {
+      this.params.splice(index, 1);
+    }
+  }
+
+  cancel() {
+    this.isEdit = false;
+    this.router.navigate(["/rs-admin/boards"]);
+  }
+
   addBoard(form: NgForm){
     if(form.invalid){
       return;
+    };
+    this.selectedClasses.forEach(cls => {
+      this.selectedCls.push(cls._id);
+    });
+    if(this.isEdit && this.boardToUpdateId){
+      this.boardService.updateBoard(this.boardToUpdateId, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.apiMode, form.value.webUrl, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags).subscribe(response => {
+        if(response.success && response.message && response.data) {
+          this.selectedClasses = [];
+          this.selectedExamTypes = [];
+          this.tags = [];
+          this.params = [];
+          this.isEdit = false;
+          alert(response.message);
+          this.router.navigate(["/rs-admin/boards"]);
+        }
+      })
     }
-    this.boardService.addBoard(null, form.value.title, form.value.province, form.value.city, this.selectedET, this.selectedCls, form.value.apiMode, form.value.webUrl, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags);
+    else{
+      this.boardService.addBoard(null, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.apiMode, form.value.webUrl, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags).subscribe(response => {
+        if(response.success && response.message && response.data) {
+          this.selectedClasses = [];
+          this.selectedExamTypes = [];
+          this.tags = [];
+          this.params = [];
+          alert(response.message);
+        }
+      });
+    };
     form.resetForm();
   }
 

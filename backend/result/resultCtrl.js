@@ -12,14 +12,15 @@ class ResultController {
     } catch (err) {
       res.status(404).json({
         success: false,
-        message: err
+        message: err,
+        data: null
       });
     }
   }
 
   static async getResult(req, res) {
     try {
-      const doc = await ResultManager.getResult(req.body.resultId);
+      const doc = await ResultManager.getResult(req.params.resultId);
       res.status(200).json({
         success: true,
         message: "Result fetched successfully!",
@@ -28,7 +29,8 @@ class ResultController {
     } catch (err) {
       res.status(404).json({
         success: false,
-        message: err
+        message: err,
+        data: null
       });
     }
   }
@@ -44,14 +46,15 @@ class ResultController {
     } catch (err) {
         res.status(404).json({
             success: false,
-            message: err
+            message: err,
+            data: null
           });
     }
   }
 
   static async updateResult(req, res) {
     try {
-      const doc = await ResultManager.updateResult(req.body.resultId, req.body.data);
+      const doc = await ResultManager.updateResult(req.params.resultId, req.body);
       res.status(200).json({
         success: true,
         message: "Result updated successfully!",
@@ -60,23 +63,35 @@ class ResultController {
     } catch (err) {
         res.status(404).json({
             success: false,
-            message: err
+            message: err,
+            data: null
+          });
+    }
+  }
+
+  static async updateResultStatus(req, res) {
+    try {
+      const doc = await ResultManager.updateResultStatus(req.params.resultId, req.body);
+      res.status(200).json({
+        success: true,
+        message: "Result Status updated successfully!",
+        data: doc
+      });
+    } catch (err) {
+        res.status(404).json({
+            success: false,
+            message: err,
+            data: null
           });
     }
   }
 
   static async deleteResult(req, res) {
     try {
-      const doc = await ResultManager.deleteResult(req.body.resultId);
-      res.status(200).json({ 
-        success: true,  
-        message: "Result deleted Successfully!" 
-    });
+      const doc = await ResultManager.deleteResult(req.params.resultId);
+      res.status(200).json(doc);
     } catch (err) {
-        res.status(404).json({
-            success: false,
-            message: err
-          });
+       console.log(err);
     }
   }
 }

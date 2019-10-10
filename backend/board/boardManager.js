@@ -26,7 +26,7 @@ class BoardManager {
     }
   }
 
-  static async updateBoard(BoardId, data) {
+  static async updateBoard(boardId, data) {
     try {
         const doc = await BoardHandler.updateBoard(boardId, data);
         return doc;
@@ -35,10 +35,21 @@ class BoardManager {
     }
   }
  
-  static async deleteBoard(BoardId) {
+  static async deleteBoard(boardId) {
     try {
         const doc = await BoardHandler.deleteBoard(boardId);
-        return doc;
+        if(!doc){
+          return { 
+            success: false,  
+            message: "Board deletion failed!",
+            data: null 
+          };
+        }
+        return { 
+          success: true,  
+          message: "Board deleted Successfully!",
+          data: doc 
+        };
     } catch (err) {
       console.log(err);
     }

@@ -9,8 +9,8 @@ import { ResultPageComponent } from '../../pages/result-page/result-page.compone
 
 export const HomeLayoutRoutes: Routes = [
     { path: '',         component: HomeComponent },
-    { path: 'selectboard',         component: SelectBoardComponent },
-    { path: 'selectyear', component: SelectYearComponent },
+    { path: 'result/:classTitle',         component: SelectBoardComponent },
+    { path: 'result/:classTitle/:boardTitle', component: SelectYearComponent },
     { path: 'selectexam', component: SelectExamComponent},
     { path: 'enterrollno', component: EnterRollNoComponent},
     { path: 'result-page', component: ResultPageComponent}

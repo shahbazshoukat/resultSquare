@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { UsersService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-admin-navbar',
@@ -12,12 +13,14 @@ export class AdminNavbarComponent implements OnInit {
   public focus;
   public listTitles: any[];
   public location: Location;
-  constructor(location: Location,  private element: ElementRef, private router: Router) {
+  public username;
+  constructor(location: Location,  private element: ElementRef, private router: Router, private userService: UsersService) {
     this.location = location;
   }
 
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
+    this.username = this.userService.getUsername();
   }
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());

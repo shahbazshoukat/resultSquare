@@ -31,6 +31,14 @@ export class UsersService {
     return this.isAuthenticated;
   }
 
+  getIsAuthenticated() {
+    const token = localStorage.getItem("token");
+    if(token) {
+      return true;
+    }
+    return false;
+  }
+
   getUser() {
     return this.user;
   }
@@ -48,7 +56,6 @@ export class UsersService {
       email: email,
       password: password
     };
-    console.log(user);
     this.http.post(BACKEND_URL + "/signup", user).subscribe(response => {
       console.log(response);
     });

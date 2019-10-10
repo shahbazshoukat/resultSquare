@@ -8,10 +8,10 @@ router.post("/board", BoardController.createBoard);
 
 router.get("/boards", BoardController.getAllBoards);
 
-router.get("/board:boardId", checkAuth, BoardController.getBoard);
+router.get("/board:boardId", BoardController.getBoard);
 
-router.put("/updateBoard:boardId", checkAuth, BoardController.updateBoard);
+router.put("/updateBoard:boardId", BoardController.updateBoard);
 
-router.delete("/deleteBoard/:boardId", checkAuth, BoardController.deleteBoard);
+router.delete("/deleteBoard:boardId", BoardController.deleteBoard);
 
 module.exports = router;

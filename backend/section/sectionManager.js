@@ -39,7 +39,18 @@ class SectionManager {
   static async deleteSection(sectionId) {
     try {
         const doc = await SectionHandler.deleteSection(sectionId);
-        return doc;
+        if(doc){
+          return { 
+            success: true,  
+            message: "Section deleted Successfully!",
+            data: doc
+          };
+        }
+        return {
+          success: false,  
+          message: "Failed to delete Section",
+          data: null 
+        }
     } catch (err) {
       console.log(err);
     }

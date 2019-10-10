@@ -34,11 +34,31 @@ class ResultManager {
       console.log(err);
     }
   }
+
+  static async updateResultStatus(resultId, data) {
+    try {
+        const doc = await ResultHandler.updateResultStatus(resultId, data);
+        return doc;
+    } catch (err) {
+      console.log(err);
+    }
+  }  
  
   static async deleteResult(resultId) {
     try {
         const doc = await ResultHandler.deleteResult(resultId);
-        return doc;
+        if(!doc){
+          return  { 
+            success: false,
+            message: "Failed to delete Result",  
+            data: null 
+          }
+        }
+        return { 
+          success: true,  
+          message: "Result deleted Successfully!" ,
+          data: doc
+        }
     } catch (err) {
       console.log(err);
     }

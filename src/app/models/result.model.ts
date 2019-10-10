@@ -2,7 +2,7 @@ export interface Result{
   _id: string,
   status: boolean,
   sectionId: string,
-  board: string,
+  boardId: string,
   year: string,
   announceDate: string,
   examType: number,

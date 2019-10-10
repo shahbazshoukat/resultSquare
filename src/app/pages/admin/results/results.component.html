@@ -126,10 +126,10 @@
             <tbody>
               <tr *ngFor = "let result of results">
                 <td>
-                  {{result.board}}
+                  {{result.board.title}}
                 </td>
                 <td>
-                  {{result.section}}
+                  {{result.section.title}}
                 </td>
                 <td>
                   {{result.year}}
@@ -138,11 +138,12 @@
                   {{result.examType}}
                 </td>
                 <td>
-                  {{result.announceDate}}
+                  {{result.announceDate.day + "-" + result.announceDate.month + "-" + result.announceDate.year }}
                 </td>
                 <td>
                   <label class="custom-toggle">
-                    <input type="checkbox" checked={{result.status}}>
+                    <input type="checkbox" *ngIf="!result.status" (change)="changeResultStatus({status: result.status, _id: result._id})">
+                    <input type="checkbox" *ngIf="result.status" (change)="changeResultStatus({status: result.status, _id: result._id})" checked="">
                     <span class="custom-toggle-slider rounded-circle"></span>
                   </label>
                 </td>
@@ -157,13 +158,12 @@
                 </td>
                 <td class="text-right">
                   <div ngbDropdown   placement="bottom-right">
-                    <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
-                      <i class="fas fa-ellipsis-v"></i>
+                    <a class="btn btn-sm btn-icon-only text-light" (click)="editResult(result._id)">
+                      <i class="fas fa-edit"></i>
                     </a>
-                    <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                      <a class="dropdown-item" href="javascript:void(0)">Edit</a>
-                      <a class="dropdown-item" href="javascript:void(0)">Remove</a>
-                    </div>
+                    <a class="btn btn-sm btn-icon-only text-light" (click)="removeResult(result._id)" >
+                      <i class="fas fa-remove"></i>
+                    </a>
                   </div>
                 </td>
               </tr>

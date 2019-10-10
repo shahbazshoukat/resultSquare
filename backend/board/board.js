@@ -5,7 +5,7 @@ const boardSchema = mongoose.Schema({
   province:{ type: String, require: false},
   city:{ type: String, require: false},
   examTypes: [
-    {type: String, require: false} // 0 = annual, 1 = supply, 2 = test, 3 = retotal
+    {type: Object, require: false} // 0 = annual, 1 = supply, 2 = test, 3 = retotal
   ],
   sections:[
     { type: mongoose.Schema.Types.ObjectId, ref: "Section", required: false}

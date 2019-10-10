@@ -10,25 +10,27 @@ class BoardController {
         data: doc._id
       });
     } catch (err) {
-      res.status(404).json({
+      res.status(400).json({
         success: false,
-        message: err
+        message: err,
+        data: null
       });
     }
   }
 
   static async getBoard(req, res) {
     try {
-      const doc = await BoardManager.getBoard(req.body.boardId);
+      const doc = await BoardManager.getBoard(req.params.boardId);
       res.status(200).json({
         success: true,
         message: "Board fetched successfully!",
         data: doc
       });
     } catch (err) {
-      res.status(404).json({
+      res.status(400).json({
         success: false,
-        message: err
+        message: err,
+        data: null
       });
     }
   }
@@ -42,41 +44,37 @@ class BoardController {
         data: doc
       });
     } catch (err) {
-        res.status(404).json({
+        res.status(400).json({
             success: false,
-            message: err
+            message: err,
+            data: null
           });
     }
   }
 
   static async updateBoard(req, res) {
     try {
-      const doc = await BoardManager.updateBoard(req.body.boardId, req.body.data);
+      const doc = await BoardManager.updateBoard(req.params.boardId, req.body);
       res.status(200).json({
         success: true,
         message: "Board updated successfully!",
         data: doc
       });
     } catch (err) {
-        res.status(404).json({
+        res.status(400).json({
             success: false,
-            message: err
+            message: err,
+            data: null
           });
     }
   }
 
   static async deleteBoard(req, res) {
     try {
-      const doc = await BoardManager.deleteBoard(req.body.boardId);
-      res.status(200).json({ 
-        success: true,  
-        message: "Board deleted Successfully!" 
-    });
+      const doc = await BoardManager.deleteBoard(req.params.boardId);
+      res.status(200).json(doc);
     } catch (err) {
-        res.status(404).json({
-            success: false,
-            message: err
-          });
+        console.log(err);
     }
   }
 }

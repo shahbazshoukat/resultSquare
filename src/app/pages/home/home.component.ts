@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClassService } from 'src/app/services/class.service';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +9,14 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router : Router) { }
+  classes = [];
+  constructor(private router : Router, private classService: ClassService) { }
 
   ngOnInit() {
+    this.classService.getAllClasses().subscribe(response => {
+      if(response.success && response.data) {
+        this.classes = response.data;
+      }
+    })
   }
-
-  selectedClass() {
-    this.router.navigate(["/selectboard"]);
-  }
-
 }

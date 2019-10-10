@@ -16,7 +16,7 @@ export class BoardService{
     title: string,
     province: string,
     city: string,
-    examTypes: string[],
+    examTypes: object[],
     classes: string[],
     apiMode: number, //0 = api, 1 = scrapping, 2 = url
     webUrl: string,
@@ -41,22 +41,15 @@ export class BoardService{
       apiParams: apiParams,
       tags: tags
     };
-    console.log(boardData);
-    this.http.post<{data: any}>(BACKEND_URL + '/board', boardData)
-    .subscribe(responseData => {
-      console.log(responseData);
-    })
+    return this.http.post<{success: boolean, message: string, data: any}>(BACKEND_URL + '/board', boardData);
   }
 
   getAllBoardes(){
-    return this.http.get<{data: any}>(BACKEND_URL + '/boards');
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/boards');
   }
 
   getBoardById(boardId: string) {
-    this.http.get<{data: any}>(BACKEND_URL + '/board' + boardId)
-    .subscribe(boardData =>{
-      return boardData;
-    })
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/board' + boardId);
   }
 
   updateBoard( 
@@ -64,7 +57,7 @@ export class BoardService{
     title: string,
     province: string,
     city: string,
-    examTypes: string[],
+    examTypes: object[],
     classes: string[],
     apiMode: number, //0 = api, 1 = scrapping, 2 = url
     webUrl: string,
@@ -88,19 +81,13 @@ export class BoardService{
       apiParams: apiParams,
       tags: tags
      };
-    this.http
-      .put(BACKEND_URL +  "/updateBoard/" + boardId, update)
-      .subscribe(response => {
-        console.log(response);
-      });
+    
+     return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateBoard" + boardId, update);
   }
 
 
   deleteBoard(boardId: string) {
-    return this.http
-      .delete(BACKEND_URL + "/deleteBoard/" + boardId).subscribe(res => {
-        console.log(res);
-      });
+    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + "/deleteBoard" + boardId);
   }
 
 }

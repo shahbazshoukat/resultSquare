@@ -3,7 +3,7 @@ export interface Board{
   title: string,
   province: string,
   city: string,
-  examTypes: string[],
+  examTypes: object[],
   classes: string[],
   apiMode: number, //0 = api, 1 = scrapping, 2 = url
   webUrl: string,

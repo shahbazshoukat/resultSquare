@@ -5,7 +5,7 @@ class ResultHandler {
     const result = new Result({
       status: data.status,
       section: data.sectionId,
-      Board: data.boardId,
+      board: data.boardId,
       year:data.year,
       announceDate: data.announceDate,
       examType: data.examType,
@@ -21,13 +21,13 @@ class ResultHandler {
 
   static getResult(resultId) {
     const q = { _id: resultId };
-    return Result.find(q)
+    return Result.findOne(q).populate("board").populate("section")
       .lean()
       .exec();
   }
 
   static getAllResults() {
-    return Result.find()
+    return Result.find().populate("board").populate("section")
       .lean()
       .exec();
   }
@@ -37,7 +37,7 @@ class ResultHandler {
     const update = {
       status: data.status,
       section: data.sectionId,
-      Board: data.boardId,
+      board: data.boardId,
       year:data.year,
       announceDate: data.announceDate,
       examType: data.examType,
@@ -47,6 +47,14 @@ class ResultHandler {
       requestType: data.requestType,
       apiParams: data.apiParams,
       tags: data.tags
+    };
+    return Result.updateOne(q, update);
+  }
+
+  static updateResultStatus(resultId, data){
+    const q = { _id: resultId };
+    const update = {
+      status: data.status
     };
     return Result.updateOne(q, update);
   }

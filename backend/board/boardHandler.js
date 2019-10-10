@@ -21,13 +21,13 @@ class BoardHandler {
 
   static getBoard(boardId) {
     const q = { _id: boardId };
-    return Board.find(q)
+    return Board.findOne(q).populate("sections")
       .lean()
       .exec();
   }
 
   static getAllBoards() {
-    return Board.find()
+    return Board.find().populate("sections")
       .lean()
       .exec();
   }
