@@ -123,7 +123,8 @@
                 <th scope="col"></th>
               </tr>
             </thead>
-            <tbody>
+            <div *ngIf="isLoading" class="loader"></div>
+            <tbody *ngIf="!isLoading">
               <tr *ngFor = "let result of results">
                 <td>
                   {{result.board.title}}

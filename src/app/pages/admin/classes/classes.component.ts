@@ -11,6 +11,7 @@ import { Route } from '@angular/compiler/src/core';
 export class ClassesComponent implements OnInit {
 
   classes = [];
+  isLoading = true;
   constructor(private classService: ClassService, private router: Router) { }
 
   ngOnInit() {
@@ -18,6 +19,7 @@ export class ClassesComponent implements OnInit {
     this.classService.getAllClasses().subscribe(response => {
       if(response.success && response.data){
         this.classes = response.data;
+        this.isLoading = false;
       }
     });
   }

@@ -166,6 +166,7 @@
               <button *ngIf="isEdit" type="button" class="btn btn-primary my-4" type="submit">Update</button>
               <button type="button" class="btn btn-primary my-4" (click)="cancel()">Cancel</button>
             </div>
+            <div *ngIf="isLoading" class="loader"></div>
           </form>
         </div>
       </div>

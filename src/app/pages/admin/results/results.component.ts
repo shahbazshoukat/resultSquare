@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ResultsComponent implements OnInit {
 
+  isLoading = true;
   results = [];
 
   constructor(private resultService: ResultService, private router: Router) { }
@@ -17,6 +18,7 @@ export class ResultsComponent implements OnInit {
     this.resultService.getAllResultes().subscribe(response => {
       if(response.data){
         this.results = response.data;
+        this.isLoading = false;
       }
     })
   }

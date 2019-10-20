@@ -116,8 +116,9 @@
                 <th scope="col"></th>
               </tr>
             </thead>
-            <tbody>
-              <tr *ngFor = "let class of classes" >
+            <div *ngIf="isLoading" class="loader"></div>
+            <tbody *ngIf="!isLoading">
+              <tr *ngFor = "let class of classes"  >
                 <td>
                   {{class.title}}
                 </td>

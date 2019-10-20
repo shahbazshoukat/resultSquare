@@ -27,6 +27,7 @@ export class AddBoardComponent implements OnInit {
   boardToUpdate = null;
   boardToUpdateId;
   isEdit: boolean = false;
+  isLoading = true;
 
   constructor(private classService: ClassService, private boardService: BoardService, private route: ActivatedRoute, private router: Router) { }
 
@@ -58,6 +59,7 @@ export class AddBoardComponent implements OnInit {
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if(paramMap.has("boardId")){
+        this.isLoading = true;
         this.boardToUpdateId = paramMap.get("boardId");
         this.boardService.getBoardById(this.boardToUpdateId).subscribe(response => {
           if(response.data && response.success) {
@@ -67,6 +69,7 @@ export class AddBoardComponent implements OnInit {
             this.tags = this.boardToUpdate.tags;
             this.selectedClasses = this.boardToUpdate.sections;
             this.selectedExamTypes = this.boardToUpdate.examTypes;
+            this.isLoading = false;
           }
         })
       }
@@ -75,6 +78,7 @@ export class AddBoardComponent implements OnInit {
     this.classService.getAllClasses().subscribe(response => {
       if(response.data && response.success) {
         this.classes = response.data;
+        this.isLoading = false;
       }
     });
     
@@ -108,6 +112,7 @@ export class AddBoardComponent implements OnInit {
   }
 
   addBoard(form: NgForm){
+    this.isLoading = true;
     if(form.invalid){
       return;
     };
@@ -117,6 +122,7 @@ export class AddBoardComponent implements OnInit {
     if(this.isEdit && this.boardToUpdateId){
       this.boardService.updateBoard(this.boardToUpdateId, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.apiMode, form.value.webUrl, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags).subscribe(response => {
         if(response.success && response.message && response.data) {
+          this.isLoading = false;
           this.selectedClasses = [];
           this.selectedExamTypes = [];
           this.tags = [];
@@ -130,6 +136,7 @@ export class AddBoardComponent implements OnInit {
     else{
       this.boardService.addBoard(null, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.apiMode, form.value.webUrl, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags).subscribe(response => {
         if(response.success && response.message && response.data) {
+          this.isLoading = false;
           this.selectedClasses = [];
           this.selectedExamTypes = [];
           this.tags = [];

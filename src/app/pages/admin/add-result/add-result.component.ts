@@ -20,6 +20,7 @@ export class AddResultComponent implements OnInit {
   resultToUpdate = null;
   resultToUpdateId = null;
   isEdit: boolean = false;
+  isLoading = true;
 
   constructor(private resultService: ResultService, private classService: ClassService, private boardService: BoardService, private route: ActivatedRoute, private router: Router) { }
 
@@ -33,6 +34,7 @@ export class AddResultComponent implements OnInit {
             this.resultToUpdate = response.data;
             this.tags = this.resultToUpdate.tags;
             this.params = this.resultToUpdate.apiParams;
+            this.isLoading = false;
           }
         })
       }
@@ -45,6 +47,7 @@ export class AddResultComponent implements OnInit {
     this.boardService.getAllBoardes().subscribe(response => {
       if( response.success && response.data) {
         this.boards = response.data;
+        this.isLoading = false;
       }
     })
   }
@@ -83,6 +86,7 @@ export class AddResultComponent implements OnInit {
   }
 
   addResult(form: NgForm){
+    this.isLoading = true;
     if(form.invalid){
       return;
     }
@@ -92,6 +96,7 @@ export class AddResultComponent implements OnInit {
     if(this.isEdit && this.resultToUpdateId) {
       this.resultService.updateResult(this.resultToUpdateId, form.value.status,form.value.clas, form.value.board, form.value.year, form.value.announceDate, form.value.examType, form.value.apiMode, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags ).subscribe(response => {
         if(response.success && response.message) {
+          this.isLoading = false;
           alert(response.message);
           this.isEdit = false;
           this.params = [];
@@ -103,6 +108,7 @@ export class AddResultComponent implements OnInit {
     else{
       this.resultService.addResult(null, form.value.status,form.value.clas, form.value.board, form.value.year, form.value.announceDate, form.value.examType, form.value.apiMode, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags ).subscribe(response => {
         if(response.success && response.message) {
+          this.isLoading = false;
           alert(response.message);
           this.params = [];
           this.tags = [];

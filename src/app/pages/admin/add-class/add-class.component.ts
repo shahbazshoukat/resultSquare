@@ -16,6 +16,7 @@ export class AddClassComponent implements OnInit {
     type: null
   }
   isEdit = false;
+  isLoading = true;
   constructor(private classService : ClassService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -30,7 +31,8 @@ export class AddClassComponent implements OnInit {
       if(paramMap.has("classType")){
         this.classToEdit.type = paramMap.get("classType");
       }
-    })
+      this.isLoading = false;
+    });
   }
 
   cancel() {
@@ -39,12 +41,14 @@ export class AddClassComponent implements OnInit {
   }
 
   addClass(form : NgForm){
+    this.isLoading = true;
     if(form.invalid){
       return;
     }
     if(this.isEdit && this.classToEdit._id ){
       this.classService.updateClass(this.classToEdit._id, form.value.title, form.value.type).subscribe(response => {
         if(response.success && response.message){
+          this.isLoading = false;
           alert(response.message);
           this.isEdit = false;
           this.router.navigate(["/rs-admin/classes"]);
@@ -54,6 +58,7 @@ export class AddClassComponent implements OnInit {
     else{
       this.classService.addClass(form.value.title, form.value.type).subscribe(response =>{
         if(response.success && response.message){
+          this.isLoading = false;
           alert(response.message);
         }
       })

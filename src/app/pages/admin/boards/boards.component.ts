@@ -10,6 +10,7 @@ import { Router, NavigationExtras } from '@angular/router';
 export class BoardsComponent implements OnInit {
 
 
+  isLoading = true;
   boards = [];
 
   constructor(private boardService: BoardService, private router: Router ) { }
@@ -18,6 +19,7 @@ export class BoardsComponent implements OnInit {
     this.boardService.getAllBoardes().subscribe(response => {
       if(response.success && response.data){
         this.boards = response.data;
+        this.isLoading = false;
       }
     })
   }

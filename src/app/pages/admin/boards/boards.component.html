@@ -119,7 +119,8 @@
                 <th scope="col"></th>
               </tr>
             </thead>
-            <tbody>
+            <div *ngIf="isLoading" class="loader"></div>
+            <tbody *ngIf="!isLoading">
               <tr *ngFor="let board of boards">
                 <td>
                   {{board.title}}
