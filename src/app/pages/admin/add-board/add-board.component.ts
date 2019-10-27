@@ -5,6 +5,9 @@ import { ClassService } from 'src/app/services/class.service';
 import { BoardService } from 'src/app/services/board.service';
 import { Route } from '@angular/compiler/src/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { pipe } from '@angular/core/src/render3';
+import { catchError} from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'add-board',
@@ -120,8 +123,9 @@ export class AddBoardComponent implements OnInit {
       this.selectedCls.push(cls._id);
     });
     if(this.isEdit && this.boardToUpdateId){
-      this.boardService.updateBoard(this.boardToUpdateId, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.apiMode, form.value.webUrl, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags).subscribe(response => {
-        if(response.success && response.message && response.data) {
+      this.boardService.updateBoard(this.boardToUpdateId, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.apiMode, form.value.webUrl, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags)
+      .subscribe(response => {
+        if(response) {
           this.isLoading = false;
           this.selectedClasses = [];
           this.selectedExamTypes = [];
@@ -129,13 +133,17 @@ export class AddBoardComponent implements OnInit {
           this.params = [];
           this.isEdit = false;
           alert(response.message);
+        }
+        if(response.success) {
           this.router.navigate(["/rs-admin/boards"]);
         }
       })
     }
     else{
-      this.boardService.addBoard(null, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.apiMode, form.value.webUrl, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags).subscribe(response => {
-        if(response.success && response.message && response.data) {
+      this.boardService.addBoard(null, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.apiMode, form.value.webUrl, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags)
+      .subscribe(response => {
+       console.log(response);
+        if(response) {
           this.isLoading = false;
           this.selectedClasses = [];
           this.selectedExamTypes = [];
@@ -147,6 +155,4 @@ export class AddBoardComponent implements OnInit {
     };
     form.resetForm();
   }
-
-
 }

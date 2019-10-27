@@ -14,7 +14,10 @@ const SectionConstants = Object.freeze({
     SECTION_FETCHING_FAILED: 'Section fetching failed',
     SECTIONS_FETCHING_FAILED: 'Sections fetching failed',
     FAILED_TO_UPDATE_SECTION: 'Failed to update Section',
-    FAILED_TO_DELETE_SECTION: 'Failed to delete Section'
+    FAILED_TO_DELETE_SECTION: 'Failed to delete Section',
+    NO_DATA_FOUND_TO_ADD_SECTION: 'No data found to add section',
+    INVALID_SECTION_ID: 'Invalid section id',
+    INVALID_SECTION_TITLE: 'Invalid section title'
 }
 });
 

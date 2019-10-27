@@ -25,7 +25,8 @@ export class BoardService{
     requestType: number, //0 = GET, 1 = POST
     apiParams: string[],
     tags: string[]
-  ){
+  ): Observable<any>
+  {
     const boardData: Board = {
       _id: _id,
       title: title,
@@ -44,11 +45,11 @@ export class BoardService{
     return this.http.post<{success: boolean, message: string, data: any}>(BACKEND_URL + '/board', boardData);
   }
 
-  getAllBoardes(){
+  getAllBoardes(): Observable<any>{
     return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/boards');
   }
 
-  getBoardById(boardId: string) {
+  getBoardById(boardId: string): Observable<any> {
     return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/board' + boardId);
   }
 
@@ -66,7 +67,8 @@ export class BoardService{
     requestType: number, //0 = GET, 1 = POST
     apiParams: string[],
     tags: string[]
-  ) {
+  ): Observable<any>
+   {
     const update = { 
       title: title,
       province: province,
@@ -86,7 +88,7 @@ export class BoardService{
   }
 
 
-  deleteBoard(boardId: string) {
+  deleteBoard(boardId: string): Observable<any> {
     return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + "/deleteBoard" + boardId);
   }
 

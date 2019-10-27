@@ -87,9 +87,9 @@
                         <label class="form-control-label" for="input-board">API Mode</label>
                         <select name="apiMode" [ngModel]="isEdit ? boardToUpdate.apiMode : ''" class="form-control form-control-alternative">
                           <option value="" disabled>Select API Mode</option>
-                          <option value="0" >API</option>
-                          <option value="1">Scraping</option>
-                          <option value="2">URL</option>
+                          <option value="1" >API</option>
+                          <option value="2">Scraping</option>
+                          <option value="3">URL</option>
                        </select>
                       </div>
                   </div>
@@ -121,8 +121,8 @@
                         <label class="form-control-label" for="input-board">Request Type</label>
                         <select name="requestType" [ngModel]="isEdit ? boardToUpdate.requestType : ''" class="form-control form-control-alternative">
                           <option value="" disabled>Select Request Type</option>
-                          <option value="0" >GET</option>
-                          <option value="1" >POST</option>
+                          <option value="1" >GET</option>
+                          <option value="2" >POST</option>
                        </select>
                       </div>
                   </div>

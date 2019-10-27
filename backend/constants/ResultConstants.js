@@ -28,7 +28,13 @@ const ResultConstants = Object.freeze({
        RESULT_FETCHING_FAILED: 'Result fetching failed',
        RESULTS_FETCHING_FAILED: 'Results fetching failed',
        FAILED_TO_UPDATE_RESULT: 'Failed to update Result',
-       FAILED_TO_DELETE_RESULT: 'Failed to delete Result'
+       FAILED_TO_DELETE_RESULT: 'Failed to delete Result',
+       RESULT_STATUS_UPDATED_SUCCESSFULLY: 'Result status updated successfully',
+       FAILED_TO_UPDATE_RESULT_STATUS: 'Failed to update result status',
+       NO_DATA_FOUND_TO_ADD_RESULT: 'No data found to add result',
+       INVALID_SECTION_ID: 'Invalid section id',
+       INVALID_BOARD_ID: 'Invalid board id',
+       INVALID_RESULT_ID: 'Invalid result id'
    }
 });
 
