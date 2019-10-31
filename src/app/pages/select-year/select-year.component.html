@@ -12,9 +12,9 @@
             <h3 class="mb-0">Select Year</h3>
           </div>
           <div class="col-9 text-right">
-            <a href="#!" class="btn btn-sm btn-primary">Class</a>
+            <a href="#!" class="btn btn-sm btn-primary" [routerLink] = "['/']" >{{selectedClass}}</a>
             <i class="ni ni-bold-right" ></i>
-            <a href="#!" class="btn btn-sm btn-primary ml-1">Board</a>
+            <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result', selectedClass]" >{{selectedBoardKey}}</a>
           </div>
         </div>
       </div>

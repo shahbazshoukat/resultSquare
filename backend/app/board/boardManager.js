@@ -106,7 +106,7 @@ class BoardManager {
 
       const doc = await BoardHandler.getBoardsBySectionId(sectionId);
 
-      cLog.success(`getBoardsBySectionId:: Boards successfully fetched by section id:: ${sectionId} boards:: `, doc);
+      cLog.success(`getBoardsBySectionId:: Boards successfully fetched by section id:: ${sectionId} boards:: `);
 
       return doc;
 

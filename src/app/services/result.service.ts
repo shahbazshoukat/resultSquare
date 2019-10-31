@@ -53,8 +53,11 @@ export class ResultService{
   }
 
   getResultYears(selectedClass, selectedBoardKey) {
-    const data = {secctionTitle: selectedClass, boardKey: selectedBoardKey}
     return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + `/result-year/${selectedClass}/${selectedBoardKey}`);
+  }
+
+  getResult(section, board, year, exam) {
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + `/result/${section}/${board}/${year}/${exam}`);
   }
 
   updateResult( 

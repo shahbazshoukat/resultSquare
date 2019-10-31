@@ -1,8 +1,14 @@
 const ApplicationException = require("../../exceptions/ApplicationException");
+
 const {
     ResultConstants,
     HTTPStatusCodeConstants
 } = require("../../constants");
+  
+const {
+    ResultEnums
+} = require("../../enums");
+
 
 const {
     cLog,
@@ -58,6 +64,35 @@ class ResultUtil {
             throw new ApplicationException(ResultConstants.MESSAGES.INVALID_RESULT_ID, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
 
         }
+
+    }
+
+    static validateParametersToGetResult(sectionTitle, boardKey, year, examType) {
+
+        if (!validators.isValidStr(sectionTitle)) {
+
+            throw new ApplicationException(ResultConstants.MESSAGES.INVALID_SECTION, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
+
+        }
+
+        if (!validators.isValidStr(boardKey)) {
+
+            throw new ApplicationException(ResultConstants.MESSAGES.INVALID_BOARD, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
+
+        }
+
+        if (!validators.isValidStr(year)) {
+
+            throw new ApplicationException(ResultConstants.MESSAGES.INVALID_YEAR, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
+
+        }
+
+        if (!validators.isValidStr(examType)) {
+
+            throw new ApplicationException(ResultConstants.MESSAGES.INVALID_EXAM_TYPE, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
+
+        }
+  
 
     }
 

@@ -12,11 +12,11 @@
             <h3 class="mb-0">Select Exam Type</h3>
           </div>
           <div class="col-9 text-right">
-              <a href="#!" class="btn btn-sm btn-primary">Class</a>
+              <a href="#!" class="btn btn-sm btn-primary" [routerLink] = "['/']" >{{selectedClass}}</a>
               <i class="ni ni-bold-right" ></i>
-              <a href="#!" class="btn btn-sm btn-primary ml-1">Board</a>
+              <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result', selectedClass]"  >{{selectedBoardKey}}</a>
               <i class="ni ni-bold-right" ></i>
-              <a href="#!" class="btn btn-sm btn-primary ml-1">Year</a>
+              <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</a>
           </div>
         </div>
       </div>
@@ -25,10 +25,10 @@
           <div class="pl-lg-4">
             <div class="row">
               <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn" (click)="selectedExamType()" >Annual</button>
+                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass+'/'+selectedBoardKey+'/'+selectedYear, 'annual']"  >Annual</button>
               </div>
               <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">Supplymentry</button>
+                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass+'/'+selectedBoardKey+'/'+selectedYear, 'supply']" >Supplymentry</button>
               </div>
             </div>
           </div>

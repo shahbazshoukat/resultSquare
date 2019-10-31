@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-select-exam',
@@ -8,12 +8,28 @@ import { Router } from '@angular/router';
 })
 export class SelectExamComponent implements OnInit {
 
-  constructor(private router : Router) { }
+  selectedBoardKey;
+  selectedClass;
+  selectedYear;
+  examTypes;
+
+  constructor(private router : Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-  }
-
-  selectedExamType(){
-    this.router.navigate(["/enterrollno"]);
+    this.examTypes = {
+      annual: "annual",
+      supply: "supply"
+    }
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if(paramMap.has("boardKey")) {
+        this.selectedBoardKey = paramMap.get("boardKey");
+      }
+      if(paramMap.has("classTitle")) {
+        this.selectedClass = paramMap.get("classTitle");
+      }
+      if(paramMap.has("year")) {
+        this.selectedYear = paramMap.get("year");
+      }
+    });
   }
 }

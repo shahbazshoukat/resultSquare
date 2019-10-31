@@ -23,7 +23,7 @@ class ResultHandler {
 
   }
 
-  static getResult(resultId) {
+  static getResultById(resultId) {
 
     const q = { _id: resultId };
 
@@ -42,6 +42,14 @@ class ResultHandler {
     const q = { section: sectionId, board: boardId };
 
     return Result.find(q).select("year").lean().exec();
+
+  }
+
+  static getResult(sectionId, boardId, year, examType) {
+
+    const q = {section: sectionId, board: boardId, year: year, examType: examType};
+
+    return Result.find(q).lean().exec();
 
   }
 

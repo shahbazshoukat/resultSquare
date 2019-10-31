@@ -26,7 +26,7 @@ export class SelectYearComponent implements OnInit {
         this.selectedClass = paramMap.get("classTitle");
         this.getResultYears(this.selectedClass, this.selectedBoardKey);
       }
-    })
+    });
   }
 
   getResultYears(selectedClass, selectedBoardKey) {

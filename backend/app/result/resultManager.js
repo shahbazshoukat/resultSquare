@@ -1,12 +1,16 @@
 const ResultHandler = require("./resultHandler");
-const SectionHandler = require("../section/sectionHandler");
-const BoardHandler = require("../board/boardHandler");
+const SectionManager = require("../section/sectionManager");
+const BoardManager = require("../board/boardManager");
 const ResultUtil = require("./resultUtil");
 const ApplicationException = require("../../exceptions/ApplicationException");
 const {
   ResultConstants,
   HTTPStatusCodeConstants
 } = require("../../constants");
+
+const {
+  ResultEnums
+} = require("../../enums");
 
 const {
   cLog,
@@ -36,13 +40,13 @@ class ResultManager {
 
   }
 
-  static async getResult(resultId) {
+  static async getResultById(resultId) {
 
     try {
 
         await ResultUtil.validateResultId(resultId);
 
-        const doc = await ResultHandler.getResult(resultId);
+        const doc = await ResultHandler.getResultById(resultId);
 
         return doc;
 
@@ -82,7 +86,7 @@ class ResultManager {
 
         await ResultUtil.validateParametersToGetResultYears(secTitle, boardKey);
 
-        const section = await SectionHandler.getSectionByTitle(secTitle);
+        const section = await SectionManager.getSectionByTitle(secTitle);
 
         if(!section || !section._id) {
 
@@ -90,7 +94,7 @@ class ResultManager {
 
         }
 
-        const board = await BoardHandler.getBoardByKey(boardKey);
+        const board = await BoardManager.getBoardByKey(boardKey);
 
         if(!board || !board._id) {
 
@@ -102,13 +106,57 @@ class ResultManager {
 
         const doc = await ResultHandler.getResultYears(section._id, board._id);
 
-        cLog.success(`getResultYears:: Successfuly get result years section id:: ${section._id} board id:: ${board._id} years:: `, doc);
+        cLog.success(`getResultYears:: Successfuly get result years section id:: ${section._id} board id:: ${board._id} years:: `);
 
         return doc;
 
     } catch (error) {
 
       throw new ApplicationException(error.message || ResultConstants.MESSAGES.FAILED_TO_FETCH_YEARS, error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).toJson();
+
+    }
+
+  }
+
+  static async getResult(sectionTitle, boardKey, year, examType) {
+
+    try {
+
+      cLog.info(`getResult:: Getting result section:: ${sectionTitle} board:: ${boardKey} year:: ${year} examtype:: ${examType}`);
+
+      await ResultUtil.validateParametersToGetResult(sectionTitle, boardKey, year, examType);
+
+      const section = await SectionManager.getSectionByTitle(sectionTitle);
+
+        if(!section || !section._id) {
+
+          throw new ApplicationException(ResultConstants.MESSAGES.SECTION_NOT_FOUND, HTTPStatusCodeConstants.NOT_FOUND).toJson();
+
+        }
+
+        const board = await BoardManager.getBoardByKey(boardKey);
+
+        if(!board || !board._id) {
+
+          throw new ApplicationException(ResultConstants.MESSAGES.BOARD_NOT_FOUND, HTTPStatusCodeConstants.NOT_FOUND).toJson();
+
+        }
+
+        examType = examType === ResultConstants.EXAM_TYPES.ANNUAL ? ResultEnums.EXAM_TYPES.ANNUAL : ResultEnums.EXAM_TYPES.SUPPLY;
+
+        cLog.info(`getResult:: getting result section id:: ${section._id} board id:: ${board._id} year:: ${year} examType:: ${examType}`);
+
+        const doc = await ResultHandler.getResult(section._id, board._id, year, examType);
+
+        cLog.success(`getResult:: Successfuly get result section id:: ${section._id} board id:: ${board._id} year:: ${year} examType:: ${examType}`);
+
+        return doc;
+
+    } catch (error) {
+
+      cLog.error(`getResult:: Failed to fetch result section:: ${sectionTitle} board:: ${boardKey} year:: ${year} examtype:: ${examType}`, error);
+
+      throw new ApplicationException(error.message || ResultConstants.MESSAGES.RESULTS_FETCHING_FAILED, error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).toJson();
 
     }
 

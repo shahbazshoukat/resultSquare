@@ -12,13 +12,13 @@
             <h3 class="mb-0">Enter Roll No</h3>
           </div>
           <div class="col-9 text-right">
-              <a href="#!" class="btn btn-sm btn-primary">11th</a>
+              <a href="#!" class="btn btn-sm btn-primary" [routerLink] = "['/']" >{{selectedClass}}</a>
               <i class="ni ni-bold-right" ></i>
-              <a href="#!" class="btn btn-sm btn-primary ml-1">Bise Lahore</a>
+              <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result', selectedClass]"  >{{selectedBoardKey}}</a>
               <i class="ni ni-bold-right" ></i>
-              <a href="#!" class="btn btn-sm btn-primary ml-1">2019</a>
+              <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</a>
               <i class="ni ni-bold-right" ></i>
-              <a href="#!" class="btn btn-sm btn-primary ml-1">Annual</a>
+              <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass+'/'+selectedBoardKey, selectedYear]" >{{selectedExamType}}</a>
           </div>
         </div>
       </div>

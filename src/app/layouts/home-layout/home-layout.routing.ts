@@ -12,6 +12,6 @@ export const HomeLayoutRoutes: Routes = [
     { path: 'result/:classTitle',         component: SelectBoardComponent },
     { path: 'result/:classTitle/:boardKey', component: SelectYearComponent },
     { path: 'result/:classTitle/:boardKey/:year', component: SelectExamComponent},
-    { path: 'enterrollno', component: EnterRollNoComponent},
+    { path: 'result/:classTitle/:boardKey/:year/:examType', component: EnterRollNoComponent},
     { path: 'result-page', component: ResultPageComponent}
 ];
