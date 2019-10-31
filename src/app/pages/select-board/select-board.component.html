@@ -12,37 +12,27 @@
             <h3 class="mb-0">Select Your Board/University</h3>
           </div>
           <div class="col-4 text-right">
-            <a href="#!" class="btn btn-sm btn-primary">class</a>
+            <button href="#!" class="btn btn-sm btn-primary" [routerLink] = "['/']">{{selectedClass}}</button>
           </div>
         </div>
       </div>
       <div class="card-body">
+
+          <h6 class="heading-small text-muted mb-4">Federal Boards</h6>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-xl-2 col-lg-3 col-md-6 class-container" *ngFor = "let board of federalBoards">
+                <button type="button" class="btn btn-outline-primary custom-btn"  [routerLink] = "['/result/'+selectedClass, board.key]" >{{board.title}}</button>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+
           <h6 class="heading-small text-muted mb-4">Punjab Boards</h6>
           <div class="pl-lg-4">
             <div class="row">
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn"  >BISE Lahore</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Gujranwala</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Multan</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Faisalabad</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Lahore</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Gujranwala</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Multan</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Faisalabad</button>
+              <div class="col-xl-2 col-lg-3 col-md-6 class-container" *ngFor = "let board of punjabBoards">
+                <button type="button" class="btn btn-outline-primary custom-btn"  [routerLink] = "['/result/'+selectedClass, board.key]" >{{board.title}}</button>
               </div>
             </div>
           </div>
@@ -51,34 +41,43 @@
           <h6 class="heading-small text-muted mb-4">KPK Boards</h6>
           <div class="pl-lg-4">
             <div class="row">
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn" >BISE Lahore</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Gujranwala</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Multan</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Faisalabad</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Lahore</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Gujranwala</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Multan</button>
-              </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn">BISE Faisalabad</button>
+              <div class="col-xl-2 col-lg-3 col-md-6 class-container" *ngFor = "let board of kpkBoards">
+                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass, board.key]"  >{{board.title}}</button>
               </div>
             </div>
           </div>
           <hr class="my-4" />
-        
+
+          <h6 class="heading-small text-muted mb-4">Sindh Boards</h6>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-xl-2 col-lg-3 col-md-6 class-container" *ngFor = "let board of sindhBoards">
+                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass, board.key]" >{{board.title}}</button>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+
+          <h6 class="heading-small text-muted mb-4">Balochistan Boards</h6>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-xl-2 col-lg-3 col-md-6 class-container" *ngFor = "let board of balochBoards">
+                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass, board.key]" >{{board.title}}</button>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+
+          <h6 class="heading-small text-muted mb-4">AJK Boards</h6>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-xl-2 col-lg-3 col-md-6 class-container" *ngFor = "let board of ajkBoards">
+                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass, board.key]" >{{board.title}}</button>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <div *ngIf="isLoading" class="loader"></div>
       </div>
     </div>
   </div>

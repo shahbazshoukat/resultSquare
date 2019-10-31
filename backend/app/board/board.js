@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 const boardSchema = mongoose.Schema({
 
+  key:{
+    type: String,
+    required: false
+  },
+
   title:{ 
     type: String, 
     required: false

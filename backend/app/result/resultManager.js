@@ -1,4 +1,6 @@
 const ResultHandler = require("./resultHandler");
+const SectionHandler = require("../section/sectionHandler");
+const BoardHandler = require("../board/boardHandler");
 const ResultUtil = require("./resultUtil");
 const ApplicationException = require("../../exceptions/ApplicationException");
 const {
@@ -67,6 +69,46 @@ class ResultManager {
       cLog.error(`getAllResults:: Failed to fetch Results`, error);
 
       throw new ApplicationException(error.message || ResultConstants.MESSAGES.RESULTS_FETCHING_FAILED, error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).toJson();
+
+    }
+
+  }
+
+  static async getResultYears(secTitle, boardKey) {
+
+    try {
+
+        cLog.info(`getResultYears:: getting result years section title:: ${secTitle} boardKey:: ${boardKey}`);
+
+        await ResultUtil.validateParametersToGetResultYears(secTitle, boardKey);
+
+        const section = await SectionHandler.getSectionByTitle(secTitle);
+
+        if(!section || !section._id) {
+
+          throw new ApplicationException(ResultConstants.MESSAGES.SECTION_NOT_FOUND, HTTPStatusCodeConstants.NOT_FOUND).toJson();
+
+        }
+
+        const board = await BoardHandler.getBoardByKey(boardKey);
+
+        if(!board || !board._id) {
+
+          throw new ApplicationException(ResultConstants.MESSAGES.BOARD_NOT_FOUND, HTTPStatusCodeConstants.NOT_FOUND).toJson();
+
+        }
+
+        cLog.info(`getResultYears:: getting result years section id:: ${section._id} board id:: ${board._id}`);
+
+        const doc = await ResultHandler.getResultYears(section._id, board._id);
+
+        cLog.success(`getResultYears:: Successfuly get result years section id:: ${section._id} board id:: ${board._id} years:: `, doc);
+
+        return doc;
+
+    } catch (error) {
+
+      throw new ApplicationException(error.message || ResultConstants.MESSAGES.FAILED_TO_FETCH_YEARS, error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).toJson();
 
     }
 

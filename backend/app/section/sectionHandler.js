@@ -21,6 +21,14 @@ class SectionHandler {
 
   }
 
+  static getSectionByTitle(title) {
+
+    const q = { title: title };
+
+    return Section.findOne(q).lean().exec();
+
+  }
+
   static getAllSections() {
 
     return Section.find().lean().exec();

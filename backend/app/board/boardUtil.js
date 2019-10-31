@@ -87,6 +87,28 @@ class BoardUtil {
 
     }
 
+    static async validateBoardKey(boardKey) {
+
+
+        if(!validators.isValidStr(boardKey)) {
+
+            throw new ApplicationException(BoardConstants.MESSAGES.INVALID_BOARD_KEY, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
+
+        }
+
+    }
+
+    static async validateSectionId(sectionId) {
+
+
+        if(!validators.isValidId(sectionId)) {
+
+            throw new ApplicationException(BoardConstants.MESSAGES.INVALID_SECTION_ID, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
+
+        }
+
+    }
+
 }
 
 module.exports = BoardUtil;

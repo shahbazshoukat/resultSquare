@@ -37,6 +37,14 @@ class ResultHandler {
 
   }
 
+  static getResultYears(sectionId, boardId) {
+
+    const q = { section: sectionId, board: boardId };
+
+    return Result.find(q).select("year").lean().exec();
+
+  }
+
   static updateResult(resultId, data) {
 
     const q = { _id: resultId };

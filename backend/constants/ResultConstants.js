@@ -34,7 +34,13 @@ const ResultConstants = Object.freeze({
        NO_DATA_FOUND_TO_ADD_RESULT: 'No data found to add result',
        INVALID_SECTION_ID: 'Invalid section id',
        INVALID_BOARD_ID: 'Invalid board id',
-       INVALID_RESULT_ID: 'Invalid result id'
+       INVALID_RESULT_ID: 'Invalid result id',
+       INVALID_SECTION_TITLE: 'Invalid section title',
+       INVALID_BOARD_KEY: 'Invalid board key',
+       SECTION_NOT_FOUND: 'Section not found',
+       BOARD_NOT_FOUND: 'Board not found',
+       FAILED_TO_FETCH_YEARS: 'Failed to fetch years',
+       RESULTS_YEARS_FETCHED_SUCCESSFULLY: 'Result years fetched successfully'
    }
 });
 

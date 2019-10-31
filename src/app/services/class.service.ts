@@ -24,6 +24,10 @@ export class ClassService{
     return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/section' + classId);
   }
 
+  getClassByTitle(title: string) {
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/getSection' + title);
+  }
+
   updateClass( classId: string, title: string, type: string ) {
     const update = { title: title, type: type };
     return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateSection" + classId, update);

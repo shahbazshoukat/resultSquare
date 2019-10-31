@@ -39,6 +39,17 @@ class SectionUtil {
 
     }
 
+    static async validateSectionTitle(title) {
+
+
+        if(!validators.isValidStr(title)) {
+
+            throw new ApplicationException(SectionConstants.MESSAGES.INVALID_SECTION_TITLE, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
+
+        }
+
+    }
+
 }
 
 module.exports = SectionUtil;

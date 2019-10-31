@@ -46,6 +46,24 @@ class SectionController {
 
   }
 
+  static async getSectionByTitle(req, res) {
+
+    try {
+
+      const doc = await SectionManager.getSectionByTitle(req.params.title);
+
+      res.status(HTTPStatusCodeConstants.OK).json({ success: true, message: SectionConstants.MESSAGES.SECTION_FETCHED_SUCCESSFULLY, data: doc});
+    
+    } catch (error) {
+
+      cLog.error(`getSection:: Failed to get Section`, error);
+
+      res.status(error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message || HTTPStatusCodeConstants.MESSAGES.INTERNAL_SERVER_ERROR, data: null });
+    
+    }
+
+  }
+
   static async getAllSections(req, res) {
 
     try {

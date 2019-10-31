@@ -60,6 +60,22 @@ class ResultController {
 
   }
 
+  static async getResultYears(req, res) {
+
+    try {
+
+      const doc = await ResultManager.getResultYears(req.params.sectionTitle, req.params.boardKey);
+      
+      res.status(HTTPStatusCodeConstants.OK).json({ success: true, message: ResultConstants.MESSAGES.RESULTS_YEARS_FETCHED_SUCCESSFULLY, data: doc });
+    
+    } catch (error) {
+
+      res.status(error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message || HTTPStatusCodeConstants.MESSAGES.INTERNAL_SERVER_ERROR, data: null });
+    
+    }
+
+  }
+
   static async updateResult(req, res) {
 
     try {
@@ -107,6 +123,22 @@ class ResultController {
     }
 
   }
+
+  static async getResultYearsByBoardTitle(req, res) {
+
+    try {
+
+      const doc = await ResultManager.updateResultStatus(req.body.boardTitle, req.body.status);
+
+      res.status(HTTPStatusCodeConstants.OK).json({ success: true, message: ResultConstants.MESSAGES.RESULT_STATUS_UPDATED_SUCCESSFULLY, data: doc});
+
+    } catch (error) {
+
+      res.status(error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message || HTTPStatusCodeConstants.MESSAGES.INTERNAL_SERVER_ERROR, data: null });
+
+    }
+
+  }  
 
 }
 

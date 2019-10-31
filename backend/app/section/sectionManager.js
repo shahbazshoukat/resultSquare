@@ -54,6 +54,26 @@ class SectionManager {
 
   }
 
+  static async getSectionByTitle(title) {
+
+    try {
+
+        await SectionUtil.validateSectionTitle(title);
+
+        const doc = await SectionHandler.getSectionByTitle(title);
+
+        return doc;
+
+    } catch (error) {
+
+      cLog.error(`getSection:: Failed to fetch Section SectionTitle:: ${title}`, error);
+
+      throw new ApplicationException(error.message || SectionConstants.MESSAGES.SECTION_FETCHING_FAILED, error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).toJson();
+
+    }
+
+  }
+
   static async getAllSections() {
 
     try {

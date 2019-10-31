@@ -5,11 +5,12 @@ class BoardHandler {
   static createBoard(data) {
 
     const board = new Board({
+      key: data.key,
       title: data.title,
       province: data.province,
       city: data.city,
       examTypes: data.examTypes,
-      sections: data.classes,
+      sections: data.sections,
       apiMode: data.apiMode,
       webUrl: data.webUrl,
       resultUrl: data.resultUrl,
@@ -31,10 +32,26 @@ class BoardHandler {
 
   }
 
+  static getBoardByKey(boardKey) {
+
+    const q = {key: boardKey};
+
+    return Board.findOne(q).populate("sections").lean().exec();
+
+  }
+
   static getAllBoards() {
 
     return Board.find().populate("sections").lean().exec();
   
+  }
+
+  static getBoardsBySectionId(sectionId) {
+
+    const q = {sections: sectionId};
+
+    return Board.find(q).populate("sections").lean().exec();
+
   }
 
   static updateBoard(boardId, data) {
@@ -42,11 +59,12 @@ class BoardHandler {
     const q = { _id: boardId };
 
     const update = {
+      key: data.key,
       title: data.title,
       province: data.province,
       city: data.city,
       examTypes: data.examTypes,
-      sections: data.classes,
+      sections: data.sections,
       apiMode: data.apiMode,
       webUrl: data.webUrl,
       resultUrl: data.resultUrl,

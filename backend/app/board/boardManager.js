@@ -38,15 +38,39 @@ class BoardManager {
 
     try {
 
+        cLog.info(`getBoard:: getting board by id:: ${boardId}`);
+
         await BoardUtil.validateBoardId(boardId);
 
         const doc = await BoardHandler.getBoard(boardId);
+
+        cLog.success(`getBoard:: Board successfully fetched, boardId:: ${boardId} board:: `, doc);
 
         return doc;
 
     } catch (error) {
 
       cLog.error(`getBoard:: Failed to fetch Board boardId:: ${boardId}`, error);
+
+      throw new ApplicationException(error.message || BoardConstants.MESSAGES.BOARD_FETCHING_FAILED, error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).toJson();
+
+    }
+
+  }
+
+  static async getBoardByKey(boardKey) {
+
+    try {
+
+        await BoardUtil.validateBoardKey(boardKey);
+
+        const doc = await BoardHandler.getBoardByKey(boardKey);
+
+        return doc;
+
+    } catch (error) {
+
+      cLog.error(`getBoardByKey:: Failed to fetch Board by key boardKey:: ${boardKey}`, error);
 
       throw new ApplicationException(error.message || BoardConstants.MESSAGES.BOARD_FETCHING_FAILED, error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).toJson();
 
@@ -65,6 +89,30 @@ class BoardManager {
     } catch (error) {
 
       cLog.error(`getAllBoards:: Failed to fetch Boards`, error);
+
+      throw new ApplicationException(error.message || BoardConstants.MESSAGES.BOARDS_FETCHING_FAILED, error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).toJson();
+
+    }
+
+  }
+
+  static async getBoardsBySectionId(sectionId) {
+
+    try {
+
+      await BoardUtil.validateSectionId(sectionId);
+
+      cLog.info(`getBoardsBySectionId:: getting board by section Id:: ${sectionId}`);
+
+      const doc = await BoardHandler.getBoardsBySectionId(sectionId);
+
+      cLog.success(`getBoardsBySectionId:: Boards successfully fetched by section id:: ${sectionId} boards:: `, doc);
+
+      return doc;
+
+    } catch (error) {
+
+      cLog.error(`getBoardBySectionId:: Failed to fetch Boards sectionId:: ${sectionId}`, error);
 
       throw new ApplicationException(error.message || BoardConstants.MESSAGES.BOARDS_FETCHING_FAILED, error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).toJson();
 

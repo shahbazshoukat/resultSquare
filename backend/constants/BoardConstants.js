@@ -39,6 +39,8 @@ const BoardConstants = Object.freeze({
        INVALID_BOARD_RESULT_URL : 'Invalid board result url',
        INVALID_BOARD_API_URL : 'Invalid board api url',
        INVALID_BOARD_REQUEST_TYPE : 'Invalid board request type',
+       INVALID_SECTION_ID: 'Invalid section id',
+       INVALID_BOARD_KEY: 'Invalid board key'
    }
 });
 

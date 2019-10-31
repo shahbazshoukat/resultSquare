@@ -13,11 +13,12 @@ export class BoardService{
 
   addBoard(
     _id: null,
+    key: string,
     title: string,
     province: string,
     city: string,
     examTypes: object[],
-    classes: string[],
+    sections: string[],
     apiMode: number, //0 = api, 1 = scrapping, 2 = url
     webUrl: string,
     resultUrl: string,
@@ -29,11 +30,12 @@ export class BoardService{
   {
     const boardData: Board = {
       _id: _id,
+      key: title.replace(/\s/g, "-"),
       title: title,
       province: province,
       city: city,
       examTypes: examTypes,
-      classes: classes,
+      sections: sections,
       apiMode: apiMode, //0 = api, 1 = scrapping, 2 = url
       webUrl: webUrl,
       resultUrl: resultUrl,
@@ -50,16 +52,25 @@ export class BoardService{
   }
 
   getBoardById(boardId: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/board' + boardId);
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/board/' + boardId);
+  }
+
+  getBoardByKey(boardKey: string): Observable<any> {
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/getBoard/' + boardKey);
+  }
+
+  getBoardBySectionId(sectionId: string): Observable<any> {
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/getBoardBySection/' + sectionId);
   }
 
   updateBoard( 
     boardId: string,
+    key: string,
     title: string,
     province: string,
     city: string,
     examTypes: object[],
-    classes: string[],
+    sections: string[],
     apiMode: number, //0 = api, 1 = scrapping, 2 = url
     webUrl: string,
     resultUrl: string,
@@ -70,11 +81,12 @@ export class BoardService{
   ): Observable<any>
    {
     const update = { 
+      key: title.replace(/\s/g, "-"),
       title: title,
       province: province,
       city: city,
       examTypes: examTypes,
-      classes: classes,
+      sections: sections,
       apiMode: apiMode, //0 = api, 1 = scrapping, 2 = url
       webUrl: webUrl,
       resultUrl: resultUrl,
@@ -84,12 +96,12 @@ export class BoardService{
       tags: tags
      };
     
-     return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateBoard" + boardId, update);
+     return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateBoard/" + boardId, update);
   }
 
 
   deleteBoard(boardId: string): Observable<any> {
-    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + "/deleteBoard" + boardId);
+    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + "/deleteBoard/" + boardId);
   }
 
 }

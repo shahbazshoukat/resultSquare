@@ -10,6 +10,8 @@ router.get("/sections",  SectionController.getAllSections);
 
 router.get("/section:sectionId",  SectionController.getSection);
 
+router.get("/getSection:title",  SectionController.getSectionByTitle);
+
 router.put("/updateSection:sectionId", SectionController.updateSection);
 
 router.delete("/deleteSection:sectionId", SectionController.deleteSection);

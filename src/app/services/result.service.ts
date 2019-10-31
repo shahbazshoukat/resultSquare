@@ -49,7 +49,12 @@ export class ResultService{
   }
 
   getResultById(resultId: string) {
-    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/result' + resultId);
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/result/' + resultId);
+  }
+
+  getResultYears(selectedClass, selectedBoardKey) {
+    const data = {secctionTitle: selectedClass, boardKey: selectedBoardKey}
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + `/result-year/${selectedClass}/${selectedBoardKey}`);
   }
 
   updateResult( 
@@ -81,18 +86,18 @@ export class ResultService{
       apiParams: apiParams,
       tags: tags
      };
-      return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateResult" + resultId, update);
+      return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateResult/" + resultId, update);
   }
 
 
   deleteResult(resultId: string) {
-    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + "/deleteResult" + resultId);
+    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + "/deleteResult/" + resultId);
   }
 
   changeResultStatus(resultId: string, value: boolean) {
     const update = {status: value};
     console.log(update);
-    return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateStatus" + resultId, update);
+    return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateStatus/" + resultId, update);
   }
 
 }

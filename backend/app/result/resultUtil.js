@@ -34,6 +34,22 @@ class ResultUtil {
 
     }
 
+    static validateParametersToGetResultYears(secTitle, boardKey) {
+
+        if(!validators.isValidStr(secTitle)) {
+
+            throw new ApplicationException(ResultConstants.MESSAGES.INVALID_SECTION_TITLE, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
+
+        }
+
+        if(!validators.isValidStr(boardKey)) {
+
+            throw new ApplicationException(ResultConstants.MESSAGES.INVALID_BOARD_KEY, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
+
+        }
+
+    }
+
     static async validateResultId(resultId) {
 
 

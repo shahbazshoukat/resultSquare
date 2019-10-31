@@ -44,6 +44,22 @@ class BoardController {
 
   }
 
+  static async getBoardByKey(req, res) {
+
+    try {
+
+      const doc = await BoardManager.getBoardByKey(req.params.boardKey);
+
+      res.status(HTTPStatusCodeConstants.OK).json({ success: true, message: BoardConstants.MESSAGES.BOARD_FETCHED_SUCCESSFULLY, data: doc});
+    
+    } catch (error) {
+
+      res.status(error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message, data: null });
+    
+    }
+
+  }
+
   static async getAllBoards(req, res) {
 
     try {
@@ -56,6 +72,22 @@ class BoardController {
 
       res.status(error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message, data: null });
     
+    }
+
+  }
+
+  static async getBoardsBySectionId(req, res) {
+
+    try {
+
+      const doc = await BoardManager.getBoardsBySectionId(req.params.sectionId);
+
+      res.status(HTTPStatusCodeConstants.OK).json({ success: true, message: BoardConstants.MESSAGES.BOARDS_FETCHED_SUCCESSFULLY, data: doc });
+
+    } catch (error) {
+
+      res.status(error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message, data: null });
+
     }
 
   }
