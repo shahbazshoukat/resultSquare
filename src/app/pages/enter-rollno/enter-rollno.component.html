@@ -14,7 +14,7 @@
           <div class="col-9 text-right">
               <a href="#!" class="btn btn-sm btn-primary" [routerLink] = "['/']" >{{selectedClass}}</a>
               <i class="ni ni-bold-right" ></i>
-              <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result', selectedClass]"  >{{selectedBoardKey}}</a>
+              <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result', selectedClass]"  >{{selectedBoard}}</a>
               <i class="ni ni-bold-right" ></i>
               <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</a>
               <i class="ni ni-bold-right" ></i>
@@ -23,14 +23,12 @@
         </div>
       </div>
       <div class="row justify-content-center border-2 mt-100" >
-          <div class="col-lg-5 col-md-7 ">
+          <div class="col-lg-6 col-md-7 ">
             <div class="card border-0">
-             
-              <div class="card-body ">
-                <div class="text-center text-muted mb-4">
-                  <h1>Bise Lahore 9th Class Result 2019</h1>
-                </div>
-               
+              <div class="card-body">
+                <div class="text-center">
+                  <span style="font-size: 25px; font-weight: bolder;" >{{resultTitle}}</span>
+                </div>               
               </div>
             </div>
           </div>
@@ -41,23 +39,25 @@
           <div class="card bg-secondary border-0">
             <div class="card-header bg-secondary pb-5">
               <div class="text-center">
-                <img src="../../../assets/img/boards/blhr.png" width="75px" height="75px" >
+                <img src="../../../assets/img/boards/blhr.png" width="85px" height="85px" >
               </div>
-              <div class="text-muted text-center mt-2 mb-3">BISE Lahore Board 9th class Result 2019</div>
+              <div class="text-muted text-center mt-5 mb-3">
+                <h2>
+                    {{resultTitle}}
+                </h2>
+              </div>
              
             </div>
             <div class="card-body px-lg-5 py-lg-5">
-              <div class="text-center text-muted mb-4">
-                <small>Enter your Roll No</small>
-              </div>
-              <form role="form">
-                <div class="form-group mb-3">
+              <form role="form" (submit)="findResult(rollNoForm)" #rollNoForm = "ngForm">
+                <div class="form-group">
                   <div class="form-group">
-                    <input id="input-address" class="form-control form-control-alternative" placeholder="Roll No" value="" type="text">
+                    <input id="input-address" name="rollNo" ngModel class="form-control form-control-alternative" placeholder="Enter your roll no" value="" type="text">
+                    <span *ngIf="formError" style="color:red;" >{{errorMsg}}</span>
                   </div>
                 </div>
                 <div class="text-center">
-                  <button type="button" class="btn btn-primary my-4">View Result</button>
+                  <button type="button" class="btn btn-primary my-4" type="submit" >View Result</button>
                 </div>
               </form>
             </div>
@@ -75,10 +75,7 @@
                   <small>Tags:</small>
                 </div>
                 <div class="text-center text-muted mb-4">
-                    <span class="badge badge-default ml-3">Default</span>
-                    <span class="badge badge-primary ml-3">Primary</span>
-                    <span class="badge badge-info ml-3">Info</span>
-                    <span class="badge badge-success ml-3">Success</span>
+                    <span class="badge badge-default ml-3" *ngFor="let tag of tags" >{{tag}}</span>
                 </div>
               </div>
             </div>

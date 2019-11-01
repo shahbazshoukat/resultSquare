@@ -60,6 +60,10 @@ export class ResultService{
     return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + `/result/${section}/${board}/${year}/${exam}`);
   }
 
+  findResult(rollNo, section, board, year, exam) {
+    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + `/result/${section}/${board}/${year}/${exam}/${rollNo}`);
+  }
+
   updateResult( 
     resultId: string,
     status: boolean,
