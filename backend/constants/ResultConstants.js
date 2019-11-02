@@ -44,7 +44,10 @@ const ResultConstants = Object.freeze({
        INVALID_SECTION: 'Invalid section',
        INVALID_BOARD: 'Invalid board',
        INVALID_YEAR: 'Invalid year',
-       INVALID_EXAM_TYPE: 'Invalid exam type'
+       INVALID_EXAM_TYPE: 'Invalid exam type',
+       INVALID_ROLL_NO: 'Invalid roll no',
+       RESULT_FOUND_SUCCESSFULLY: 'Result found successfully',
+       RESULT_IS_NOT_ANNOUNCED: 'Result is not announced'
    }
 });
 

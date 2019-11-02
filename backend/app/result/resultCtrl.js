@@ -156,6 +156,23 @@ class ResultController {
 
   }  
 
+  static async findResult(req, res) {
+
+    try {
+
+      const doc = await ResultManager.findResult(req.params.section, req.params.board, req.params.year, req.params.exam, req.params.rollNo);
+
+      res.status(HTTPStatusCodeConstants.OK).json({ success: true, message: ResultConstants.MESSAGES.RESULT_FOUND_SUCCESSFULLY, data: doc});
+
+    } catch (error) {
+
+      res.status(error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message || HTTPStatusCodeConstants.MESSAGES.INTERNAL_SERVER_ERROR, data: null });
+
+    }
+
+  }
+
 }
+
 
 module.exports = ResultController;

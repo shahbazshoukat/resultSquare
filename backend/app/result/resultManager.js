@@ -228,6 +228,40 @@ class ResultManager {
 
   }
 
+  static async findResult(section, board, year, exam, rollNo) {
+
+    try {
+
+      await ResultUtil.validateRollNo(rollNo);
+
+      const result = await ResultManager.getResult(section, board, year, exam);
+
+      if(!result) {
+
+        throw new ApplicationException(ResultConstants.MESSAGES.PAGE_NOT_FOUND, HTTPStatusCodeConstants.NOT_FOUND).toJson();
+
+      }
+
+      if(!result.status) {
+
+        throw new ApplicationException(ResultConstants.MESSAGES.RESULT_IS_NOT_ANNOUNCED, HTTPStatusCodeConstants.NOT_FOUND).toJson();
+
+      }
+
+      const resultResponse = ResultUtil.findResult(board, result, rollNo);
+
+      return resultResponse;
+
+    } catch (error) {
+
+      cLog.error(`deleteResult:: Failed to find Result status ResultId:: ${resultId} status:: ${status}`, error);
+
+      throw new ApplicationException(error.message || ResultConstants.MESSAGES.FAILED_TO_UPDATE_RESULT_STATUS, error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).toJson();
+
+    }
+
+  }
+
 }
 
 module.exports = ResultManager;
