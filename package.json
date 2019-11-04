@@ -29,6 +29,7 @@
     "config": "^3.2.3",
     "core-js": "2.6.4",
     "dateformat": "^3.0.3",
+    "fs": "0.0.1-security",
     "jquery": "^3.4.1",
     "jsonwebtoken": "^8.5.1",
     "logdna-winston": "^2.2.5",
@@ -41,11 +42,13 @@
     "nouislider": "13.1.1",
     "path": "^0.12.7",
     "request": "^2.88.0",
+    "request-promise": "^4.2.5",
     "rxjs": "6.4.0",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "util": "^0.12.1",
     "winston": "^3.2.1",
+    "xml-parser": "^1.2.1",
     "zone.js": "0.8.29"
   },
   "devDependencies": {

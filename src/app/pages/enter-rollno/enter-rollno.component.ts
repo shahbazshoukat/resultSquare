@@ -20,7 +20,9 @@ export class EnterRollNoComponent implements OnInit {
   tags;
   formError = false;
   errorMsg = '';
-  result;
+  result = 'NO RESULT FOUND';
+  isLoading = false;
+  resultResponseStatus = false;
   constructor(private route: ActivatedRoute, private resultService: ResultService) { }
 
   ngOnInit() {
@@ -51,6 +53,7 @@ export class EnterRollNoComponent implements OnInit {
   }
 
   findResult(form: NgForm) {
+    this.isLoading = true;
     console.log(form);
     this.formError = false;
     const regex = /^\d+$/;
@@ -63,10 +66,16 @@ export class EnterRollNoComponent implements OnInit {
       return;
     }
     this.resultService.findResult(form.value.rollNo, this.selectedClass, this.selectedBoardKey, this.selectedYear, this.selectedExamType).subscribe(response => {
-      this.result = response;
-      console.log(this.result);
+      this.result = response.data;
+      this.isLoading = false;
+      this.resultResponseStatus = true;
     });
 
+  }
+
+  backToResultPage(){
+    this.resultResponseStatus = false;
+    this.isLoading = false;
   }
 
 }

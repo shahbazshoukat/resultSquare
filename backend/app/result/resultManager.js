@@ -248,7 +248,7 @@ class ResultManager {
 
       }
 
-      const resultResponse = ResultUtil.findResult(board, result, rollNo);
+      const resultResponse = await ResultUtil.findResult(board, result, rollNo);
 
       return resultResponse;
 

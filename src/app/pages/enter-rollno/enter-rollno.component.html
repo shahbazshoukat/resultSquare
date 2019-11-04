@@ -11,15 +11,18 @@
           <div class="col-3">
             <h3 class="mb-0">Enter Roll No</h3>
           </div>
-          <div class="col-9 text-right">
-              <a href="#!" class="btn btn-sm btn-primary" [routerLink] = "['/']" >{{selectedClass}}</a>
+          <div *ngIf="!resultResponseStatus" class="col-9 text-right">
+              <a class="btn btn-sm btn-primary" [routerLink] = "['/']" >{{selectedClass}}</a>
               <i class="ni ni-bold-right" ></i>
-              <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result', selectedClass]"  >{{selectedBoard}}</a>
+              <a class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result', selectedClass]"  >{{selectedBoard}}</a>
               <i class="ni ni-bold-right" ></i>
-              <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</a>
+              <a class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</a>
               <i class="ni ni-bold-right" ></i>
-              <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass+'/'+selectedBoardKey, selectedYear]" >{{selectedExamType}}</a>
+              <a class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass+'/'+selectedBoardKey, selectedYear]" >{{selectedExamType}}</a>
           </div>
+          <div *ngIf="resultResponseStatus" class="col-9 text-right">
+            <button class="btn btn-sm btn-primary" (click) = "backToResultPage()">Back To Result Page</button>
+        </div>
         </div>
       </div>
       <div class="row justify-content-center border-2 mt-100" >
@@ -33,7 +36,7 @@
             </div>
           </div>
       </div>
-      <div class="row justify-content-center border-2" style="padding: 50px;" >
+      <div *ngIf="!isLoading && !resultResponseStatus" class="row justify-content-center border-2" style="padding: 50px;" >
          
         <div class="col-lg-5 col-md-7 " style="border-radius: 10px; background-color: #ebebeb;">
           <div class="card border-0" style="background-color: #ebebeb;" >
@@ -64,6 +67,10 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="isLoading" class="loader" ></div>
+
+      <div *ngIf="resultResponseStatus" [innerHtml] = "result" ></div>
 
 
       <div class="row justify-content-center border-2 mt-100" >

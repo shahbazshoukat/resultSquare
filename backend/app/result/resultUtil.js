@@ -14,7 +14,8 @@ const {
 
 const {
     cLog,
-    validators
+    validators,
+    restClient
 } = require("../../helpers");
 
 
@@ -126,11 +127,9 @@ class ResultUtil {
 
         cLog.info(`findBiseLahoreResult:: finding result of rollNo:: ${rollNo} from ${result.apiUrl}`);
 
-        const degree = 'SSC';
+        let degree;
 
-        const rollNum = rollNo;
-
-        const session = '1';
+        let session;
 
         const year = result.year;
 
@@ -163,23 +162,29 @@ class ResultUtil {
         }
 
         const options = {
-            method: "POST",
-            url: "http://result.biselahore.com/Home/Result",
+
+            url: result.apiUrl,
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-            form : {
+            form: {
                 "degree": degree,
                 "rollNum": rollNo,
                 "session": session,
                 "year": year
             }
-        };
+
+        }
+
         
-        request(options, function (err, res, body) {
-            if(err) console.log(err);
-            console.log(body);
-        });
+        
+        cLog.info(`findBiseLahoreResult:: calling api to get result url:: ${result.apiUrl} header:: `, options.headers, `formData:: `, options.form);
+
+        const apiResponse = await restClient.postWithHeaders(options);
+
+        cLog.success(`findBiseLahoreResult:: Response from API`, apiResponse);
+
+        return apiResponse;
 
     }
 
