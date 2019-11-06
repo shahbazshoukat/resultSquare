@@ -43,7 +43,8 @@ const BoardConstants = Object.freeze({
        INVALID_BOARD_KEY: 'Invalid board key'
    },
    BOARDS: {
-       BISE_LAHORE: 'BISE-Lahore'
+       BISE_LAHORE: 'BISE-Lahore',
+       BISE_GUJRANWALA: 'BISE-Gujranwala' 
    }
 });
 

@@ -217,16 +217,6 @@ const makeGetRequest = (url, headers = {}) => new Promise((resolve, reject) => {
 
     }
 
-    try {
-
-      body = JSON.parse(body);
-
-    } catch (e) {
-
-      return reject(e);
-
-    }
-
     if (resp.statusCode >= 400) {
 
       return reject(body);

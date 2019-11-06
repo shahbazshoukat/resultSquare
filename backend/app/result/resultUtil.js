@@ -119,7 +119,14 @@ class ResultUtil {
 
             return rslt;
 
+        } else if(board === BoardConstants.BOARDS.BISE_GUJRANWALA) {
+
+            const rslt = await ResultUtil.findBiseGujranwalaResult(result, rollNo);
+
+            return rslt;
+
         }
+
 
     }
 
@@ -174,7 +181,7 @@ class ResultUtil {
                 "year": year
             }
 
-        }
+        };
 
         
         
@@ -186,6 +193,80 @@ class ResultUtil {
 
         return apiResponse;
 
+    }
+
+    static async findBiseGujranwalaResult(result, rollNo) {
+
+        try {
+
+            cLog.info(`findBiseGujranwalaResult:: finding result of rollNo:: ${rollNo} from ${result.apiUrl}`);
+
+            if (result.apiMode === ResultEnums.API_MODE.URL) {
+
+                return result.resultUrl;
+
+            }
+
+            let clas;
+            
+            if (result.section.title === '9th') {
+
+                clas = '9';
+
+            } else if (result.section.title === '10th') {
+
+                clas = '10';
+
+            } else if (result.section.title === '11th') {
+
+                clas = '11';
+
+            } else if (result.section.title === '12th') {
+
+                clas = '12';
+
+            }
+
+            if (result.examType === ResultEnums.EXAM_TYPES.SUPPLY && (result.section.title === '9th' || result.section.title === '10th')) {
+
+                clas = 'ms';
+
+            } else if (result.examType === ResultEnums.EXAM_TYPES.SUPPLY && (result.section.title === '11th' || result.section.title === '12th')) {
+
+                clas = 'is';
+
+            }
+
+            const options = {
+
+                url: result.apiUrl,
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                form: {
+                    "year": result.year,
+                    "class": clas,
+                    "rno": rollNo
+                }
+    
+            };
+    
+            
+            
+            cLog.info(`findBiseGujranwalaResult:: calling api to get result url:: ${result.apiUrl} header:: `, options.headers, `formData:: `, options.form);
+    
+            const apiResponse = await restClient.postWithHeaders(options);
+    
+            cLog.success(`findBiseGujranwalaResult:: Response from API`, apiResponse);
+    
+            return apiResponse;
+
+
+        } catch (error) {
+
+
+
+        }
     }
 
 }
