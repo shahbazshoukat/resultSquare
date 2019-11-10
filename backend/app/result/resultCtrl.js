@@ -166,6 +166,8 @@ class ResultController {
 
     } catch (error) {
 
+      cLog.error(`findResult:: Failed to find result, `, error);
+
       res.status(error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message || HTTPStatusCodeConstants.MESSAGES.INTERNAL_SERVER_ERROR, data: null });
 
     }

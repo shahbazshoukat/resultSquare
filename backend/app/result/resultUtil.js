@@ -111,19 +111,36 @@ class ResultUtil {
 
     static async findResult(board, result, rollNo) {
 
-        cLog.info(`findResult:: finding result of rollNo:: ${rollNo} from ${result.apiUrl}`);
+       try {
 
-        if(board === BoardConstants.BOARDS.BISE_LAHORE) {
+            cLog.info(`findResult:: finding result of rollNo:: ${rollNo} from ${result.apiUrl}`);
 
-            const rslt = await ResultUtil.findBiseLahoreResult(result, rollNo);
+            if(board === BoardConstants.BOARDS.BISE_LAHORE) {
 
-            return rslt;
+                const rslt = await ResultUtil.findBiseLahoreResult(result, rollNo);
 
-        } else if(board === BoardConstants.BOARDS.BISE_GUJRANWALA) {
+                return rslt;
 
-            const rslt = await ResultUtil.findBiseGujranwalaResult(result, rollNo);
+            } else if(board === BoardConstants.BOARDS.BISE_GUJRANWALA) {
 
-            return rslt;
+                const rslt = await ResultUtil.findBiseGujranwalaResult(result, rollNo);
+
+                return rslt;
+
+            } else if(board === BoardConstants.BOARDS.BISE_SAHIWAL) {
+
+                const rslt = await ResultUtil.findBiseSahiwalResult(result, rollNo);
+
+                return rslt;
+
+            }
+
+
+        } catch (error) {
+
+            cLog.error(`findResult:: Failed to find result, board:: ${board} rollNo:: ${rollNo} resultApi:: ${result.apiUrl}`, error);
+
+            throw new ApplicationException(ResultConstants.MESSAGES.SOMETHING_WENT_WRONG, HTTPStatusCodeConstants.NOT_FOUND).toJson();
 
         }
 
@@ -132,66 +149,78 @@ class ResultUtil {
 
     static async findBiseLahoreResult(result, rollNo) {
 
-        cLog.info(`findBiseLahoreResult:: finding result of rollNo:: ${rollNo} from ${result.apiUrl}`);
+        try {
 
-        let degree;
+            cLog.info(`findBiseLahoreResult:: finding result of rollNo:: ${rollNo} from ${result.apiUrl}`);
 
-        let session;
+            let degree;
 
-        const year = result.year;
+            let session;
 
-        if(result.section.title === '9th') {
+            const year = result.year;
 
-            degree = 'SSC';
-            session = '1';
+            if(result.section.title === '9th') {
 
-        } else if(result.section.title === '10th') {
+                degree = 'SSC';
+                session = '1';
 
-            degree = 'SSC';
-            session = '2';
+            } else if(result.section.title === '10th') {
 
-        } else if(result.section.title === '11th') {
+                degree = 'SSC';
+                session = '2';
 
-            degree = 'HSSC';
-            session = '1';
+            } else if(result.section.title === '11th') {
 
-        } else if(result.section.title === '12th') {
+                degree = 'HSSC';
+                session = '1';
 
-            degree = 'HSSC';
-            session = '2';
+            } else if(result.section.title === '12th') {
 
-        }
+                degree = 'HSSC';
+                session = '2';
 
-        if(result.examType === ResultEnums.EXAM_TYPES.SUPPLY) {
-
-            session = '0';
-
-        }
-
-        const options = {
-
-            url: result.apiUrl,
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            form: {
-                "degree": degree,
-                "rollNum": rollNo,
-                "session": session,
-                "year": year
             }
 
-        };
+            if(result.examType === ResultEnums.EXAM_TYPES.SUPPLY) {
 
-        
-        
-        cLog.info(`findBiseLahoreResult:: calling api to get result url:: ${result.apiUrl} header:: `, options.headers, `formData:: `, options.form);
+                session = '0';
 
-        const apiResponse = await restClient.postWithHeaders(options);
+            }
 
-        cLog.success(`findBiseLahoreResult:: Response from API`, apiResponse);
+            const options = {
 
-        return apiResponse;
+                url: result.apiUrl,
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                form: {
+                    "degree": degree,
+                    "rollNum": rollNo,
+                    "session": session,
+                    "year": year,
+                    "student_rno": rollNo,
+                    "submit": "Get Result"
+                }
+
+            };
+
+            
+            
+            cLog.info(`findBiseLahoreResult:: calling api to get result url:: ${result.apiUrl} header:: `, options.headers, `formData:: `, options.form);
+
+            const apiResponse = await restClient.postWithHeaders(options);
+
+            cLog.success(`findBiseLahoreResult:: Response from API`, apiResponse);
+
+            return apiResponse;
+
+        } catch (error) {
+
+            cLog.error(`findBiseLahoreResult:: Failed to find result, result url:: ${result.apiUrl} header:: `, options.headers, `formData:: `, options.form, error);
+
+            throw error;
+
+        }
 
     }
 
@@ -267,6 +296,83 @@ class ResultUtil {
 
 
         }
+    }
+
+    static async findBiseSahiwalResult(result, rollNo) {
+
+        try {
+
+            cLog.info(`findBiseSahiwalResult:: finding result of rollNo:: ${rollNo} from ${result.apiUrl}`);
+
+            let section;
+
+            let session;
+
+            const year = result.year;
+
+            if(result.section.title === '9th') {
+
+                section = '1';
+
+            } else if(result.section.title === '10th') {
+
+                section = '2';
+
+            } else if(result.section.title === '11th') {
+
+                section = '3';
+
+            } else if(result.section.title === '12th') {
+
+                section = '4';
+
+            }
+
+            if(result.examType === ResultEnums.EXAM_TYPES.ANNUAL) {
+
+                session = '1';
+
+            } else {
+
+                session = '2';
+
+            }
+
+
+            const options = {
+
+                url: result.apiUrl,
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                form: {
+                    "class": section,
+                    "year": year,
+                    "sess": session,
+                    "rno": rollNo,
+                    "commit": "Get Result"
+                }
+
+            };
+
+            
+            
+            cLog.info(`findBiseSahiwalResult:: calling api to get result url:: ${result.apiUrl} header:: `, options.headers, `formData:: `, options.form);
+
+            const apiResponse = await restClient.postWithHeaders(options);
+
+            cLog.success(`findBiseSahiwalResult:: Response from API`, apiResponse);
+
+            return apiResponse;
+
+        } catch (error) {
+
+            cLog.error(`findBiseSahiwalResult:: Failed to find result, result url:: ${result.apiUrl} header:: `, options.headers, `formData:: `, options.form, error);
+
+            throw error;
+
+        }
+
     }
 
 }

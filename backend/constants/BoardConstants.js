@@ -44,7 +44,8 @@ const BoardConstants = Object.freeze({
    },
    BOARDS: {
        BISE_LAHORE: 'BISE-Lahore',
-       BISE_GUJRANWALA: 'BISE-Gujranwala' 
+       BISE_GUJRANWALA: 'BISE-Gujranwala',
+       BISE_SAHIWAL: 'BISE-Sahiwal'
    }
 });
 

@@ -236,7 +236,11 @@ class ResultManager {
 
       const result = await ResultManager.getResult(section, board, year, exam);
 
+      cLog.success(result);
+
       if(!result) {
+
+        cLog.error(`findResult:: Page not found`);
 
         throw new ApplicationException(ResultConstants.MESSAGES.PAGE_NOT_FOUND, HTTPStatusCodeConstants.NOT_FOUND).toJson();
 
@@ -248,13 +252,21 @@ class ResultManager {
 
       }
 
+      if (result.apiMode === ResultEnums.API_MODE.URL) {
+
+        return result.resultUrl;
+
+      }
+
+      cLog.info(`findResult:: finding result, section:: ${section} board:: ${board} year:: ${year} exam:: ${exam}`);
+
       const resultResponse = await ResultUtil.findResult(board, result, rollNo);
 
       return resultResponse;
 
     } catch (error) {
 
-      cLog.error(`deleteResult:: Failed to find Result status ResultId:: ${resultId} status:: ${status}`, error);
+      cLog.error(`findResult:: Failed to find Result,  section:: ${section} board:: ${board} year:: ${year} exam:: ${exam} `, error);
 
       throw new ApplicationException(error.message || ResultConstants.MESSAGES.FAILED_TO_UPDATE_RESULT_STATUS, error.code || HTTPStatusCodeConstants.INTERNAL_SERVER_ERROR).toJson();
 
