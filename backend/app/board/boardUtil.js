@@ -38,18 +38,6 @@ class BoardUtil {
 
         }
 
-        if(!data.examTypes) {
-
-            throw new ApplicationException(BoardConstants.MESSAGES.INVALID_BOARD_EXAMTYPE, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
-
-        }
-
-        if(!data.apiMode) {
-
-            throw new ApplicationException(BoardConstants.MESSAGES.INVALID_BOARD_API_MODE, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
-
-        }
-
         if(!validators.isValidStr(data.webUrl)) {
 
             throw new ApplicationException(BoardConstants.MESSAGES.INVALID_BOARD_WEB_URL, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
@@ -65,12 +53,6 @@ class BoardUtil {
         if(!validators.isValidStr(data.apiUrl)) {
 
             throw new ApplicationException(BoardConstants.MESSAGES.INVALID_BOARD_API_URL, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
-
-        }
-
-        if(!data.requestType) {
-
-            throw new ApplicationException(BoardConstants.MESSAGES.INVALID_BOARD_REQUEST_TYPE, HTTPStatusCodeConstants.BAD_REQUEST).toJson();
 
         }
 

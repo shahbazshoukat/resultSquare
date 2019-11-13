@@ -49,7 +49,7 @@ class ResultHandler {
 
     const q = {section: sectionId, board: boardId, year: year, examType: examType};
 
-    return Result.findOne(q).populate("section").lean().exec();
+    return Result.findOne(q).populate("section").populate("board").lean().exec();
 
   }
 

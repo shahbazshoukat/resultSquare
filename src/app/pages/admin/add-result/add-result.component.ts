@@ -21,6 +21,7 @@ export class AddResultComponent implements OnInit {
   resultToUpdateId = null;
   isEdit: boolean = false;
   isLoading = true;
+  selectedBoard;
 
   constructor(private resultService: ResultService, private classService: ClassService, private boardService: BoardService, private route: ActivatedRoute, private router: Router) { }
 
@@ -57,6 +58,7 @@ export class AddResultComponent implements OnInit {
       return;
     }
     this.tags.push(form.value.tagTitle);
+    form.resetForm();
   }
 
   removeTag(tag :any){
@@ -71,6 +73,7 @@ export class AddResultComponent implements OnInit {
       return;
     }
     this.params.push(form.value.paramTitle);
+    form.resetForm();
   }
 
   removeParam(param :any){
@@ -116,6 +119,14 @@ export class AddResultComponent implements OnInit {
       });
     }
     form.resetForm();
+  }
+
+  changeBoard(boardId) {
+    this.boardService.getBoardById(boardId).subscribe(response => {
+      this.selectedBoard = response.data;
+      this.params = this.selectedBoard.apiParams;
+      this.tags = this.selectedBoard.tags;
+    });
   }
 
 }

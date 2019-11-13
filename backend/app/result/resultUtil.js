@@ -151,7 +151,9 @@ class ResultUtil {
 
         try {
 
-            cLog.info(`findBiseLahoreResult:: finding result of rollNo:: ${rollNo} from ${result.apiUrl}`);
+            const apiUrl = result.apiUrl;
+
+            cLog.info(`findBiseLahoreResult:: finding result of rollNo:: ${rollNo} from ${apiUrl}`);
 
             let degree;
 
@@ -189,7 +191,7 @@ class ResultUtil {
 
             const options = {
 
-                url: result.apiUrl,
+                url: apiUrl,
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
@@ -228,7 +230,9 @@ class ResultUtil {
 
         try {
 
-            cLog.info(`findBiseGujranwalaResult:: finding result of rollNo:: ${rollNo} from ${result.apiUrl}`);
+            const apiUrl = result.apiUrl;
+
+            cLog.info(`findBiseGujranwalaResult:: finding result of rollNo:: ${rollNo} from ${apiUrl}`);
 
             if (result.apiMode === ResultEnums.API_MODE.URL) {
 
@@ -268,7 +272,7 @@ class ResultUtil {
 
             const options = {
 
-                url: result.apiUrl,
+                url: apiUrl,
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
@@ -293,7 +297,9 @@ class ResultUtil {
 
         } catch (error) {
 
+            cLog.error(`findBiseGujranwalaResult:: Failed to find result, result url:: ${result.apiUrl} header:: `, options.headers, `formData:: `, options.form, error);
 
+            throw error;
 
         }
     }
@@ -302,7 +308,9 @@ class ResultUtil {
 
         try {
 
-            cLog.info(`findBiseSahiwalResult:: finding result of rollNo:: ${rollNo} from ${result.apiUrl}`);
+            const apiUrl = result.apiUrl;
+
+            cLog.info(`findBiseSahiwalResult:: finding result of rollNo:: ${rollNo} from ${apiUrl}`);
 
             let section;
 
@@ -341,7 +349,7 @@ class ResultUtil {
 
             const options = {
 
-                url: result.apiUrl,
+                url: apiUrl,
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
