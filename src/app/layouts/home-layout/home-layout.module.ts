@@ -15,6 +15,7 @@ import { EnterRollNoComponent } from '../../pages/enter-rollno/enter-rollno.comp
 import { ResultPageComponent } from '../../pages/result-page/result-page.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { ToastrModule } from 'ngx-toastr';
+import { SafePipe } from '../../pipes';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SelectYearComponent,
     SelectExamComponent,
     EnterRollNoComponent,
-    ResultPageComponent
+    ResultPageComponent,
+    SafePipe
   ]
 })
 

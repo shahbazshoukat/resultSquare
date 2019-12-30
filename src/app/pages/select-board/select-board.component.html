@@ -1,5 +1,5 @@
 <div class="header bg-custom pb-8 pt-5 pt-md-0">
- 
+
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
@@ -9,10 +9,13 @@
       <div class="card-header bg-white border-0">
         <div class="row align-items-center">
           <div class="col-8">
-            <h3 class="mb-0">Select Your Board/University</h3>
+            <a [routerLink] = "['/']" class="btn btn-icon btn-2 btn-primary btn-sm">
+              Back
+            </a>
+            <span class="mb-0 h3">Select Your Board/University</span>
           </div>
           <div class="col-4 text-right">
-            <button href="#!" class="btn btn-sm btn-primary" [routerLink] = "['/']">{{selectedClass}}</button>
+            <span class="btn badge badge-primary btn-sm" [routerLink] = "['/']">{{selectedClass}}</span>
           </div>
         </div>
       </div>

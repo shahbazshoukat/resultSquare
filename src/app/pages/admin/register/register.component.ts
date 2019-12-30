@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
     }else{
       return;
     }
-   
+
     form.resetForm();
     this.formStatus = false;
   }

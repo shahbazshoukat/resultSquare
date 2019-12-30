@@ -30,7 +30,7 @@ export class SelectYearComponent implements OnInit {
   }
 
   getResultYears(selectedClass, selectedBoardKey) {
-    this.resultService.getResultYears(selectedClass,this.selectedBoardKey).subscribe(response => {
+    this.resultService.getResultYears(selectedClass, selectedBoardKey).subscribe(response => {
       this.years = response.data;
       console.log(this.years);
     })

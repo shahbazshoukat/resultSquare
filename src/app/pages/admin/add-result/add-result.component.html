@@ -2,11 +2,11 @@
   <!-- Mask -->
   <span class="mask bg-gradient-danger opacity-8"></span>
   <!-- Header container -->
-  
+
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
-   
+
     <div class="col-xl-12 order-xl-1">
       <div class="card bg-secondary shadow">
         <div class="card-header bg-white border-0">
@@ -96,24 +96,7 @@
                      </select>
                     </div>
                   </div>
-                  <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-board">API Mode</label>
-                        <select *ngIf="!selectedBoard" name="apiMode" [ngModel]=" isEdit ? resultToUpdate.apiMode : ''" class="form-control form-control-alternative">
-                          <option value="" disabled>Select API Mode</option>
-                          <option value="0" >API</option>
-                          <option value="1" >Scraping</option>
-                          <option value="2" >URL</option>
-                       </select>
-                       <select *ngIf="selectedBoard" name="apiMode" [ngModel]=" selectedBoard ? selectedBoard.apiMode : ''" class="form-control form-control-alternative">
-                        <option value="" disabled>Select API Mode</option>
-                        <option value="0" >API</option>
-                        <option value="1" >Scraping</option>
-                        <option value="2" >URL</option>
-                     </select>
-                      </div>
-                  </div>
-                  
+
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -124,46 +107,6 @@
                       </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-8">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-address">API URL</label>
-                        <input *ngIf="!selectedBoard" name="apiUrl" [ngModel]=" isEdit ? resultToUpdate.apiUrl : ''" id="input-address" class="form-control form-control-alternative" placeholder="API URL" value="" type="text">
-                        <input *ngIf="selectedBoard" name="apiUrl" [ngModel]=" selectedBoard.apiUrl ? selectedBoard.apiUrl : ''" id="input-address" class="form-control form-control-alternative" placeholder="API URL" value="" type="text">
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-board">Request Type</label>
-                        <select *ngIf="!selectedBoard" name="requestType" [ngModel]=" isEdit ? resultToUpdate.requestType : ''" class="form-control form-control-alternative">
-                          <option value="" disabled>Select Request Type</option>
-                          <option value="0" >GET</option>
-                          <option value="1" >POST</option>
-                       </select>
-                       <select *ngIf="selectedBoard" name="requestType" [ngModel]=" selectedBoard ? selectedBoard.requestType : ''" class="form-control form-control-alternative">
-                        <option value="" disabled>Select Request Type</option>
-                        <option value="0" >GET</option>
-                        <option value="1" >POST</option>
-                     </select>
-                      </div>
-                    </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-8">
-                    <div class="form-group">
-                      <label class="form-control-label" for="input-address">API Params</label>
-                        <form (submit) = "addParam(paramForm)" #paramForm = "ngForm" >
-                          <input name="paramTitle" ngModel id="input-address" class="form-control form-control-alternative" placeholder="Api params" value="" type="text">
-                          <button class="btn btn-sm btn-primary" style="margin-top: 10px;" type="submit"  >Add</button>
-                        </form>
-                    </div>
-                  </div>
-              </div>
-              <div class="row">
-                <div class="col-md-8" *ngFor="let param of params">
-                  <span class="badge badge-primary" (click)="removeParam(param)" >{{param}}</span>
-                </div>
-              </div>
                 <div class="row">
                     <div class="col-md-8">
                       <div class="form-group">

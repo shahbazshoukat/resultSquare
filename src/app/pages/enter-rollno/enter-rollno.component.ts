@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ResultService } from 'src/app/services/result.service';
-import { NgForm } from '@angular/forms';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-enter-rollno',
@@ -23,7 +23,7 @@ export class EnterRollNoComponent implements OnInit {
   result = 'NO RESULT FOUND';
   isLoading = false;
   resultResponseStatus = false;
-  constructor(private route: ActivatedRoute, private resultService: ResultService) { }
+  constructor(private route: ActivatedRoute, private resultService: ResultService, private _location: Location) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -50,32 +50,6 @@ export class EnterRollNoComponent implements OnInit {
       this.resultData = response.data;
       this.tags = response.data.tags;
     })
-  }
-
-  findResult(form: NgForm) {
-    this.isLoading = true;
-    console.log(form);
-    this.formError = false;
-    const regex = /^\d+$/;
-    if(form.invalid) {
-      return;
-    }
-    if(!form.value.rollNo || form.value.rollNo === '' || form.value.rollNo.length !== 6 || !regex.test(form.value.rollNo)) {
-      this.formError = true;
-      this.errorMsg = 'Enter a valid roll no';
-      return;
-    }
-    this.resultService.findResult(form.value.rollNo, this.selectedClass, this.selectedBoardKey, this.selectedYear, this.selectedExamType).subscribe(response => {
-      this.result = response.data;
-      this.isLoading = false;
-      this.resultResponseStatus = true;
-    });
-
-  }
-
-  backToResultPage(){
-    this.resultResponseStatus = false;
-    this.isLoading = false;
   }
 
 }

@@ -19,11 +19,7 @@ export class ResultService{
     year: string,
     announceDate: string,
     examType: number,
-    apiMode: number, //0 = api, 1 = scrapping, 2 = url
     resultUrl: string,
-    apiUrl: string,
-    requestType: number, //0 = GET, 1 = POST
-    apiParams: string[],
     tags: string[]
   ){
     const resultData: Result = {
@@ -34,11 +30,7 @@ export class ResultService{
       year: year,
       announceDate: announceDate,
       examType: examType,
-      apiMode: apiMode, //0 = api, 1 = scrapping, 2 = url
       resultUrl: resultUrl,
-      apiUrl: apiUrl,
-      requestType: requestType, //0 = GET, 1 = POST
-      apiParams: apiParams,
       tags: tags
     };
     return this.http.post<{success: boolean, message: string, data: any}>(BACKEND_URL + '/result', resultData);
@@ -64,7 +56,7 @@ export class ResultService{
     return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + `/result/${section}/${board}/${year}/${exam}/${rollNo}`);
   }
 
-  updateResult( 
+  updateResult(
     resultId: string,
     status: boolean,
     section: string,
@@ -72,25 +64,17 @@ export class ResultService{
     year: string,
     announceDate: string,
     examType: number,
-    apiMode: number, //0 = api, 1 = scrapping, 2 = url
     resultUrl: string,
-    apiUrl: string,
-    requestType: number, //0 = GET, 1 = POST
-    apiParams: string[],
     tags: string[]
   ) {
-    const update = { 
+    const update = {
       status: status,
       sectionId: section,
       boardId: boardId,
       year: year,
       announceDate: announceDate,
       examType: examType,
-      apiMode: apiMode, //0 = api, 1 = scrapping, 2 = url
       resultUrl: resultUrl,
-      apiUrl: apiUrl,
-      requestType: requestType, //0 = GET, 1 = POST
-      apiParams: apiParams,
       tags: tags
      };
       return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateResult/" + resultId, update);

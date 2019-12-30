@@ -30,21 +30,13 @@ export class SelectBoardComponent implements OnInit {
       this.loading = true;
       if(paramMap.has("classTitle")) {
         this.selectedClass = paramMap.get("classTitle");
-        this.getClassByTitle(this.selectedClass);
+        this.getBoardsBySectionTitle(this.selectedClass);
       }
     });
   }
 
-  getClassByTitle(title) {
-    this.classService.getClassByTitle(title).subscribe(response => {
-      this.selectedSection = response.data;
-      console.log(this.selectedSection);
-      this.getBoardsBySectionId(this.selectedSection._id);
-    });
-  }
-
-  getBoardsBySectionId(id) {
-    this.boardService.getBoardBySectionId(id).subscribe(response => {
+  getBoardsBySectionTitle(title) {
+    this.boardService.getBoardBySectionTitle(title).subscribe(response => {
       this.boards = response.data;
       console.log(this.boards);
       this.sortBoardsByProvince();

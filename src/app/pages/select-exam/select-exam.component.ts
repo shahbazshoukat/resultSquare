@@ -19,7 +19,7 @@ export class SelectExamComponent implements OnInit {
     this.examTypes = {
       annual: "annual",
       supply: "supply"
-    }
+    };
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if(paramMap.has("boardKey")) {
         this.selectedBoardKey = paramMap.get("boardKey");

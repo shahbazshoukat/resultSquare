@@ -84,7 +84,7 @@ export class AddBoardComponent implements OnInit {
         this.isLoading = false;
       }
     });
-    
+
   }
 
   addTag(form: NgForm) {
@@ -95,17 +95,6 @@ export class AddBoardComponent implements OnInit {
     const index = this.tags.indexOf(tag, 0);
     if (index > -1) {
       this.tags.splice(index, 1);
-    }
-  }
-
-  addParam(form: NgForm) {
-    this.params.push(form.value.paramTitle);
-  }
-
-  removeParam(param: any) {
-    const index = this.params.indexOf(param, 0);
-    if (index > -1) {
-      this.params.splice(index, 1);
     }
   }
 
@@ -123,7 +112,7 @@ export class AddBoardComponent implements OnInit {
       this.selectedCls.push(cls._id);
     });
     if(this.isEdit && this.boardToUpdateId){
-      this.boardService.updateBoard(this.boardToUpdateId, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.apiMode, form.value.webUrl, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags)
+      this.boardService.updateBoard(this.boardToUpdateId, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls,  form.value.webUrl, form.value.resultUrl, this.tags)
       .subscribe(response => {
         if(response) {
           this.isLoading = false;
@@ -140,7 +129,7 @@ export class AddBoardComponent implements OnInit {
       })
     }
     else{
-      this.boardService.addBoard(null, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.apiMode, form.value.webUrl, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags)
+      this.boardService.addBoard(null, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.webUrl, form.value.resultUrl, this.tags)
       .subscribe(response => {
         if(response) {
           this.isLoading = false;

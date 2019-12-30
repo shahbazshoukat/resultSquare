@@ -68,21 +68,6 @@ export class AddResultComponent implements OnInit {
     }
   }
 
-  addParam(form: NgForm) {
-    if(form.invalid){
-      return;
-    }
-    this.params.push(form.value.paramTitle);
-    form.resetForm();
-  }
-
-  removeParam(param :any){
-    const index = this.params.indexOf(param, 0);
-    if(index > -1) {
-      this.params.splice(index, 1);
-    }
-  }
-
   cancel() {
     this.isEdit = false;
     this.router.navigate(["/rs-admin/results"]);
@@ -97,7 +82,7 @@ export class AddResultComponent implements OnInit {
       form.value.status = false;
     }
     if(this.isEdit && this.resultToUpdateId) {
-      this.resultService.updateResult(this.resultToUpdateId, form.value.status,form.value.clas, form.value.board, form.value.year, form.value.announceDate, form.value.examType, form.value.apiMode, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags ).subscribe(response => {
+      this.resultService.updateResult(this.resultToUpdateId, form.value.status,form.value.clas, form.value.board, form.value.year, form.value.announceDate, form.value.examType, form.value.resultUrl, this.tags ).subscribe(response => {
         if(response.success && response.message) {
           this.isLoading = false;
           alert(response.message);
@@ -106,10 +91,10 @@ export class AddResultComponent implements OnInit {
           this.tags = [];
           this.router.navigate(["/rs-admin/results"]);
         }
-      })    
+      })
     }
     else{
-      this.resultService.addResult(null, form.value.status,form.value.clas, form.value.board, form.value.year, form.value.announceDate, form.value.examType, form.value.apiMode, form.value.resultUrl, form.value.apiUrl, form.value.requestType, this.params, this.tags ).subscribe(response => {
+      this.resultService.addResult(null, form.value.status,form.value.clas, form.value.board, form.value.year, form.value.announceDate, form.value.examType, form.value.resultUrl,this.tags ).subscribe(response => {
         if(response.success && response.message) {
           this.isLoading = false;
           alert(response.message);

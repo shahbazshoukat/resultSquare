@@ -1,5 +1,5 @@
 <div class="header bg-custom pb-8 pt-5 pt-md-0">
- 
+
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--7 bg-secondary">
@@ -9,20 +9,17 @@
       <div class="card-header bg-secondary border-0">
         <div class="row align-items-center">
           <div class="col-3">
-            <h3 class="mb-0">Enter Roll No</h3>
+            <a [routerLink] = "['/result'+'/'+selectedClass+'/'+selectedBoardKey, selectedYear]" class="btn btn-icon btn-2 btn-primary btn-sm">
+              Back
+            </a>
+            <span class="mb-0 h3">Result</span>
           </div>
-          <div *ngIf="!resultResponseStatus" class="col-9 text-right">
-              <a class="btn btn-sm btn-primary" [routerLink] = "['/']" >{{selectedClass}}</a>
-              <i class="ni ni-bold-right" ></i>
-              <a class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result', selectedClass]"  >{{selectedBoard}}</a>
-              <i class="ni ni-bold-right" ></i>
-              <a class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</a>
-              <i class="ni ni-bold-right" ></i>
-              <a class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass+'/'+selectedBoardKey, selectedYear]" >{{selectedExamType}}</a>
+          <div class="col-9 text-right">
+              <span class="btn btn-sm badge badge-primary" [routerLink] = "['/']" >{{selectedClass}}</span>
+              <span class="btn btn-sm badge badge-primary ml-1" [routerLink] = "['/result', selectedClass]"  >{{selectedBoard}}</span>
+              <span class="btn btn-sm badge badge-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</span>
+              <span class="btn btn-sm badge badge-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass+'/'+selectedBoardKey, selectedYear]" >{{selectedExamType}}</span>
           </div>
-          <div *ngIf="resultResponseStatus" class="col-9 text-right">
-            <button class="btn btn-sm btn-primary" (click) = "backToResultPage()">Back To Result Page</button>
-        </div>
         </div>
       </div>
       <div class="row justify-content-center border-2 mt-100" >
@@ -31,52 +28,25 @@
               <div class="card-body">
                 <div class="text-center">
                   <span style="font-size: 25px; font-weight: bolder;" >{{resultTitle}}</span>
-                </div>               
+                </div>
               </div>
             </div>
           </div>
       </div>
-      <div *ngIf="!isLoading && !resultResponseStatus" class="row justify-content-center border-2" style="padding: 50px;" >
-         
-        <div class="col-lg-5 col-md-7 " style="border-radius: 10px; background-color: #ebebeb;">
-          <div class="card border-0" style="background-color: #ebebeb;" >
-            <div class="card-header pb-5" style="background-color: #ebebeb;"  >
-              <div class="text-center">
-                <img src="../../../assets/img/boards/blhr.png" width="85px" height="85px" >
-              </div>
-              <div class="text-muted text-center mt-5 mb-3">
-                <h2>
-                    {{resultTitle}}
-                </h2>
-              </div>
-             
-            </div>
-            <div class="card-body px-lg-5 py-lg-5">
-              <form role="form" (submit)="findResult(rollNoForm)" #rollNoForm = "ngForm">
-                <div class="form-group">
-                  <div class="form-group">
-                    <input id="input-address" name="rollNo" ngModel class="form-control form-control-alternative" placeholder="Enter your roll no" value="" type="text">
-                    <span *ngIf="formError" style="color:red;" >{{errorMsg}}</span>
-                  </div>
-                </div>
-                <div class="text-center">
-                  <button type="button" class="btn btn-primary my-4" type="submit" >View Result</button>
-                </div>
-              </form>
-            </div>
+
+      <div class="row justify-content-center border-2 mt-100" >
+        <div class="col-lg-9 col-md-9 ">
+          <div class="card border-0 shadow">
+            <iframe class="custom-iframe" [src]="resultData?.resultUrl | safe"></iframe>
           </div>
         </div>
       </div>
-
-      <div *ngIf="isLoading" class="loader" ></div>
-
-      <div *ngIf="resultResponseStatus" [innerHtml] = "result" ></div>
 
 
       <div class="row justify-content-center border-2 mt-100" >
           <div class="col-lg-5 col-md-7 ">
             <div class="card border-0">
-             
+
               <div class="card-body px-lg-5 py-lg-5">
                 <div class="text-center text-muted mb-4">
                   <small>Tags:</small>

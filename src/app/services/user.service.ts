@@ -56,6 +56,7 @@ export class UsersService {
       email: email,
       password: password
     };
+    console.log(user);
     this.http.post(BACKEND_URL + "/signup", user).subscribe(response => {
       console.log(response);
     });
