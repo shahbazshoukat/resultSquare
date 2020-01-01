@@ -5,7 +5,6 @@ import { ClassService } from 'src/app/services/class.service';
 import { BoardService } from 'src/app/services/board.service';
 import { Route } from '@angular/compiler/src/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { pipe } from '@angular/core/src/render3';
 import { catchError} from 'rxjs/operators';
 import { throwError } from 'rxjs';
 

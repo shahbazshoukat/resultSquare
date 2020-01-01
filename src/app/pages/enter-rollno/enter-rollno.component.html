@@ -35,9 +35,33 @@
       </div>
 
       <div class="row justify-content-center border-2 mt-100" >
-        <div class="col-lg-9 col-md-9 ">
-          <div class="card border-0 shadow">
-            <iframe class="custom-iframe" [src]="resultData?.resultUrl | safe"></iframe>
+        <div>
+          <ng-lottie *ngIf="!announced" width="400px" height="400px" [options]="notAnnouncedAnimOptions" (animationCreated)="notAnnouncedAnimationCreated($event)"></ng-lottie>
+        </div>
+        <div class="col-9 mt-100" *ngIf="announced">
+          <div class="row" style="padding: 30px">
+            <div class="col-6 text-left">
+              <button class="btn btn-primary btn-sm">Back To Result Page</button>
+            </div>
+            <div class="col-6 text-right">
+              <button class="btn badge-primary btn-sm">Print</button>
+              <button class="btn badge-success btn-sm">Share</button>
+            </div>
+          </div>
+          <div class="card border-0 shadow bg-secondary">
+            <iframe class="custom-iframe" [src]="url | safe"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center border-2 mt-100" *ngIf="!announced">
+        <div class="col-12 text-center">
+          <div >
+            <span class="badge badge-default">Not announced</span>
+          </div>
+          <div style="margin-top: 30px;" *ngIf="resultData && resultData.announceDate">
+            <span>Will be announced on </span>
+            <span class="badge badge-primary btn-sm">{{announceDate}}</span>
           </div>
         </div>
       </div>

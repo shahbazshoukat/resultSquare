@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ResultService } from 'src/app/services/result.service';
 import {Location} from '@angular/common';
+import { AnimationItem } from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'app-enter-rollno',
@@ -17,12 +19,18 @@ export class EnterRollNoComponent implements OnInit {
   selectedBoard;
   resultTitle;
   resultData;
-  tags;
-  formError = false;
-  errorMsg = '';
+  tags = [];
   result = 'NO RESULT FOUND';
   isLoading = false;
-  resultResponseStatus = false;
+  url = '';
+  announced = false;
+  announceDate = '';
+  notAnnouncedAnimOptions: AnimationOptions = {
+    path: '/assets/lib/not-announced.json'
+  };
+
+  notAnnouncedAnim: AnimationItem;
+
   constructor(private route: ActivatedRoute, private resultService: ResultService, private _location: Location) { }
 
   ngOnInit() {
@@ -45,10 +53,36 @@ export class EnterRollNoComponent implements OnInit {
     });
   }
 
+  notAnnouncedAnimationCreated(animationItem: AnimationItem): void {
+
+    this.notAnnouncedAnim = animationItem;
+
+  }
+
   getResult() {
+    this.announced = false;
     this.resultService.getResult(this.selectedClass, this.selectedBoardKey, this.selectedYear, this.selectedExamType).subscribe(response => {
       this.resultData = response.data;
-      this.tags = response.data.tags;
+      if (this.resultData) {
+
+        this.announced = this.resultData.status;
+
+        if (this.resultData.announceDate && this.resultData.announceDate.day && this.resultData.announceDate.month && this.resultData.announceDate.year) {
+
+          this.announceDate = `${this.resultData.announceDate.day}/${this.resultData.announceDate.month}/${this.resultData.announceDate.year}`;
+
+        }
+
+        this.tags = this.resultData.tags;
+
+        this.url = this.resultData.resultUrl;
+
+      } else {
+
+        console.log('page not found');
+
+      }
+
     })
   }
 

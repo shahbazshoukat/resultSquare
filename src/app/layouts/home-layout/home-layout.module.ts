@@ -4,8 +4,6 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ClipboardModule } from 'ngx-clipboard';
-
 import { HomeLayoutRoutes } from './home-layout.routing';
 import { HomeComponent } from '../../pages/home/home.component';
 import { SelectBoardComponent } from '../../pages/select-board/select-board.component';
@@ -16,6 +14,11 @@ import { ResultPageComponent } from '../../pages/result-page/result-page.compone
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { ToastrModule } from 'ngx-toastr';
 import { SafePipe } from '../../pipes';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   imports: [
@@ -24,7 +27,7 @@ import { SafePipe } from '../../pipes';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    ClipboardModule
+    LottieModule.forRoot({ player: playerFactory })
   ],
   declarations: [
     HomeComponent,
