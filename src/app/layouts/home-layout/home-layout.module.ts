@@ -11,6 +11,8 @@ import { SelectYearComponent } from '../../pages/select-year/select-year.compone
 import { SelectExamComponent } from '../../pages/select-exam/select-exam.component';
 import { EnterRollNoComponent } from '../../pages/enter-rollno/enter-rollno.component';
 import { ResultPageComponent } from '../../pages/result-page/result-page.component';
+
+import {NgxPrintModule} from 'ngx-print';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { ToastrModule } from 'ngx-toastr';
 import { SafePipe } from '../../pipes';
@@ -27,7 +29,8 @@ export function playerFactory() {
     FormsModule,
     HttpClientModule,
     NgbModule,
-    LottieModule.forRoot({ player: playerFactory })
+    LottieModule.forRoot({ player: playerFactory, useCache: true }),
+    NgxPrintModule
   ],
   declarations: [
     HomeComponent,

@@ -5,7 +5,6 @@ import { SelectBoardComponent } from '../../pages/select-board/select-board.comp
 import {SelectYearComponent} from '../../pages/select-year/select-year.component';
 import {SelectExamComponent} from '../../pages/select-exam/select-exam.component';
 import { EnterRollNoComponent } from '../../pages/enter-rollno/enter-rollno.component';
-import { ResultPageComponent } from '../../pages/result-page/result-page.component';
 
 export const HomeLayoutRoutes: Routes = [
     { path: '',         component: HomeComponent },
@@ -13,5 +12,5 @@ export const HomeLayoutRoutes: Routes = [
     { path: 'result/:classTitle/:boardKey', component: SelectYearComponent },
     { path: 'result/:classTitle/:boardKey/:year', component: SelectExamComponent},
     { path: 'result/:classTitle/:boardKey/:year/:examType', component: EnterRollNoComponent},
-    { path: 'result-page', component: ResultPageComponent}
+    { path: '**', redirectTo: '' }
 ];

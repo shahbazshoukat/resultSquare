@@ -87,7 +87,6 @@ export class ResultService{
 
   changeResultStatus(resultId: string, value: boolean) {
     const update = {status: value};
-    console.log(update);
     return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateStatus/" + resultId, update);
   }
 

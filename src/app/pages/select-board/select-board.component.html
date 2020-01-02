@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body">
+      <div class="card-body" *ngIf="!isError">
 
           <h6 class="heading-small text-muted mb-4">Federal Boards</h6>
           <div class="pl-lg-4">
@@ -80,7 +80,24 @@
             </div>
           </div>
           <hr class="my-4" />
-          <div *ngIf="isLoading" class="loader"></div>
+        <div *ngIf="isLoading" class="loader">
+          <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+        </div>
+      </div>
+      <div *ngIf="isError" class="table-responsive classes-main-container justify-content-center">
+        <div class="row justify-content-center">
+          <div class="bg-transparent">
+            <div class="text-center">
+              <ng-lottie width="300px" height="300px" [options]="errorAnimOptions" (animationCreated)="errorAnimationCreated($event)"></ng-lottie>
+            </div>
+            <div class="text-center">
+              <span class="text-lg">{{errorMsg}}</span>
+            </div>
+            <div class="text-center" style="margin-top: 30px;">
+              <span class="btn btn-primary" (click)="backToHome()">Back to Home</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
