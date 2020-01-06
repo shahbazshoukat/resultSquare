@@ -1,13 +1,13 @@
-import {Result} from "../models/result.model";
+import {Result} from '../models/result.model';
 import { Injectable } from '@angular/core';
-import {Subject, Observable} from "rxjs";
+import {Subject, Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
-import {environment} from "../../environments/environment";
+import {environment} from '../../environments/environment';
 const BACKEND_URL = environment.apiURL;
 
-@Injectable({providedIn:'root'})
-export class ResultService{
+@Injectable({providedIn: 'root'})
+export class ResultService {
 
   constructor (private http: HttpClient) {}
 
@@ -21,7 +21,7 @@ export class ResultService{
     examType: number,
     resultUrl: string,
     tags: string[]
-  ){
+  ) {
     const resultData: Result = {
       _id: _id,
       status: status,
@@ -36,7 +36,7 @@ export class ResultService{
     return this.http.post<{success: boolean, message: string, data: any}>(BACKEND_URL + '/result', resultData);
   }
 
-  getAllResultes(){
+  getAllResultes() {
     return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/results');
   }
 
@@ -77,17 +77,17 @@ export class ResultService{
       resultUrl: resultUrl,
       tags: tags
      };
-      return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateResult/" + resultId, update);
+      return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  '/updateResult/' + resultId, update);
   }
 
 
   deleteResult(resultId: string) {
-    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + "/deleteResult/" + resultId);
+    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + '/deleteResult/' + resultId);
   }
 
   changeResultStatus(resultId: string, value: boolean) {
     const update = {status: value};
-    return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateStatus/" + resultId, update);
+    return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  '/updateStatus/' + resultId, update);
   }
 
 }

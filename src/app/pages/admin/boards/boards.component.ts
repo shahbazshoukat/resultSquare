@@ -17,28 +17,28 @@ export class BoardsComponent implements OnInit {
 
   ngOnInit() {
     this.boardService.getAllBoardes().subscribe(response => {
-      if(response.success && response.data){
+      if (response.success && response.data) {
         this.boards = response.data;
         this.isLoading = false;
       }
-    })
+    });
   }
 
-  removeBoard(boardId){
+  removeBoard(boardId) {
     this.boardService.deleteBoard(boardId).subscribe(response => {
-      if(response.success && response.message && response.data) {
+      if (response.success && response.message && response.data) {
        this.boards.forEach((board, index) => {
-         if(board._id === boardId) {
+         if (board._id === boardId) {
             this.boards.splice(index, 1);
          }
-       })
+       });
         alert(response.message);
       }
-    })
+    });
   }
 
-  editBoard(boardId: any){
-    this.router.navigate(["/rs-admin/add-board", {boardId: boardId}]);
+  editBoard(boardId: any) {
+    this.router.navigate(['/rs-admin/add-board', {boardId: boardId}]);
   }
 
 }

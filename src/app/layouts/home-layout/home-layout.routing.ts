@@ -1,5 +1,5 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../pages/home/home.component';
 import { SelectBoardComponent } from '../../pages/select-board/select-board.component';
 import {SelectYearComponent} from '../../pages/select-year/select-year.component';
@@ -12,5 +12,7 @@ export const HomeLayoutRoutes: Routes = [
     { path: 'result/:classTitle/:boardKey', component: SelectYearComponent },
     { path: 'result/:classTitle/:boardKey/:year', component: SelectExamComponent},
     { path: 'result/:classTitle/:boardKey/:year/:examType', component: EnterRollNoComponent},
+    { path: 'test/:testTitle', component: EnterRollNoComponent},
+    { path: 'uni/:classTitle/:uniKey', component: EnterRollNoComponent},
     { path: '**', redirectTo: '' }
 ];

@@ -3,8 +3,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { BoardService } from 'src/app/services/board.service';
 import { Board } from 'src/app/models/board.model';
 import { ClassService } from 'src/app/services/class.service';
-import {AnimationOptions} from "ngx-lottie";
-import {AnimationItem} from "lottie-web";
+import {AnimationOptions} from 'ngx-lottie';
+import {AnimationItem} from 'lottie-web';
 import * as Enums from '../../app.enums';
 
 @Component({
@@ -14,7 +14,7 @@ import * as Enums from '../../app.enums';
 })
 export class SelectBoardComponent implements OnInit, OnDestroy {
 
-  constructor(private router : Router, private route: ActivatedRoute, private boardService: BoardService, private classService: ClassService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private boardService: BoardService, private classService: ClassService) { }
   boards: Board[] = [];
   punjabBoards = [];
   kpkBoards = [];
@@ -45,9 +45,9 @@ export class SelectBoardComponent implements OnInit, OnDestroy {
 
       this.isLoading = true;
 
-      if(paramMap.has("classTitle")) {
+      if (paramMap.has('classTitle')) {
 
-        this.selectedClass = paramMap.get("classTitle");
+        this.selectedClass = paramMap.get('classTitle');
 
         this.getBoardsBySectionTitle();
 
@@ -128,37 +128,27 @@ export class SelectBoardComponent implements OnInit, OnDestroy {
 
       if (board && board.province) {
 
-        if(board.province === Enums.PROVINCE.PUNJAB){
+        if (board.province === Enums.PROVINCE.PUNJAB) {
 
           this.punjabBoards.push(board);
 
-        }
-
-        else if(board.province === Enums.PROVINCE.KPK) {
+        } else if (board.province === Enums.PROVINCE.KPK) {
 
           this.kpkBoards.push(board);
 
-        }
-
-        else if(board.province === Enums.PROVINCE.SINDH) {
+        } else if (board.province === Enums.PROVINCE.SINDH) {
 
           this.sindhBoards.push(board);
 
-        }
-
-        else if(board.province === Enums.PROVINCE.BALOCHISTAN) {
+        } else if (board.province === Enums.PROVINCE.BALOCHISTAN) {
 
           this.balochBoards.push(board);
 
-        }
-
-        else if(board.province === Enums.PROVINCE.AJK) {
+        } else if (board.province === Enums.PROVINCE.AJK) {
 
           this.ajkBoards.push(board);
 
-        }
-
-        else if(board.province === Enums.PROVINCE.FEDERAL) {
+        } else if (board.province === Enums.PROVINCE.FEDERAL) {
 
           this.federalBoards.push(board);
 

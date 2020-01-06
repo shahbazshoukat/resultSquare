@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   errorAnim: AnimationItem;
 
-  constructor(private router : Router, private classService: ClassService) { }
+  constructor(private router: Router, private classService: ClassService) { }
 
   ngOnInit() {
     this.init();
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.errorMsg = '';
     this.serviceSub = this.classService.getAllClasses().subscribe(
       response => {
-        if(response.success && response.data) {
+        if (response.success && response.data) {
 
           this.classes = response.data;
           if (!this.classes || this.classes.length === 0) {

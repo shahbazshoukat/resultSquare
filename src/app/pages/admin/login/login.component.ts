@@ -10,19 +10,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  errorMessage = "";
+  errorMessage = '';
   isValid = true;
-  private userSub : Subscription;
+  private userSub: Subscription;
   constructor(private usersService: UsersService, private router: Router) {}
 
-  async loginUser(form: NgForm){
-    if(form.invalid){
+  async loginUser(form: NgForm) {
+    if (form.invalid) {
       return;
     }
     await this.usersService.loginUser(form.value.email, form.value.password);
     this.isValid = this.usersService.getIsAuth();
-    if(!this.isValid){
-      this.errorMessage = "username or password incorrect";
+    if (!this.isValid) {
+      this.errorMessage = 'username or password incorrect';
     }
 
     form.resetForm();
@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const isAuth = this.usersService.getIsAuth();
-    if(isAuth){
-      this.router.navigate(["/rs-admin/dashboard"]);
+    if (isAuth) {
+      this.router.navigate(['/rs-admin/dashboard']);
     }
   }
   ngOnDestroy() {

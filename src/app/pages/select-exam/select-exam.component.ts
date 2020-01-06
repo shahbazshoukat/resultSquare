@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import {AnimationOptions} from "ngx-lottie";
-import {AnimationItem} from "lottie-web";
+import {AnimationOptions} from 'ngx-lottie';
+import {AnimationItem} from 'lottie-web';
 
 @Component({
   selector: 'app-select-exam',
@@ -29,15 +29,15 @@ export class SelectExamComponent implements OnInit, OnDestroy {
 
   errorAnim: AnimationItem;
 
-  constructor(private router : Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
     this.examTypes = {
 
-      annual: "annual",
+      annual: 'annual',
 
-      supply: "supply"
+      supply: 'supply'
 
     };
 
@@ -49,21 +49,21 @@ export class SelectExamComponent implements OnInit, OnDestroy {
 
       this.errorMsg = '';
 
-      if(paramMap.has("boardKey")) {
+      if (paramMap.has('boardKey')) {
 
-        this.selectedBoardKey = paramMap.get("boardKey");
-
-      }
-
-      if(paramMap.has("classTitle")) {
-
-        this.selectedClass = paramMap.get("classTitle");
+        this.selectedBoardKey = paramMap.get('boardKey');
 
       }
 
-      if(paramMap.has("year")) {
+      if (paramMap.has('classTitle')) {
 
-        this.selectedYear = paramMap.get("year");
+        this.selectedClass = paramMap.get('classTitle');
+
+      }
+
+      if (paramMap.has('year')) {
+
+        this.selectedYear = paramMap.get('year');
 
         this.isLoading = false;
 

@@ -38,7 +38,7 @@
                       <option value="Sindh" >Sindh</option>
                       <option value="Balochistan" >Balochistan</option>
                       <option value="AJK" >AJK</option>
-                      <option value="Federal" >AJK</option>
+                      <option value="Federal" >Federal</option>
                    </select>
                   </div>
                 </div>
@@ -83,6 +83,16 @@
                         </ng-multiselect-dropdown>
                       </div>
                     </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-board">Type</label>
+                    <select name="type" [ngModel]="isEdit ? boardToUpdate.type : ''" class="form-control form-control-alternative">
+                      <option value="" disabled>Select Type</option>
+                      <option value="1" >Board</option>
+                      <option value="2" >University</option>
+                    </select>
+                  </div>
+                </div>
 
                 </div>
                 <div class="row">

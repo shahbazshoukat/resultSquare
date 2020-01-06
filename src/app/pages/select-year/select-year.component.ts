@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ResultService } from 'src/app/services/result.service';
 import { BoardService } from 'src/app/services/board.service';
-import {AnimationOptions} from "ngx-lottie";
-import {AnimationItem} from "lottie-web";
+import {AnimationOptions} from 'ngx-lottie';
+import {AnimationItem} from 'lottie-web';
 
 @Component({
   selector: 'app-select-year',
@@ -32,23 +32,23 @@ export class SelectYearComponent implements OnInit, OnDestroy {
 
   errorAnim: AnimationItem;
 
-  constructor(private router : Router, private resultService: ResultService, private boardService: BoardService, private route: ActivatedRoute) { }
+  constructor(private router: Router, private resultService: ResultService, private boardService: BoardService, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
     this.paramSub = this.route.paramMap.subscribe((paramMap: ParamMap) => {
 
-      if(paramMap.has("boardKey")) {
+      if (paramMap.has('boardKey')) {
 
-        this.selectedBoardKey = paramMap.get("boardKey");
+        this.selectedBoardKey = paramMap.get('boardKey');
 
         this.selectedBoard = this.selectedBoardKey.replace(/-/g, ' ');
 
       }
 
-      if(paramMap.has("classTitle")) {
+      if (paramMap.has('classTitle')) {
 
-        this.selectedClass = paramMap.get("classTitle");
+        this.selectedClass = paramMap.get('classTitle');
 
         this.getResultYears();
 
@@ -89,7 +89,7 @@ export class SelectYearComponent implements OnInit, OnDestroy {
 
             this.isError = true;
 
-            this.errorMsg = `No Year Found With Class ${this.selectedClass} & ${this.selectedBoard}.`;
+            this.errorMsg = `No Year Found`;
 
           }
 

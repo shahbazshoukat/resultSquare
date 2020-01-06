@@ -10,26 +10,26 @@ import { Class } from '../../../models/class.model';
 })
 export class AddClassComponent implements OnInit {
 
-  classToEdit: Class ={
+  classToEdit: Class = {
     _id: null,
     title: null,
     type: null
-  }
+  };
   isEdit = false;
   isLoading = true;
-  constructor(private classService : ClassService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private classService: ClassService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if(paramMap.has("classId")){
+      if (paramMap.has('classId')) {
         this.isEdit = true;
-        this.classToEdit._id = paramMap.get("classId");
+        this.classToEdit._id = paramMap.get('classId');
       }
-      if(paramMap.has("classTitle")){
-        this.classToEdit.title = paramMap.get("classTitle");
+      if (paramMap.has('classTitle')) {
+        this.classToEdit.title = paramMap.get('classTitle');
       }
-      if(paramMap.has("classType")){
-        this.classToEdit.type = paramMap.get("classType");
+      if (paramMap.has('classType')) {
+        this.classToEdit.type = paramMap.get('classType');
       }
       this.isLoading = false;
     });
@@ -37,31 +37,30 @@ export class AddClassComponent implements OnInit {
 
   cancel() {
     this.isEdit = false;
-    this.router.navigate(["/rs-admin/classes"]);
+    this.router.navigate(['/rs-admin/classes']);
   }
 
-  addClass(form : NgForm){
+  addClass(form: NgForm) {
     this.isLoading = true;
-    if(form.invalid){
+    if (form.invalid) {
       return;
     }
-    if(this.isEdit && this.classToEdit._id ){
+    if (this.isEdit && this.classToEdit._id ) {
       this.classService.updateClass(this.classToEdit._id, form.value.title, form.value.type).subscribe(response => {
-        if(response.success && response.message){
+        if (response.success && response.message) {
           this.isLoading = false;
           alert(response.message);
           this.isEdit = false;
-          this.router.navigate(["/rs-admin/classes"]);
+          this.router.navigate(['/rs-admin/classes']);
         }
-      })
-    }
-    else{
-      this.classService.addClass(form.value.title, form.value.type).subscribe(response =>{
-        if(response.success && response.message){
+      });
+    } else {
+      this.classService.addClass(form.value.title, form.value.type).subscribe(response => {
+        if (response.success && response.message) {
           this.isLoading = false;
           alert(response.message);
         }
-      })
+      });
     }
     form.resetForm();
   }

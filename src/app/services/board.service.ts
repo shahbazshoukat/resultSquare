@@ -1,13 +1,13 @@
-import {Board} from "../models/board.model";
+import {Board} from '../models/board.model';
 import { Injectable } from '@angular/core';
-import {Subject, Observable} from "rxjs";
+import {Subject, Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
-import {environment} from "../../environments/environment";
+import {environment} from '../../environments/environment';
 const BACKEND_URL = environment.apiURL;
 
-@Injectable({providedIn:'root'})
-export class BoardService{
+@Injectable({providedIn: 'root'})
+export class BoardService {
 
   constructor (private http: HttpClient) {}
 
@@ -19,19 +19,20 @@ export class BoardService{
     city: string,
     examTypes: object[],
     sections: string[],
+    type: string,
     webUrl: string,
     resultUrl: string,
     tags: string[]
-  ): Observable<any>
-  {
+  ): Observable<any> {
     const boardData: Board = {
       _id: _id,
-      key: title.replace(/\s/g, "-"),
+      key: title.replace(/\s/g, '-'),
       title: title,
       province: province,
       city: city,
       examTypes: examTypes,
       sections: sections,
+      type: type,
       webUrl: webUrl,
       resultUrl: resultUrl,
       tags: tags
@@ -39,7 +40,7 @@ export class BoardService{
     return this.http.post<{success: boolean, message: string, data: any}>(BACKEND_URL + '/board', boardData);
   }
 
-  getAllBoardes(): Observable<any>{
+  getAllBoardes(): Observable<any> {
     return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/boards');
   }
 
@@ -63,29 +64,30 @@ export class BoardService{
     city: string,
     examTypes: object[],
     sections: string[],
+    type: string,
     webUrl: string,
     resultUrl: string,
     tags: string[]
-  ): Observable<any>
-   {
+  ): Observable<any> {
     const update = {
-      key: title.replace(/\s/g, "-"),
+      key: title.replace(/\s/g, '-'),
       title: title,
       province: province,
       city: city,
       examTypes: examTypes,
       sections: sections,
+      type: type,
       webUrl: webUrl,
       resultUrl: resultUrl,
       tags: tags
      };
 
-     return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateBoard/" + boardId, update);
+     return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  '/updateBoard/' + boardId, update);
   }
 
 
   deleteBoard(boardId: string): Observable<any> {
-    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + "/deleteBoard/" + boardId);
+    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + '/deleteBoard/' + boardId);
   }
 
 }

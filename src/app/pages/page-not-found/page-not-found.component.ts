@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AnimationOptions} from "ngx-lottie";
-import {AnimationItem} from "lottie-web";
-import {Router} from "@angular/router";
+import {AnimationOptions} from 'ngx-lottie';
+import {AnimationItem} from 'lottie-web';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-page-not-found',

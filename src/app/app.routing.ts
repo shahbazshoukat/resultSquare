@@ -9,7 +9,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { AuthGuard } from './guards/auth.guard';
 import {PageNotFoundComponent} from './pages/page-not-found/page-not-found.component';
 
-const routes: Routes =[
+const routes: Routes = [
   { path: '404', component: PageNotFoundComponent},
   {
     path: 'rs-admin',

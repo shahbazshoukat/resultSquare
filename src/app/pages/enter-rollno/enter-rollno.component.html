@@ -9,16 +9,18 @@
       <div class="card-header bg-secondary border-0">
         <div class="row align-items-center">
           <div class="col-3">
-            <a [routerLink] = "['/result'+'/'+selectedClass+'/'+selectedBoardKey, selectedYear]" class="btn btn-icon btn-2 btn-primary btn-sm">
+            <button (click)="goBack()" class="btn btn-icon btn-2 btn-primary btn-sm">
               Back
-            </a>
+            </button>
             <span class="mb-0 h3">Result</span>
           </div>
           <div class="col-9 text-right">
-              <span class="btn btn-sm badge badge-primary" [routerLink] = "['/']" >{{selectedClass}}</span>
-              <span class="btn btn-sm badge badge-primary ml-1" [routerLink] = "['/result', selectedClass]"  >{{selectedBoard}}</span>
-              <span class="btn btn-sm badge badge-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</span>
-              <span class="btn btn-sm badge badge-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass+'/'+selectedBoardKey, selectedYear]" >{{selectedExamType}}</span>
+              <span class="btn btn-sm badge badge-primary" *ngIf="selectedClass" [routerLink] = "['/']" >{{selectedClass}}</span>
+            <span class="btn btn-sm badge badge-primary" *ngIf="selectedTest" [routerLink] = "['/']" >{{selectedTest}}</span>
+            <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedBoard" [routerLink] = "['/result', selectedClass]"  >{{selectedBoard}}</span>
+            <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedUni" [routerLink] = "['/result', selectedClass]"  >{{selectedUni}}</span>
+            <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedYear" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</span>
+              <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedExamType" [routerLink] = "['/result'+'/'+selectedClass+'/'+selectedBoardKey, selectedYear]" >{{selectedExamType}}</span>
           </div>
         </div>
       </div>
@@ -36,16 +38,12 @@
 
       <div *ngIf="!isError" class="row justify-content-center border-2 mt-100" id="print" >
         <div>
-          <ng-lottie *ngIf="!announced" width="400px" height="400px" [options]="notAnnouncedAnimOptions" (animationCreated)="notAnnouncedAnimationCreated($event)"></ng-lottie>
+          <ng-lottie *ngIf="!announced && !isLoading" width="400px" height="400px" [options]="notAnnouncedAnimOptions" (animationCreated)="notAnnouncedAnimationCreated($event)"></ng-lottie>
         </div>
         <div class="col-9 mt-100" *ngIf="announced">
           <div class="row" style="padding: 30px">
             <div class="col-6 text-left">
               <button class="btn btn-primary btn-sm" (click)="reload()">Back To Result Page</button>
-            </div>
-            <div class="col-6 text-right">
-              <button class="btn badge-primary btn-sm">Print</button>
-              <button class="btn badge-success btn-sm">Share</button>
             </div>
           </div>
           <div class="card border-0 shadow bg-secondary">
@@ -54,7 +52,7 @@
         </div>
       </div>
 
-      <div class="row justify-content-center border-2 mt-100" *ngIf="!announced && !isError">
+      <div class="row justify-content-center border-2 mt-100" *ngIf="!announced && !isError && !isLoading">
         <div class="col-12 text-center">
           <div >
             <span class="badge badge-default">Not announced</span>
@@ -85,7 +83,7 @@
       <div *ngIf="isLoading" class="loader">
         <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
       </div>
-      <div *ngIf="isError" class="table-responsive classes-main-container justify-content-center">
+      <div *ngIf="isError && !isLoading" class="table-responsive classes-main-container justify-content-center">
         <div class="row justify-content-center">
           <div class="bg-transparent">
             <div class="text-center">

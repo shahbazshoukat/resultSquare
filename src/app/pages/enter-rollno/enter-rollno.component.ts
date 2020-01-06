@@ -4,6 +4,7 @@ import { ResultService } from 'src/app/services/result.service';
 import {Location} from '@angular/common';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
+import {BoardService} from '../../services/board.service';
 
 @Component({
   selector: 'app-enter-rollno',
@@ -17,6 +18,13 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
   selectedYear;
   selectedExamType;
   selectedBoard;
+  selectedTest;
+  testBoard;
+  selectedUniKey;
+  selectedUni;
+  uniBoard;
+  isTest = false;
+  isUni = false;
   resultTitle;
   resultData;
   tags = [];
@@ -49,42 +57,82 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private resultService: ResultService,
+              private boardService: BoardService,
               private _location: Location,
               private router: Router) { }
 
   ngOnInit() {
 
+    this.isTest = false;
+
+    this.isUni = false;
+
+    this.resultTitle = '';
+
     this.paramSub = this.route.paramMap.subscribe((paramMap: ParamMap) => {
 
-      if(paramMap.has("boardKey")) {
+      if (paramMap.has('testTitle')) {
 
-        this.selectedBoardKey = paramMap.get("boardKey");
+        this.selectedTest = paramMap.get('testTitle');
+
+        this.isTest = true;
+
+        this.announced = true;
+
+        this.resultTitle = `${this.selectedTest} Result`;
+
+        this.getTestBoard();
+
+      } else if (paramMap.has('uniKey')) {
+
+        this.selectedUniKey = paramMap.get('uniKey');
+
+        this.selectedUni = this.selectedUniKey.replace(/-/g, ' ');
+
+        this.isUni = true;
+
+        this.announced = true;
+
+        if (paramMap.has('classTitle')) {
+
+          this.selectedClass = paramMap.get('classTitle');
+
+        }
+
+        this.resultTitle = `${this.selectedUni} ${this.selectedClass} Result`;
+
+        this.getUniBoard();
+
+
+      } else if (paramMap.has('boardKey')) {
+
+        this.selectedBoardKey = paramMap.get('boardKey');
 
         this.selectedBoard = this.selectedBoardKey.replace(/-/g, ' ');
 
+        if (paramMap.has('classTitle')) {
+
+          this.selectedClass = paramMap.get('classTitle');
+
+        }
+
+        if (paramMap.has('year')) {
+
+          this.selectedYear = paramMap.get('year');
+
+        }
+
+        if (paramMap.has('examType')) {
+
+          this.selectedExamType = paramMap.get('examType');
+
+          this.getResult();
+
+        }
+
+        this.resultTitle = `${this.selectedBoard} ${this.selectedClass} Class ${this.selectedExamType} Result ${this.selectedYear}`;
+
       }
-
-      if(paramMap.has("classTitle")) {
-
-        this.selectedClass = paramMap.get("classTitle");
-
-      }
-
-      if(paramMap.has("year")) {
-
-        this.selectedYear = paramMap.get("year");
-
-      }
-
-      if(paramMap.has("examType")) {
-
-        this.selectedExamType = paramMap.get("examType");
-
-        this.getResult();
-
-      }
-
-      this.resultTitle = `${this.selectedBoard} ${this.selectedClass} Class ${this.selectedExamType} Result ${this.selectedYear}`;
 
     });
 
@@ -108,11 +156,9 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
   }
 
-  getResult() {
+  getTestBoard() {
 
-    if (this.selectedClass && this.selectedBoardKey && this.selectedYear && this.selectedExamType) {
-
-      this.announced = false;
+    if (this.selectedTest) {
 
       this.isLoading = true;
 
@@ -120,32 +166,28 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
       this.errorMsg = '';
 
-      this.serviceSub = this.resultService.getResult(this.selectedClass, this.selectedBoardKey, this.selectedYear, this.selectedExamType)
+      this.serviceSub = this.boardService.getBoardBySectionTitle(this.selectedTest)
         .subscribe(
 
           response => {
 
-            this.resultData = response.data;
+            this.isLoading = false;
+
+            console.log(response);
+
+            this.resultData = response.data[0];
 
             if (this.resultData) {
-
-              this.announced = this.resultData.status;
-
-              if (!this.announced) {
-
-                this.isLoading = false;
-
-                if (this.resultData.announceDate && this.resultData.announceDate.day && this.resultData.announceDate.month && this.resultData.announceDate.year) {
-
-                  this.announceDate = `${this.resultData.announceDate.day}/${this.resultData.announceDate.month}/${this.resultData.announceDate.year}`;
-
-                }
-
-              }
 
               this.tags = this.resultData.tags;
 
               this.url = this.resultData.resultUrl;
+
+              if (this.resultData.isBlocked) {
+
+                window.open(this.url, '_blank');
+
+              }
 
             } else {
 
@@ -180,9 +222,151 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
   }
 
-  printResult() {
+  getUniBoard() {
 
-    window.print();
+    if (this.selectedUniKey) {
+
+      this.isLoading = true;
+
+      this.isError = false;
+
+      this.errorMsg = '';
+
+      this.serviceSub = this.boardService.getBoardByKey(this.selectedUniKey)
+        .subscribe(
+
+          response => {
+
+            this.isLoading = false;
+
+            console.log(response);
+
+            this.resultData = response.data;
+
+            if (this.resultData) {
+
+              this.tags = this.resultData.tags;
+
+              this.url = this.resultData.resultUrl;
+
+              if (this.resultData.isBlocked) {
+
+                window.open(this.url, '_blank');
+
+              }
+
+            } else {
+
+              this.isLoading = false;
+
+              this.isError = true;
+
+              this.errorMsg = 'Result Not Found';
+
+            }
+
+          },
+          error => {
+
+            this.isLoading = false;
+
+            this.isError = true;
+
+            if (error && error.status && error.status === 404) {
+
+              this.errorMsg = '404 - Not Found';
+
+            } else {
+
+              this.errorMsg = 'Something went wrong';
+
+            }
+
+          });
+
+    }
+
+  }
+
+  getResult() {
+
+    if (this.selectedClass && this.selectedBoardKey && this.selectedYear && this.selectedExamType) {
+
+      this.announced = false;
+
+      this.isLoading = true;
+
+      this.isError = false;
+
+      this.errorMsg = '';
+
+      this.serviceSub = this.resultService.getResult(this.selectedClass, this.selectedBoardKey, this.selectedYear, this.selectedExamType)
+        .subscribe(
+
+          response => {
+
+            console.log(response);
+
+            this.resultData = response.data;
+
+            if (this.resultData) {
+
+              this.announced = this.resultData.status;
+
+              if (!this.announced) {
+
+                this.isLoading = false;
+
+                if (this.resultData.announceDate && this.resultData.announceDate.day && this.resultData.announceDate.month && this.resultData.announceDate.year) {
+
+                  this.announceDate = `${this.resultData.announceDate.day}/${this.resultData.announceDate.month}/${this.resultData.announceDate.year}`;
+
+                }
+
+              }
+
+              this.tags = this.resultData.tags;
+
+              this.url = this.resultData.resultUrl;
+
+              this.isLoading = false;
+
+              if (this.resultData.isBlocked && this.announced) {
+
+                window.open(this.url, '_blank');
+
+              }
+
+            } else {
+
+              this.isLoading = false;
+
+              this.isError = true;
+
+              this.errorMsg = 'Result Not Found';
+
+            }
+
+          },
+          error => {
+
+            this.isLoading = false;
+
+            this.isError = true;
+
+            if (error && error.status && error.status === 404) {
+
+              this.errorMsg = '404 - Not Found';
+
+            } else {
+
+              this.errorMsg = 'Something went wrong';
+
+            }
+
+          });
+
+    }
 
   }
 
@@ -190,13 +374,31 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    document.getElementById('resultFrame').src = this.url;
+    document.getElementById('resultFrame')['src'] = this.url;
 
   }
 
   backToHome() {
 
     this.router.navigate(['']);
+
+  }
+
+  goBack() {
+
+    if (this.isTest) {
+
+      this.router.navigate(['']);
+
+    } else if (this.isUni) {
+
+      this.router.navigate(['/result', this.selectedClass]);
+
+    } else {
+
+      this.router.navigate(['/result' + '/' + this.selectedClass + '/' + this.selectedBoardKey, this.selectedYear]);
+
+    }
 
   }
 
