@@ -2,7 +2,7 @@ import {Result} from '../models/result.model';
 import { Injectable } from '@angular/core';
 import {Subject, Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 const BACKEND_URL = environment.apiURL;
 

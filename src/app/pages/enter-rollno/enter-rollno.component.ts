@@ -19,10 +19,8 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
   selectedExamType;
   selectedBoard;
   selectedTest;
-  testBoard;
   selectedUniKey;
   selectedUni;
-  uniBoard;
   isTest = false;
   isUni = false;
   resultTitle;
@@ -173,9 +171,13 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
             this.isLoading = false;
 
-            console.log(response);
-
             this.resultData = response.data[0];
+
+            if (this.resultData && this.resultData.isBlocked) {
+
+              window.open(this.url, '_blank');
+
+            }
 
             if (this.resultData) {
 

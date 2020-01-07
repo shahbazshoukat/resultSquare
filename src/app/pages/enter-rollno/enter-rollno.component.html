@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="card border-0 shadow bg-secondary">
-            <iframe id="resultFrame" name="resultFrame" class="custom-iframe" [src]="url | safe" (change)="isLoading = true;" (load)="isLoading = false;"></iframe>
+            <iframe target="_self" id="resultFrame" name="resultFrame" class="custom-iframe" [src]="url | safe" (change)="isLoading = true;" (load)="isLoading = false;"></iframe>
           </div>
         </div>
       </div>

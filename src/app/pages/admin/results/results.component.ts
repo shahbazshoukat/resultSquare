@@ -18,6 +18,7 @@ export class ResultsComponent implements OnInit {
     this.resultService.getAllResultes().subscribe(response => {
       if (response.data) {
         this.results = response.data;
+        console.log(this.results);
         this.isLoading = false;
       }
     });
