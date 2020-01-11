@@ -5,6 +5,7 @@ const dbHelper = require("./database");
 const datetime = require("./dateTime");
 const tokens = require("./tokens");
 const validators = require("./validators");
+const restClient = require("./rest-client");
 
 
 module.exports = {
@@ -14,5 +15,6 @@ module.exports = {
     dbHelper,
     datetime,
     tokens,
-    validators
+    validators,
+    restClient
 };

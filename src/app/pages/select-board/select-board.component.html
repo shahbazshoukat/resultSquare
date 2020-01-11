@@ -1,5 +1,5 @@
 <div class="header bg-custom pb-8 pt-5 pt-md-0">
- 
+
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
@@ -9,75 +9,95 @@
       <div class="card-header bg-white border-0">
         <div class="row align-items-center">
           <div class="col-8">
-            <h3 class="mb-0">Select Your Board/University</h3>
+            <a [routerLink] = "['/']" class="btn btn-icon btn-2 btn-primary btn-sm">
+              Back
+            </a>
+            <span class="mb-0 h3">Select Your Board/University</span>
           </div>
           <div class="col-4 text-right">
-            <button href="#!" class="btn btn-sm btn-primary" [routerLink] = "['/']">{{selectedClass}}</button>
+            <span class="btn badge badge-primary btn-sm" *ngIf="selectedClass" [routerLink] = "['/']">{{selectedClass}}</span>
           </div>
         </div>
       </div>
-      <div class="card-body">
+      <div class="card-body" *ngIf="!isError">
 
-          <h6 class="heading-small text-muted mb-4">Federal Boards</h6>
-          <div class="pl-lg-4">
+          <h6 class="heading-small text-muted mb-4" *ngIf="federalBoards && federalBoards.length > 0">Federal Boards</h6>
+          <div class="pl-lg-4" *ngIf="federalBoards && federalBoards.length > 0">
             <div class="row">
               <div class="col-xl-2 col-lg-3 col-md-6 class-container" *ngFor = "let board of federalBoards">
-                <button type="button" class="btn btn-outline-primary custom-btn"  [routerLink] = "['/result/'+selectedClass, board.key]" >{{board.title}}</button>
+                <button type="button" class="btn btn-outline-primary custom-btn"  [routerLink] = "board.type === '1' ? ['/result/'+selectedClass, board.key] : ['/uni/'+selectedClass, board.key]" >{{board.title}}</button>
               </div>
             </div>
           </div>
-          <hr class="my-4" />
+          <hr class="my-4" *ngIf="federalBoards && federalBoards.length > 0" />
 
-          <h6 class="heading-small text-muted mb-4">Punjab Boards</h6>
-          <div class="pl-lg-4">
+          <h6 class="heading-small text-muted mb-4" *ngIf="punjabBoards && punjabBoards.length > 0">Punjab Boards</h6>
+          <div class="pl-lg-4" *ngIf="punjabBoards && punjabBoards.length > 0">
             <div class="row">
               <div class="col-xl-2 col-lg-3 col-md-6 class-container" *ngFor = "let board of punjabBoards">
-                <button type="button" class="btn btn-outline-primary custom-btn"  [routerLink] = "['/result/'+selectedClass, board.key]" >{{board.title}}</button>
+                <button type="button" class="btn btn-outline-primary custom-btn"  [routerLink] = "board.type === '1' ? ['/result/'+selectedClass, board.key] : ['/uni/'+selectedClass, board.key]" >{{board.title}}</button>
               </div>
             </div>
           </div>
-          <hr class="my-4" />
+          <hr class="my-4" *ngIf="punjabBoards && punjabBoards.length > 0" />
           <!-- Address -->
-          <h6 class="heading-small text-muted mb-4">KPK Boards</h6>
-          <div class="pl-lg-4">
+          <h6 class="heading-small text-muted mb-4" *ngIf="kpkBoards && kpkBoards.length > 0">KPK Boards</h6>
+          <div class="pl-lg-4" *ngIf="kpkBoards && kpkBoards.length > 0">
             <div class="row">
               <div class="col-xl-2 col-lg-3 col-md-6 class-container" *ngFor = "let board of kpkBoards">
-                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass, board.key]"  >{{board.title}}</button>
+                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "board.type === '1' ? ['/result/'+selectedClass, board.key] : ['/uni/'+selectedClass, board.key]"  >{{board.title}}</button>
               </div>
             </div>
           </div>
-          <hr class="my-4" />
+          <hr class="my-4" *ngIf="kpkBoards && kpkBoards.length > 0" />
 
-          <h6 class="heading-small text-muted mb-4">Sindh Boards</h6>
-          <div class="pl-lg-4">
+          <h6 class="heading-small text-muted mb-4" *ngIf="sindhBoards && sindhBoards.length > 0">Sindh Boards</h6>
+          <div class="pl-lg-4" *ngIf="sindhBoards && sindhBoards.length > 0">
             <div class="row">
               <div class="col-xl-2 col-lg-3 col-md-6 class-container" *ngFor = "let board of sindhBoards">
-                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass, board.key]" >{{board.title}}</button>
+                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "board.type === '1' ? ['/result/'+selectedClass, board.key] : ['/uni/'+selectedClass, board.key]" >{{board.title}}</button>
               </div>
             </div>
           </div>
-          <hr class="my-4" />
+          <hr class="my-4" *ngIf="sindhBoards && sindhBoards.length > 0" />
 
-          <h6 class="heading-small text-muted mb-4">Balochistan Boards</h6>
-          <div class="pl-lg-4">
+          <h6 class="heading-small text-muted mb-4" *ngIf="balochBoards && balochBoards.length > 0">Balochistan Boards</h6>
+          <div class="pl-lg-4" *ngIf="balochBoards && balochBoards.length > 0">
             <div class="row">
               <div class="col-xl-2 col-lg-3 col-md-6 class-container" *ngFor = "let board of balochBoards">
-                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass, board.key]" >{{board.title}}</button>
+                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "board.type === '1' ? ['/result/'+selectedClass, board.key] : ['/uni/'+selectedClass, board.key]" >{{board.title}}</button>
               </div>
             </div>
           </div>
-          <hr class="my-4" />
+          <hr class="my-4" *ngIf="balochBoards && balochBoards.length > 0" />
 
-          <h6 class="heading-small text-muted mb-4">AJK Boards</h6>
-          <div class="pl-lg-4">
+          <h6 class="heading-small text-muted mb-4" *ngIf="ajkBoards && ajkBoards.length > 0">AJK Boards</h6>
+          <div class="pl-lg-4" *ngIf="ajkBoards && ajkBoards.length > 0">
             <div class="row">
               <div class="col-xl-2 col-lg-3 col-md-6 class-container" *ngFor = "let board of ajkBoards">
-                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass, board.key]" >{{board.title}}</button>
+                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "board.type === '1' ? ['/result/'+selectedClass, board.key] : ['/uni/'+selectedClass, board.key]" >{{board.title}}</button>
               </div>
             </div>
           </div>
-          <hr class="my-4" />
-          <div *ngIf="isLoading" class="loader"></div>
+          <hr class="my-4" *ngIf="ajkBoards && ajkBoards.length > 0" />
+        <div *ngIf="isLoading" class="loader">
+          <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+        </div>
+      </div>
+      <div *ngIf="isError" class="table-responsive classes-main-container justify-content-center">
+        <div class="row justify-content-center">
+          <div class="bg-transparent">
+            <div class="text-center">
+              <ng-lottie width="300px" height="300px" [options]="errorAnimOptions" (animationCreated)="errorAnimationCreated($event)"></ng-lottie>
+            </div>
+            <div class="text-center">
+              <span class="text-lg">{{errorMsg}}</span>
+            </div>
+            <div class="text-center" style="margin-top: 30px;">
+              <span class="btn btn-primary" (click)="backToHome()">Back to Home</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -20,6 +20,6 @@ router.get("/result-year/:sectionTitle/:boardKey", ResultController.getResultYea
 
 router.get("/result/:section/:board/:year/:exam", ResultController.getResult);
 
-router.get("/result/:section/:board/:year/:exam/:rollNo", ResultController.getResult);
+router.get("/result/:section/:board/:year/:exam/:rollNo", ResultController.findResult);
 
 module.exports = router;

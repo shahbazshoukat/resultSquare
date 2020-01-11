@@ -4,8 +4,6 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ClipboardModule } from 'ngx-clipboard';
-
 import { HomeLayoutRoutes } from './home-layout.routing';
 import { HomeComponent } from '../../pages/home/home.component';
 import { SelectBoardComponent } from '../../pages/select-board/select-board.component';
@@ -13,8 +11,16 @@ import { SelectYearComponent } from '../../pages/select-year/select-year.compone
 import { SelectExamComponent } from '../../pages/select-exam/select-exam.component';
 import { EnterRollNoComponent } from '../../pages/enter-rollno/enter-rollno.component';
 import { ResultPageComponent } from '../../pages/result-page/result-page.component';
+
+import {NgxPrintModule} from 'ngx-print';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { ToastrModule } from 'ngx-toastr';
+import { SafePipe } from '../../pipes';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   imports: [
@@ -23,7 +29,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    ClipboardModule
+    LottieModule.forRoot({ player: playerFactory, useCache: true }),
+    NgxPrintModule
   ],
   declarations: [
     HomeComponent,
@@ -31,7 +38,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SelectYearComponent,
     SelectExamComponent,
     EnterRollNoComponent,
-    ResultPageComponent
+    ResultPageComponent,
+    SafePipe
   ]
 })
 

@@ -1,22 +1,22 @@
-import {Class} from "../models/class.model";
+import {Class} from '../models/class.model';
 import { Injectable } from '@angular/core';
-import {Subject, Observable} from "rxjs";
+import {Subject, Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
-import {environment} from "../../environments/environment";
+import {environment} from '../../environments/environment';
 const BACKEND_URL = environment.apiURL;
 
-@Injectable({providedIn:'root'})
-export class ClassService{
+@Injectable({providedIn: 'root'})
+export class ClassService {
 
   constructor (private http: HttpClient) {}
 
-  addClass(title: string, type: string){
+  addClass(title: string, type: string) {
     const classData: any = { title: title, type: type};
     return this.http.post<{success: boolean, message: string, data: any}>(BACKEND_URL + '/section', classData);
   }
 
-  getAllClasses(){
+  getAllClasses() {
     return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/sections');
   }
 
@@ -30,12 +30,12 @@ export class ClassService{
 
   updateClass( classId: string, title: string, type: string ) {
     const update = { title: title, type: type };
-    return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  "/updateSection" + classId, update);
+    return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  '/updateSection' + classId, update);
   }
 
 
   deleteClass(classId: string) {
-    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + "/deleteSection" + classId);
+    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + '/deleteSection' + classId);
   }
 
 }

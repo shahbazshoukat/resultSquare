@@ -2,11 +2,11 @@
   <!-- Mask -->
   <span class="mask bg-gradient-danger opacity-8"></span>
   <!-- Header container -->
-  
+
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
-   
+
     <div class="col-xl-12 order-xl-1">
       <div class="card bg-secondary shadow">
         <div class="card-header bg-white border-0">
@@ -20,7 +20,7 @@
           <form (submit) = "addBoard(boardForm)" #boardForm = "ngForm" >
             <h6 class="heading-small text-muted mb-4">User information</h6>
             <div class="pl-lg-4">
-              
+
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
@@ -38,7 +38,7 @@
                       <option value="Sindh" >Sindh</option>
                       <option value="Balochistan" >Balochistan</option>
                       <option value="AJK" >AJK</option>
-                      <option value="Federal" >AJK</option>
+                      <option value="Federal" >Federal</option>
                    </select>
                   </div>
                 </div>
@@ -61,11 +61,11 @@
                           [settings]="examTypesSettings"
                           [ngModelOptions]="{standalone: true}"
                         >
-                        </ng-multiselect-dropdown>  
-                       
+                        </ng-multiselect-dropdown>
+
                       </div>
                 </div>
-                
+
               </div>
               <div class="row">
                   <div class="col-lg-6">
@@ -80,21 +80,20 @@
                           [settings]="classesSettings"
                           [ngModelOptions]="{standalone: true}"
                         >
-                        </ng-multiselect-dropdown>  
+                        </ng-multiselect-dropdown>
                       </div>
                     </div>
-                  <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-board">API Mode</label>
-                        <select name="apiMode" [ngModel]="isEdit ? boardToUpdate.apiMode : ''" class="form-control form-control-alternative">
-                          <option value="" disabled>Select API Mode</option>
-                          <option value="1" >API</option>
-                          <option value="2">Scraping</option>
-                          <option value="3">URL</option>
-                       </select>
-                      </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-board">Type</label>
+                    <select name="type" [ngModel]="isEdit ? boardToUpdate.type : ''" class="form-control form-control-alternative">
+                      <option value="" disabled>Select Type</option>
+                      <option value="1" >Board</option>
+                      <option value="2" >University</option>
+                    </select>
                   </div>
-                  
+                </div>
+
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -110,40 +109,6 @@
                       </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-8">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-address">API URL</label>
-                        <input name="apiUrl" [ngModel]="isEdit ? boardToUpdate.apiUrl : ''" id="input-address" class="form-control form-control-alternative" placeholder="API URL" value="" type="text">
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-board">Request Type</label>
-                        <select name="requestType" [ngModel]="isEdit ? boardToUpdate.requestType : ''" class="form-control form-control-alternative">
-                          <option value="" disabled>Select Request Type</option>
-                          <option value="1" >GET</option>
-                          <option value="2" >POST</option>
-                       </select>
-                      </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-8">
-                    <div class="form-group">
-                      <label class="form-control-label" for="input-address">API Params</label>
-                        <form (submit) = "addParam(paramForm)" #paramForm = "ngForm" >
-                          <input name="paramTitle" ngModel id="input-address" class="form-control form-control-alternative" placeholder="Api params" value="" type="text">
-                          <button class="btn btn-sm btn-primary" style="margin-top: 10px;" type="submit"  >Add</button>
-                        </form>
-                    </div>
-                  </div>
-              </div>
-              <div class="row">
-                <div class="col-md-8" *ngFor="let param of params">
-                  <span class="badge badge-primary" (click)="removeParam(param)">{{param}}</span>
-                </div>
-              </div>
                 <div class="row">
                     <div class="col-md-8">
                       <div class="form-group">

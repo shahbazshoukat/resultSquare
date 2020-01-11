@@ -15,30 +15,30 @@ export class ClassesComponent implements OnInit {
   constructor(private classService: ClassService, private router: Router) { }
 
   ngOnInit() {
-   
+
     this.classService.getAllClasses().subscribe(response => {
-      if(response.success && response.data){
+      if (response.success && response.data) {
         this.classes = response.data;
         this.isLoading = false;
       }
     });
   }
 
-  removeClass(classId: string){
+  removeClass(classId: string) {
     this.classService.deleteClass(classId).subscribe(response => {
-      if(response.success && response.message && response.data) {
+      if (response.success && response.message && response.data) {
         this.classes.forEach((cls, index) => {
-          if(cls._id === classId) {
+          if (cls._id === classId) {
              this.classes.splice(index, 1);
           }
-        })
+        });
          alert(response.message);
        }
-    })
+    });
   }
 
   editClass(clas: any) {
-    this.router.navigate(["/rs-admin/add-class", {classId: clas._id, classTitle: clas.title, classType: clas.type}]);
+    this.router.navigate(['/rs-admin/add-class', {classId: clas._id, classTitle: clas.title, classType: clas.type}]);
   }
 
 }

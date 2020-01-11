@@ -1,5 +1,5 @@
 <div class="header bg-custom pb-8 pt-5 pt-md-0">
- 
+
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--7 bg-secondary">
@@ -9,16 +9,18 @@
       <div class="card-header bg-secondary border-0">
         <div class="row align-items-center">
           <div class="col-3">
-            <h3 class="mb-0">Enter Roll No</h3>
+            <button (click)="goBack()" class="btn btn-icon btn-2 btn-primary btn-sm">
+              Back
+            </button>
+            <span class="mb-0 h3">Result</span>
           </div>
           <div class="col-9 text-right">
-              <a href="#!" class="btn btn-sm btn-primary" [routerLink] = "['/']" >{{selectedClass}}</a>
-              <i class="ni ni-bold-right" ></i>
-              <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result', selectedClass]"  >{{selectedBoard}}</a>
-              <i class="ni ni-bold-right" ></i>
-              <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</a>
-              <i class="ni ni-bold-right" ></i>
-              <a href="#!" class="btn btn-sm btn-primary ml-1" [routerLink] = "['/result'+'/'+selectedClass+'/'+selectedBoardKey, selectedYear]" >{{selectedExamType}}</a>
+              <span class="btn btn-sm badge badge-primary" *ngIf="selectedClass" [routerLink] = "['/']" >{{selectedClass}}</span>
+            <span class="btn btn-sm badge badge-primary" *ngIf="selectedTest" [routerLink] = "['/']" >{{selectedTest}}</span>
+            <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedBoard" [routerLink] = "['/result', selectedClass]"  >{{selectedBoard}}</span>
+            <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedUni" [routerLink] = "['/result', selectedClass]"  >{{selectedUni}}</span>
+            <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedYear" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</span>
+              <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedExamType" [routerLink] = "['/result'+'/'+selectedClass+'/'+selectedBoardKey, selectedYear]" >{{selectedExamType}}</span>
           </div>
         </div>
       </div>
@@ -28,48 +30,45 @@
               <div class="card-body">
                 <div class="text-center">
                   <span style="font-size: 25px; font-weight: bolder;" >{{resultTitle}}</span>
-                </div>               
+                </div>
               </div>
             </div>
           </div>
       </div>
-      <div class="row justify-content-center border-2" style="padding: 50px;" >
-         
-        <div class="col-lg-5 col-md-7 bg-secondary" style="border-radius: 10px;">
-          <div class="card bg-secondary border-0">
-            <div class="card-header bg-secondary pb-5">
-              <div class="text-center">
-                <img src="../../../assets/img/boards/blhr.png" width="85px" height="85px" >
-              </div>
-              <div class="text-muted text-center mt-5 mb-3">
-                <h2>
-                    {{resultTitle}}
-                </h2>
-              </div>
-             
+
+      <div *ngIf="!isError" class="row justify-content-center border-2 mt-100" id="print" >
+        <div>
+          <ng-lottie *ngIf="!announced && !isLoading" width="400px" height="400px" [options]="notAnnouncedAnimOptions" (animationCreated)="notAnnouncedAnimationCreated($event)"></ng-lottie>
+        </div>
+        <div class="col-9 mt-100" *ngIf="announced">
+          <div class="row" style="padding: 30px">
+            <div class="col-6 text-left">
+              <button class="btn btn-primary btn-sm" (click)="reload()">Back To Result Page</button>
             </div>
-            <div class="card-body px-lg-5 py-lg-5">
-              <form role="form" (submit)="findResult(rollNoForm)" #rollNoForm = "ngForm">
-                <div class="form-group">
-                  <div class="form-group">
-                    <input id="input-address" name="rollNo" ngModel class="form-control form-control-alternative" placeholder="Enter your roll no" value="" type="text">
-                    <span *ngIf="formError" style="color:red;" >{{errorMsg}}</span>
-                  </div>
-                </div>
-                <div class="text-center">
-                  <button type="button" class="btn btn-primary my-4" type="submit" >View Result</button>
-                </div>
-              </form>
-            </div>
+          </div>
+          <div class="card border-0 shadow bg-secondary">
+            <iframe target="_self" id="resultFrame" name="resultFrame" class="custom-iframe" [src]="url | safe" (change)="isLoading = true;" (load)="isLoading = false;"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center border-2 mt-100" *ngIf="!announced && !isError && !isLoading">
+        <div class="col-12 text-center">
+          <div >
+            <span class="badge badge-default">Not announced</span>
+          </div>
+          <div style="margin-top: 30px;" *ngIf="resultData && resultData.announceDate">
+            <span>Will be announced on </span>
+            <span class="badge badge-primary btn-sm">{{announceDate}}</span>
           </div>
         </div>
       </div>
 
 
-      <div class="row justify-content-center border-2 mt-100" >
+      <div *ngIf="!isError" class="row justify-content-center border-2 mt-100" >
           <div class="col-lg-5 col-md-7 ">
             <div class="card border-0">
-             
+
               <div class="card-body px-lg-5 py-lg-5">
                 <div class="text-center text-muted mb-4">
                   <small>Tags:</small>
@@ -80,6 +79,24 @@
               </div>
             </div>
           </div>
+      </div>
+      <div *ngIf="isLoading" class="loader">
+        <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+      </div>
+      <div *ngIf="isError && !isLoading" class="table-responsive classes-main-container justify-content-center">
+        <div class="row justify-content-center">
+          <div class="bg-transparent">
+            <div class="text-center">
+              <ng-lottie width="300px" height="300px" [options]="errorAnimOptions" (animationCreated)="errorAnimationCreated($event)"></ng-lottie>
+            </div>
+            <div class="text-center">
+              <span class="text-lg">{{errorMsg}}</span>
+            </div>
+            <div class="text-center" style="margin-top: 30px;">
+              <span class="btn btn-primary" (click)="backToHome()">Back to Home</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

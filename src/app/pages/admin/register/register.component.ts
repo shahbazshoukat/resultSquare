@@ -24,22 +24,22 @@ export class RegisterComponent implements OnInit {
       return;
     }
     this.formStatus = true;
-    let regexp = new RegExp(
+    const regexp = new RegExp(
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
-    if (form.value.name == "") {
+    if (form.value.name == '') {
       this.nameValid = false;
     } else {
       this.nameValid = true;
     }
-    if (form.value.email == "" ) {
+    if (form.value.email == '' ) {
       this.emailValid = false;
-    }else if(!regexp.test(form.value.email)){
+    } else if (!regexp.test(form.value.email)) {
       this.emailValid = false;
-    }else {
+    } else {
       this.emailValid = true;
     }
-    if (form.value.password == "" || form.value.password.length < 6) {
+    if (form.value.password == '' || form.value.password.length < 6) {
       this.passwordValid = false;
     } else {
       this.passwordValid = true;
@@ -50,10 +50,10 @@ export class RegisterComponent implements OnInit {
         form.value.email,
         form.value.password
       );
-    }else{
+    } else {
       return;
     }
-   
+
     form.resetForm();
     this.formStatus = false;
   }
