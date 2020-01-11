@@ -4,11 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "buildThrottle": "node build --prod --aot --build-optimizer",
+    "build": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --prod --aot --build-optimizer",
+    "sourceMap": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build --prod --aot --source-map",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
+    "localserve": "ng serve --port 4200 --proxy-config proxy.conf.json",
+    "localServeNoReload": "ng serve  --port 4200 --proxy-config proxy.conf.json --live-reload false"
   },
   "private": true,
   "dependencies": {
