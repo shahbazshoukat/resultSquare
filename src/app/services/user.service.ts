@@ -5,7 +5,6 @@ import { Subject, Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
 
-const BACKEND_URL = environment.apiURL;
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
@@ -57,7 +56,7 @@ export class UsersService {
       password: password
     };
     console.log(user);
-    this.http.post(BACKEND_URL + '/signup', user).subscribe(response => {
+    this.http.post('/api/signup', user).subscribe(response => {
       console.log(response);
     });
   }
@@ -75,7 +74,7 @@ export class UsersService {
         };
         message: string;
         success: boolean;
-      }>(BACKEND_URL + '/login', authData)
+      }>('/api/login', authData)
       .subscribe(response => {
         const token = response.data.token;
         this.token = token;
@@ -113,7 +112,7 @@ export class UsersService {
         token: string;
         expiresIn: number;
         message: string;
-      }>(BACKEND_URL + '/forgotpassword', authData)
+      }>('/api/forgotpassword', authData)
       .subscribe(response => {
         const token = response.token;
         this.token = token;
@@ -136,7 +135,7 @@ export class UsersService {
     const token = localStorage.getItem('pToken');
     const data = { password: password, token: token };
     this.http
-      .put<{ message: string }>(BACKEND_URL + '/resetpassword', data)
+      .put<{ message: string }>('/api/resetpassword', data)
       .subscribe(response => {
         console.log(response);
         localStorage.removeItem('pToken');
@@ -211,7 +210,7 @@ export class UsersService {
 
   getUserById(userId: string): Observable<any> {
     return this.http.get<{ name: string; email: any }>(
-      BACKEND_URL + 'user' + userId
+      '/api/user' + userId
     );
   }
 
@@ -223,7 +222,7 @@ export class UsersService {
     let usr;
 
     this.http
-      .get<{ message: string; users: any }>(BACKEND_URL + '/user')
+      .get<{ message: string; users: any }>('/api/user')
       .subscribe(responseData => {
         responseData.users.forEach(user => {
           usr = {
@@ -238,6 +237,6 @@ export class UsersService {
     return this.users;
   }
   getUserBId(userId: string) {
-    return { ...this.users.find(u => u._id == userId) };
+    return { ...this.users.find(u => u._id === userId) };
   }
 }
