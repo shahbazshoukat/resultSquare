@@ -34,7 +34,9 @@
                 <th scope="col"></th>
               </tr>
             </thead>
-            <div *ngIf="isLoading" class="loader"></div>
+            <div *ngIf="isLoading" class="loader">
+              <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+            </div>
             <tbody *ngIf="!isLoading">
               <tr *ngFor="let board of boards">
                 <td>
@@ -61,7 +63,7 @@
                       <i class="fas fa-edit"></i>
                     </a>
                     <a class="btn btn-sm btn-icon-only text-light" (click)="removeBoard(board._id)" >
-                      <i class="fas fa-remove"></i>
+                      <i style="font-size: large;" class="ni ni-fat-remove"></i>
                     </a>
                   </div>
                 </td>
@@ -98,3 +100,4 @@
     </div>
   </div>
 </div>
+<ngx-alerts></ngx-alerts>

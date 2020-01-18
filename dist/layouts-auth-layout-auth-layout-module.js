@@ -4,11 +4,12 @@
 /*!***********************************************************!*\
   !*** ./src/app/layouts/auth-layout/auth-layout.module.ts ***!
   \***********************************************************/
-/*! exports provided: AuthLayoutModule */
+/*! exports provided: playerFactory, AuthLayoutModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "playerFactory", function() { return playerFactory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthLayoutModule", function() { return AuthLayoutModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
@@ -17,6 +18,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_layout_routing__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth-layout.routing */ "./src/app/layouts/auth-layout/auth-layout.routing.ts");
 /* harmony import */ var _pages_admin_login_login_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../pages/admin/login/login.component */ "./src/app/pages/admin/login/login.component.ts");
 /* harmony import */ var _pages_admin_register_register_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../pages/admin/register/register.component */ "./src/app/pages/admin/register/register.component.ts");
+/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
+/* harmony import */ var ngx_lottie__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-lottie */ "./node_modules/ngx-lottie/fesm5/ngx-lottie.js");
+/* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lottie-web */ "./node_modules/lottie-web/build/player/lottie.js");
+/* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(lottie_web__WEBPACK_IMPORTED_MODULE_9__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -30,6 +35,12 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
+
+function playerFactory() {
+    return lottie_web__WEBPACK_IMPORTED_MODULE_9___default.a;
+}
 var AuthLayoutModule = /** @class */ (function () {
     function AuthLayoutModule() {
     }
@@ -38,12 +49,17 @@ var AuthLayoutModule = /** @class */ (function () {
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(_auth_layout_routing__WEBPACK_IMPORTED_MODULE_4__["AuthLayoutRoutes"]),
-                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"]
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                ngx_lottie__WEBPACK_IMPORTED_MODULE_8__["LottieModule"].forRoot({ player: playerFactory, useCache: true }),
+                ngx_alerts__WEBPACK_IMPORTED_MODULE_7__["AlertModule"].forRoot({ maxMessages: 5, timeout: 3000, position: 'right' })
                 // NgbModule
             ],
             declarations: [
                 _pages_admin_login_login_component__WEBPACK_IMPORTED_MODULE_5__["LoginComponent"],
                 _pages_admin_register_register_component__WEBPACK_IMPORTED_MODULE_6__["RegisterComponent"]
+            ],
+            providers: [
+                ngx_alerts__WEBPACK_IMPORTED_MODULE_7__["AlertService"]
             ]
         })
     ], AuthLayoutModule);
@@ -83,7 +99,7 @@ var AuthLayoutRoutes = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header bg-gradient-danger py-7 py-lg-8\">\r\n  <div class=\"container\">\r\n    <div class=\"header-body text-center mb-7\">\r\n      <div class=\"row justify-content-center\">\r\n        <div class=\"col-lg-5 col-md-6\">\r\n          <h1 class=\"text-white\">Result Square Admin!</h1>\r\n          <p class=\"text-lead text-light\">Result Square Admin Login</p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"separator separator-bottom separator-skew zindex-100\">\r\n    <svg x=\"0\" y=\"0\" viewBox=\"0 0 2560 100\" preserveAspectRatio=\"none\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\r\n      <polygon class=\"fill-default\" points=\"2560 0 2560 100 0 100\"></polygon>\r\n    </svg>\r\n  </div>\r\n</div>\r\n<!-- Page content -->\r\n<div class=\"container mt--8 pb-5\">\r\n  <div class=\"row justify-content-center\">\r\n    <div class=\"col-lg-5 col-md-7\">\r\n      <div class=\"card bg-secondary shadow border-0\">\r\n        <!-- <div class=\"card-header bg-transparent pb-5\">\r\n          <div class=\"text-muted text-center mt-2 mb-3\"><small>Sign in with</small></div>\r\n          <div class=\"btn-wrapper text-center\">\r\n            <a href=\"javascript:void(0)\" class=\"btn btn-neutral btn-icon\">\r\n              <span class=\"btn-inner--icon\"><img src=\"../assets/img/icons/common/github.svg\"></span>\r\n              <span class=\"btn-inner--text\">Github</span>\r\n            </a>\r\n            <a href=\"javascript:void(0)\" class=\"btn btn-neutral btn-icon\">\r\n              <span class=\"btn-inner--icon\"><img src=\"../assets/img/icons/common/google.svg\"></span>\r\n              <span class=\"btn-inner--text\">Google</span>\r\n            </a>\r\n          </div>\r\n        </div> -->\r\n        <div class=\"card-body px-lg-5 py-lg-5\">\r\n          <div class=\"text-center text-muted mb-4\">\r\n            <small>Sign in with</small>\r\n          </div>\r\n          <form role=\"form\" (submit) = \"loginUser(loginForm)\" #loginForm=\"ngForm\" >\r\n            <div class=\"form-group mb-3\">\r\n              <div class=\"input-group input-group-alternative\">\r\n                <div class=\"input-group-prepend\">\r\n                  <span class=\"input-group-text\"><i class=\"ni ni-email-83\"></i></span>\r\n                </div>\r\n                <input class=\"form-control\" name=\"email\" ngModel placeholder=\"Email\" type=\"email\">\r\n              </div>\r\n            </div>\r\n            <div class=\"form-group\">\r\n              <div class=\"input-group input-group-alternative\">\r\n                <div class=\"input-group-prepend\">\r\n                  <span class=\"input-group-text\"><i class=\"ni ni-lock-circle-open\"></i></span>\r\n                </div>\r\n                <input class=\"form-control\" name=\"password\" ngModel placeholder=\"Password\" type=\"password\">\r\n              </div>\r\n            </div>\r\n            <!-- <div class=\"custom-control custom-control-alternative custom-checkbox\">\r\n              <input class=\"custom-control-input\" id=\" customCheckLogin\" type=\"checkbox\">\r\n              <label class=\"custom-control-label\" for=\" customCheckLogin\">\r\n                <span class=\"text-muted\">Remember me</span>\r\n              </label>\r\n            </div> -->\r\n            <div class=\"text-center\">\r\n              <button type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Sign in</button>\r\n            </div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n      <!-- <div class=\"row mt-3\">\r\n        <div class=\"col-6\">\r\n          <a href=\"javascript:void(0)\" class=\"text-light\"><small>Forgot password?</small></a>\r\n        </div>\r\n        <div class=\"col-6 text-right\">\r\n          <a [routerLink]=\"['signup']\" class=\"text-light\"><small>Create new account</small></a>\r\n        </div>\r\n      </div> -->\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"header bg-gradient-danger py-7 py-lg-8\">\r\n  <div class=\"container\">\r\n    <div class=\"header-body text-center mb-7\">\r\n      <div class=\"row justify-content-center\">\r\n        <div class=\"col-lg-5 col-md-6\">\r\n          <h1 class=\"text-white\">Result Square Admin!</h1>\r\n          <p class=\"text-lead text-light\">Result Square Admin Login</p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"separator separator-bottom separator-skew zindex-100\">\r\n    <svg x=\"0\" y=\"0\" viewBox=\"0 0 2560 100\" preserveAspectRatio=\"none\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\r\n      <polygon class=\"fill-default\" points=\"2560 0 2560 100 0 100\"></polygon>\r\n    </svg>\r\n  </div>\r\n</div>\r\n<!-- Page content -->\r\n<div class=\"container mt--8 pb-5\">\r\n  <div class=\"row justify-content-center\">\r\n    <div class=\"col-lg-5 col-md-7\">\r\n      <div class=\"card bg-secondary shadow border-0\">\r\n        <div class=\"card-body px-lg-5 py-lg-5\">\r\n          <div class=\"text-center text-muted mb-4\">\r\n            <small>Sign in with</small>\r\n          </div>\r\n          <form role=\"form\" (submit) = \"loginUser(loginForm)\" #loginForm=\"ngForm\" >\r\n            <div class=\"form-group mb-3\">\r\n              <div class=\"input-group input-group-alternative\">\r\n                <div class=\"input-group-prepend\">\r\n                  <span class=\"input-group-text\"><i class=\"ni ni-email-83\"></i></span>\r\n                </div>\r\n                <input class=\"form-control\" name=\"email\" ngModel placeholder=\"Email\" type=\"email\">\r\n              </div>\r\n            </div>\r\n            <div class=\"form-group\">\r\n              <div class=\"input-group input-group-alternative\">\r\n                <div class=\"input-group-prepend\">\r\n                  <span class=\"input-group-text\"><i class=\"ni ni-lock-circle-open\"></i></span>\r\n                </div>\r\n                <input class=\"form-control\" name=\"password\" ngModel placeholder=\"Password\" type=\"password\">\r\n              </div>\r\n            </div>\r\n            <!-- <div class=\"custom-control custom-control-alternative custom-checkbox\">\r\n              <input class=\"custom-control-input\" id=\" customCheckLogin\" type=\"checkbox\">\r\n              <label class=\"custom-control-label\" for=\" customCheckLogin\">\r\n                <span class=\"text-muted\">Remember me</span>\r\n              </label>\r\n            </div> -->\r\n            <div class=\"text-center\">\r\n              <button type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Sign in</button>\r\n            </div>\r\n            <div *ngIf=\"isLoading\" class=\"loader\">\r\n              <ng-lottie width=\"120px\" height=\"120px\" [options]=\"loadingAnimOptions\" (animationCreated)=\"loadingAnimationCreated($event)\"></ng-lottie>\r\n            </div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n      <!-- <div class=\"row mt-3\">\r\n        <div class=\"col-6\">\r\n          <a href=\"javascript:void(0)\" class=\"text-light\"><small>Forgot password?</small></a>\r\n        </div>\r\n        <div class=\"col-6 text-right\">\r\n          <a [routerLink]=\"['signup']\" class=\"text-light\"><small>Create new account</small></a>\r\n        </div>\r\n      </div> -->\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -164,6 +180,10 @@ var LoginComponent = /** @class */ (function () {
         this.router = router;
         this.errorMessage = '';
         this.isValid = true;
+        this.isLoading = false;
+        this.loadingAnimOptions = {
+            path: '/assets/lib/loading-spinner.json'
+        };
     }
     LoginComponent.prototype.loginUser = function (form) {
         return __awaiter(this, void 0, void 0, function () {
@@ -173,9 +193,11 @@ var LoginComponent = /** @class */ (function () {
                         if (form.invalid) {
                             return [2 /*return*/];
                         }
+                        this.isLoading = true;
                         return [4 /*yield*/, this.usersService.loginUser(form.value.email, form.value.password)];
                     case 1:
                         _a.sent();
+                        this.isLoading = false;
                         this.isValid = this.usersService.getIsAuth();
                         if (!this.isValid) {
                             this.errorMessage = 'username or password incorrect';
@@ -191,6 +213,9 @@ var LoginComponent = /** @class */ (function () {
         if (isAuth) {
             this.router.navigate(['/rs-admin/dashboard']);
         }
+    };
+    LoginComponent.prototype.loadingAnimationCreated = function (animationItem) {
+        this.loadingAnim = animationItem;
     };
     LoginComponent.prototype.ngOnDestroy = function () {
     };
@@ -261,10 +286,18 @@ var RegisterComponent = /** @class */ (function () {
         this.emailValid = false;
         this.passwordValid = false;
         this.formStatus = false;
+        this.isLoading = true;
+        this.loadingAnimOptions = {
+            path: '/assets/lib/loading-spinner.json'
+        };
     }
     RegisterComponent.prototype.ngOnInit = function () {
     };
+    RegisterComponent.prototype.loadingAnimationCreated = function (animationItem) {
+        this.loadingAnim = animationItem;
+    };
     RegisterComponent.prototype.addUser = function (form) {
+        this.isLoading = true;
         if (form.invalid) {
             return;
         }
@@ -297,6 +330,7 @@ var RegisterComponent = /** @class */ (function () {
         else {
             return;
         }
+        this.isLoading = false;
         form.resetForm();
         this.formStatus = false;
     };

@@ -241,8 +241,6 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
             this.isLoading = false;
 
-            console.log(response);
-
             this.resultData = response.data;
 
             if (this.resultData) {
@@ -306,8 +304,6 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
         .subscribe(
 
           response => {
-
-            console.log(response);
 
             this.resultData = response.data;
 

@@ -15,6 +15,14 @@ import { ClassesComponent } from '../../pages/admin/classes/classes.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 // import { ToastrModule } from 'ngx-toastr';
+import { AlertModule, AlertService } from 'ngx-alerts';
+
+
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   imports: [
@@ -23,7 +31,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    LottieModule.forRoot({ player: playerFactory, useCache: true }),
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'right'})
   ],
   declarations: [
     DashboardComponent,
@@ -33,6 +43,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     ResultsComponent,
     BoardsComponent,
     ClassesComponent
+  ],
+  providers: [
+    AlertService
   ]
 })
 

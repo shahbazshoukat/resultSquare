@@ -33163,11 +33163,12 @@ module.exports = function(module) {
 /*!*************************************************************!*\
   !*** ./src/app/layouts/admin-layout/admin-layout.module.ts ***!
   \*************************************************************/
-/*! exports provided: AdminLayoutModule */
+/*! exports provided: playerFactory, AdminLayoutModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "playerFactory", function() { return playerFactory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminLayoutModule", function() { return AdminLayoutModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
@@ -33184,6 +33185,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_admin_classes_classes_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../pages/admin/classes/classes.component */ "./src/app/pages/admin/classes/classes.component.ts");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 /* harmony import */ var ng_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ng-multiselect-dropdown */ "./node_modules/ng-multiselect-dropdown/fesm5/ng-multiselect-dropdown.js");
+/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
+/* harmony import */ var ngx_lottie__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ngx-lottie */ "./node_modules/ngx-lottie/fesm5/ngx-lottie.js");
+/* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! lottie-web */ "./node_modules/lottie-web/build/player/lottie.js");
+/* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(lottie_web__WEBPACK_IMPORTED_MODULE_17__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33206,6 +33211,12 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 // import { ToastrModule } from 'ngx-toastr';
+
+
+
+function playerFactory() {
+    return lottie_web__WEBPACK_IMPORTED_MODULE_17___default.a;
+}
 var AdminLayoutModule = /** @class */ (function () {
     function AdminLayoutModule() {
     }
@@ -33217,7 +33228,9 @@ var AdminLayoutModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClientModule"],
                 _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_13__["NgbModule"],
-                ng_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_14__["NgMultiSelectDropDownModule"].forRoot()
+                ng_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_14__["NgMultiSelectDropDownModule"].forRoot(),
+                ngx_lottie__WEBPACK_IMPORTED_MODULE_16__["LottieModule"].forRoot({ player: playerFactory, useCache: true }),
+                ngx_alerts__WEBPACK_IMPORTED_MODULE_15__["AlertModule"].forRoot({ maxMessages: 5, timeout: 3000, position: 'right' })
             ],
             declarations: [
                 _pages_admin_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_6__["DashboardComponent"],
@@ -33227,6 +33240,9 @@ var AdminLayoutModule = /** @class */ (function () {
                 _pages_admin_results_results_component__WEBPACK_IMPORTED_MODULE_10__["ResultsComponent"],
                 _pages_admin_boards_boards_component__WEBPACK_IMPORTED_MODULE_11__["BoardsComponent"],
                 _pages_admin_classes_classes_component__WEBPACK_IMPORTED_MODULE_12__["ClassesComponent"]
+            ],
+            providers: [
+                ngx_alerts__WEBPACK_IMPORTED_MODULE_15__["AlertService"]
             ]
         })
     ], AdminLayoutModule);
@@ -33283,7 +33299,7 @@ var AdminLayoutRoutes = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header pb-8 pt-5 pt-lg-8 d-flex align-items-center\" >\r\n  <!-- Mask -->\r\n  <span class=\"mask bg-gradient-danger opacity-8\"></span>\r\n  <!-- Header container -->\r\n\r\n</div>\r\n<div class=\"container-fluid mt--7\">\r\n  <div class=\"row\">\r\n\r\n    <div class=\"col-xl-12 order-xl-1\">\r\n      <div class=\"card bg-secondary shadow\">\r\n        <div class=\"card-header bg-white border-0\">\r\n          <div class=\"row align-items-center\">\r\n            <div class=\"col-8\">\r\n              <h3 class=\"mb-0\">Add a Board</h3>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"card-body\">\r\n          <form (submit) = \"addBoard(boardForm)\" #boardForm = \"ngForm\" >\r\n            <h6 class=\"heading-small text-muted mb-4\">User information</h6>\r\n            <div class=\"pl-lg-4\">\r\n\r\n              <div class=\"row\">\r\n                <div class=\"col-lg-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Name</label>\r\n                    <input id=\"input-address\" name=\"title\" [ngModel]=\"isEdit ? boardToUpdate.title : ''\" class=\"form-control form-control-alternative\" placeholder=\"Board name\" value=\"\" type=\"text\">\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-lg-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Province</label>\r\n                    <select name=\"province\" [ngModel]=\"isEdit ? boardToUpdate.province : ''\" class=\"form-control form-control-alternative\">\r\n                      <option value=\"\" disabled>Choose Province</option>\r\n                      <option value=\"Punjab\" >Punjab</option>\r\n                      <option value=\"KPK\" >KPK</option>\r\n                      <option value=\"Sindh\" >Sindh</option>\r\n                      <option value=\"Balochistan\" >Balochistan</option>\r\n                      <option value=\"AJK\" >AJK</option>\r\n                      <option value=\"Federal\" >Federal</option>\r\n                   </select>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"row\">\r\n                <div class=\"col-md-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-address\">City</label>\r\n                    <input name=\"city\" [ngModel]=\"isEdit ? boardToUpdate.city : ''\" id=\"input-address\" class=\"form-control form-control-alternative\" placeholder=\"City\" value=\"\" type=\"text\">\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-lg-6\" >\r\n                    <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-board\">Select Exam Types</label>\r\n                          <ng-multiselect-dropdown\r\n                          class = \"form-control form-control-alternative custom-multiselct\"\r\n                          [placeholder]=\"'Select Exam Types'\"\r\n                          [data]=\"examTypes\"\r\n                          [(ngModel)]=\"selectedExamTypes\"\r\n                          [settings]=\"examTypesSettings\"\r\n                          [ngModelOptions]=\"{standalone: true}\"\r\n                        >\r\n                        </ng-multiselect-dropdown>\r\n\r\n                      </div>\r\n                </div>\r\n\r\n              </div>\r\n              <div class=\"row\">\r\n                  <div class=\"col-lg-6\">\r\n                      <div class=\"form-group\" >\r\n                          <label class=\"form-control-label\" for=\"input-board\">Select Classes</label>\r\n                          <ng-multiselect-dropdown\r\n                          class = \"form-control form-control-alternative\"\r\n                          style=\"border-color: transparent;\"\r\n                          [placeholder]=\"'Select Classes'\"\r\n                          [data]=\"classes\"\r\n                          [(ngModel)] = \"selectedClasses\"\r\n                          [settings]=\"classesSettings\"\r\n                          [ngModelOptions]=\"{standalone: true}\"\r\n                        >\r\n                        </ng-multiselect-dropdown>\r\n                      </div>\r\n                    </div>\r\n                <div class=\"col-lg-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Type</label>\r\n                    <select name=\"type\" [ngModel]=\"isEdit ? boardToUpdate.type : ''\" class=\"form-control form-control-alternative\">\r\n                      <option value=\"\" disabled>Select Type</option>\r\n                      <option value=\"1\" >Board</option>\r\n                      <option value=\"2\" >University</option>\r\n                    </select>\r\n                  </div>\r\n                </div>\r\n\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group\">\r\n                          <label class=\"form-control-label\" for=\"input-address\">Web URL</label>\r\n                          <input name=\"webUrl\" [ngModel]=\"isEdit ? boardToUpdate.webUrl : ''\" id=\"input-address\" class=\"form-control form-control-alternative\" placeholder=\"Web URL\" value=\"\" type=\"text\">\r\n                        </div>\r\n                      </div>\r\n                    <div class=\"col-md-6\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-address\">Result URL</label>\r\n                        <input name=\"resultUrl\" [ngModel]=\"isEdit ? boardToUpdate.resultUrl : ''\" id=\"input-address\" class=\"form-control form-control-alternative\" placeholder=\"Result URL\" value=\"\" type=\"text\">\r\n                      </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-8\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-address\">Tags</label>\r\n                          <form (submit) = \"addTag(tagForm)\" #tagForm = \"ngForm\" >\r\n                            <input name=\"tagTitle\" ngModel id=\"input-address\" class=\"form-control form-control-alternative\" placeholder=\"Tags\" value=\"\" type=\"text\">\r\n                            <button class=\"btn btn-sm btn-primary\" style=\"margin-top: 10px;\" type=\"submit\"  >Add</button>\r\n                          </form>\r\n                      </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-8\" *ngFor=\"let tag of tags\">\r\n                    <span class=\"badge badge-primary\" (click)=\"removeTag(tag)\" >{{tag}}</span>\r\n                  </div>\r\n                </div>\r\n\r\n            </div>\r\n            <div class=\"text-center\">\r\n              <button *ngIf=\"!isEdit\" type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Add Board</button>\r\n              <button *ngIf=\"isEdit\" type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Update</button>\r\n              <button type=\"button\" class=\"btn btn-primary my-4\" (click)=\"cancel()\">Cancel</button>\r\n            </div>\r\n            <div *ngIf=\"isLoading\" class=\"loader\"></div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"header pb-8 pt-5 pt-lg-8 d-flex align-items-center\" >\r\n  <!-- Mask -->\r\n  <span class=\"mask bg-gradient-danger opacity-8\"></span>\r\n  <!-- Header container -->\r\n\r\n</div>\r\n<div class=\"container-fluid mt--7\">\r\n  <div class=\"row\">\r\n\r\n    <div class=\"col-xl-12 order-xl-1\">\r\n      <div class=\"card bg-secondary shadow\">\r\n        <div class=\"card-header bg-white border-0\">\r\n          <div class=\"row align-items-center\">\r\n            <div class=\"col-8\">\r\n              <h3 class=\"mb-0\">Add a Board</h3>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"card-body\">\r\n          <form (submit) = \"addBoard(boardForm)\" #boardForm = \"ngForm\" >\r\n            <h6 class=\"heading-small text-muted mb-4\">User information</h6>\r\n            <div class=\"pl-lg-4\">\r\n\r\n              <div class=\"row\">\r\n                <div class=\"col-lg-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Name</label>\r\n                    <input  name=\"title\" [ngModel]=\"isEdit ? boardToUpdate.title : ''\" class=\"form-control form-control-alternative\" placeholder=\"Board name\" value=\"\" type=\"text\">\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-lg-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Province</label>\r\n                    <select name=\"province\" [ngModel]=\"isEdit ? boardToUpdate.province : ''\" class=\"form-control form-control-alternative\">\r\n                      <option value=\"\" disabled>Choose Province</option>\r\n                      <option value=\"Punjab\" >Punjab</option>\r\n                      <option value=\"KPK\" >KPK</option>\r\n                      <option value=\"Sindh\" >Sindh</option>\r\n                      <option value=\"Balochistan\" >Balochistan</option>\r\n                      <option value=\"AJK\" >AJK</option>\r\n                      <option value=\"Federal\" >Federal</option>\r\n                   </select>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"row\">\r\n                <div class=\"col-md-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-address\">City</label>\r\n                    <input name=\"city\" [ngModel]=\"isEdit ? boardToUpdate.city : ''\"  class=\"form-control form-control-alternative\" placeholder=\"City\" value=\"\" type=\"text\">\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-lg-6\" >\r\n                    <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-board\">Select Exam Types</label>\r\n                          <ng-multiselect-dropdown\r\n                          class = \"form-control form-control-alternative custom-multiselct\"\r\n                          [placeholder]=\"'Select Exam Types'\"\r\n                          [data]=\"examTypes\"\r\n                          [(ngModel)]=\"selectedExamTypes\"\r\n                          [settings]=\"examTypesSettings\"\r\n                          [ngModelOptions]=\"{standalone: true}\"\r\n                        >\r\n                        </ng-multiselect-dropdown>\r\n\r\n                      </div>\r\n                </div>\r\n\r\n              </div>\r\n              <div class=\"row\">\r\n                  <div class=\"col-lg-6\">\r\n                      <div class=\"form-group\" >\r\n                          <label class=\"form-control-label\" for=\"input-board\">Select Classes</label>\r\n                          <ng-multiselect-dropdown\r\n                          class = \"form-control form-control-alternative\"\r\n                          style=\"border-color: transparent;\"\r\n                          [placeholder]=\"'Select Classes'\"\r\n                          [data]=\"classes\"\r\n                          [(ngModel)] = \"selectedClasses\"\r\n                          [settings]=\"classesSettings\"\r\n                          [ngModelOptions]=\"{standalone: true}\"\r\n                        >\r\n                        </ng-multiselect-dropdown>\r\n                      </div>\r\n                    </div>\r\n                <div class=\"col-lg-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Type</label>\r\n                    <select name=\"type\" [ngModel]=\"isEdit ? boardToUpdate.type : ''\" class=\"form-control form-control-alternative\">\r\n                      <option value=\"\" disabled>Select Type</option>\r\n                      <option value=\"1\" >Board</option>\r\n                      <option value=\"2\" >University</option>\r\n                    </select>\r\n                  </div>\r\n                </div>\r\n\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                        <div class=\"form-group\">\r\n                          <label class=\"form-control-label\" for=\"input-address\">Web URL</label>\r\n                          <input name=\"webUrl\" [ngModel]=\"isEdit ? boardToUpdate.webUrl : ''\"  class=\"form-control form-control-alternative\" placeholder=\"Web URL\" value=\"\" type=\"text\">\r\n                        </div>\r\n                      </div>\r\n                    <div class=\"col-md-6\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-address\">Result URL</label>\r\n                        <input name=\"resultUrl\" [ngModel]=\"isEdit ? boardToUpdate.resultUrl : ''\"  class=\"form-control form-control-alternative\" placeholder=\"Result URL\" value=\"\" type=\"text\">\r\n                      </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-8\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-address\">Tags</label>\r\n                          <form (submit) = \"addTag(tagForm)\" #tagForm = \"ngForm\" >\r\n                            <input name=\"tagTitle\" ngModel  class=\"form-control form-control-alternative\" placeholder=\"Tags\" value=\"\" type=\"text\">\r\n                            <button class=\"btn btn-sm btn-primary\" style=\"margin-top: 10px;\" type=\"submit\"  >Add</button>\r\n                          </form>\r\n                      </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-8\" *ngFor=\"let tag of tags\">\r\n                    <span class=\"badge badge-primary\" (click)=\"removeTag(tag)\" >{{tag}}</span>\r\n                  </div>\r\n                </div>\r\n\r\n            </div>\r\n            <div class=\"text-center\">\r\n              <button *ngIf=\"!isEdit\" type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Add Board</button>\r\n              <button *ngIf=\"isEdit\" type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Update</button>\r\n              <button type=\"button\" class=\"btn btn-primary my-4\" (click)=\"cancel()\">Cancel</button>\r\n            </div>\r\n            <div *ngIf=\"isLoading\" class=\"loader\">\r\n              <ng-lottie width=\"120px\" height=\"120px\" [options]=\"loadingAnimOptions\" (animationCreated)=\"loadingAnimationCreated($event)\"></ng-lottie>\r\n            </div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<ngx-alerts></ngx-alerts>\r\n"
 
 /***/ }),
 
@@ -33312,6 +33328,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_class_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/class.service */ "./src/app/services/class.service.ts");
 /* harmony import */ var src_app_services_board_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/board.service */ "./src/app/services/board.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33325,12 +33342,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var AddBoardComponent = /** @class */ (function () {
-    function AddBoardComponent(classService, boardService, route, router) {
+    function AddBoardComponent(classService, boardService, route, router, alertService) {
         this.classService = classService;
         this.boardService = boardService;
         this.route = route;
         this.router = router;
+        this.alertService = alertService;
         this.examTypes = [];
         this.selectedExamTypes = [];
         this.selectedET = [];
@@ -33345,6 +33364,9 @@ var AddBoardComponent = /** @class */ (function () {
         this.boardToUpdate = null;
         this.isEdit = false;
         this.isLoading = true;
+        this.loadingAnimOptions = {
+            path: '/assets/lib/loading-spinner.json'
+        };
     }
     AddBoardComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -33372,11 +33394,11 @@ var AddBoardComponent = /** @class */ (function () {
             itemsShowLimit: 5,
             allowSearchFilter: true
         };
-        this.route.paramMap.subscribe(function (paramMap) {
+        this.paramsub = this.route.paramMap.subscribe(function (paramMap) {
             if (paramMap.has('boardId')) {
                 _this.isLoading = true;
                 _this.boardToUpdateId = paramMap.get('boardId');
-                _this.boardService.getBoardById(_this.boardToUpdateId).subscribe(function (response) {
+                _this.boardsub = _this.boardService.getBoardById(_this.boardToUpdateId).subscribe(function (response) {
                     if (response.data && response.success) {
                         _this.boardToUpdate = response.data;
                         _this.isEdit = true;
@@ -33386,15 +33408,28 @@ var AddBoardComponent = /** @class */ (function () {
                         _this.selectedExamTypes = _this.boardToUpdate.examTypes;
                         _this.isLoading = false;
                     }
+                }, function (error) {
+                    _this.isLoading = false;
+                    if (error && error.error && error.error.message) {
+                        _this.alertService.danger(error.error.message);
+                    }
                 });
             }
         });
-        this.classService.getAllClasses().subscribe(function (response) {
+        this.classesSub = this.classService.getAllClasses().subscribe(function (response) {
             if (response.data && response.success) {
                 _this.classes = response.data;
                 _this.isLoading = false;
             }
+        }, function (error) {
+            _this.isLoading = false;
+            if (error && error.error && error.error.message) {
+                _this.alertService.danger(error.error.message);
+            }
         });
+    };
+    AddBoardComponent.prototype.loadingAnimationCreated = function (animationItem) {
+        this.loadingAnim = animationItem;
     };
     AddBoardComponent.prototype.addTag = function (form) {
         this.tags.push(form.value.tagTitle);
@@ -33419,7 +33454,7 @@ var AddBoardComponent = /** @class */ (function () {
             _this.selectedCls.push(cls._id);
         });
         if (this.isEdit && this.boardToUpdateId) {
-            this.boardService.updateBoard(this.boardToUpdateId, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.type, form.value.webUrl, form.value.resultUrl, this.tags)
+            this.updateBoardSub = this.boardService.updateBoard(this.boardToUpdateId, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.type, form.value.webUrl, form.value.resultUrl, this.tags)
                 .subscribe(function (response) {
                 if (response) {
                     _this.isLoading = false;
@@ -33428,15 +33463,20 @@ var AddBoardComponent = /** @class */ (function () {
                     _this.tags = [];
                     _this.params = [];
                     _this.isEdit = false;
-                    alert(response.message);
+                    _this.alertService.success(response.message);
                 }
                 if (response.success) {
                     _this.router.navigate(['/rs-admin/boards']);
                 }
+            }, function (error) {
+                _this.isLoading = false;
+                if (error && error.error && error.error.message) {
+                    _this.alertService.danger(error.error.message);
+                }
             });
         }
         else {
-            this.boardService.addBoard(null, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.type, form.value.webUrl, form.value.resultUrl, this.tags)
+            this.addBoardSub = this.boardService.addBoard(null, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.type, form.value.webUrl, form.value.resultUrl, this.tags)
                 .subscribe(function (response) {
                 if (response) {
                     _this.isLoading = false;
@@ -33444,11 +33484,23 @@ var AddBoardComponent = /** @class */ (function () {
                     _this.selectedExamTypes = [];
                     _this.tags = [];
                     _this.params = [];
-                    alert(response.message);
+                    _this.alertService.success(response.message);
+                }
+            }, function (error) {
+                _this.isLoading = false;
+                if (error && error.error && error.error.message) {
+                    _this.alertService.danger(error.error.message);
                 }
             });
         }
         form.resetForm();
+    };
+    AddBoardComponent.prototype.ngOnDestroy = function () {
+        this.paramsub && this.paramsub.unsubscribe();
+        this.boardsub && this.boardsub.unsubscribe();
+        this.classesSub && this.classesSub.unsubscribe();
+        this.addBoardSub && this.addBoardSub.unsubscribe();
+        this.updateBoardSub && this.updateBoardSub.unsubscribe();
     };
     AddBoardComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -33456,7 +33508,9 @@ var AddBoardComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./add-board.component.html */ "./src/app/pages/admin/add-board/add-board.component.html"),
             styles: [__webpack_require__(/*! ./add-board.component.scss */ "./src/app/pages/admin/add-board/add-board.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_class_service__WEBPACK_IMPORTED_MODULE_1__["ClassService"], src_app_services_board_service__WEBPACK_IMPORTED_MODULE_2__["BoardService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        __metadata("design:paramtypes", [src_app_services_class_service__WEBPACK_IMPORTED_MODULE_1__["ClassService"], src_app_services_board_service__WEBPACK_IMPORTED_MODULE_2__["BoardService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            ngx_alerts__WEBPACK_IMPORTED_MODULE_4__["AlertService"]])
     ], AddBoardComponent);
     return AddBoardComponent;
 }());
@@ -33472,7 +33526,7 @@ var AddBoardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header pb-8 pt-5 pt-lg-8 d-flex align-items-center\" >\r\n  <!-- Mask -->\r\n  <span class=\"mask bg-gradient-danger opacity-8\"></span>\r\n  <!-- Header container -->\r\n  \r\n</div>\r\n<div class=\"container-fluid mt--7\">\r\n  <div class=\"row\">\r\n   \r\n    <div class=\"col-xl-12 order-xl-1\">\r\n      <div class=\"card bg-secondary shadow\">\r\n        <div class=\"card-header bg-white border-0\">\r\n          <div class=\"row align-items-center\">\r\n            <div class=\"col-8\">\r\n              <h3 class=\"mb-0\">Add a Class</h3>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"card-body\">\r\n          <form (submit) =\"addClass(classForm)\" #classForm = \"ngForm\" >\r\n            <h6 class=\"heading-small text-muted mb-4\">User information</h6>\r\n            <div class=\"pl-lg-4\">\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-address\">Class Title</label>\r\n                        <input name=\"title\" [ngModel] = \"classToEdit.title !== null && isEdit ? classToEdit.title : '' \" id=\"input-address\" class=\"form-control form-control-alternative\" placeholder=\"Class Title\" value=\"\" type=\"text\">\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"col-lg-6\">\r\n                        <div class=\"form-group\">\r\n                          <label class=\"form-control-label\" for=\"input-board\">Type</label>\r\n                          <select  name=\"type\" [ngModel] = \"classToEdit.type !== null && isEdit ? classToEdit.type : '' \" class=\"form-control form-control-alternative\">\r\n                            <option value=\"\" disabled>Select Type</option>\r\n                            <option value=\"0\" >class</option>\r\n                            <option value=\"1\" >Test</option>\r\n                         </select>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"text-center\">\r\n              <button *ngIf=\"!isEdit\" type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Add Class</button>\r\n              <button *ngIf=\"isEdit\" type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Update</button>\r\n              <button type=\"button\" class=\"btn btn-primary my-4\" (click)=\"cancel()\">Cancel</button>\r\n            </div>\r\n            <div *ngIf=\"isLoading\" class=\"loader\"></div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"header pb-8 pt-5 pt-lg-8 d-flex align-items-center\" >\r\n  <!-- Mask -->\r\n  <span class=\"mask bg-gradient-danger opacity-8\"></span>\r\n  <!-- Header container -->\r\n\r\n</div>\r\n<div class=\"container-fluid mt--7\">\r\n  <div class=\"row\">\r\n\r\n    <div class=\"col-xl-12 order-xl-1\">\r\n      <div class=\"card bg-secondary shadow\">\r\n        <div class=\"card-header bg-white border-0\">\r\n          <div class=\"row align-items-center\">\r\n            <div class=\"col-8\">\r\n              <h3 class=\"mb-0\">Add a Class</h3>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"card-body\">\r\n          <form (submit) =\"addClass(classForm)\" #classForm = \"ngForm\" >\r\n            <h6 class=\"heading-small text-muted mb-4\">User information</h6>\r\n            <div class=\"pl-lg-4\">\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-address\">Class Title</label>\r\n                        <input name=\"title\" [ngModel] = \"classToEdit.title !== null && isEdit ? classToEdit.title : '' \" id=\"input-address\" class=\"form-control form-control-alternative\" placeholder=\"Class Title\" value=\"\" type=\"text\">\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"col-lg-6\">\r\n                        <div class=\"form-group\">\r\n                          <label class=\"form-control-label\" for=\"input-board\">Type</label>\r\n                          <select  name=\"type\" [ngModel] = \"classToEdit.type !== null && isEdit ? classToEdit.type : '' \" class=\"form-control form-control-alternative\">\r\n                            <option value=\"\" disabled>Select Type</option>\r\n                            <option value=\"0\" >class</option>\r\n                            <option value=\"1\" >Test</option>\r\n                         </select>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"text-center\">\r\n              <button *ngIf=\"!isEdit\" type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Add Class</button>\r\n              <button *ngIf=\"isEdit\" type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Update</button>\r\n              <button type=\"button\" class=\"btn btn-primary my-4\" (click)=\"cancel()\">Cancel</button>\r\n            </div>\r\n            <div *ngIf=\"isLoading\" class=\"loader\">\r\n              <ng-lottie width=\"120px\" height=\"120px\" [options]=\"loadingAnimOptions\" (animationCreated)=\"loadingAnimationCreated($event)\"></ng-lottie>\r\n            </div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<ngx-alerts></ngx-alerts>\r\n"
 
 /***/ }),
 
@@ -33500,6 +33554,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_class_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/class.service */ "./src/app/services/class.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33512,11 +33567,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var AddClassComponent = /** @class */ (function () {
-    function AddClassComponent(classService, route, router) {
+    function AddClassComponent(classService, route, router, alertService) {
         this.classService = classService;
         this.route = route;
         this.router = router;
+        this.alertService = alertService;
         this.classToEdit = {
             _id: null,
             title: null,
@@ -33524,10 +33581,13 @@ var AddClassComponent = /** @class */ (function () {
         };
         this.isEdit = false;
         this.isLoading = true;
+        this.loadingAnimOptions = {
+            path: '/assets/lib/loading-spinner.json'
+        };
     }
     AddClassComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.paramMap.subscribe(function (paramMap) {
+        this.paramsub = this.route.paramMap.subscribe(function (paramMap) {
             if (paramMap.has('classId')) {
                 _this.isEdit = true;
                 _this.classToEdit._id = paramMap.get('classId');
@@ -33541,6 +33601,9 @@ var AddClassComponent = /** @class */ (function () {
             _this.isLoading = false;
         });
     };
+    AddClassComponent.prototype.loadingAnimationCreated = function (animationItem) {
+        this.loadingAnim = animationItem;
+    };
     AddClassComponent.prototype.cancel = function () {
         this.isEdit = false;
         this.router.navigate(['/rs-admin/classes']);
@@ -33552,24 +33615,39 @@ var AddClassComponent = /** @class */ (function () {
             return;
         }
         if (this.isEdit && this.classToEdit._id) {
-            this.classService.updateClass(this.classToEdit._id, form.value.title, form.value.type).subscribe(function (response) {
+            this.updateClassSub = this.classService.updateClass(this.classToEdit._id, form.value.title, form.value.type).subscribe(function (response) {
                 if (response.success && response.message) {
                     _this.isLoading = false;
-                    alert(response.message);
+                    _this.alertService.success(response.message);
                     _this.isEdit = false;
                     _this.router.navigate(['/rs-admin/classes']);
+                }
+            }, function (error) {
+                _this.isLoading = false;
+                if (error && error.error && error.error.message) {
+                    _this.alertService.danger(error.error.message);
                 }
             });
         }
         else {
-            this.classService.addClass(form.value.title, form.value.type).subscribe(function (response) {
+            this.addClassSub = this.classService.addClass(form.value.title, form.value.type).subscribe(function (response) {
                 if (response.success && response.message) {
                     _this.isLoading = false;
-                    alert(response.message);
+                    _this.alertService.success(response.message);
+                }
+            }, function (error) {
+                _this.isLoading = false;
+                if (error && error.error && error.error.message) {
+                    _this.alertService.danger(error.error.message);
                 }
             });
         }
         form.resetForm();
+    };
+    AddClassComponent.prototype.ngOnDestroy = function () {
+        this.paramsub && this.paramsub.unsubscribe();
+        this.addClassSub && this.addClassSub.unsubscribe();
+        this.updateClassSub && this.updateClassSub.unsubscribe();
     };
     AddClassComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -33577,7 +33655,8 @@ var AddClassComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./add-class.component.html */ "./src/app/pages/admin/add-class/add-class.component.html"),
             styles: [__webpack_require__(/*! ./add-class.component.scss */ "./src/app/pages/admin/add-class/add-class.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_class_service__WEBPACK_IMPORTED_MODULE_1__["ClassService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        __metadata("design:paramtypes", [src_app_services_class_service__WEBPACK_IMPORTED_MODULE_1__["ClassService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            ngx_alerts__WEBPACK_IMPORTED_MODULE_3__["AlertService"]])
     ], AddClassComponent);
     return AddClassComponent;
 }());
@@ -33593,7 +33672,7 @@ var AddClassComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header pb-8 pt-5 pt-lg-8 d-flex align-items-center\" >\r\n  <!-- Mask -->\r\n  <span class=\"mask bg-gradient-danger opacity-8\"></span>\r\n  <!-- Header container -->\r\n\r\n</div>\r\n<div class=\"container-fluid mt--7\">\r\n  <div class=\"row\">\r\n\r\n    <div class=\"col-xl-12 order-xl-1\">\r\n      <div class=\"card bg-secondary shadow\">\r\n        <div class=\"card-header bg-white border-0\">\r\n          <div class=\"row align-items-center\">\r\n            <div class=\"col-8\">\r\n              <h3 class=\"mb-0\">Add a Result</h3>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"card-body\">\r\n          <form (submit) = \"addResult(resultForm)\" #resultForm=\"ngForm\" >\r\n            <h6 class=\"heading-small text-muted mb-4\">User information</h6>\r\n            <div class=\"pl-lg-4\">\r\n              <div class=\"row\" >\r\n                  <div class=\"col-lg-4\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-city\">Announce Status</label>\r\n                        <span class=\"clearfix\"></span>\r\n                        <label class=\"custom-toggle\">\r\n                            <input name=\"status\" [ngModel]=\" isEdit ? resultToUpdate.status : ''\" type=\"checkbox\" >\r\n                            <span class=\"custom-toggle-slider rounded-circle\"></span>\r\n                          </label>\r\n                      </div>\r\n                    </div>\r\n              </div>\r\n              <div class=\"row\">\r\n                <div class=\"col-lg-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Class</label>\r\n                    <select  name=\"clas\" [ngModel]=\" isEdit ? resultToUpdate.section._id : ''\" class=\"form-control form-control-alternative\">\r\n                      <option *ngFor=\"let cls of classes\" value=\"{{cls._id}}\" >{{cls.title}}</option>\r\n                   </select>\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-lg-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Board</label>\r\n                    <select (change) = \"changeBoard($event.target.value)\"  name=\"board\" [ngModel]=\" isEdit ? resultToUpdate.board._id : ''\" class=\"form-control form-control-alternative\">\r\n                      <option *ngFor=\"let board of boards\" value=\"{{board._id}}\" >{{board.title}}</option>\r\n                   </select>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"row\">\r\n                <div class=\"col-lg-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Year</label>\r\n                    <select name=\"year\" [ngModel]=\" isEdit ? resultToUpdate.year : ''\" class=\"form-control form-control-alternative\">\r\n                      <option value=\"\" disabled>Select Year</option>\r\n                      <option value=\"2023\" >2023</option>\r\n                      <option value=\"2022\" >2022</option>\r\n                      <option value=\"2021\" >2021</option>\r\n                      <option value=\"2020\" >2020</option>\r\n                      <option value=\"2019\" >2019</option>\r\n                      <option value=\"2018\" >2018</option>\r\n                      <option value=\"2017\" >2017</option>\r\n                      <option value=\"2016\" >2016</option>\r\n                      <option value=\"2015\" >2015</option>\r\n                      <option value=\"2014\" >2014</option>\r\n                      <option value=\"2013\" >2013</option>\r\n                      <option value=\"2012\" >2012</option>\r\n                      <option value=\"2011\" >2011</option>\r\n                      <option value=\"2010\" >2010</option>\r\n                   </select>\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-lg-6\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Announce Date</label>\r\n                  <div class=\"input-group input-group-alternative\">\r\n                    <div class=\"input-group-prepend\">\r\n                      <span class=\"input-group-text\"><i class=\"ni ni-calendar-grid-58\"></i></span>\r\n                    </div>\r\n                    <input name=\"announceDate\" [ngModel]=\" isEdit ? resultToUpdate.announceDate : ''\" class=\"form-control datepicker\" placeholder=\"Select date\" ngbDatepicker #d=\"ngbDatepicker\" (click)=\"d.toggle()\" type=\"text\"/>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"row\">\r\n                  <div class=\"col-lg-6\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-control-label\" for=\"input-board\">Exam Type</label>\r\n                      <select name=\"examType\" [ngModel]=\" isEdit ? resultToUpdate.examType : ''\" class=\"form-control form-control-alternative\">\r\n                        <option value=\"\" disabled>Select Exam Type</option>\r\n                        <option value=\"0\" >Annual</option>\r\n                        <option value=\"1\" >Supply</option>\r\n                        <option value=\"2\" >Test</option>\r\n                        <option value=\"3\" >Retotal</option>\r\n                     </select>\r\n                    </div>\r\n                  </div>\r\n\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-12\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-address\">Result URL</label>\r\n                        <input *ngIf=\"!selectedBoard\" name=\"resultUrl\" [ngModel]=\" isEdit ? resultToUpdate.resultUrl : ''\" id=\"input-address\" class=\"form-control form-control-alternative\" placeholder=\"Result URL\" value=\"\" type=\"text\">\r\n                        <input *ngIf=\"selectedBoard\" name=\"resultUrl\" [ngModel]=\" selectedBoard.resultUrl ? selectedBoard.resultUrl : ''\" id=\"input-address\" class=\"form-control form-control-alternative\" placeholder=\"Result URL\" value=\"\" type=\"text\">\r\n                      </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-8\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-address\">Tags</label>\r\n                          <form (submit) = \"addTag(tagForm)\" #tagForm = \"ngForm\" >\r\n                            <input name=\"tagTitle\" ngModel id=\"input-address\" class=\"form-control form-control-alternative\" placeholder=\"Tags\" value=\"\" type=\"text\">\r\n                            <button class=\"btn btn-sm btn-primary\" style=\"margin-top: 10px;\" type=\"submit\"  >Add</button>\r\n                          </form>\r\n                      </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-8\" *ngFor=\"let tag of tags\">\r\n                    <span class=\"badge badge-primary\" (click)=\"removeTag(tag)\" >{{tag}}</span>\r\n                  </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"text-center\">\r\n              <button *ngIf=\"!isEdit\" type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Add Result</button>\r\n              <button *ngIf=\"isEdit\" type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Update</button>\r\n              <button type=\"button\" class=\"btn btn-primary my-4\" (click)=\"cancel()\">Cancel</button>\r\n            </div>\r\n            <div *ngIf=\"isLoading\" class=\"loader\"></div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"header pb-8 pt-5 pt-lg-8 d-flex align-items-center\" >\r\n  <!-- Mask -->\r\n  <span class=\"mask bg-gradient-danger opacity-8\"></span>\r\n  <!-- Header container -->\r\n\r\n</div>\r\n<div class=\"container-fluid mt--7\">\r\n  <div class=\"row\">\r\n\r\n    <div class=\"col-xl-12 order-xl-1\">\r\n      <div class=\"card bg-secondary shadow\">\r\n        <div class=\"card-header bg-white border-0\">\r\n          <div class=\"row align-items-center\">\r\n            <div class=\"col-8\">\r\n              <h3 class=\"mb-0\">Add a Result</h3>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"card-body\">\r\n          <form (submit) = \"addResult(resultForm)\" #resultForm=\"ngForm\" >\r\n            <h6 class=\"heading-small text-muted mb-4\">User information</h6>\r\n            <div class=\"pl-lg-4\">\r\n              <div class=\"row\" >\r\n                  <div class=\"col-lg-4\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-city\">Announce Status</label>\r\n                        <span class=\"clearfix\"></span>\r\n                        <label class=\"custom-toggle\">\r\n                            <input name=\"status\" [ngModel]=\" isEdit ? resultToUpdate.status : ''\" type=\"checkbox\" >\r\n                            <span class=\"custom-toggle-slider rounded-circle\"></span>\r\n                          </label>\r\n                      </div>\r\n                    </div>\r\n              </div>\r\n              <div class=\"row\">\r\n                <div class=\"col-lg-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Class</label>\r\n                    <select  name=\"clas\" [ngModel]=\" isEdit ? resultToUpdate.section._id : ''\" class=\"form-control form-control-alternative\">\r\n                      <option *ngFor=\"let cls of classes\" value=\"{{cls._id}}\" >{{cls.title}}</option>\r\n                   </select>\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-lg-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Board</label>\r\n                    <select (change) = \"changeBoard($event.target.value)\"  name=\"board\" [ngModel]=\" isEdit ? resultToUpdate.board._id : ''\" class=\"form-control form-control-alternative\">\r\n                      <option *ngFor=\"let board of boards\" value=\"{{board._id}}\" >{{board.title}}</option>\r\n                   </select>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"row\">\r\n                <div class=\"col-lg-6\">\r\n                  <div class=\"form-group\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Year</label>\r\n                    <select name=\"year\" [ngModel]=\" isEdit ? resultToUpdate.year : ''\" class=\"form-control form-control-alternative\">\r\n                      <option value=\"\" disabled>Select Year</option>\r\n                      <option value=\"2023\" >2023</option>\r\n                      <option value=\"2022\" >2022</option>\r\n                      <option value=\"2021\" >2021</option>\r\n                      <option value=\"2020\" >2020</option>\r\n                      <option value=\"2019\" >2019</option>\r\n                      <option value=\"2018\" >2018</option>\r\n                      <option value=\"2017\" >2017</option>\r\n                      <option value=\"2016\" >2016</option>\r\n                      <option value=\"2015\" >2015</option>\r\n                      <option value=\"2014\" >2014</option>\r\n                      <option value=\"2013\" >2013</option>\r\n                      <option value=\"2012\" >2012</option>\r\n                      <option value=\"2011\" >2011</option>\r\n                      <option value=\"2010\" >2010</option>\r\n                   </select>\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-lg-6\">\r\n                    <label class=\"form-control-label\" for=\"input-board\">Announce Date</label>\r\n                  <div class=\"input-group input-group-alternative\">\r\n                    <div class=\"input-group-prepend\">\r\n                      <span class=\"input-group-text\"><i class=\"ni ni-calendar-grid-58\"></i></span>\r\n                    </div>\r\n                    <input name=\"announceDate\" [ngModel]=\" isEdit ? resultToUpdate.announceDate : ''\" class=\"form-control datepicker\" placeholder=\"Select date\" ngbDatepicker #d=\"ngbDatepicker\" (click)=\"d.toggle()\" type=\"text\"/>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"row\">\r\n                  <div class=\"col-lg-6\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-control-label\" for=\"input-board\">Exam Type</label>\r\n                      <select name=\"examType\" [ngModel]=\" isEdit ? resultToUpdate.examType : ''\" class=\"form-control form-control-alternative\">\r\n                        <option value=\"\" disabled>Select Exam Type</option>\r\n                        <option value=\"0\" >Annual</option>\r\n                        <option value=\"1\" >Supply</option>\r\n                        <option value=\"2\" >Test</option>\r\n                        <option value=\"3\" >Retotal</option>\r\n                     </select>\r\n                    </div>\r\n                  </div>\r\n\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-12\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-address\">Result URL</label>\r\n                        <input *ngIf=\"!selectedBoard\" name=\"resultUrl\" [ngModel]=\" isEdit ? resultToUpdate.resultUrl : ''\"  class=\"form-control form-control-alternative\" placeholder=\"Result URL\" value=\"\" type=\"text\">\r\n                        <input *ngIf=\"selectedBoard\" name=\"resultUrl\" [ngModel]=\" selectedBoard.resultUrl ? selectedBoard.resultUrl : ''\"  class=\"form-control form-control-alternative\" placeholder=\"Result URL\" value=\"\" type=\"text\">\r\n                      </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-8\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-control-label\" for=\"input-address\">Tags</label>\r\n                          <form (submit) = \"addTag(tagForm)\" #tagForm = \"ngForm\" >\r\n                            <input name=\"tagTitle\" ngModel  class=\"form-control form-control-alternative\" placeholder=\"Tags\" value=\"\" type=\"text\">\r\n                            <button class=\"btn btn-sm btn-primary\" style=\"margin-top: 10px;\" type=\"submit\"  >Add</button>\r\n                          </form>\r\n                      </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-8\" *ngFor=\"let tag of tags\">\r\n                    <span class=\"badge badge-primary\" (click)=\"removeTag(tag)\" >{{tag}}</span>\r\n                  </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"text-center\">\r\n              <button *ngIf=\"!isEdit\" type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Add Result</button>\r\n              <button *ngIf=\"isEdit\" type=\"button\" class=\"btn btn-primary my-4\" type=\"submit\">Update</button>\r\n              <button type=\"button\" class=\"btn btn-primary my-4\" (click)=\"cancel()\">Cancel</button>\r\n            </div>\r\n            <div *ngIf=\"isLoading\" class=\"loader\">\r\n              <ng-lottie width=\"120px\" height=\"120px\" [options]=\"loadingAnimOptions\" (animationCreated)=\"loadingAnimationCreated($event)\"></ng-lottie>\r\n            </div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<ngx-alerts></ngx-alerts>\r\n"
 
 /***/ }),
 
@@ -33623,6 +33702,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_class_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/class.service */ "./src/app/services/class.service.ts");
 /* harmony import */ var src_app_services_board_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/board.service */ "./src/app/services/board.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33637,13 +33717,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var AddResultComponent = /** @class */ (function () {
-    function AddResultComponent(resultService, classService, boardService, route, router) {
+    function AddResultComponent(resultService, classService, boardService, route, router, alertService) {
         this.resultService = resultService;
         this.classService = classService;
         this.boardService = boardService;
         this.route = route;
         this.router = router;
+        this.alertService = alertService;
         this.params = [];
         this.tags = [];
         this.classes = [];
@@ -33652,13 +33734,16 @@ var AddResultComponent = /** @class */ (function () {
         this.resultToUpdateId = null;
         this.isEdit = false;
         this.isLoading = true;
+        this.loadingAnimOptions = {
+            path: '/assets/lib/loading-spinner.json'
+        };
     }
     AddResultComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.paramMap.subscribe(function (paramMap) {
+        this.paramSub = this.route.paramMap.subscribe(function (paramMap) {
             if (paramMap.has('resultId')) {
                 _this.resultToUpdateId = paramMap.get('resultId');
-                _this.resultService.getResultById(_this.resultToUpdateId).subscribe(function (response) {
+                _this.resultSub = _this.resultService.getResultById(_this.resultToUpdateId).subscribe(function (response) {
                     if (response.success && response.data) {
                         _this.isEdit = true;
                         _this.resultToUpdate = response.data;
@@ -33666,20 +33751,38 @@ var AddResultComponent = /** @class */ (function () {
                         _this.params = _this.resultToUpdate.apiParams;
                         _this.isLoading = false;
                     }
+                }, function (error) {
+                    _this.isLoading = false;
+                    if (error && error.error && error.error.message) {
+                        _this.alertService.danger(error.error.message);
+                    }
                 });
             }
         });
-        this.classService.getAllClasses().subscribe(function (response) {
+        this.classesSub = this.classService.getAllClasses().subscribe(function (response) {
             if (response.success && response.data) {
                 _this.classes = response.data;
             }
+        }, function (error) {
+            _this.isLoading = false;
+            if (error && error.error && error.error.message) {
+                _this.alertService.danger(error.error.message);
+            }
         });
-        this.boardService.getAllBoardes().subscribe(function (response) {
+        this.boardSub = this.boardService.getAllBoardes().subscribe(function (response) {
             if (response.success && response.data) {
                 _this.boards = response.data;
                 _this.isLoading = false;
             }
+        }, function (error) {
+            _this.isLoading = false;
+            if (error && error.error && error.error.message) {
+                _this.alertService.danger(error.error.message);
+            }
         });
+    };
+    AddResultComponent.prototype.loadingAnimationCreated = function (animationItem) {
+        this.loadingAnim = animationItem;
     };
     AddResultComponent.prototype.addTag = function (form) {
         if (form.invalid) {
@@ -33708,24 +33811,34 @@ var AddResultComponent = /** @class */ (function () {
             form.value.status = false;
         }
         if (this.isEdit && this.resultToUpdateId) {
-            this.resultService.updateResult(this.resultToUpdateId, form.value.status, form.value.clas, form.value.board, form.value.year, form.value.announceDate, form.value.examType, form.value.resultUrl, this.tags).subscribe(function (response) {
+            this.updateResultSub = this.resultService.updateResult(this.resultToUpdateId, form.value.status, form.value.clas, form.value.board, form.value.year, form.value.announceDate, form.value.examType, form.value.resultUrl, this.tags).subscribe(function (response) {
                 if (response.success && response.message) {
                     _this.isLoading = false;
-                    alert(response.message);
+                    _this.alertService.success(response.message);
                     _this.isEdit = false;
                     _this.params = [];
                     _this.tags = [];
                     _this.router.navigate(['/rs-admin/results']);
                 }
+            }, function (error) {
+                _this.isLoading = false;
+                if (error && error.error && error.error.message) {
+                    _this.alertService.danger(error.error.message);
+                }
             });
         }
         else {
-            this.resultService.addResult(null, form.value.status, form.value.clas, form.value.board, form.value.year, form.value.announceDate, form.value.examType, form.value.resultUrl, this.tags).subscribe(function (response) {
+            this.addResultSub = this.resultService.addResult(null, form.value.status, form.value.clas, form.value.board, form.value.year, form.value.announceDate, form.value.examType, form.value.resultUrl, this.tags).subscribe(function (response) {
                 if (response.success && response.message) {
+                    _this.alertService.success(response.message);
                     _this.isLoading = false;
-                    alert(response.message);
                     _this.params = [];
                     _this.tags = [];
+                }
+            }, function (error) {
+                _this.isLoading = false;
+                if (error && error.error && error.error.message) {
+                    _this.alertService.danger(error.error.message);
                 }
             });
         }
@@ -33733,11 +33846,24 @@ var AddResultComponent = /** @class */ (function () {
     };
     AddResultComponent.prototype.changeBoard = function (boardId) {
         var _this = this;
-        this.boardService.getBoardById(boardId).subscribe(function (response) {
+        this.boardSub = this.boardService.getBoardById(boardId).subscribe(function (response) {
             _this.selectedBoard = response.data;
             _this.params = _this.selectedBoard.apiParams;
             _this.tags = _this.selectedBoard.tags;
+        }, function (error) {
+            _this.isLoading = false;
+            if (error && error.error && error.error.message) {
+                _this.alertService.danger(error.error.message);
+            }
         });
+    };
+    AddResultComponent.prototype.ngOnDestroy = function () {
+        this.paramSub && this.paramSub.unsubscribe();
+        this.resultSub && this.resultSub.unsubscribe();
+        this.boardSub && this.boardSub.unsubscribe();
+        this.classesSub && this.classesSub.unsubscribe();
+        this.addResultSub && this.addResultSub.unsubscribe();
+        this.updateResultSub && this.updateResultSub.unsubscribe();
     };
     AddResultComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -33745,7 +33871,9 @@ var AddResultComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./add-result.component.html */ "./src/app/pages/admin/add-result/add-result.component.html"),
             styles: [__webpack_require__(/*! ./add-result.component.scss */ "./src/app/pages/admin/add-result/add-result.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_result_service__WEBPACK_IMPORTED_MODULE_1__["ResultService"], src_app_services_class_service__WEBPACK_IMPORTED_MODULE_2__["ClassService"], src_app_services_board_service__WEBPACK_IMPORTED_MODULE_3__["BoardService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+        __metadata("design:paramtypes", [src_app_services_result_service__WEBPACK_IMPORTED_MODULE_1__["ResultService"], src_app_services_class_service__WEBPACK_IMPORTED_MODULE_2__["ClassService"],
+            src_app_services_board_service__WEBPACK_IMPORTED_MODULE_3__["BoardService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], ngx_alerts__WEBPACK_IMPORTED_MODULE_5__["AlertService"]])
     ], AddResultComponent);
     return AddResultComponent;
 }());
@@ -33761,7 +33889,7 @@ var AddResultComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header bg-gradient-danger pb-8 pt-5 pt-md-8\">\r\n  <div class=\"container-fluid\">\r\n    <div class=\"header-body\">\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n<!-- Page content -->\r\n<div class=\"container-fluid mt--7\">\r\n  <!-- Table -->\r\n  <div class=\"row\">\r\n    <div class=\"col\">\r\n      <div class=\"card shadow\">\r\n        <div class=\"card-header border-0\">\r\n          <div class=\"row align-items-center\">\r\n            <div class=\"col-8\">\r\n              <h3 class=\"mb-0\">Boards</h3>\r\n            </div>\r\n            <div class=\"col-4 text-right\">\r\n              <a routerLinkActive=\"active\" [routerLink]=\"['/rs-admin/add-board']\" class=\"btn btn-sm btn-primary\">Add</a>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"table-responsive\">\r\n          <table class=\"table align-items-center table-flush\">\r\n            <thead class=\"thead-light\">\r\n              <tr>\r\n                <th scope=\"col\">Name</th>\r\n                <th scope=\"col\">Province</th>\r\n                <th scope=\"col\">City</th>\r\n                <th scope=\"col\">Views</th>\r\n                <th scope=\"col\">Web URL</th>\r\n                <th scope=\"col\">Result URL</th>\r\n                <th scope=\"col\"></th>\r\n              </tr>\r\n            </thead>\r\n            <div *ngIf=\"isLoading\" class=\"loader\"></div>\r\n            <tbody *ngIf=\"!isLoading\">\r\n              <tr *ngFor=\"let board of boards\">\r\n                <td>\r\n                  {{board.title}}\r\n                </td>\r\n                <td>\r\n                  {{board.province}}\r\n                </td>\r\n                <td>\r\n                  {{board.city}}\r\n                </td>\r\n                <td>\r\n                  {{board.views}}\r\n                </td>\r\n                <td>\r\n                  <a href=\"{{board.webUrl}}\" >Website</a>\r\n                </td>\r\n                <td>\r\n                  <a href=\"{{board.resultUrl}}\" >Result</a>\r\n                </td>\r\n                <td class=\"text-right\">\r\n                  <div ngbDropdown   placement=\"bottom-right\">\r\n                    <a class=\"btn btn-sm btn-icon-only text-light\" (click)=\"editBoard(board._id)\">\r\n                      <i class=\"fas fa-edit\"></i>\r\n                    </a>\r\n                    <a class=\"btn btn-sm btn-icon-only text-light\" (click)=\"removeBoard(board._id)\" >\r\n                      <i class=\"fas fa-remove\"></i>\r\n                    </a>\r\n                  </div>\r\n                </td>\r\n              </tr>\r\n            </tbody>\r\n          </table>\r\n        </div>\r\n        <div class=\"card-footer py-4\">\r\n          <nav aria-label=\"...\">\r\n            <ul class=\"pagination justify-content-end mb-0\">\r\n              <li class=\"page-item disabled\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\" tabindex=\"-1\">\r\n                  <i class=\"fas fa-angle-left\"></i>\r\n                  <span class=\"sr-only\">Previous</span>\r\n                </a>\r\n              </li>\r\n              <li class=\"page-item active\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">1</a>\r\n              </li>\r\n              <li class=\"page-item\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">2 <span class=\"sr-only\">(current)</span></a>\r\n              </li>\r\n              <li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0)\">3</a></li>\r\n              <li class=\"page-item\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">\r\n                  <i class=\"fas fa-angle-right\"></i>\r\n                  <span class=\"sr-only\">Next</span>\r\n                </a>\r\n              </li>\r\n            </ul>\r\n          </nav>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"header bg-gradient-danger pb-8 pt-5 pt-md-8\">\r\n  <div class=\"container-fluid\">\r\n    <div class=\"header-body\">\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n<!-- Page content -->\r\n<div class=\"container-fluid mt--7\">\r\n  <!-- Table -->\r\n  <div class=\"row\">\r\n    <div class=\"col\">\r\n      <div class=\"card shadow\">\r\n        <div class=\"card-header border-0\">\r\n          <div class=\"row align-items-center\">\r\n            <div class=\"col-8\">\r\n              <h3 class=\"mb-0\">Boards</h3>\r\n            </div>\r\n            <div class=\"col-4 text-right\">\r\n              <a routerLinkActive=\"active\" [routerLink]=\"['/rs-admin/add-board']\" class=\"btn btn-sm btn-primary\">Add</a>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"table-responsive\">\r\n          <table class=\"table align-items-center table-flush\">\r\n            <thead class=\"thead-light\">\r\n              <tr>\r\n                <th scope=\"col\">Name</th>\r\n                <th scope=\"col\">Province</th>\r\n                <th scope=\"col\">City</th>\r\n                <th scope=\"col\">Views</th>\r\n                <th scope=\"col\">Web URL</th>\r\n                <th scope=\"col\">Result URL</th>\r\n                <th scope=\"col\"></th>\r\n              </tr>\r\n            </thead>\r\n            <div *ngIf=\"isLoading\" class=\"loader\">\r\n              <ng-lottie width=\"120px\" height=\"120px\" [options]=\"loadingAnimOptions\" (animationCreated)=\"loadingAnimationCreated($event)\"></ng-lottie>\r\n            </div>\r\n            <tbody *ngIf=\"!isLoading\">\r\n              <tr *ngFor=\"let board of boards\">\r\n                <td>\r\n                  {{board.title}}\r\n                </td>\r\n                <td>\r\n                  {{board.province}}\r\n                </td>\r\n                <td>\r\n                  {{board.city}}\r\n                </td>\r\n                <td>\r\n                  {{board.views}}\r\n                </td>\r\n                <td>\r\n                  <a href=\"{{board.webUrl}}\" >Website</a>\r\n                </td>\r\n                <td>\r\n                  <a href=\"{{board.resultUrl}}\" >Result</a>\r\n                </td>\r\n                <td class=\"text-right\">\r\n                  <div ngbDropdown   placement=\"bottom-right\">\r\n                    <a class=\"btn btn-sm btn-icon-only text-light\" (click)=\"editBoard(board._id)\">\r\n                      <i class=\"fas fa-edit\"></i>\r\n                    </a>\r\n                    <a class=\"btn btn-sm btn-icon-only text-light\" (click)=\"removeBoard(board._id)\" >\r\n                      <i style=\"font-size: large;\" class=\"ni ni-fat-remove\"></i>\r\n                    </a>\r\n                  </div>\r\n                </td>\r\n              </tr>\r\n            </tbody>\r\n          </table>\r\n        </div>\r\n        <div class=\"card-footer py-4\">\r\n          <nav aria-label=\"...\">\r\n            <ul class=\"pagination justify-content-end mb-0\">\r\n              <li class=\"page-item disabled\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\" tabindex=\"-1\">\r\n                  <i class=\"fas fa-angle-left\"></i>\r\n                  <span class=\"sr-only\">Previous</span>\r\n                </a>\r\n              </li>\r\n              <li class=\"page-item active\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">1</a>\r\n              </li>\r\n              <li class=\"page-item\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">2 <span class=\"sr-only\">(current)</span></a>\r\n              </li>\r\n              <li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0)\">3</a></li>\r\n              <li class=\"page-item\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">\r\n                  <i class=\"fas fa-angle-right\"></i>\r\n                  <span class=\"sr-only\">Next</span>\r\n                </a>\r\n              </li>\r\n            </ul>\r\n          </nav>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<ngx-alerts></ngx-alerts>\r\n"
 
 /***/ }),
 
@@ -33789,6 +33917,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_board_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/board.service */ "./src/app/services/board.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33801,37 +33930,62 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var BoardsComponent = /** @class */ (function () {
-    function BoardsComponent(boardService, router) {
+    function BoardsComponent(boardService, router, alertService) {
         this.boardService = boardService;
         this.router = router;
+        this.alertService = alertService;
         this.isLoading = true;
         this.boards = [];
+        this.loadingAnimOptions = {
+            path: '/assets/lib/loading-spinner.json'
+        };
     }
     BoardsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.boardService.getAllBoardes().subscribe(function (response) {
+        this.isLoading = true;
+        this.boardSub = this.boardService.getAllBoardes().subscribe(function (response) {
             if (response.success && response.data) {
                 _this.boards = response.data;
                 _this.isLoading = false;
             }
+        }, function (error) {
+            _this.isLoading = false;
+            if (error && error.error && error.error.message) {
+                _this.alertService.danger(error.error.message);
+            }
         });
+    };
+    BoardsComponent.prototype.loadingAnimationCreated = function (animationItem) {
+        this.loadingAnim = animationItem;
     };
     BoardsComponent.prototype.removeBoard = function (boardId) {
         var _this = this;
-        this.boardService.deleteBoard(boardId).subscribe(function (response) {
+        this.isLoading = true;
+        this.removeBoardSub = this.boardService.deleteBoard(boardId).subscribe(function (response) {
             if (response.success && response.message && response.data) {
                 _this.boards.forEach(function (board, index) {
                     if (board._id === boardId) {
                         _this.boards.splice(index, 1);
                     }
                 });
-                alert(response.message);
+                _this.isLoading = false;
+                _this.alertService.success(response.message);
+            }
+        }, function (error) {
+            _this.isLoading = false;
+            if (error && error.error && error.error.message) {
+                _this.alertService.danger(error.error.message);
             }
         });
     };
     BoardsComponent.prototype.editBoard = function (boardId) {
         this.router.navigate(['/rs-admin/add-board', { boardId: boardId }]);
+    };
+    BoardsComponent.prototype.ngOnDestroy = function () {
+        this.boardSub && this.boardSub.unsubscribe();
+        this.removeBoardSub && this.removeBoardSub.unsubscribe();
     };
     BoardsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -33839,7 +33993,7 @@ var BoardsComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./boards.component.html */ "./src/app/pages/admin/boards/boards.component.html"),
             styles: [__webpack_require__(/*! ./boards.component.scss */ "./src/app/pages/admin/boards/boards.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_board_service__WEBPACK_IMPORTED_MODULE_1__["BoardService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        __metadata("design:paramtypes", [src_app_services_board_service__WEBPACK_IMPORTED_MODULE_1__["BoardService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], ngx_alerts__WEBPACK_IMPORTED_MODULE_3__["AlertService"]])
     ], BoardsComponent);
     return BoardsComponent;
 }());
@@ -33855,7 +34009,7 @@ var BoardsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header bg-gradient-danger pb-8 pt-5 pt-md-8\">\r\n  <div class=\"container-fluid\">\r\n    <div class=\"header-body\">\r\n      <!-- Card stats -->\r\n      <!-- <div class=\"row\">\r\n        <div class=\"col-xl-3 col-lg-6\">\r\n          <div class=\"card card-stats mb-4 mb-xl-0\">\r\n            <div class=\"card-body\">\r\n              <div class=\"row\">\r\n                <div class=\"col\">\r\n                  <h5 class=\"card-title text-uppercase text-muted mb-0\">Traffic</h5>\r\n                  <span class=\"h2 font-weight-bold mb-0\">350,897</span>\r\n                </div>\r\n                <div class=\"col-auto\">\r\n                  <div class=\"icon icon-shape bg-danger text-white rounded-circle shadow\">\r\n                    <i class=\"fas fa-chart-bar\"></i>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <p class=\"mt-3 mb-0 text-muted text-sm\">\r\n                <span class=\"text-success mr-2\"><i class=\"fa fa-arrow-up\"></i> 3.48%</span>\r\n                <span class=\"text-nowrap\">Since last month</span>\r\n              </p>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"col-xl-3 col-lg-6\">\r\n          <div class=\"card card-stats mb-4 mb-xl-0\">\r\n            <div class=\"card-body\">\r\n              <div class=\"row\">\r\n                <div class=\"col\">\r\n                  <h5 class=\"card-title text-uppercase text-muted mb-0\">New users</h5>\r\n                  <span class=\"h2 font-weight-bold mb-0\">2,356</span>\r\n                </div>\r\n                <div class=\"col-auto\">\r\n                  <div class=\"icon icon-shape bg-warning text-white rounded-circle shadow\">\r\n                    <i class=\"fas fa-chart-pie\"></i>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <p class=\"mt-3 mb-0 text-muted text-sm\">\r\n                <span class=\"text-danger mr-2\"><i class=\"fas fa-arrow-down\"></i> 3.48%</span>\r\n                <span class=\"text-nowrap\">Since last week</span>\r\n              </p>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"col-xl-3 col-lg-6\">\r\n          <div class=\"card card-stats mb-4 mb-xl-0\">\r\n            <div class=\"card-body\">\r\n              <div class=\"row\">\r\n                <div class=\"col\">\r\n                  <h5 class=\"card-title text-uppercase text-muted mb-0\">Sales</h5>\r\n                  <span class=\"h2 font-weight-bold mb-0\">924</span>\r\n                </div>\r\n                <div class=\"col-auto\">\r\n                  <div class=\"icon icon-shape bg-yellow text-white rounded-circle shadow\">\r\n                    <i class=\"fas fa-users\"></i>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <p class=\"mt-3 mb-0 text-muted text-sm\">\r\n                <span class=\"text-warning mr-2\"><i class=\"fas fa-arrow-down\"></i> 1.10%</span>\r\n                <span class=\"text-nowrap\">Since yesterday</span>\r\n              </p>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"col-xl-3 col-lg-6\">\r\n          <div class=\"card card-stats mb-4 mb-xl-0\">\r\n            <div class=\"card-body\">\r\n              <div class=\"row\">\r\n                <div class=\"col\">\r\n                  <h5 class=\"card-title text-uppercase text-muted mb-0\">Performance</h5>\r\n                  <span class=\"h2 font-weight-bold mb-0\">49,65%</span>\r\n                </div>\r\n                <div class=\"col-auto\">\r\n                  <div class=\"icon icon-shape bg-info text-white rounded-circle shadow\">\r\n                    <i class=\"fas fa-percent\"></i>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <p class=\"mt-3 mb-0 text-muted text-sm\">\r\n                <span class=\"text-success mr-2\"><i class=\"fas fa-arrow-up\"></i> 12%</span>\r\n                <span class=\"text-nowrap\">Since last month</span>\r\n              </p>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div> -->\r\n    </div>\r\n  </div>\r\n</div>\r\n<!-- Page content -->\r\n<div class=\"container-fluid mt--7\">\r\n  <!-- Table -->\r\n  <div class=\"row\">\r\n    <div class=\"col\">\r\n      <div class=\"card shadow\">\r\n        <div class=\"card-header border-0\">\r\n          <div class=\"row align-items-center\">\r\n            <div class=\"col-8\">\r\n              <h3 class=\"mb-0\">Classes</h3>\r\n            </div>\r\n            <div class=\"col-4 text-right\">\r\n              <a [routerLink] = \"['/rs-admin/add-class']\" class=\"btn btn-sm btn-primary\">Add</a>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"table-responsive\">\r\n          <table class=\"table align-items-center table-flush\">\r\n            <thead class=\"thead-light\">\r\n              <tr>\r\n                <th scope=\"col\">Name</th>\r\n                <th scope=\"col\">Type</th>\r\n                <th scope=\"col\"></th>\r\n              </tr>\r\n            </thead>\r\n            <div *ngIf=\"isLoading\" class=\"loader\"></div>\r\n            <tbody *ngIf=\"!isLoading\">\r\n              <tr *ngFor = \"let class of classes\"  >\r\n                <td>\r\n                  {{class.title}}\r\n                </td>\r\n                <td *ngIf=\"class.type == 0 \">\r\n                  Class\r\n                </td>\r\n                <td *ngIf=\"class.type == 1\">\r\n                  Test\r\n                </td>\r\n                <td class=\"text-right\">\r\n                  <div ngbDropdown   placement=\"bottom-right\">\r\n                    <a class=\"btn btn-sm btn-icon-only text-light\" (click)=\"editClass(class)\">\r\n                      <i class=\"fas fa-edit\"></i>\r\n                    </a>\r\n                    <a class=\"btn btn-sm btn-icon-only text-light\" (click)=\"removeClass(class._id)\" >\r\n                      <i class=\"fas fa-remove\"></i>\r\n                    </a>\r\n                  </div>\r\n                </td>\r\n              </tr>\r\n            </tbody>\r\n          </table>\r\n        </div>\r\n        <div class=\"card-footer py-4\">\r\n          <nav aria-label=\"...\">\r\n            <ul class=\"pagination justify-content-end mb-0\">\r\n              <li class=\"page-item disabled\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\" tabindex=\"-1\">\r\n                  <i class=\"fas fa-angle-left\"></i>\r\n                  <span class=\"sr-only\">Previous</span>\r\n                </a>\r\n              </li>\r\n              <li class=\"page-item active\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">1</a>\r\n              </li>\r\n              <li class=\"page-item\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">2 <span class=\"sr-only\">(current)</span></a>\r\n              </li>\r\n              <li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0)\">3</a></li>\r\n              <li class=\"page-item\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">\r\n                  <i class=\"fas fa-angle-right\"></i>\r\n                  <span class=\"sr-only\">Next</span>\r\n                </a>\r\n              </li>\r\n            </ul>\r\n          </nav>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"header bg-gradient-danger pb-8 pt-5 pt-md-8\">\r\n  <div class=\"container-fluid\">\r\n    <div class=\"header-body\">\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n<!-- Page content -->\r\n<div class=\"container-fluid mt--7\">\r\n  <!-- Table -->\r\n  <div class=\"row\">\r\n    <div class=\"col\">\r\n      <div class=\"card shadow\">\r\n        <div class=\"card-header border-0\">\r\n          <div class=\"row align-items-center\">\r\n            <div class=\"col-8\">\r\n              <h3 class=\"mb-0\">Classes</h3>\r\n            </div>\r\n            <div class=\"col-4 text-right\">\r\n              <a [routerLink] = \"['/rs-admin/add-class']\" class=\"btn btn-sm btn-primary\">Add</a>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"table-responsive\">\r\n          <table class=\"table align-items-center table-flush\">\r\n            <thead class=\"thead-light\">\r\n              <tr>\r\n                <th scope=\"col\">Name</th>\r\n                <th scope=\"col\">Type</th>\r\n                <th scope=\"col\"></th>\r\n              </tr>\r\n            </thead>\r\n            <div *ngIf=\"isLoading\" class=\"loader\">\r\n              <ng-lottie width=\"120px\" height=\"120px\" [options]=\"loadingAnimOptions\" (animationCreated)=\"loadingAnimationCreated($event)\"></ng-lottie>\r\n            </div>\r\n            <tbody *ngIf=\"!isLoading\">\r\n              <tr *ngFor = \"let class of classes\"  >\r\n                <td>\r\n                  {{class.title}}\r\n                </td>\r\n                <td *ngIf=\"class.type == 0 \">\r\n                  Class\r\n                </td>\r\n                <td *ngIf=\"class.type == 1\">\r\n                  Test\r\n                </td>\r\n                <td class=\"text-right\">\r\n                  <div ngbDropdown   placement=\"bottom-right\">\r\n                    <a class=\"btn btn-sm btn-icon-only text-light\" (click)=\"editClass(class)\">\r\n                      <i class=\"fas fa-edit\"></i>\r\n                    </a>\r\n                    <a class=\"btn btn-sm btn-icon-only text-light\" (click)=\"removeClass(class._id)\" >\r\n                      <i style=\"font-size: large;\" class=\"ni ni-fat-remove\"></i>\r\n                    </a>\r\n                  </div>\r\n                </td>\r\n              </tr>\r\n            </tbody>\r\n          </table>\r\n        </div>\r\n        <div class=\"card-footer py-4\">\r\n          <nav aria-label=\"...\">\r\n            <ul class=\"pagination justify-content-end mb-0\">\r\n              <li class=\"page-item disabled\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\" tabindex=\"-1\">\r\n                  <i class=\"fas fa-angle-left\"></i>\r\n                  <span class=\"sr-only\">Previous</span>\r\n                </a>\r\n              </li>\r\n              <li class=\"page-item active\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">1</a>\r\n              </li>\r\n              <li class=\"page-item\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">2 <span class=\"sr-only\">(current)</span></a>\r\n              </li>\r\n              <li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0)\">3</a></li>\r\n              <li class=\"page-item\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">\r\n                  <i class=\"fas fa-angle-right\"></i>\r\n                  <span class=\"sr-only\">Next</span>\r\n                </a>\r\n              </li>\r\n            </ul>\r\n          </nav>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<ngx-alerts></ngx-alerts>\r\n"
 
 /***/ }),
 
@@ -33883,6 +34037,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_class_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/class.service */ "./src/app/services/class.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33895,37 +34050,62 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ClassesComponent = /** @class */ (function () {
-    function ClassesComponent(classService, router) {
+    function ClassesComponent(classService, router, alertService) {
         this.classService = classService;
         this.router = router;
+        this.alertService = alertService;
         this.classes = [];
         this.isLoading = true;
+        this.loadingAnimOptions = {
+            path: '/assets/lib/loading-spinner.json'
+        };
     }
     ClassesComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.classService.getAllClasses().subscribe(function (response) {
+        this.isLoading = true;
+        this.classesSub = this.classService.getAllClasses().subscribe(function (response) {
             if (response.success && response.data) {
                 _this.classes = response.data;
                 _this.isLoading = false;
             }
+        }, function (error) {
+            _this.isLoading = false;
+            if (error && error.error && error.error.message) {
+                _this.alertService.danger(error.error.message);
+            }
         });
+    };
+    ClassesComponent.prototype.loadingAnimationCreated = function (animationItem) {
+        this.loadingAnim = animationItem;
     };
     ClassesComponent.prototype.removeClass = function (classId) {
         var _this = this;
-        this.classService.deleteClass(classId).subscribe(function (response) {
+        this.isLoading = true;
+        this.removeClassSub = this.classService.deleteClass(classId).subscribe(function (response) {
             if (response.success && response.message && response.data) {
                 _this.classes.forEach(function (cls, index) {
                     if (cls._id === classId) {
                         _this.classes.splice(index, 1);
                     }
                 });
-                alert(response.message);
+                _this.isLoading = false;
+                _this.alertService.success(response.message);
+            }
+        }, function (error) {
+            _this.isLoading = false;
+            if (error && error.error && error.error.message) {
+                _this.alertService.danger(error.error.message);
             }
         });
     };
     ClassesComponent.prototype.editClass = function (clas) {
         this.router.navigate(['/rs-admin/add-class', { classId: clas._id, classTitle: clas.title, classType: clas.type }]);
+    };
+    ClassesComponent.prototype.ngOnDestroy = function () {
+        this.classesSub && this.classesSub.unsubscribe();
+        this.removeClassSub && this.removeClassSub.unsubscribe();
     };
     ClassesComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -33933,7 +34113,7 @@ var ClassesComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./classes.component.html */ "./src/app/pages/admin/classes/classes.component.html"),
             styles: [__webpack_require__(/*! ./classes.component.scss */ "./src/app/pages/admin/classes/classes.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_class_service__WEBPACK_IMPORTED_MODULE_1__["ClassService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        __metadata("design:paramtypes", [src_app_services_class_service__WEBPACK_IMPORTED_MODULE_1__["ClassService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], ngx_alerts__WEBPACK_IMPORTED_MODULE_3__["AlertService"]])
     ], ClassesComponent);
     return ClassesComponent;
 }());
@@ -34042,7 +34222,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header bg-gradient-danger pb-8 pt-5 pt-md-8\">\r\n  <div class=\"container-fluid\">\r\n    <div class=\"header-body\">\r\n    </div>\r\n  </div>\r\n</div>\r\n<!-- Page content -->\r\n<div class=\"container-fluid mt--7\">\r\n  <!-- Table -->\r\n  <div class=\"row\">\r\n    <div class=\"col\">\r\n      <div class=\"card shadow\">\r\n        <div class=\"card-header border-0\">\r\n          <div class=\"row align-items-center\">\r\n            <div class=\"col-8\">\r\n              <h3 class=\"mb-0\">Results</h3>\r\n            </div>\r\n            <div class=\"col-4 text-right\">\r\n              <a [routerLink]=\"['/rs-admin/add-result']\" class=\"btn btn-sm btn-primary\">Add</a>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"table-responsive\">\r\n          <table class=\"table align-items-center table-flush\">\r\n            <thead class=\"thead-light\">\r\n              <tr>\r\n                <th scope=\"col\">Board</th>\r\n                <th scope=\"col\">Class</th>\r\n                <th scope=\"col\">Year</th>\r\n                <th scope=\"col\">Exam Type</th>\r\n                <th scope=\"col\">Announce Date</th>\r\n                <th scope=\"col\">Status</th>\r\n                <th scope=\"col\">Views</th>\r\n                <th scope=\"col\">URL</th>\r\n                <th scope=\"col\"></th>\r\n              </tr>\r\n            </thead>\r\n            <tbody *ngIf=\"!isLoading\">\r\n              <tr *ngFor = \"let result of results\">\r\n                <td>\r\n                  {{result.board.title}}\r\n                </td>\r\n                <td>\r\n                  {{result.section.title}}\r\n                </td>\r\n                <td>\r\n                  {{result.year}}\r\n                </td>\r\n                <td>\r\n                  {{result.examType}}\r\n                </td>\r\n                <td>\r\n                  {{result.announceDate.day + \"-\" + result.announceDate.month + \"-\" + result.announceDate.year }}\r\n                </td>\r\n                <td>\r\n                  <label class=\"custom-toggle\">\r\n                    <input type=\"checkbox\" *ngIf=\"!result.status\" (change)=\"changeResultStatus({status: result.status, _id: result._id})\">\r\n                    <input type=\"checkbox\" *ngIf=\"result.status\" (change)=\"changeResultStatus({status: result.status, _id: result._id})\" checked=\"\">\r\n                    <span class=\"custom-toggle-slider rounded-circle\"></span>\r\n                  </label>\r\n                </td>\r\n                <td>\r\n                  {{result.views}}\r\n                </td>\r\n                <td>\r\n                  <a href=\"{{result.resultUrl}}\" >URL</a>\r\n                </td>\r\n                <td class=\"text-right\">\r\n                  <div ngbDropdown   placement=\"bottom-right\">\r\n                    <a class=\"btn btn-sm btn-icon-only text-light\" (click)=\"editResult(result._id)\">\r\n                      <i class=\"fas fa-edit\"></i>\r\n                    </a>\r\n                    <a class=\"btn btn-sm btn-icon-only text-light\" (click)=\"removeResult(result._id)\" >\r\n                      <i class=\"fas fa-remove\"></i>\r\n                    </a>\r\n                  </div>\r\n                </td>\r\n              </tr>\r\n            </tbody>\r\n          </table>\r\n        </div>\r\n        <div class=\"card-footer py-4\">\r\n          <nav aria-label=\"...\">\r\n            <ul class=\"pagination justify-content-end mb-0\">\r\n              <li class=\"page-item disabled\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\" tabindex=\"-1\">\r\n                  <i class=\"fas fa-angle-left\"></i>\r\n                  <span class=\"sr-only\">Previous</span>\r\n                </a>\r\n              </li>\r\n              <li class=\"page-item active\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">1</a>\r\n              </li>\r\n              <li class=\"page-item\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">2 <span class=\"sr-only\">(current)</span></a>\r\n              </li>\r\n              <li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0)\">3</a></li>\r\n              <li class=\"page-item\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">\r\n                  <i class=\"fas fa-angle-right\"></i>\r\n                  <span class=\"sr-only\">Next</span>\r\n                </a>\r\n              </li>\r\n            </ul>\r\n          </nav>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div *ngIf=\"isLoading\" class=\"loader\"></div>\r\n"
+module.exports = "<div class=\"header bg-gradient-danger pb-8 pt-5 pt-md-8\">\r\n  <div class=\"container-fluid\">\r\n    <div class=\"header-body\">\r\n    </div>\r\n  </div>\r\n</div>\r\n<!-- Page content -->\r\n<div class=\"container-fluid mt--7\">\r\n  <!-- Table -->\r\n  <div class=\"row\">\r\n    <div class=\"col\">\r\n      <div class=\"card shadow\">\r\n        <div class=\"card-header border-0\">\r\n          <div class=\"row align-items-center\">\r\n            <div class=\"col-8\">\r\n              <h3 class=\"mb-0\">Results</h3>\r\n            </div>\r\n            <div class=\"col-4 text-right\">\r\n              <a [routerLink]=\"['/rs-admin/add-result']\" class=\"btn btn-sm btn-primary\">Add</a>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"table-responsive\">\r\n          <table class=\"table align-items-center table-flush\">\r\n            <thead class=\"thead-light\">\r\n              <tr>\r\n                <th scope=\"col\">Board</th>\r\n                <th scope=\"col\">Class</th>\r\n                <th scope=\"col\">Year</th>\r\n                <th scope=\"col\">Exam Type</th>\r\n                <th scope=\"col\">Announce Date</th>\r\n                <th scope=\"col\">Status</th>\r\n                <th scope=\"col\">Views</th>\r\n                <th scope=\"col\">URL</th>\r\n                <th scope=\"col\"></th>\r\n              </tr>\r\n            </thead>\r\n            <tbody *ngIf=\"!isLoading\">\r\n              <tr *ngFor = \"let result of results\">\r\n                <td>\r\n                  {{result.board.title}}\r\n                </td>\r\n                <td>\r\n                  {{result.section.title}}\r\n                </td>\r\n                <td>\r\n                  {{result.year}}\r\n                </td>\r\n                <td>\r\n                  {{result.examType}}\r\n                </td>\r\n                <td>\r\n                  {{result.announceDate.day + \"-\" + result.announceDate.month + \"-\" + result.announceDate.year }}\r\n                </td>\r\n                <td>\r\n                  <label class=\"custom-toggle\">\r\n                    <input type=\"checkbox\" *ngIf=\"!result.status\" (change)=\"changeResultStatus({status: result.status, _id: result._id})\">\r\n                    <input type=\"checkbox\" *ngIf=\"result.status\" (change)=\"changeResultStatus({status: result.status, _id: result._id})\" checked=\"\">\r\n                    <span class=\"custom-toggle-slider rounded-circle\"></span>\r\n                  </label>\r\n                </td>\r\n                <td>\r\n                  {{result.views}}\r\n                </td>\r\n                <td>\r\n                  <a href=\"{{result.resultUrl}}\" >URL</a>\r\n                </td>\r\n                <td class=\"text-right\">\r\n                  <div ngbDropdown   placement=\"bottom-right\">\r\n                    <a class=\"btn btn-sm btn-icon-only text-light\" (click)=\"editResult(result._id)\">\r\n                      <i class=\"fas fa-edit\"></i>\r\n                    </a>\r\n                    <a class=\"btn btn-sm btn-icon-only text-light\" (click)=\"removeResult(result._id)\" >\r\n                      <i style=\"font-size: large;\" class=\"ni ni-fat-remove\"></i>\r\n                    </a>\r\n                  </div>\r\n                </td>\r\n              </tr>\r\n            </tbody>\r\n          </table>\r\n        </div>\r\n        <div class=\"card-footer py-4\">\r\n          <nav aria-label=\"...\">\r\n            <ul class=\"pagination justify-content-end mb-0\">\r\n              <li class=\"page-item disabled\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\" tabindex=\"-1\">\r\n                  <i class=\"fas fa-angle-left\"></i>\r\n                  <span class=\"sr-only\">Previous</span>\r\n                </a>\r\n              </li>\r\n              <li class=\"page-item active\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">1</a>\r\n              </li>\r\n              <li class=\"page-item\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">2 <span class=\"sr-only\">(current)</span></a>\r\n              </li>\r\n              <li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0)\">3</a></li>\r\n              <li class=\"page-item\">\r\n                <a class=\"page-link\" href=\"javascript:void(0)\">\r\n                  <i class=\"fas fa-angle-right\"></i>\r\n                  <span class=\"sr-only\">Next</span>\r\n                </a>\r\n              </li>\r\n            </ul>\r\n          </nav>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div *ngIf=\"isLoading\" class=\"loader\">\r\n  <ng-lottie width=\"120px\" height=\"120px\" [options]=\"loadingAnimOptions\" (animationCreated)=\"loadingAnimationCreated($event)\"></ng-lottie>\r\n</div>\r\n<ngx-alerts></ngx-alerts>\r\n"
 
 /***/ }),
 
@@ -34070,6 +34250,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_result_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/result.service */ "./src/app/services/result.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -34082,45 +34263,77 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ResultsComponent = /** @class */ (function () {
-    function ResultsComponent(resultService, router) {
+    function ResultsComponent(resultService, router, alertService) {
         this.resultService = resultService;
         this.router = router;
+        this.alertService = alertService;
         this.isLoading = true;
         this.results = [];
+        this.loadingAnimOptions = {
+            path: '/assets/lib/loading-spinner.json'
+        };
     }
     ResultsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.resultService.getAllResultes().subscribe(function (response) {
+        this.isLoading = true;
+        this.resultsSub = this.resultService.getAllResultes().subscribe(function (response) {
             if (response.data) {
                 _this.results = response.data;
-                console.log(_this.results);
                 _this.isLoading = false;
             }
+        }, function (error) {
+            _this.isLoading = false;
+            if (error && error.error && error.error.message) {
+                _this.alertService.danger(error.error.message);
+            }
         });
+    };
+    ResultsComponent.prototype.loadingAnimationCreated = function (animationItem) {
+        this.loadingAnim = animationItem;
     };
     ResultsComponent.prototype.editResult = function (resultId) {
         this.router.navigate(['/rs-admin/add-result', { resultId: resultId }]);
     };
     ResultsComponent.prototype.removeResult = function (resultId) {
         var _this = this;
-        this.resultService.deleteResult(resultId).subscribe(function (response) {
+        this.isLoading = true;
+        this.removeResultSub = this.resultService.deleteResult(resultId).subscribe(function (response) {
             if (response.success && response.message) {
                 _this.results.forEach(function (res, index) {
                     if (res._id === resultId) {
                         _this.results.splice(index, 1);
                     }
                 });
-                alert(response.message);
+                _this.isLoading = false;
+                _this.alertService.success(response.message);
+            }
+        }, function (error) {
+            _this.isLoading = false;
+            if (error && error.error && error.error.message) {
+                _this.alertService.danger(error.error.message);
             }
         });
     };
     ResultsComponent.prototype.changeResultStatus = function (result) {
+        var _this = this;
+        this.isLoading = true;
         this.resultService.changeResultStatus(result._id, !result.status).subscribe(function (response) {
             if (response.success && response.message) {
-                alert(response.message);
+                _this.isLoading = false;
+                _this.alertService.success(response.message);
+            }
+        }, function (error) {
+            _this.isLoading = false;
+            if (error && error.error && error.error.message) {
+                _this.alertService.danger(error.error.message);
             }
         });
+    };
+    ResultsComponent.prototype.ngOnDestroy = function () {
+        this.resultsSub && this.resultsSub.unsubscribe();
+        this.removeResultSub && this.removeResultSub.unsubscribe();
     };
     ResultsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -34128,7 +34341,7 @@ var ResultsComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./results.component.html */ "./src/app/pages/admin/results/results.component.html"),
             styles: [__webpack_require__(/*! ./results.component.scss */ "./src/app/pages/admin/results/results.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_result_service__WEBPACK_IMPORTED_MODULE_1__["ResultService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        __metadata("design:paramtypes", [src_app_services_result_service__WEBPACK_IMPORTED_MODULE_1__["ResultService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], ngx_alerts__WEBPACK_IMPORTED_MODULE_3__["AlertService"]])
     ], ResultsComponent);
     return ResultsComponent;
 }());

@@ -130,12 +130,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_lottie__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ngx-lottie */ "./node_modules/ngx-lottie/fesm5/ngx-lottie.js");
 /* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! lottie-web */ "./node_modules/lottie-web/build/player/lottie.js");
 /* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(lottie_web__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -168,6 +170,7 @@ var AppModule = /** @class */ (function () {
                 _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"],
                 _app_routing__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"],
                 ngx_lottie__WEBPACK_IMPORTED_MODULE_13__["LottieModule"].forRoot({ player: playerFactory, useCache: true }),
+                ngx_alerts__WEBPACK_IMPORTED_MODULE_15__["AlertModule"].forRoot()
             ],
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
@@ -177,11 +180,12 @@ var AppModule = /** @class */ (function () {
                 _pages_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_10__["PageNotFoundComponent"]
             ],
             providers: [
-            // {
-            //   provide: HTTP_INTERCEPTORS,
-            //   useClass: HttpErrorInterceptor,
-            //   multi: true
-            // }
+                ngx_alerts__WEBPACK_IMPORTED_MODULE_15__["AlertService"]
+                // {
+                //   provide: HTTP_INTERCEPTORS,
+                //   useClass: HttpErrorInterceptor,
+                //   multi: true
+                // }
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
@@ -505,7 +509,7 @@ var FooterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg bg-white\">\r\n    <a class=\"navbar-brand\" style=\"margin-left: 10px;\" [routerLink]=\"['']\"><b><span style=\"color: #002E6E\">Result</span><span style=\"color: #00B9F1\">Square</span></b></a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <!-- <li class=\"nav-item active\">\r\n          <a class=\"nav-link\" href=\"#\">Home <span class=\"sr-only\">(current)</span></a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link\" href=\"#\">Link</a>\r\n        </li>\r\n        <li class=\"nav-item dropdown\">\r\n          <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n            Dropdown\r\n          </a>\r\n          <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">\r\n            <a class=\"dropdown-item\" href=\"#\">Action</a>\r\n            <a class=\"dropdown-item\" href=\"#\">Another action</a>\r\n            <div class=\"dropdown-divider\"></div>\r\n            <a class=\"dropdown-item\" href=\"#\">Something else here</a>\r\n          </div>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link disabled\" href=\"#\" tabindex=\"-1\" aria-disabled=\"true\">Disabled</a>\r\n        </li> -->\r\n      </ul>\r\n      <form class=\"form-inline my-2 my-lg-0\">\r\n        <input class=\"form-control mr-sm-6  bg-secondary border-0\" type=\"search\" placeholder=\"Search\" aria-label=\"Search\">\r\n      </form>\r\n    </div>\r\n\r\n  </nav>\r\n  <div class=\"bg-custom\">\r\n    <div class=\"row bg-custom\" style=\"padding-top: 20px;\">\r\n      <div class=\"col-lg-2 col-xl-1 col-md-2 col-sm-3 ml-40\">\r\n       <a [routerLink]=\"['']\" class=\"nav-link-custom\">\r\n        <div class=\"text-white text-center\">\r\n          <i class=\"ni ni-chart-bar-32\" ></i>\r\n        </div>\r\n        <div class=\"text-muted text-sm text-center nav-item\">\r\n          Results\r\n        </div>\r\n       </a>\r\n      </div>\r\n      <div class=\"col-lg-2 col-xl-1 col-md-2 col-sm-3\">\r\n       <a [routerLink]=\"['']\">\r\n        <div class=\"text-white text-center\">\r\n          <i class=\"ni ni-paper-diploma\" ></i>\r\n        </div>\r\n        <div class=\"text-muted text-sm text-center\">\r\n          Merit Lists\r\n        </div>\r\n       </a>\r\n      </div>\r\n      <div class=\"col-lg-2 col-xl-1 col-md-2 col-sm-3\">\r\n        <a [routerLink]=\"['']\">\r\n          <div class=\"text-white text-center\">\r\n            <i class=\"ni ni-single-copy-04\" ></i>\r\n          </div>\r\n          <div class=\"text-muted text-sm text-center\">\r\n            Date Sheets\r\n          </div>\r\n        </a>\r\n      </div>\r\n      <div class=\"col-lg-2 col-xl-1 col-md-2 col-sm-3\">\r\n        <a [routerLink]=\"['']\">\r\n          <div class=\"text-white text-center\">\r\n            <i class=\"ni ni-book-bookmark\" ></i>\r\n          </div>\r\n          <div class=\"text-muted text-sm text-center\">\r\n            Past Papers\r\n          </div>\r\n        </a>\r\n      </div>\r\n  </div>\r\n  </div>\r\n"
+module.exports = "<nav class=\"navbar navbar-expand-lg bg-white\">\r\n    <a class=\"navbar-brand\" style=\"margin-left: 10px;\" [routerLink]=\"['']\"><b><span style=\"color: #002E6E\">Result</span><span style=\"color: #00B9F1\">Square</span></b></a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n  </nav>\r\n<div class=\"header pb-8 pt-5 pt-lg-8 d-flex align-items-center\" style=\"min-height: 350px; max-height: 400px; background-image: url(assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;\">\r\n  <!-- Mask -->\r\n  <span class=\"mask bg-gradient-default opacity-6\"></span>\r\n  <!-- Header container -->\r\n  <div class=\"container-fluid d-flex align-items-center\">\r\n    <div class=\"row\">\r\n      <div class=\"col-lg-7 col-md-10\">\r\n        <h1 class=\"display-2 text-white\">Searching for Result?</h1>\r\n        <p class=\"text-white mt-0 mb-5\">Don't worry its just some steps ahead from you. Now you can find results of all classes and latest updates at one place.</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1011,6 +1015,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -1035,10 +1040,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UsersService = /** @class */ (function () {
-    function UsersService(http, router) {
+    function UsersService(http, router, alertService) {
         this.http = http;
         this.router = router;
+        this.alertService = alertService;
         this.isAuthenticated = false;
         this.authStatusListener = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.users = [];
@@ -1069,15 +1076,19 @@ var UsersService = /** @class */ (function () {
         return this.authStatusListener.asObservable();
     };
     UsersService.prototype.addUser = function (name, email, password) {
+        var _this = this;
         var user = {
             _id: null,
             name: name,
             email: email,
             password: password
         };
-        console.log(user);
         this.http.post('/api/signup', user).subscribe(function (response) {
-            console.log(response);
+            _this.alertService.success(response.message);
+        }, function (error) {
+            if (error && error.error && error.error.message) {
+                _this.alertService.danger(error.error.message);
+            }
         });
     };
     UsersService.prototype.loginUser = function (email, password) {
@@ -1103,6 +1114,10 @@ var UsersService = /** @class */ (function () {
                 var expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
                 _this.saveAuthData(token, expirationDate, _this.user.name, _this.user._id);
                 _this.router.navigate(['/rs-admin/dashboard']);
+            }
+        }, function (error) {
+            if (error && error.error && error.error.message) {
+                _this.alertService.danger(error.error.message);
             }
         });
     };
@@ -1163,7 +1178,6 @@ var UsersService = /** @class */ (function () {
     };
     UsersService.prototype.setAuthTimer = function (duration) {
         var _this = this;
-        console.log('Setting timer: ' + duration);
         this.tokenTimer = setTimeout(function () {
             _this.logout();
         }, duration * 1000);
@@ -1222,7 +1236,7 @@ var UsersService = /** @class */ (function () {
     };
     UsersService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({ providedIn: 'root' }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], ngx_alerts__WEBPACK_IMPORTED_MODULE_4__["AlertService"]])
     ], UsersService);
     return UsersService;
 }());

@@ -102,8 +102,8 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-address">Result URL</label>
-                        <input *ngIf="!selectedBoard" name="resultUrl" [ngModel]=" isEdit ? resultToUpdate.resultUrl : ''" id="input-address" class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
-                        <input *ngIf="selectedBoard" name="resultUrl" [ngModel]=" selectedBoard.resultUrl ? selectedBoard.resultUrl : ''" id="input-address" class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
+                        <input *ngIf="!selectedBoard" name="resultUrl" [ngModel]=" isEdit ? resultToUpdate.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
+                        <input *ngIf="selectedBoard" name="resultUrl" [ngModel]=" selectedBoard.resultUrl ? selectedBoard.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
                       </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-address">Tags</label>
                           <form (submit) = "addTag(tagForm)" #tagForm = "ngForm" >
-                            <input name="tagTitle" ngModel id="input-address" class="form-control form-control-alternative" placeholder="Tags" value="" type="text">
+                            <input name="tagTitle" ngModel  class="form-control form-control-alternative" placeholder="Tags" value="" type="text">
                             <button class="btn btn-sm btn-primary" style="margin-top: 10px;" type="submit"  >Add</button>
                           </form>
                       </div>
@@ -129,10 +129,13 @@
               <button *ngIf="isEdit" type="button" class="btn btn-primary my-4" type="submit">Update</button>
               <button type="button" class="btn btn-primary my-4" (click)="cancel()">Cancel</button>
             </div>
-            <div *ngIf="isLoading" class="loader"></div>
+            <div *ngIf="isLoading" class="loader">
+              <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+            </div>
           </form>
         </div>
       </div>
     </div>
   </div>
 </div>
+<ngx-alerts></ngx-alerts>

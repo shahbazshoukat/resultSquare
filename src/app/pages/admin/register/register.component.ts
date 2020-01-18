@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UsersService } from 'src/app/services/user.service';
+import {AnimationOptions} from 'ngx-lottie';
+import {AnimationItem} from 'lottie-web';
 
 @Component({
   selector: 'app-register',
@@ -13,13 +15,26 @@ export class RegisterComponent implements OnInit {
   emailValid = false;
   passwordValid = false;
   formStatus = false;
+  isLoading = true;
+  loadingAnimOptions: AnimationOptions = {
+    path: '/assets/lib/loading-spinner.json'
+  };
+
+  loadingAnim: AnimationItem;
 
   constructor(private usersService: UsersService) { }
 
   ngOnInit() {
   }
 
+  loadingAnimationCreated(animationItem: AnimationItem): void {
+
+    this.loadingAnim = animationItem;
+
+  }
+
   addUser(form: NgForm) {
+    this.isLoading = true;
     if (form.invalid) {
       return;
     }
@@ -53,6 +68,8 @@ export class RegisterComponent implements OnInit {
     } else {
       return;
     }
+
+    this.isLoading = false;
 
     form.resetForm();
     this.formStatus = false;

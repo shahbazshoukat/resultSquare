@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
 import { User } from '../models/user.model';
-import { environment } from '../../environments/environment';
+import { AlertService } from 'ngx-alerts';
 
 
 @Injectable({ providedIn: 'root' })
@@ -17,7 +17,7 @@ export class UsersService {
   private users: any[] = [];
   private emailStatus;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private alertService: AlertService) {}
 
   getToken() {
     return this.token;
@@ -55,9 +55,14 @@ export class UsersService {
       email: email,
       password: password
     };
-    console.log(user);
-    this.http.post('/api/signup', user).subscribe(response => {
-      console.log(response);
+    this.http.post<{message: string}>('/api/signup', user).subscribe(
+      response => {
+      this.alertService.success(response.message);
+    },
+    error => {
+      if (error && error.error && error.error.message) {
+        this.alertService.danger(error.error.message);
+      }
     });
   }
 
@@ -102,6 +107,13 @@ export class UsersService {
           );
           this.router.navigate(['/rs-admin/dashboard']);
         }
+      },
+      error => {
+
+        if (error && error.error && error.error.message) {
+          this.alertService.danger(error.error.message);
+        }
+
       });
   }
 
@@ -169,7 +181,6 @@ export class UsersService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log('Setting timer: ' + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);

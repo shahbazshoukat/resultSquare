@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ClassService } from 'src/app/services/class.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Class } from '../../../models/class.model';
+import {AnimationOptions} from 'ngx-lottie';
+import {AnimationItem} from 'lottie-web';
+import {AlertService} from 'ngx-alerts';
+
 @Component({
   selector: 'add-class',
   templateUrl: './add-class.component.html',
   styleUrls: ['./add-class.component.scss']
 })
-export class AddClassComponent implements OnInit {
+export class AddClassComponent implements OnInit, OnDestroy {
 
   classToEdit: Class = {
     _id: null,
@@ -17,10 +21,20 @@ export class AddClassComponent implements OnInit {
   };
   isEdit = false;
   isLoading = true;
-  constructor(private classService: ClassService, private route: ActivatedRoute, private router: Router) { }
+  paramsub: any;
+  addClassSub: any;
+  updateClassSub: any;
+  loadingAnimOptions: AnimationOptions = {
+    path: '/assets/lib/loading-spinner.json'
+  };
+
+  loadingAnim: AnimationItem;
+
+  constructor(private classService: ClassService, private route: ActivatedRoute, private router: Router,
+              private alertService: AlertService) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    this.paramsub = this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('classId')) {
         this.isEdit = true;
         this.classToEdit._id = paramMap.get('classId');
@@ -35,6 +49,12 @@ export class AddClassComponent implements OnInit {
     });
   }
 
+  loadingAnimationCreated(animationItem: AnimationItem): void {
+
+    this.loadingAnim = animationItem;
+
+  }
+
   cancel() {
     this.isEdit = false;
     this.router.navigate(['/rs-admin/classes']);
@@ -46,23 +66,45 @@ export class AddClassComponent implements OnInit {
       return;
     }
     if (this.isEdit && this.classToEdit._id ) {
-      this.classService.updateClass(this.classToEdit._id, form.value.title, form.value.type).subscribe(response => {
+      this.updateClassSub = this.classService.updateClass(this.classToEdit._id, form.value.title, form.value.type).subscribe(
+        response => {
         if (response.success && response.message) {
           this.isLoading = false;
-          alert(response.message);
+          this.alertService.success(response.message);
           this.isEdit = false;
           this.router.navigate(['/rs-admin/classes']);
         }
+      },
+      error => {
+        this.isLoading = false;
+        if (error && error.error && error.error.message) {
+          this.alertService.danger(error.error.message);
+        }
       });
     } else {
-      this.classService.addClass(form.value.title, form.value.type).subscribe(response => {
+      this.addClassSub = this.classService.addClass(form.value.title, form.value.type).subscribe(
+        response => {
         if (response.success && response.message) {
           this.isLoading = false;
-          alert(response.message);
+          this.alertService.success(response.message);
+        }
+      },
+      error => {
+        this.isLoading = false;
+        if (error && error.error && error.error.message) {
+          this.alertService.danger(error.error.message);
         }
       });
     }
     form.resetForm();
+  }
+
+  ngOnDestroy() {
+
+    this.paramsub && this.paramsub.unsubscribe();
+    this.addClassSub && this.addClassSub.unsubscribe();
+    this.updateClassSub && this.updateClassSub.unsubscribe();
+
   }
 
 }
