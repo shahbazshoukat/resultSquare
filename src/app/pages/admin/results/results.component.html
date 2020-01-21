@@ -16,12 +16,12 @@
               <h3 class="mb-0">Results</h3>
             </div>
             <div class="col-4 text-right">
-              <a [routerLink]="['/rs-admin/add-result']" class="btn btn-sm btn-primary">Add</a>
+              <a [routerLink]="['/rs-admin/add-result', selectedBoardKey]" class="btn btn-sm btn-primary">Add</a>
             </div>
           </div>
         </div>
         <div class="table-responsive">
-          <table class="table align-items-center table-flush">
+          <table class="table align-items-center table-flush table-sm">
             <thead class="thead-light">
               <tr>
                 <th scope="col">Board</th>
@@ -35,7 +35,7 @@
                 <th scope="col"></th>
               </tr>
             </thead>
-            <tbody *ngIf="!isLoading">
+            <tbody *ngIf="!isLoading" style="max-height: 700px; overflow-y: auto" class="scrollbar-inner">
               <tr *ngFor = "let result of results">
                 <td>
                   {{result.board.title}}
@@ -47,7 +47,7 @@
                   {{result.year}}
                 </td>
                 <td>
-                  {{result.examType}}
+                  {{result.examType === 0 ? 'Annual' : 'Supply'}}
                 </td>
                 <td>
                   {{result.announceDate.day + "-" + result.announceDate.month + "-" + result.announceDate.year }}

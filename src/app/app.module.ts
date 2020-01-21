@@ -38,7 +38,7 @@ export function playerFactory() {
     HomeLayoutComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   providers: [
     AlertService

@@ -51,8 +51,8 @@ export class ResultService {
     return this.http.get<{success: boolean, message: string, data: any}>(`/api/result/${section}/${board}/${year}/${exam}`);
   }
 
-  findResult(rollNo, section, board, year, exam) {
-    return this.http.get<{success: boolean, message: string, data: any}>(`/api/result/${section}/${board}/${year}/${exam}/${rollNo}`);
+  getResultsByBoardKey(boardKey) {
+    return this.http.get<{success: boolean, message: string, data: any}>(`/api/results/board/${boardKey}`);
   }
 
   updateResult(

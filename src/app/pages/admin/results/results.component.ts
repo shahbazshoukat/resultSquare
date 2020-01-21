@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ResultService } from 'src/app/services/result.service';
-import { Router } from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {AnimationOptions} from 'ngx-lottie';
 import {AnimationItem} from 'lottie-web';
 import { AlertService } from 'ngx-alerts';
@@ -16,30 +16,47 @@ export class ResultsComponent implements OnInit, OnDestroy {
   results = [];
   resultsSub: any;
   removeResultSub: any;
-
+  paramSub: any;
+  selectedBoardKey;
   loadingAnimOptions: AnimationOptions = {
     path: '/assets/lib/loading-spinner.json'
   };
 
   loadingAnim: AnimationItem;
 
-  constructor(private resultService: ResultService, private router: Router, private alertService: AlertService) { }
+  constructor(private resultService: ResultService, private router: Router, private alertService: AlertService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+
     this.isLoading = true;
-    this.resultsSub = this.resultService.getAllResultes().subscribe(
-      response => {
-      if (response.data) {
-        this.results = response.data;
-        this.isLoading = false;
+
+    this.paramSub = this.route.paramMap.subscribe((paramMap: ParamMap) => {
+
+      this.isLoading = true;
+
+      if (paramMap.has('boardKey')) {
+
+        this.selectedBoardKey = paramMap.get('boardKey');
+
+        this.resultsSub = this.resultService.getResultsByBoardKey(this.selectedBoardKey).subscribe(
+          response => {
+            if (response.data) {
+              this.results = response.data;
+              this.isLoading = false;
+            }
+          },
+          error => {
+            this.isLoading = false;
+            if (error && error.error && error.error.message) {
+              this.alertService.danger(error.error.message);
+            }
+          });
+
       }
-    },
-    error => {
-      this.isLoading = false;
-      if (error && error.error && error.error.message) {
-        this.alertService.danger(error.error.message);
-      }
+
     });
+
   }
 
   loadingAnimationCreated(animationItem: AnimationItem): void {

@@ -18,6 +18,7 @@ export class SelectExamComponent implements OnInit, OnDestroy {
   isError = false;
   errorMsg = '';
   paramSub: any;
+  showSupply = true;
   loadingAnimOptions: AnimationOptions = {
     path: '/assets/lib/loading-spinner.json'
   };
@@ -32,6 +33,8 @@ export class SelectExamComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this.showSupply = true;
 
     this.examTypes = {
 
@@ -58,6 +61,12 @@ export class SelectExamComponent implements OnInit, OnDestroy {
       if (paramMap.has('classTitle')) {
 
         this.selectedClass = paramMap.get('classTitle');
+
+        if (this.selectedClass === '5th' || this.selectedClass === '8th') {
+
+          this.showSupply = false;
+
+        }
 
       }
 

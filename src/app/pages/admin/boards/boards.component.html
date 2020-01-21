@@ -31,6 +31,7 @@
                 <th scope="col">Views</th>
                 <th scope="col">Web URL</th>
                 <th scope="col">Result URL</th>
+                <th scope="col">Results</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -56,6 +57,9 @@
                 </td>
                 <td>
                   <a href="{{board.resultUrl}}" >Result</a>
+                </td>
+                <td>
+                  <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/results', board.key]">Results</a>
                 </td>
                 <td class="text-right">
                   <div ngbDropdown   placement="bottom-right">

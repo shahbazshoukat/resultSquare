@@ -11,6 +11,7 @@ import { SelectYearComponent } from '../../pages/select-year/select-year.compone
 import { SelectExamComponent } from '../../pages/select-exam/select-exam.component';
 import { EnterRollNoComponent } from '../../pages/enter-rollno/enter-rollno.component';
 import { ResultPageComponent } from '../../pages/result-page/result-page.component';
+import { SelectSubClassComponent  } from '../../pages/select-sub-class/select-sub-class.component';
 
 import {NgxPrintModule} from 'ngx-print';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -39,6 +40,7 @@ export function playerFactory() {
     SelectExamComponent,
     EnterRollNoComponent,
     ResultPageComponent,
+    SelectSubClassComponent,
     SafePipe
   ]
 })

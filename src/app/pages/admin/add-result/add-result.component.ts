@@ -31,6 +31,7 @@ export class AddResultComponent implements OnInit, OnDestroy {
   boardSub: any;
   addResultSub: any;
   updateResultSub: any;
+  selectedBoardKey;
   loadingAnimOptions: AnimationOptions = {
     path: '/assets/lib/loading-spinner.json'
   };
@@ -61,6 +62,12 @@ export class AddResultComponent implements OnInit, OnDestroy {
             this.alertService.danger(error.error.message);
           }
         });
+      }
+
+      if (paramMap.has('boardKey')) {
+
+        this.selectedBoardKey = paramMap.get('boardKey');
+
       }
     });
     this.classesSub = this.classService.getAllClasses().subscribe(
@@ -113,7 +120,7 @@ export class AddResultComponent implements OnInit, OnDestroy {
 
   cancel() {
     this.isEdit = false;
-    this.router.navigate(['/rs-admin/results']);
+    this.router.navigate(['/rs-admin/results', this.selectedBoardKey]);
   }
 
   addResult(form: NgForm) {
@@ -133,7 +140,7 @@ export class AddResultComponent implements OnInit, OnDestroy {
           this.isEdit = false;
           this.params = [];
           this.tags = [];
-          this.router.navigate(['/rs-admin/results']);
+          this.router.navigate(['/rs-admin/results', this.selectedBoardKey]);
         }
       },
       error => {
@@ -149,7 +156,7 @@ export class AddResultComponent implements OnInit, OnDestroy {
           this.alertService.success(response.message);
           this.isLoading = false;
           this.params = [];
-          this.tags = [];
+          // this.tags = [];
         }
       },
       error => {
@@ -159,7 +166,7 @@ export class AddResultComponent implements OnInit, OnDestroy {
         }
       });
     }
-    form.resetForm();
+    // form.resetForm();
   }
 
   changeBoard(boardId) {

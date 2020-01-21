@@ -7,15 +7,13 @@
       <div class="card-header bg-white border-0">
         <div class="row align-items-center">
           <div class="col-3">
-            <a [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" class="btn btn-icon btn-2 btn-primary btn-sm">
+            <a [routerLink] = "['/']" class="btn btn-icon btn-2 btn-primary btn-sm">
               Back
             </a>
-            <span class="mb-0 h3">Select Exam Type</span>
+            <span class="mb-0 h3">Select Class</span>
           </div>
           <div class="col-9 text-right">
               <span class="btn btn-sm badge badge-primary" *ngIf="selectedClass" [routerLink] = "['/']" >{{selectedClass}}</span>
-              <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedBoardKey" [routerLink] = "['/result', selectedClass]"  >{{selectedBoardKey}}</span>
-              <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedYear" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</span>
           </div>
         </div>
       </div>
@@ -24,10 +22,10 @@
           <div class="pl-lg-4">
             <div class="row">
               <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass+'/'+selectedBoardKey+'/'+selectedYear, 'annual']"  >Annual</button>
+                <button type="button" class="btn btn-outline-primary custom-btn" (click)="onClassSelected('Part 1')" >{{selectedClass}} Part 1</button>
               </div>
-              <div *ngIf="showSupply" class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass+'/'+selectedBoardKey+'/'+selectedYear, 'supply']" >Supplymentry</button>
+              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
+                <button type="button" class="btn btn-outline-primary custom-btn" (click)="onClassSelected('Part 2')" >{{selectedClass}} Part 2</button>
               </div>
             </div>
           </div>

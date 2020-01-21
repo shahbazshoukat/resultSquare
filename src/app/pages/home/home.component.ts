@@ -88,6 +88,34 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
 
+  onClassSelect(selectedClass) {
+
+    if (selectedClass) {
+
+      if (selectedClass.type === '1') {
+
+        this.router.navigate(['/test', selectedClass.title]);
+
+        return;
+
+      } else if (selectedClass.type === '0') {
+
+        if (selectedClass.title === 'FA' || selectedClass.title === 'FSC' || selectedClass.title === 'ICS' || selectedClass.title === 'ICOM') {
+
+          this.router.navigate(['/class', selectedClass.title]);
+
+        } else {
+
+          this.router.navigate(['/result', selectedClass.title]);
+
+        }
+
+      }
+
+    }
+
+  }
+
   ngOnDestroy() {
 
     this.serviceSub && this.serviceSub.unsubscribe();
