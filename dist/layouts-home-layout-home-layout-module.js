@@ -989,7 +989,7 @@ var SelectBoardComponent = /** @class */ (function () {
                 _this.boards = response.data;
                 if (!_this.boards || _this.boards.length === 0) {
                     _this.isError = true;
-                    _this.errorMsg = "No Board Found with class " + _this.selectedClass;
+                    _this.errorMsg = "404 - Not Found";
                 }
                 else {
                     _this.sortBoardsByProvince();
