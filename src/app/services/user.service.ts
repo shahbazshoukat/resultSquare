@@ -55,7 +55,7 @@ export class UsersService {
       email: email,
       password: password
     };
-    this.http.post<{message: string}>('/api/signup', user).subscribe(
+    this.http.post<{message: string}>('/api/signUp', user).subscribe(
       response => {
       this.alertService.success(response.message);
     },
@@ -117,43 +117,6 @@ export class UsersService {
       });
   }
 
-  forgotPassword(email: string) {
-    const authData = { email: email };
-    this.http
-      .post<{
-        token: string;
-        expiresIn: number;
-        message: string;
-      }>('/api/forgotpassword', authData)
-      .subscribe(response => {
-        const token = response.token;
-        this.token = token;
-        this.emailStatus = response.message;
-        if (token) {
-          const expiresInDuration = response.expiresIn;
-          this.setAuthTimer(expiresInDuration);
-          const now = new Date();
-          const expirationDate = new Date(
-            now.getTime() + expiresInDuration * 1000
-          );
-          localStorage.setItem('pToken', token);
-        } else {
-          console.log(response);
-        }
-      });
-  }
-
-  resetPassword(password: string) {
-    const token = localStorage.getItem('pToken');
-    const data = { password: password, token: token };
-    this.http
-      .put<{ message: string }>('/api/resetpassword', data)
-      .subscribe(response => {
-        console.log(response);
-        localStorage.removeItem('pToken');
-      });
-  }
-
   autoAuthUser() {
     const authInformation = this.getAuthData();
     if (!authInformation) {
@@ -171,6 +134,19 @@ export class UsersService {
   }
 
   logout() {
+    this.http.get<{success: boolean, message: string}>('/api/logout').subscribe(
+      response => {
+
+      this.alertService.success(response.message);
+
+    },
+    error => {
+
+      if (error && error.error && error.error.message) {
+        this.alertService.danger(error.error.message);
+      }
+
+    });
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
