@@ -6,13 +6,13 @@
     <div class="card bg-secondary shadow">
       <div class="card-header bg-white border-0">
         <div class="row align-items-center">
-          <div class="col-3">
+          <div class="col-lg-8 col-md-8 col-sm-12">
             <a [routerLink] = "['/']" class="btn btn-icon btn-2 btn-primary btn-sm">
               Back
             </a>
             <span class="mb-0 h3">Select Class</span>
           </div>
-          <div class="col-9 text-right">
+          <div class="col-lg-4 col-md-4 col-sm-12 text-right">
               <span class="btn btn-sm badge badge-primary" *ngIf="selectedClass" [routerLink] = "['/']" >{{selectedClass}}</span>
           </div>
         </div>
