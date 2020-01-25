@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
+import { AuthInterceptor } from './interceptors/auth-interceptor';
 
 
 import { AppComponent } from './app.component';
@@ -41,12 +42,12 @@ export function playerFactory() {
     PageNotFoundComponent,
   ],
   providers: [
-    AlertService
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: HttpErrorInterceptor,
-    //   multi: true
-    // }
+    AlertService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

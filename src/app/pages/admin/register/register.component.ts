@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { UsersService } from 'src/app/services/user.service';
 import {AnimationOptions} from 'ngx-lottie';
 import {AnimationItem} from 'lottie-web';
-
+import {Alert, AlertService} from 'ngx-alerts';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -19,10 +19,14 @@ export class RegisterComponent implements OnInit {
   loadingAnimOptions: AnimationOptions = {
     path: '/assets/lib/loading-spinner.json'
   };
+  errorMsg = '';
+  successMsg = '';
+  isError = false;
+  isSuccess = false;
 
   loadingAnim: AnimationItem;
 
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService, private alertService: AlertService) { }
 
   ngOnInit() {
   }
@@ -34,27 +38,31 @@ export class RegisterComponent implements OnInit {
   }
 
   addUser(form: NgForm) {
-    this.isLoading = true;
     if (form.invalid) {
       return;
     }
+    this.isLoading = true;
+    this.isError = false;
+    this.errorMsg = '';
+    this.successMsg = '';
+    this.isSuccess = false;
     this.formStatus = true;
     const regexp = new RegExp(
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
-    if (form.value.name == '') {
+    if (form.value.name === '') {
       this.nameValid = false;
     } else {
       this.nameValid = true;
     }
-    if (form.value.email == '' ) {
+    if (form.value.email === '' ) {
       this.emailValid = false;
     } else if (!regexp.test(form.value.email)) {
       this.emailValid = false;
     } else {
       this.emailValid = true;
     }
-    if (form.value.password == '' || form.value.password.length < 6) {
+    if (form.value.password === '' || form.value.password.length < 6) {
       this.passwordValid = false;
     } else {
       this.passwordValid = true;
@@ -64,7 +72,26 @@ export class RegisterComponent implements OnInit {
         form.value.name,
         form.value.email,
         form.value.password
-      );
+      ).subscribe(
+        response => {
+          this.alertService.success(response.message);
+          if (response && response.message) {
+
+            this.isSuccess = true;
+            this.successMsg = response.message;
+
+          }
+          this.isLoading = false;
+        },
+        error => {
+          console.log(error);
+          this.isError = true;
+          this.isLoading = false;
+          if (error && error.error && error.error.message) {
+            this.alertService.danger(error.error.message);
+            this.errorMsg = error.error.message;
+          }
+        });
     } else {
       return;
     }

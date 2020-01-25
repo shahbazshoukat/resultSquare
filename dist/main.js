@@ -119,18 +119,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _layouts_home_layout_home_layout_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./layouts/home-layout/home-layout.component */ "./src/app/layouts/home-layout/home-layout.component.ts");
-/* harmony import */ var _layouts_admin_layout_admin_layout_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./layouts/admin-layout/admin-layout.component */ "./src/app/layouts/admin-layout/admin-layout.component.ts");
-/* harmony import */ var _layouts_auth_layout_auth_layout_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./layouts/auth-layout/auth-layout.component */ "./src/app/layouts/auth-layout/auth-layout.component.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _pages_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/page-not-found/page-not-found.component */ "./src/app/pages/page-not-found/page-not-found.component.ts");
-/* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
-/* harmony import */ var _components_components_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/components.module */ "./src/app/components/components.module.ts");
-/* harmony import */ var ngx_lottie__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ngx-lottie */ "./node_modules/ngx-lottie/fesm5/ngx-lottie.js");
-/* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! lottie-web */ "./node_modules/lottie-web/build/player/lottie.js");
-/* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(lottie_web__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
+/* harmony import */ var _interceptors_auth_interceptor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./interceptors/auth-interceptor */ "./src/app/interceptors/auth-interceptor.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _layouts_home_layout_home_layout_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./layouts/home-layout/home-layout.component */ "./src/app/layouts/home-layout/home-layout.component.ts");
+/* harmony import */ var _layouts_admin_layout_admin_layout_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./layouts/admin-layout/admin-layout.component */ "./src/app/layouts/admin-layout/admin-layout.component.ts");
+/* harmony import */ var _layouts_auth_layout_auth_layout_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./layouts/auth-layout/auth-layout.component */ "./src/app/layouts/auth-layout/auth-layout.component.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _pages_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/page-not-found/page-not-found.component */ "./src/app/pages/page-not-found/page-not-found.component.ts");
+/* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
+/* harmony import */ var _components_components_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/components.module */ "./src/app/components/components.module.ts");
+/* harmony import */ var ngx_lottie__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ngx-lottie */ "./node_modules/ngx-lottie/fesm5/ngx-lottie.js");
+/* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! lottie-web */ "./node_modules/lottie-web/build/player/lottie.js");
+/* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(lottie_web__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -153,8 +154,9 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 function playerFactory() {
-    return lottie_web__WEBPACK_IMPORTED_MODULE_14___default.a;
+    return lottie_web__WEBPACK_IMPORTED_MODULE_15___default.a;
 }
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -165,29 +167,29 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_0__["BrowserAnimationsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
-                _components_components_module__WEBPACK_IMPORTED_MODULE_12__["ComponentsModule"],
-                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_9__["NgbModule"],
+                _components_components_module__WEBPACK_IMPORTED_MODULE_13__["ComponentsModule"],
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_10__["NgbModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"],
-                _app_routing__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"],
-                ngx_lottie__WEBPACK_IMPORTED_MODULE_13__["LottieModule"].forRoot({ player: playerFactory, useCache: true }),
-                ngx_alerts__WEBPACK_IMPORTED_MODULE_15__["AlertModule"].forRoot()
+                _app_routing__WEBPACK_IMPORTED_MODULE_12__["AppRoutingModule"],
+                ngx_lottie__WEBPACK_IMPORTED_MODULE_14__["LottieModule"].forRoot({ player: playerFactory, useCache: true }),
+                ngx_alerts__WEBPACK_IMPORTED_MODULE_16__["AlertModule"].forRoot()
             ],
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
-                _layouts_home_layout_home_layout_component__WEBPACK_IMPORTED_MODULE_6__["HomeLayoutComponent"],
-                _layouts_admin_layout_admin_layout_component__WEBPACK_IMPORTED_MODULE_7__["AdminLayoutComponent"],
-                _layouts_auth_layout_auth_layout_component__WEBPACK_IMPORTED_MODULE_8__["AuthLayoutComponent"],
-                _pages_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_10__["PageNotFoundComponent"],
+                _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"],
+                _layouts_home_layout_home_layout_component__WEBPACK_IMPORTED_MODULE_7__["HomeLayoutComponent"],
+                _layouts_admin_layout_admin_layout_component__WEBPACK_IMPORTED_MODULE_8__["AdminLayoutComponent"],
+                _layouts_auth_layout_auth_layout_component__WEBPACK_IMPORTED_MODULE_9__["AuthLayoutComponent"],
+                _pages_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_11__["PageNotFoundComponent"],
             ],
             providers: [
-                ngx_alerts__WEBPACK_IMPORTED_MODULE_15__["AlertService"]
-                // {
-                //   provide: HTTP_INTERCEPTORS,
-                //   useClass: HttpErrorInterceptor,
-                //   multi: true
-                // }
+                ngx_alerts__WEBPACK_IMPORTED_MODULE_16__["AlertService"],
+                {
+                    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"],
+                    useClass: _interceptors_auth_interceptor__WEBPACK_IMPORTED_MODULE_5__["AuthInterceptor"],
+                    multi: true
+                }
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -293,7 +295,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-top navbar-expand-md navbar-dark\" id=\"navbar-main\">\r\n  <div class=\"container-fluid\">\r\n    <!-- Brand -->\r\n    <a class=\"h4 mb-0 text-white text-uppercase d-none d-lg-inline-block\" routerLinkActive=\"active\" [routerLink]=\"['/dashboard']\">{{getTitle()}}</a>\r\n    <!-- Form -->\r\n    <form class=\"navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto\">\r\n      <div class=\"form-group mb-0\" [ngClass]=\"{ 'focused': focus === true }\">\r\n        <div class=\"input-group input-group-alternative\">\r\n          <div class=\"input-group-prepend\">\r\n            <span class=\"input-group-text\"><i class=\"fas fa-search\"></i></span>\r\n          </div>\r\n          <input class=\"form-control\" placeholder=\"Search\" type=\"text\" (focus)=\"focus = true\"\r\n          (blur)=\"focus = false\">\r\n        </div>\r\n      </div>\r\n    </form>\r\n    <!-- User -->\r\n    <ul class=\"navbar-nav align-items-center d-none d-md-flex\">\r\n      <li class=\"nav-item\" ngbDropdown placement=\"bottom-right\">\r\n        <a class=\"nav-link pr-0\" role=\"button\" ngbDropdownToggle>\r\n          <div class=\"media align-items-center\">\r\n            <span class=\"avatar avatar-sm rounded-circle\">\r\n              <img alt=\"Image placeholder\" src=\"assets/img/theme/team-4-800x800.jpg\">\r\n            </span>\r\n            <div class=\"media-body ml-2 d-none d-lg-block\">\r\n              <span class=\"mb-0 text-sm  font-weight-bold\">{{username}}</span>\r\n            </div>\r\n          </div>\r\n        </a>\r\n        <div class=\"dropdown-menu-arrow dropdown-menu-right\" ngbDropdownMenu>\r\n          <div class=\" dropdown-header noti-title\">\r\n            <h6 class=\"text-overflow m-0\">Welcome!</h6>\r\n          </div>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-single-02\"></i>\r\n            <span>My profile</span>\r\n          </a>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-settings-gear-65\"></i>\r\n            <span>Settings</span>\r\n          </a>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-calendar-grid-58\"></i>\r\n            <span>Activity</span>\r\n          </a>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-support-16\"></i>\r\n            <span>Support</span>\r\n          </a>\r\n          <div class=\"dropdown-divider\"></div>\r\n          <a href=\"#!\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-user-run\"></i>\r\n            <span>Logout</span>\r\n          </a>\r\n        </div>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</nav>\r\n"
+module.exports = "<nav class=\"navbar navbar-top navbar-expand-md navbar-dark\" id=\"navbar-main\">\r\n  <div class=\"container-fluid\">\r\n    <!-- Brand -->\r\n    <a class=\"h4 mb-0 text-white text-uppercase d-none d-lg-inline-block\" routerLinkActive=\"active\" [routerLink]=\"['/dashboard']\">{{getTitle()}}</a>\r\n    <!-- Form -->\r\n    <form class=\"navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto\">\r\n      <div class=\"form-group mb-0\" [ngClass]=\"{ 'focused': focus === true }\">\r\n        <div class=\"input-group input-group-alternative\">\r\n          <div class=\"input-group-prepend\">\r\n            <span class=\"input-group-text\"><i class=\"fas fa-search\"></i></span>\r\n          </div>\r\n          <input class=\"form-control\" placeholder=\"Search\" type=\"text\" (focus)=\"focus = true\"\r\n          (blur)=\"focus = false\">\r\n        </div>\r\n      </div>\r\n    </form>\r\n    <!-- User -->\r\n    <ul class=\"navbar-nav align-items-center d-none d-md-flex\">\r\n      <li class=\"nav-item\" ngbDropdown placement=\"bottom-right\">\r\n        <a class=\"nav-link pr-0\" role=\"button\" ngbDropdownToggle>\r\n          <div class=\"media align-items-center\">\r\n            <span class=\"avatar avatar-sm rounded-circle\">\r\n              <img alt=\"Image placeholder\" src=\"assets/img/user.png\">\r\n            </span>\r\n            <div class=\"media-body ml-2 d-none d-lg-block\">\r\n              <span class=\"mb-0 text-sm  font-weight-bold\">{{username}}</span>\r\n            </div>\r\n          </div>\r\n        </a>\r\n        <div class=\"dropdown-menu-arrow dropdown-menu-right\" ngbDropdownMenu>\r\n          <div class=\" dropdown-header noti-title\">\r\n            <h6 class=\"text-overflow m-0\">Welcome!</h6>\r\n          </div>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-single-02\"></i>\r\n            <span>My profile</span>\r\n          </a>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-settings-gear-65\"></i>\r\n            <span>Settings</span>\r\n          </a>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-calendar-grid-58\"></i>\r\n            <span>Activity</span>\r\n          </a>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-support-16\"></i>\r\n            <span>Support</span>\r\n          </a>\r\n          <div class=\"dropdown-divider\"></div>\r\n          <a href=\"#!\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-user-run\"></i>\r\n            <span>Logout</span>\r\n          </a>\r\n        </div>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</nav>\r\n"
 
 /***/ }),
 
@@ -346,7 +348,7 @@ var AdminNavbarComponent = /** @class */ (function () {
     }
     AdminNavbarComponent.prototype.ngOnInit = function () {
         this.listTitles = _sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_1__["ROUTES"].filter(function (listTitle) { return listTitle; });
-        this.username = this.userService.getUsername();
+        this.username = this.userService.getUserName();
     };
     AdminNavbarComponent.prototype.getTitle = function () {
         var titlee = this.location.prepareExternalUrl(this.location.path());
@@ -509,7 +511,7 @@ var FooterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg bg-white\">\r\n    <a class=\"navbar-brand\" style=\"margin-left: 10px;\" [routerLink]=\"['']\"><b><span style=\"color: #002E6E\">Result</span><span style=\"color: #00B9F1\">Square</span></b></a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n  </nav>\r\n<div class=\"header pb-8 pt-5 pt-lg-8 d-flex align-items-center\" style=\"min-height: 350px; max-height: 400px; background-image: url(assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;\">\r\n  <!-- Mask -->\r\n  <span class=\"mask bg-gradient-default opacity-6\"></span>\r\n  <!-- Header container -->\r\n  <div class=\"container-fluid d-flex align-items-center\">\r\n    <div class=\"row\">\r\n      <div class=\"col-lg-7 col-md-10\">\r\n        <h1 class=\"display-2 text-white\">Searching for Result?</h1>\r\n        <p class=\"text-white mt-0 mb-5\">Don't worry its just some steps ahead from you. Now you can find results of all classes and latest updates at one place.</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<nav class=\"navbar navbar-expand-lg bg-white\">\r\n    <a class=\"navbar-brand\" style=\"margin-left: 10px;\" [routerLink]=\"['']\"><b><span style=\"color: #002E6E\">Result</span><span style=\"color: #00B9F1\">Square</span></b></a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n  </nav>\r\n<div class=\"header pb-8 pt-5 pt-lg-8 d-flex align-items-center img-center\" style=\"min-height: 350px; max-height: 400px; background-image: url(assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;\">\r\n  <!-- Mask -->\r\n  <span class=\"mask bg-gradient-default opacity-6\"></span>\r\n  <!-- Header container -->\r\n  <div class=\"container-fluid d-flex align-items-center\">\r\n    <div class=\"row\">\r\n      <div class=\"col-lg-7 col-md-10\">\r\n        <h1 class=\"display-2 text-white\">Searching for Result?</h1>\r\n        <p class=\"text-white mt-0 mb-5\">Don't worry its just some steps ahead from you. Now you can find results of all classes and latest updates at one place.</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -591,7 +593,7 @@ var NavbarComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-vertical navbar-expand-md navbar-light bg-white\" id=\"sidenav-main\">\r\n  <div class=\"container-fluid\">\r\n    <!-- Toggler -->\r\n    <button class=\"navbar-toggler\" type=\"button\" (click)=\"isCollapsed=!isCollapsed\"\r\n       aria-controls=\"sidenav-collapse-main\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <!-- Brand -->\r\n    <a class=\"navbar-brand pt-0\" routerLinkActive=\"active\" [routerLink]=\"['/dashboard']\">\r\n      <span class=\"badge badge-primary badge-lg bg-gradient-danger text-white\">ResultSquare</span>\r\n    </a>\r\n    <!-- User -->\r\n    <ul class=\"nav align-items-center d-md-none\">\r\n      <li class=\"nav-item\" ngbDropdown placement=\"bottom-right\">\r\n        <a class=\"nav-link nav-link-icon\" role=\"button\" ngbDropdownToggle>\r\n          <i class=\"ni ni-bell-55\"></i>\r\n        </a>\r\n        <div class=\"dropdown-menu-arrow dropdown-menu-right\" ngbDropdownMenu>\r\n          <a class=\"dropdown-item\" href=\"javascript:void(0)\">Action</a>\r\n          <a class=\"dropdown-item\" href=\"javascript:void(0)\">Another action</a>\r\n          <div class=\"dropdown-divider\"></div>\r\n          <a class=\"dropdown-item\" href=\"javascript:void(0)\">Something else here</a>\r\n        </div>\r\n      </li>\r\n      <li class=\"nav-item\" ngbDropdown placement=\"bottom-right\">\r\n        <a class=\"nav-link\" role=\"button\" ngbDropdownToggle>\r\n          <div class=\"media align-items-center\">\r\n            <span class=\"avatar avatar-sm rounded-circle\">\r\n              <img alt=\"Image placeholder\" src=\"./assets/img/theme/team-1-800x800.jpg\">\r\n            </span>\r\n          </div>\r\n        </a>\r\n        <div class=\"dropdown-menu-arrow dropdown-menu-right\" ngbDropdownMenu>\r\n          <div class=\" dropdown-header noti-title\">\r\n            <h6 class=\"text-overflow m-0\">Welcome!</h6>\r\n          </div>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-single-02\"></i>\r\n            <span>My profile</span>\r\n          </a>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-settings-gear-65\"></i>\r\n            <span>Settings</span>\r\n          </a>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-calendar-grid-58\"></i>\r\n            <span>Activity</span>\r\n          </a>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-support-16\"></i>\r\n            <span>Support</span>\r\n          </a>\r\n          <div class=\"dropdown-divider\"></div>\r\n          <a  (click)=\"logout()\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-user-run\"></i>\r\n            <span class=\"btn btn-sm btn-danger\">Logout</span>\r\n          </a>\r\n        </div>\r\n      </li>\r\n    </ul>\r\n    <!-- Collapse -->\r\n    <div class=\"collapse navbar-collapse\"  [ngbCollapse]=\"isCollapsed\" id=\"sidenav-collapse-main\">\r\n      <!-- Collapse header -->\r\n      <div class=\"navbar-collapse-header d-md-none\">\r\n        <div class=\"row\">\r\n          <div class=\"col-6 collapse-brand\">\r\n            <a  routerLinkActive=\"active\" [routerLink]=\"['rs-admin/dashboard']\">\r\n              <img src=\"./assets/img/brand/blue.png\">\r\n            </a>\r\n          </div>\r\n          <div class=\"col-6 collapse-close\">\r\n            <button type=\"button\" class=\"navbar-toggler\" (click)=\"isCollapsed=!isCollapsed\">\r\n              <span></span>\r\n              <span></span>\r\n            </button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <!-- Form -->\r\n      <form class=\"mt-4 mb-3 d-md-none\">\r\n        <div class=\"input-group input-group-rounded input-group-merge\">\r\n          <input type=\"search\" class=\"form-control form-control-rounded form-control-prepended\" placeholder=\"Search\" aria-label=\"Search\">\r\n          <div class=\"input-group-prepend\">\r\n            <div class=\"input-group-text\">\r\n              <span class=\"fa fa-search\"></span>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </form>\r\n      <!-- Navigation -->\r\n      <ul class=\"navbar-nav\">\r\n          <li *ngFor=\"let menuItem of menuItems\" class=\"{{menuItem.class}} nav-item\">\r\n              <a routerLinkActive=\"active\" [routerLink]=\"[menuItem.path]\" class=\"nav-link\">\r\n                  <i class=\"ni {{menuItem.icon}}\"></i>\r\n                  {{menuItem.title}}\r\n              </a>\r\n          </li>\r\n      </ul>\r\n      <!-- Divider -->\r\n      <hr class=\"my-3\">\r\n      <!-- Heading -->\r\n      <h6 class=\"navbar-heading text-muted\">USER</h6>\r\n      <!-- Navigation -->\r\n      <ul class=\"navbar-nav mb-md-3\">\r\n        <li class=\"nav-item\">\r\n          <a (click)=\"logout()\" class=\"nav-link\">\r\n            <i class=\"ni ni-button-power\"></i> Logout\r\n          </a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </div>\r\n</nav>\r\n"
+module.exports = "<nav class=\"navbar navbar-vertical navbar-expand-md navbar-light bg-white\" id=\"sidenav-main\">\r\n  <div class=\"container-fluid\">\r\n    <!-- Toggler -->\r\n    <button class=\"navbar-toggler\" type=\"button\" (click)=\"isCollapsed=!isCollapsed\"\r\n       aria-controls=\"sidenav-collapse-main\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <!-- Brand -->\r\n    <a class=\"navbar-brand pt-0\" routerLinkActive=\"active\" [routerLink]=\"['/dashboard']\">\r\n      <span class=\"badge badge-primary badge-lg bg-gradient-danger text-white\">ResultSquare</span>\r\n    </a>\r\n    <!-- User -->\r\n    <ul class=\"nav align-items-center d-md-none\">\r\n      <li class=\"nav-item\" ngbDropdown placement=\"bottom-right\">\r\n        <a class=\"nav-link nav-link-icon\" role=\"button\" ngbDropdownToggle>\r\n          <i class=\"ni ni-bell-55\"></i>\r\n        </a>\r\n        <div class=\"dropdown-menu-arrow dropdown-menu-right\" ngbDropdownMenu>\r\n          <a class=\"dropdown-item\" href=\"javascript:void(0)\">Action</a>\r\n          <a class=\"dropdown-item\" href=\"javascript:void(0)\">Another action</a>\r\n          <div class=\"dropdown-divider\"></div>\r\n          <a class=\"dropdown-item\" href=\"javascript:void(0)\">Something else here</a>\r\n        </div>\r\n      </li>\r\n      <li class=\"nav-item\" ngbDropdown placement=\"bottom-right\">\r\n        <a class=\"nav-link\" role=\"button\" ngbDropdownToggle>\r\n          <div class=\"media align-items-center\">\r\n            <span class=\"avatar avatar-sm rounded-circle\">\r\n              <img alt=\"Image placeholder\" src=\"./assets/img/user.png\">\r\n            </span>\r\n          </div>\r\n        </a>\r\n        <div class=\"dropdown-menu-arrow dropdown-menu-right\" ngbDropdownMenu>\r\n          <div class=\" dropdown-header noti-title\">\r\n            <h6 class=\"text-overflow m-0\">Welcome!</h6>\r\n          </div>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-single-02\"></i>\r\n            <span>My profile</span>\r\n          </a>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-settings-gear-65\"></i>\r\n            <span>Settings</span>\r\n          </a>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-calendar-grid-58\"></i>\r\n            <span>Activity</span>\r\n          </a>\r\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-support-16\"></i>\r\n            <span>Support</span>\r\n          </a>\r\n          <div class=\"dropdown-divider\"></div>\r\n          <a  (click)=\"logout()\" class=\"dropdown-item\">\r\n            <i class=\"ni ni-user-run\"></i>\r\n            <span class=\"btn btn-sm btn-danger\">Logout</span>\r\n          </a>\r\n        </div>\r\n      </li>\r\n    </ul>\r\n    <!-- Collapse -->\r\n    <div class=\"collapse navbar-collapse\"  [ngbCollapse]=\"isCollapsed\" id=\"sidenav-collapse-main\">\r\n      <!-- Collapse header -->\r\n      <div class=\"navbar-collapse-header d-md-none\">\r\n        <div class=\"row\">\r\n          <div class=\"col-6 collapse-brand\">\r\n            <a class=\"navbar-brand pt-0\" routerLinkActive=\"active\" [routerLink]=\"['/dashboard']\">\r\n              <span class=\"badge badge-primary badge-lg bg-gradient-danger text-white\">ResultSquare</span>\r\n            </a>\r\n          </div>\r\n          <div class=\"col-6 collapse-close\">\r\n            <button type=\"button\" class=\"navbar-toggler\" (click)=\"isCollapsed=!isCollapsed\">\r\n              <span></span>\r\n              <span></span>\r\n            </button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <!-- Form -->\r\n      <form class=\"mt-4 mb-3 d-md-none\">\r\n        <div class=\"input-group input-group-rounded input-group-merge\">\r\n          <input type=\"search\" class=\"form-control form-control-rounded form-control-prepended\" placeholder=\"Search\" aria-label=\"Search\">\r\n          <div class=\"input-group-prepend\">\r\n            <div class=\"input-group-text\">\r\n              <span class=\"fa fa-search\"></span>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </form>\r\n      <!-- Navigation -->\r\n      <ul class=\"navbar-nav\">\r\n          <li *ngFor=\"let menuItem of menuItems\" class=\"{{menuItem.class}} nav-item\">\r\n              <a routerLinkActive=\"active\" [routerLink]=\"[menuItem.path]\" class=\"nav-link\">\r\n                  <i class=\"ni {{menuItem.icon}}\"></i>\r\n                  {{menuItem.title}}\r\n              </a>\r\n          </li>\r\n      </ul>\r\n      <!-- Divider -->\r\n      <hr class=\"my-3\">\r\n      <!-- Heading -->\r\n      <h6 class=\"navbar-heading text-muted\">USER</h6>\r\n      <!-- Navigation -->\r\n      <ul class=\"navbar-nav mb-md-3\">\r\n        <li class=\"nav-item\">\r\n          <a (click)=\"logout()\" class=\"nav-link\">\r\n            <i class=\"ni ni-button-power\"></i> Logout\r\n          </a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </div>\r\n</nav>\r\n"
 
 /***/ }),
 
@@ -681,7 +683,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function() { return AuthGuard; });
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -693,25 +694,69 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
-
 var AuthGuard = /** @class */ (function () {
-    function AuthGuard(authService, router) {
-        this.authService = authService;
+    function AuthGuard(router) {
         this.router = router;
     }
     AuthGuard.prototype.canActivate = function (route, state) {
-        var isAuth = this.authService.getIsAuthenticated();
-        if (!isAuth) {
+        var token = localStorage.getItem('token');
+        if (!token) {
             this.router.navigate(['']);
+            return false;
         }
-        return isAuth;
+        return true;
     };
     AuthGuard = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
-        __metadata("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_2__["UsersService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_0__["Router"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_0__["Router"]])
     ], AuthGuard);
     return AuthGuard;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/interceptors/auth-interceptor.ts":
+/*!**************************************************!*\
+  !*** ./src/app/interceptors/auth-interceptor.ts ***!
+  \**************************************************/
+/*! exports provided: AuthInterceptor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthInterceptor", function() { return AuthInterceptor; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var AuthInterceptor = /** @class */ (function () {
+    function AuthInterceptor() {
+    }
+    AuthInterceptor.prototype.intercept = function (req, next) {
+        var authToken = localStorage.getItem('token');
+        if (authToken) {
+            var authRequest = req.clone({ setHeaders: { 'x-access-token': authToken } });
+            return next.handle(authRequest);
+        }
+        else {
+            var authRequest = req.clone({ setHeaders: { 'x-access-token': 'abcd' } });
+            return next.handle(authRequest);
+        }
+    };
+    AuthInterceptor = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [])
+    ], AuthInterceptor);
+    return AuthInterceptor;
 }());
 
 
@@ -1013,20 +1058,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersService", function() { return UsersService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
-var __assign = (undefined && undefined.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1038,182 +1069,37 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
-
-
-
 var UsersService = /** @class */ (function () {
-    function UsersService(http, router, alertService) {
+    function UsersService(http) {
         this.http = http;
-        this.router = router;
-        this.alertService = alertService;
-        this.isAuthenticated = false;
-        this.authStatusListener = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
-        this.users = [];
+        this.username = '';
     }
-    UsersService.prototype.getToken = function () {
-        return this.token;
+    UsersService.prototype.setUserName = function (name) {
+        this.username = name;
     };
-    UsersService.prototype.getEmailStatus = function () {
-        return this.emailStatus;
-    };
-    UsersService.prototype.getIsAuth = function () {
-        return this.isAuthenticated;
-    };
-    UsersService.prototype.getIsAuthenticated = function () {
-        var token = localStorage.getItem('token');
-        if (token) {
-            return true;
-        }
-        return false;
-    };
-    UsersService.prototype.getUser = function () {
-        return this.user;
-    };
-    UsersService.prototype.getUsername = function () {
+    UsersService.prototype.getUserName = function () {
         return this.username;
     };
-    UsersService.prototype.getAuthStatusListener = function () {
-        return this.authStatusListener.asObservable();
-    };
     UsersService.prototype.addUser = function (name, email, password) {
-        var _this = this;
         var user = {
             _id: null,
             name: name,
             email: email,
             password: password
         };
-        this.http.post('/api/signUp', user).subscribe(function (response) {
-            _this.alertService.success(response.message);
-        }, function (error) {
-            if (error && error.error && error.error.message) {
-                _this.alertService.danger(error.error.message);
-            }
-        });
+        return this.http.post('/api/signUp', user);
     };
     UsersService.prototype.loginUser = function (email, password) {
-        var _this = this;
         var authData = { email: email, password: password };
-        this.http
-            .post('/api/login', authData)
-            .subscribe(function (response) {
-            var token = response.data.token;
-            _this.token = token;
-            _this.user = {
-                _id: response.data.userId,
-                name: response.data.name,
-                email: response.data.email,
-                password: ''
-            };
-            if (token) {
-                var expiresInDuration = response.data.expiresIn;
-                _this.setAuthTimer(expiresInDuration);
-                _this.isAuthenticated = true;
-                _this.authStatusListener.next(true);
-                var now = new Date();
-                var expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-                _this.saveAuthData(token, expirationDate, _this.user.name, _this.user._id);
-                _this.router.navigate(['/rs-admin/dashboard']);
-            }
-        }, function (error) {
-            if (error && error.error && error.error.message) {
-                _this.alertService.danger(error.error.message);
-            }
-        });
-    };
-    UsersService.prototype.autoAuthUser = function () {
-        var authInformation = this.getAuthData();
-        if (!authInformation) {
-            return;
-        }
-        var now = new Date();
-        var expiresIn = authInformation.expirationDate.getTime() - now.getTime();
-        if (expiresIn > 0) {
-            this.token = authInformation.token;
-            this.username = authInformation.username;
-            this.isAuthenticated = true;
-            this.setAuthTimer(expiresIn / 1000);
-            this.authStatusListener.next(true);
-        }
+        return this.http
+            .post('/api/login', authData);
     };
     UsersService.prototype.logout = function () {
-        var _this = this;
-        this.http.get('/api/logout').subscribe(function (response) {
-            _this.alertService.success(response.message);
-        }, function (error) {
-            if (error && error.error && error.error.message) {
-                _this.alertService.danger(error.error.message);
-            }
-        });
-        this.token = null;
-        this.isAuthenticated = false;
-        this.authStatusListener.next(false);
-        this.user = null;
-        clearTimeout(this.tokenTimer);
-        this.clearAuthData();
-        this.router.navigate(['']);
-    };
-    UsersService.prototype.setAuthTimer = function (duration) {
-        var _this = this;
-        this.tokenTimer = setTimeout(function () {
-            _this.logout();
-        }, duration * 1000);
-    };
-    UsersService.prototype.saveAuthData = function (token, expirationDate, username, userId) {
-        localStorage.setItem('token', token);
-        localStorage.setItem('expiration', expirationDate.toISOString());
-        localStorage.setItem('username', username);
-        localStorage.setItem('userId', userId);
-    };
-    UsersService.prototype.clearAuthData = function () {
-        localStorage.removeItem('token');
-        localStorage.removeItem('expiration');
-        localStorage.removeItem('username');
-        localStorage.removeItem('userId');
-    };
-    UsersService.prototype.getAuthData = function () {
-        var token = localStorage.getItem('token');
-        var expirationDate = localStorage.getItem('expiration');
-        var username = localStorage.getItem('username');
-        if (!token || !expirationDate) {
-            return;
-        }
-        return {
-            token: token,
-            username: username,
-            expirationDate: new Date(expirationDate)
-        };
-    };
-    UsersService.prototype.getUserById = function (userId) {
-        return this.http.get('/api/user' + userId);
-    };
-    UsersService.prototype.getUserId = function () {
-        return localStorage.getItem('userId');
-    };
-    UsersService.prototype.getUsers = function () {
-        var _this = this;
-        var usr;
-        this.http
-            .get('/api/user')
-            .subscribe(function (responseData) {
-            responseData.users.forEach(function (user) {
-                usr = {
-                    _id: user._id,
-                    name: user.name,
-                    email: user.email,
-                    reqStatus: false
-                };
-                _this.users.push(usr);
-            });
-        });
-        return this.users;
-    };
-    UsersService.prototype.getUserBId = function (userId) {
-        return __assign({}, this.users.find(function (u) { return u._id === userId; }));
+        return this.http.get('/api/logout');
     };
     UsersService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({ providedIn: 'root' }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], ngx_alerts__WEBPACK_IMPORTED_MODULE_4__["AlertService"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], UsersService);
     return UsersService;
 }());
