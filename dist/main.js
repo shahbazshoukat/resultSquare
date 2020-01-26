@@ -978,7 +978,7 @@ var HomeLayoutComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"row justify-content-center\">\n  <div class=\"bg-transparent\">\n    <div class=\"text-center\">\n      <ng-lottie width=\"600px\" height=\"600px\" [options]=\"pageNotFoundAnimOptions\" (animationCreated)=\"pageNotFoundAnimationCreated($event)\"></ng-lottie>\n    </div>\n    <div class=\"text-center mt--200\">\n      <span class=\"text-lg\">Page not found</span>\n    </div>\n    <div class=\"text-center\" style=\"margin-top: 30px;\">\n      <span class=\"btn btn-primary\" (click)=\"backToHome();\">Back to Home</span>\n    </div>\n  </div>\n</div>\n"
+module.exports = "\r\n<div class=\"row justify-content-center\">\r\n  <div class=\"bg-transparent\">\r\n    <div class=\"text-center\">\r\n      <ng-lottie width=\"600px\" height=\"600px\" [options]=\"pageNotFoundAnimOptions\" (animationCreated)=\"pageNotFoundAnimationCreated($event)\"></ng-lottie>\r\n    </div>\r\n    <div class=\"text-center mt--200\">\r\n      <span class=\"text-lg\">Page not found</span>\r\n    </div>\r\n    <div class=\"text-center\" style=\"margin-top: 30px;\">\r\n      <span class=\"btn btn-primary\" (click)=\"backToHome();\">Back to Home</span>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1122,7 +1122,7 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 var environment = {
-    production: false,
+    production: true,
     apiURL: 'http://localhost:3000/api'
 };
 /*
