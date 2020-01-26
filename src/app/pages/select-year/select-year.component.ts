@@ -89,7 +89,7 @@ export class SelectYearComponent implements OnInit, OnDestroy {
 
             this.isError = true;
 
-            this.errorMsg = `No Year Found`;
+            this.errorMsg = `404 - Not Found`;
 
           }
 

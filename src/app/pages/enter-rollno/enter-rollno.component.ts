@@ -335,7 +335,7 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
               this.isError = true;
 
-              this.errorMsg = 'Result Not Found';
+              this.errorMsg = '404 - Not Found';
 
             }
 
