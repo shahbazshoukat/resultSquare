@@ -2,11 +2,11 @@
   <!-- Mask -->
   <span class="mask bg-gradient-danger opacity-8"></span>
   <!-- Header container -->
-  
+
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
-   
+
     <div class="col-xl-12 order-xl-1">
       <div class="card bg-secondary shadow">
         <div class="card-header bg-white border-0">
@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="card-body">
-          <form>
+          <form (submit) = "addResult(resultForm)" #resultForm="ngForm" >
             <h6 class="heading-small text-muted mb-4">User information</h6>
             <div class="pl-lg-4">
               <div class="row" >
@@ -26,7 +26,7 @@
                         <label class="form-control-label" for="input-city">Announce Status</label>
                         <span class="clearfix"></span>
                         <label class="custom-toggle">
-                            <input type="checkbox" checked="">
+                            <input name="status" [ngModel]=" isEdit ? resultToUpdate.status : ''" type="checkbox" >
                             <span class="custom-toggle-slider rounded-circle"></span>
                           </label>
                       </div>
@@ -36,18 +36,16 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-board">Class</label>
-                    <select class="form-control form-control-alternative">
-                      <option value="" disabled>Choose Class</option>
-                      <option >9th</option>
+                    <select  name="clas" [ngModel]=" isEdit ? resultToUpdate.section._id : ''" class="form-control form-control-alternative">
+                      <option *ngFor="let cls of classes" value="{{cls._id}}" >{{cls.title}}</option>
                    </select>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-board">Board</label>
-                    <select class="form-control form-control-alternative">
-                      <option value="" disabled>Choose board</option>
-                      <option >BISE Lahore</option>
+                    <select (change) = "changeBoard($event.target.value)"  name="board" [ngModel]=" isEdit ? resultToUpdate.board._id : ''" class="form-control form-control-alternative">
+                      <option *ngFor="let board of boards" value="{{board._id}}" >{{board.title}}</option>
                    </select>
                   </div>
                 </div>
@@ -56,9 +54,22 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-board">Year</label>
-                    <select class="form-control form-control-alternative">
+                    <select name="year" [ngModel]=" isEdit ? resultToUpdate.year : ''" class="form-control form-control-alternative">
                       <option value="" disabled>Select Year</option>
-                      <option >2019</option>
+                      <option value="2023" >2023</option>
+                      <option value="2022" >2022</option>
+                      <option value="2021" >2021</option>
+                      <option value="2020" >2020</option>
+                      <option value="2019" >2019</option>
+                      <option value="2018" >2018</option>
+                      <option value="2017" >2017</option>
+                      <option value="2016" >2016</option>
+                      <option value="2015" >2015</option>
+                      <option value="2014" >2014</option>
+                      <option value="2013" >2013</option>
+                      <option value="2012" >2012</option>
+                      <option value="2011" >2011</option>
+                      <option value="2010" >2010</option>
                    </select>
                   </div>
                 </div>
@@ -68,7 +79,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                     </div>
-                    <input class="form-control datepicker" placeholder="Select date" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"/>
+                    <input name="announceDate" [ngModel]=" isEdit ? resultToUpdate.announceDate : ''" class="form-control datepicker" placeholder="Select date" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"/>
                   </div>
                 </div>
               </div>
@@ -76,61 +87,23 @@
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label class="form-control-label" for="input-board">Exam Type</label>
-                      <select class="form-control form-control-alternative">
+                      <select name="examType" [ngModel]=" isEdit ? resultToUpdate.examType : ''" class="form-control form-control-alternative">
                         <option value="" disabled>Select Exam Type</option>
-                        <option >Annual</option>
-                        <option >Supply</option>
+                        <option value="0" >Annual</option>
+                        <option value="1" >Supply</option>
+                        <option value="2" >Test</option>
+                        <option value="3" >Retotal</option>
                      </select>
                     </div>
                   </div>
-                  <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-board">API Mode</label>
-                        <select class="form-control form-control-alternative">
-                          <option value="" disabled>Select API Mode</option>
-                          <option >API</option>
-                          <option >Scraping</option>
-                          <option>URL</option>
-                       </select>
-                      </div>
-                  </div>
-                  
+
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-address">Result URL</label>
-                        <input id="input-address" class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
-                      </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-address">API URL</label>
-                        <input id="input-address" class="form-control form-control-alternative" placeholder="API URL" value="" type="text">
-                      </div>
-                    </div>
-                    <div class="row" >
-                      <div class="form-group" style="padding-left: 30px;" >
-                          <label class="form-control-label" for="input-address">Request</label>
-                          <span class="clearfix" ></span>
-                            <span class="custom-radio mb-3" style="padding: 30px;" >
-                              <input name="custom-radio-2" class="custom-control-input" id="customRadio5" type="radio">
-                              <label class="custom-control-label" for="customRadio5">GET</label>
-                            </span>
-                            <span class=" custom-radio mb-3" style="padding: 30px;">
-                              <input name="custom-radio-2" class="custom-control-input" id="customRadio6" checked="" type="radio">
-                              <label class="custom-control-label" for="customRadio6">POST</label>
-                            </span>
-                      </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-address">API Parameters</label>
-                        <input id="input-address" class="form-control form-control-alternative" placeholder="API Params" value="" type="text">
+                        <input *ngIf="!selectedBoard" name="resultUrl" [ngModel]=" isEdit ? resultToUpdate.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
+                        <input *ngIf="selectedBoard" name="resultUrl" [ngModel]=" selectedBoard.resultUrl ? selectedBoard.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
                       </div>
                     </div>
                 </div>
@@ -138,13 +111,26 @@
                     <div class="col-md-8">
                       <div class="form-group">
                         <label class="form-control-label" for="input-address">Tags</label>
-                        <input id="input-address" class="form-control form-control-alternative" placeholder="Tags" value="" type="text">
+                          <form (submit) = "addTag(tagForm)" #tagForm = "ngForm" >
+                            <input name="tagTitle" ngModel  class="form-control form-control-alternative" placeholder="Tags" value="" type="text">
+                            <button class="btn btn-sm btn-primary" style="margin-top: 10px;" type="submit"  >Add</button>
+                          </form>
                       </div>
                     </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-8" *ngFor="let tag of tags">
+                    <span class="badge badge-primary" (click)="removeTag(tag)" >{{tag}}</span>
+                  </div>
+                </div>
             </div>
             <div class="text-center">
-              <button type="button" class="btn btn-primary my-4">Add Result</button>
+              <button *ngIf="!isEdit" type="button" class="btn btn-primary my-4" type="submit">Add Result</button>
+              <button *ngIf="isEdit" type="button" class="btn btn-primary my-4" type="submit">Update</button>
+              <button type="button" class="btn btn-primary my-4" (click)="cancel()">Cancel</button>
+            </div>
+            <div *ngIf="isLoading" class="loader">
+              <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
             </div>
           </form>
         </div>
@@ -152,3 +138,4 @@
     </div>
   </div>
 </div>
+<ngx-alerts></ngx-alerts>

@@ -4,8 +4,6 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ClipboardModule } from 'ngx-clipboard';
-
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/admin/dashboard/dashboard.component';
 import { AddResultComponent } from '../../pages/admin/add-result/add-result.component';
@@ -17,6 +15,14 @@ import { ClassesComponent } from '../../pages/admin/classes/classes.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 // import { ToastrModule } from 'ngx-toastr';
+import { AlertModule, AlertService } from 'ngx-alerts';
+
+
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   imports: [
@@ -25,8 +31,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    ClipboardModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    LottieModule.forRoot({ player: playerFactory, useCache: true }),
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'right'})
   ],
   declarations: [
     DashboardComponent,
@@ -36,6 +43,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     ResultsComponent,
     BoardsComponent,
     ClassesComponent
+  ],
+  providers: [
+    AlertService
   ]
 })
 

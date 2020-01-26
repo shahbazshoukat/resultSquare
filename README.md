@@ -1,1 +1,1 @@
-# ResultSquare
+# ResultSquare Web app

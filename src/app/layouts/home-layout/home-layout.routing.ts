@@ -1,17 +1,20 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../pages/home/home.component';
 import { SelectBoardComponent } from '../../pages/select-board/select-board.component';
 import {SelectYearComponent} from '../../pages/select-year/select-year.component';
 import {SelectExamComponent} from '../../pages/select-exam/select-exam.component';
 import { EnterRollNoComponent } from '../../pages/enter-rollno/enter-rollno.component';
-import { ResultPageComponent } from '../../pages/result-page/result-page.component';
+import { SelectSubClassComponent } from '../../pages/select-sub-class/select-sub-class.component';
 
 export const HomeLayoutRoutes: Routes = [
     { path: '',         component: HomeComponent },
-    { path: 'selectboard',         component: SelectBoardComponent },
-    { path: 'selectyear', component: SelectYearComponent },
-    { path: 'selectexam', component: SelectExamComponent},
-    { path: 'enterrollno', component: EnterRollNoComponent},
-    { path: 'result-page', component: ResultPageComponent}
+    { path: 'result/:classTitle',         component: SelectBoardComponent },
+    { path: 'result/:classTitle/:boardKey', component: SelectYearComponent },
+    { path: 'result/:classTitle/:boardKey/:year', component: SelectExamComponent},
+    { path: 'result/:classTitle/:boardKey/:year/:examType', component: EnterRollNoComponent},
+    { path: 'test/:testTitle', component: EnterRollNoComponent},
+    { path: 'uni/:classTitle/:uniKey', component: EnterRollNoComponent},
+    { path: 'class/:classTitle', component: SelectSubClassComponent },
+    { path: '**', redirectTo: '' }
 ];

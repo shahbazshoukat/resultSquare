@@ -1,6 +1,3 @@
-<div class="header pb-8 pt-5 pt-md-0 bg-custom" >
- 
-</div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
   <!-- Table -->
@@ -10,66 +7,32 @@
         <div class="card-header bg-secondary border-0">
           <h3 class="mb-0">Select Your Class</h3>
         </div>
-        <div class="table-responsive classes-main-container">
+        <div *ngIf="!isError" class="table-responsive" style="padding: 50px;">
           <div class="row">
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-primary btn-lg w-100 h-100" (click)="selectedClass()" ><b class="class-text">5th</b></button>
+            <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6 class-container" *ngFor="let class of classes" >
+                <button type="button" class="btn btn-primary btn-lg w-100 h-100" (click)="onClassSelect(class)" ><b class="class-text">{{class.title}}</b></button>
             </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-info btn-lg w-100 h-100" ><b class="class-text">8th</b></button>
+          </div>
+        </div>
+        <div *ngIf="isError" class="table-responsive classes-main-container justify-content-center">
+          <div class="row justify-content-center">
+            <div class="bg-transparent">
+              <div class="text-center">
+                <ng-lottie width="300px" height="300px" [options]="errorAnimOptions" (animationCreated)="errorAnimationCreated($event)"></ng-lottie>
+              </div>
+              <div class="text-center">
+                <span class="text-lg">{{errorMsg}}</span>
+              </div>
+              <div class="text-center" style="margin-top: 30px;">
+                <span class="btn btn-primary" (click)="retry();">Retry</span>
+              </div>
             </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-danger btn-lg w-100 h-100" ><b class="class-text">9th</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-success btn-lg w-100 h-100" ><b class="class-text">10th</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-warning btn-lg w-100 h-100" ><b class="class-text">11th</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-default btn-lg w-100 h-100" ><b class="class-text">12th</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-success btn-lg w-100 h-100" ><b class="class-text">10th</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-warning btn-lg w-100 h-100" ><b class="class-text">11th</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-default btn-lg w-100 h-100" ><b class="class-text">12th</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-default btn-lg w-100 h-100" ><b class="class-text">DAE</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-warning btn-lg w-100 h-100" ><b class="class-text">BA</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-danger btn-lg w-100 h-100" ><b class="class-text">BSc</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-success btn-lg w-100 h-100" ><b class="class-text">BCom</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-info btn-lg w-100 h-100" ><b class="class-text">MA</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-primary btn-lg w-100 h-100" ><b class="class-text">MSc</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-primary btn-lg w-100 h-100" ><b class="class-text">ECAT</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-primary btn-lg w-100 h-100" ><b class="class-text">MDCAT</b></button>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
-                <button type="button" class="btn btn-primary btn-lg w-100 h-100" ><b class="class-text">NTS</b></button>
-            </div>
-            
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="isLoading" class="loader">
+  <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
 </div>

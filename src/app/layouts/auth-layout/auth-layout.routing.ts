@@ -4,6 +4,6 @@ import { LoginComponent } from '../../pages/admin/login/login.component';
 import { RegisterComponent } from '../../pages/admin/register/register.component';
 
 export const AuthLayoutRoutes: Routes = [
-    { path: 'rs-admin/login',          component: LoginComponent },
-    { path: 'rs-admin/register',       component: RegisterComponent }
+    { path: 'login', component: LoginComponent },
+    { path: 'signup', component: RegisterComponent }
 ];

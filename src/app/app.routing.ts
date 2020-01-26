@@ -5,25 +5,40 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { AuthGuard } from './guards/auth.guard';
+import {PageNotFoundComponent} from './pages/page-not-found/page-not-found.component';
 
-const routes: Routes =[
-   {
+const routes: Routes = [
+  { path: '404', component: PageNotFoundComponent},
+  {
+    path: 'rs-admin',
+    component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+      }
+    ]
+  },
+  {
+    path: 'secret-rs-admin',
+    component: AuthLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/auth-layout/auth-layout.module#AuthLayoutModule'
+      }
+    ]
+  },
+  {
     path: '',
     component: HomeLayoutComponent,
     children: [
       {
         path: '',
         loadChildren: './layouts/home-layout/home-layout.module#HomeLayoutModule'
-      }
-    ]
-  },
-  {
-    path: 'rs-admin',
-    component: AdminLayoutComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
       }
     ]
   }
@@ -36,6 +51,7 @@ const routes: Routes =[
     BrowserModule,
     RouterModule.forRoot(routes)
   ],
+  providers: [AuthGuard],
   exports: [
   ],
 })
