@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://ec2-34-238-160-170.compute-1.amazonaws.com",
+    "target": "http://ec2-52-70-43-28.compute-1.amazonaws.com",
     "secure": true,
     "logLevel": "debug",
     "changeOrigin": true
