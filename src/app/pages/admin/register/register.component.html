@@ -21,7 +21,7 @@
   <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8">
       <div class="card bg-secondary shadow border-0">
-        
+
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
             <small>Sign up with</small>
@@ -66,6 +66,12 @@
               <button type="button" class="btn btn-primary mt-4" type="submit">Create account</button>
             </div>
           </form>
+        </div>
+        <div *ngIf="isSuccess && successMsg" class="alert alert-success" role="alert">
+          {{successMsg}}
+        </div>
+        <div *ngIf="isError && errorMsg" class="alert alert-danger" role="alert">
+          {{errorMsg}}
         </div>
       </div>
     </div>

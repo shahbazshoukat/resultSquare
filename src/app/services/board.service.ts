@@ -4,7 +4,6 @@ import {Subject, Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-const BACKEND_URL = environment.apiURL;
 
 @Injectable({providedIn: 'root'})
 export class BoardService {
@@ -37,23 +36,23 @@ export class BoardService {
       resultUrl: resultUrl,
       tags: tags
     };
-    return this.http.post<{success: boolean, message: string, data: any}>(BACKEND_URL + '/board', boardData);
+    return this.http.post<{success: boolean, message: string, data: any}>('/api/board', boardData);
   }
 
   getAllBoardes(): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/boards');
+    return this.http.get<{success: boolean, message: string, data: any}>( '/api/boards');
   }
 
   getBoardById(boardId: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/board/' + boardId);
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/board/' + boardId);
   }
 
   getBoardByKey(boardKey: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/getBoard/' + boardKey);
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/getBoard/' + boardKey);
   }
 
   getBoardBySectionTitle(sectionTitle: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/getBoardBySectionTitle/' + sectionTitle);
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/getBoardBySectionTitle/' + sectionTitle);
   }
 
   updateBoard(
@@ -82,12 +81,12 @@ export class BoardService {
       tags: tags
      };
 
-     return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  '/updateBoard/' + boardId, update);
+     return this.http.put<{success: boolean, message: string, data: any}>('/api/updateBoard/' + boardId, update);
   }
 
 
   deleteBoard(boardId: string): Observable<any> {
-    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + '/deleteBoard/' + boardId);
+    return this.http.delete<{success: boolean, message: string, data: any}>('/api/deleteBoard/' + boardId);
   }
 
 }

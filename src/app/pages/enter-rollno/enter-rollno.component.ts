@@ -169,8 +169,6 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
           response => {
 
-            this.isLoading = false;
-
             this.resultData = response.data[0];
 
             if (this.resultData && this.resultData.isBlocked) {
@@ -239,10 +237,6 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
           response => {
 
-            this.isLoading = false;
-
-            console.log(response);
-
             this.resultData = response.data;
 
             if (this.resultData) {
@@ -307,8 +301,6 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
           response => {
 
-            console.log(response);
-
             this.resultData = response.data;
 
             if (this.resultData) {
@@ -330,8 +322,6 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
               this.tags = this.resultData.tags;
 
               this.url = this.resultData.resultUrl;
-
-              this.isLoading = false;
 
               if (this.resultData.isBlocked && this.announced) {
 

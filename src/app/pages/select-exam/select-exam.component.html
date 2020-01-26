@@ -1,6 +1,4 @@
-<div class="header bg-custom pb-8 pt-5 pt-md-0">
 
-</div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
   <!-- Table -->
@@ -8,13 +6,13 @@
     <div class="card bg-secondary shadow">
       <div class="card-header bg-white border-0">
         <div class="row align-items-center">
-          <div class="col-3">
+          <div class="col-lg-4 col-md-4 col-sm-12">
             <a [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" class="btn btn-icon btn-2 btn-primary btn-sm">
               Back
             </a>
             <span class="mb-0 h3">Select Exam Type</span>
           </div>
-          <div class="col-9 text-right">
+          <div class="col-lg-8 col-md-8 col-sm-12 text-right" style="margin-top: 20px;">
               <span class="btn btn-sm badge badge-primary" *ngIf="selectedClass" [routerLink] = "['/']" >{{selectedClass}}</span>
               <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedBoardKey" [routerLink] = "['/result', selectedClass]"  >{{selectedBoardKey}}</span>
               <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedYear" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</span>
@@ -28,7 +26,7 @@
               <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
                 <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass+'/'+selectedBoardKey+'/'+selectedYear, 'annual']"  >Annual</button>
               </div>
-              <div class="col-xl-2 col-lg-3 col-md-6 class-container" >
+              <div *ngIf="showSupply" class="col-xl-2 col-lg-3 col-md-6 class-container" >
                 <button type="button" class="btn btn-outline-primary custom-btn" [routerLink] = "['/result/'+selectedClass+'/'+selectedBoardKey+'/'+selectedYear, 'supply']" >Supplymentry</button>
               </div>
             </div>

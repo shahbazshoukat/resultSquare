@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 .loader {
-    left:50%;
-    margin:-5vmin 0 0 -5vmin;
-    position:fixed;
-    top:50%;
-    width:10vmin;
+  display: block;
+  position: fixed;
+  z-index: 1031;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
   }

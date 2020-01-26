@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
+import { AuthInterceptor } from './interceptors/auth-interceptor';
 
 
 import { AppComponent } from './app.component';
@@ -16,34 +17,37 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { AlertModule, AlertService } from 'ngx-alerts';
 export function playerFactory() {
   return player;
 }
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    ComponentsModule,
-    NgbModule,
-    RouterModule,
-    AppRoutingModule,
-    LottieModule.forRoot({ player: playerFactory, useCache: true }),
-  ],
+    imports: [
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        ComponentsModule,
+        NgbModule,
+        RouterModule,
+        AppRoutingModule,
+        LottieModule.forRoot({player: playerFactory, useCache: true}),
+        AlertModule.forRoot()
+    ],
   declarations: [
     AppComponent,
     HomeLayoutComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: HttpErrorInterceptor,
-    //   multi: true
-    // }
+    AlertService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

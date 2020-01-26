@@ -86,7 +86,7 @@ export class SelectBoardComponent implements OnInit, OnDestroy {
 
             this.isError = true;
 
-            this.errorMsg = `No Board Found with class ${this.selectedClass}`;
+            this.errorMsg = `404 - Not Found`;
 
           } else {
 
@@ -99,8 +99,6 @@ export class SelectBoardComponent implements OnInit, OnDestroy {
         },
 
         error => {
-
-          console.log(error);
 
           this.isLoading = false;
 

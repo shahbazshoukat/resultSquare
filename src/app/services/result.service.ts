@@ -4,7 +4,6 @@ import {Subject, Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-const BACKEND_URL = environment.apiURL;
 
 @Injectable({providedIn: 'root'})
 export class ResultService {
@@ -33,27 +32,27 @@ export class ResultService {
       resultUrl: resultUrl,
       tags: tags
     };
-    return this.http.post<{success: boolean, message: string, data: any}>(BACKEND_URL + '/result', resultData);
+    return this.http.post<{success: boolean, message: string, data: any}>('/api/result', resultData);
   }
 
   getAllResultes() {
-    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/results');
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/results');
   }
 
   getResultById(resultId: string) {
-    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + '/result/' + resultId);
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/result/' + resultId);
   }
 
   getResultYears(selectedClass, selectedBoardKey) {
-    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + `/result-year/${selectedClass}/${selectedBoardKey}`);
+    return this.http.get<{success: boolean, message: string, data: any}>(`/api/result-year/${selectedClass}/${selectedBoardKey}`);
   }
 
   getResult(section, board, year, exam) {
-    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + `/result/${section}/${board}/${year}/${exam}`);
+    return this.http.get<{success: boolean, message: string, data: any}>(`/api/result/${section}/${board}/${year}/${exam}`);
   }
 
-  findResult(rollNo, section, board, year, exam) {
-    return this.http.get<{success: boolean, message: string, data: any}>(BACKEND_URL + `/result/${section}/${board}/${year}/${exam}/${rollNo}`);
+  getResultsByBoardKey(boardKey) {
+    return this.http.get<{success: boolean, message: string, data: any}>(`/api/results/board/${boardKey}`);
   }
 
   updateResult(
@@ -77,17 +76,17 @@ export class ResultService {
       resultUrl: resultUrl,
       tags: tags
      };
-      return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  '/updateResult/' + resultId, update);
+      return this.http.put<{success: boolean, message: string, data: any}>('/api/updateResult/' + resultId, update);
   }
 
 
   deleteResult(resultId: string) {
-    return this.http.delete<{success: boolean, message: string, data: any}>(BACKEND_URL + '/deleteResult/' + resultId);
+    return this.http.delete<{success: boolean, message: string, data: any}>('/api/deleteResult/' + resultId);
   }
 
   changeResultStatus(resultId: string, value: boolean) {
     const update = {status: value};
-    return this.http.put<{success: boolean, message: string, data: any}>(BACKEND_URL +  '/updateStatus/' + resultId, update);
+    return this.http.put<{success: boolean, message: string, data: any}>('/api/updateStatus/' + resultId, update);
   }
 
 }

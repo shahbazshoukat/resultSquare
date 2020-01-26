@@ -2,11 +2,11 @@
   <!-- Mask -->
   <span class="mask bg-gradient-danger opacity-8"></span>
   <!-- Header container -->
-  
+
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
-   
+
     <div class="col-xl-12 order-xl-1">
       <div class="card bg-secondary shadow">
         <div class="card-header bg-white border-0">
@@ -44,10 +44,13 @@
               <button *ngIf="isEdit" type="button" class="btn btn-primary my-4" type="submit">Update</button>
               <button type="button" class="btn btn-primary my-4" (click)="cancel()">Cancel</button>
             </div>
-            <div *ngIf="isLoading" class="loader"></div>
+            <div *ngIf="isLoading" class="loader">
+              <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+            </div>
           </form>
         </div>
       </div>
     </div>
   </div>
 </div>
+<ngx-alerts></ngx-alerts>

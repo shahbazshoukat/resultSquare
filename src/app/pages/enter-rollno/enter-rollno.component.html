@@ -1,20 +1,18 @@
-<div class="header bg-custom pb-8 pt-5 pt-md-0">
 
-</div>
 <!-- Page content -->
 <div class="container-fluid mt--7 bg-secondary">
   <!-- Table -->
   <div class=" order-xl-1 bg-secondary">
-    <div class="card  shadow">
+    <div class="card shadow">
       <div class="card-header bg-secondary border-0">
         <div class="row align-items-center">
-          <div class="col-3">
+          <div class="col-lg-3 col-md-3 col-sm-12">
             <button (click)="goBack()" class="btn btn-icon btn-2 btn-primary btn-sm">
               Back
             </button>
             <span class="mb-0 h3">Result</span>
           </div>
-          <div class="col-9 text-right">
+          <div class="col-lg-9 col-md-9 col-sm-12 text-right" style="margin-top: 20px;">
               <span class="btn btn-sm badge badge-primary" *ngIf="selectedClass" [routerLink] = "['/']" >{{selectedClass}}</span>
             <span class="btn btn-sm badge badge-primary" *ngIf="selectedTest" [routerLink] = "['/']" >{{selectedTest}}</span>
             <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedBoard" [routerLink] = "['/result', selectedClass]"  >{{selectedBoard}}</span>
@@ -36,11 +34,11 @@
           </div>
       </div>
 
-      <div *ngIf="!isError" class="row justify-content-center border-2 mt-100" id="print" >
+      <div *ngIf="!isError" class="row justify-content-center border-5 mt-100" id="print" >
         <div>
           <ng-lottie *ngIf="!announced && !isLoading" width="400px" height="400px" [options]="notAnnouncedAnimOptions" (animationCreated)="notAnnouncedAnimationCreated($event)"></ng-lottie>
         </div>
-        <div class="col-9 mt-100" *ngIf="announced">
+        <div class="col-11 mt-100" *ngIf="announced">
           <div class="row" style="padding: 30px">
             <div class="col-6 text-left">
               <button class="btn btn-primary btn-sm" (click)="reload()">Back To Result Page</button>

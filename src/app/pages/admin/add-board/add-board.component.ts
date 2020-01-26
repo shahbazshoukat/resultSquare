@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ErrorHandler, OnDestroy } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NgForm } from '@angular/forms';
 import { ClassService } from 'src/app/services/class.service';
 import { BoardService } from 'src/app/services/board.service';
-import { Route } from '@angular/compiler/src/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { catchError} from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import {AnimationOptions} from 'ngx-lottie';
+import {AnimationItem} from 'lottie-web';
+import {AlertService} from 'ngx-alerts';
 
 @Component({
   selector: 'add-board',
   templateUrl: './add-board.component.html',
   styleUrls: ['./add-board.component.scss']
 })
-export class AddBoardComponent implements OnInit {
+export class AddBoardComponent implements OnInit, OnDestroy {
 
   examTypes = [];
   selectedExamTypes = [];
@@ -30,8 +30,20 @@ export class AddBoardComponent implements OnInit {
   boardToUpdateId;
   isEdit = false;
   isLoading = true;
+  loadingAnimOptions: AnimationOptions = {
+    path: '/assets/lib/loading-spinner.json'
+  };
 
-  constructor(private classService: ClassService, private boardService: BoardService, private route: ActivatedRoute, private router: Router) { }
+  loadingAnim: AnimationItem;
+  paramsub: any;
+  boardsub: any;
+  classesSub: any;
+  addBoardSub: any;
+  updateBoardSub: any;
+
+  constructor(private classService: ClassService, private boardService: BoardService,
+              private route: ActivatedRoute, private router: Router,
+              private alertService: AlertService) { }
 
   ngOnInit() {
     this.examTypes = [
@@ -59,11 +71,12 @@ export class AddBoardComponent implements OnInit {
       allowSearchFilter: true
     };
 
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    this.paramsub = this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('boardId')) {
         this.isLoading = true;
         this.boardToUpdateId = paramMap.get('boardId');
-        this.boardService.getBoardById(this.boardToUpdateId).subscribe(response => {
+        this.boardsub = this.boardService.getBoardById(this.boardToUpdateId).subscribe(
+          response => {
           if (response.data && response.success) {
             this.boardToUpdate = response.data;
             this.isEdit = true;
@@ -73,16 +86,35 @@ export class AddBoardComponent implements OnInit {
             this.selectedExamTypes = this.boardToUpdate.examTypes;
             this.isLoading = false;
           }
+        },
+        error => {
+          this.isLoading = false;
+          if (error && error.error && error.error.message) {
+            this.alertService.danger(error.error.message);
+          }
         });
       }
     });
 
-    this.classService.getAllClasses().subscribe(response => {
+    this.classesSub = this.classService.getAllClasses().subscribe(
+      response => {
       if (response.data && response.success) {
         this.classes = response.data;
         this.isLoading = false;
       }
+    },
+    error => {
+      this.isLoading = false;
+      if (error && error.error && error.error.message) {
+        this.alertService.danger(error.error.message);
+      }
     });
+
+  }
+
+  loadingAnimationCreated(animationItem: AnimationItem): void {
+
+    this.loadingAnim = animationItem;
 
   }
 
@@ -111,7 +143,7 @@ export class AddBoardComponent implements OnInit {
       this.selectedCls.push(cls._id);
     });
     if (this.isEdit && this.boardToUpdateId) {
-      this.boardService.updateBoard(this.boardToUpdateId, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.type,  form.value.webUrl, form.value.resultUrl, this.tags)
+      this.updateBoardSub = this.boardService.updateBoard(this.boardToUpdateId, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.type,  form.value.webUrl, form.value.resultUrl, this.tags)
       .subscribe(response => {
         if (response) {
           this.isLoading = false;
@@ -120,25 +152,48 @@ export class AddBoardComponent implements OnInit {
           this.tags = [];
           this.params = [];
           this.isEdit = false;
-          alert(response.message);
+          this.alertService.success(response.message);
         }
         if (response.success) {
           this.router.navigate(['/rs-admin/boards']);
         }
+      },
+      error => {
+        this.isLoading = false;
+        if (error && error.error && error.error.message) {
+          this.alertService.danger(error.error.message);
+        }
       });
     } else {
-      this.boardService.addBoard(null, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.type, form.value.webUrl, form.value.resultUrl, this.tags)
-      .subscribe(response => {
+      this.addBoardSub = this.boardService.addBoard(null, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.type, form.value.webUrl, form.value.resultUrl, this.tags)
+      .subscribe(
+        response => {
         if (response) {
           this.isLoading = false;
           this.selectedClasses = [];
           this.selectedExamTypes = [];
           this.tags = [];
           this.params = [];
-          alert(response.message);
+          this.alertService.success(response.message);
+        }
+      },
+      error => {
+        this.isLoading = false;
+        if (error && error.error && error.error.message) {
+          this.alertService.danger(error.error.message);
         }
       });
     }
     form.resetForm();
+  }
+
+  ngOnDestroy() {
+
+    this.paramsub && this.paramsub.unsubscribe();
+    this.boardsub && this.boardsub.unsubscribe();
+    this.classesSub && this.classesSub.unsubscribe();
+    this.addBoardSub && this.addBoardSub.unsubscribe();
+    this.updateBoardSub && this.updateBoardSub.unsubscribe();
+
   }
 }

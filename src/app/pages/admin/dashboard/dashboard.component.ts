@@ -33,18 +33,18 @@ export class DashboardComponent implements OnInit {
     this.data = this.datasets[0];
 
 
-    let chartOrders = document.getElementById('chart-orders');
+    const chartOrders = document.getElementById('chart-orders');
 
     parseOptions(Chart, chartOptions());
 
 
-    let ordersChart = new Chart(chartOrders, {
+    const ordersChart = new Chart(chartOrders, {
       type: 'bar',
       options: chartExample2.options,
       data: chartExample2.data
     });
 
-    let chartSales = document.getElementById('chart-sales');
+    const chartSales = document.getElementById('chart-sales');
 
     this.salesChart = new Chart(chartSales, {
 			type: 'line',
