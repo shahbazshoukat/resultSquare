@@ -171,12 +171,6 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
             this.resultData = response.data[0];
 
-            if (this.resultData && this.resultData.isBlocked) {
-
-              window.open(this.url, '_blank');
-
-            }
-
             if (this.resultData) {
 
               this.tags = this.resultData.tags;
