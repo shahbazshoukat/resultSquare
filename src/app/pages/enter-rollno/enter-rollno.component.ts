@@ -158,16 +158,18 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
     if (this.selectedTest) {
 
-      this.isLoading = true;
-
       this.isError = false;
 
       this.errorMsg = '';
+
+      this.isLoading = true;
 
       this.serviceSub = this.boardService.getBoardBySectionTitle(this.selectedTest)
         .subscribe(
 
           response => {
+
+            this.isLoading = true;
 
             this.resultData = response.data[0];
 
@@ -230,6 +232,8 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
         .subscribe(
 
           response => {
+
+            this.isLoading = true;
 
             this.resultData = response.data;
 

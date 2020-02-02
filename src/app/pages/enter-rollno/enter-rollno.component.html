@@ -34,7 +34,7 @@
           </div>
       </div>
 
-      <div *ngIf="!isError" class="row justify-content-center border-5 mt-100" id="print" >
+      <div *ngIf="!isError" class="row justify-content-center border-5 mt-100 custom-pad-iframe" id="print" >
         <div>
           <ng-lottie *ngIf="!announced && !isLoading" width="400px" height="400px" [options]="notAnnouncedAnimOptions" (animationCreated)="notAnnouncedAnimationCreated($event)"></ng-lottie>
         </div>
@@ -45,7 +45,7 @@
             </div>
           </div>
           <div class="card border-0 shadow bg-secondary">
-            <iframe target="_self" id="resultFrame" name="resultFrame" class="custom-iframe" [src]="url | safe" (change)="isLoading = true;" (load)="isLoading = false;"></iframe>
+            <iframe target="resultFrame" id="resultFrame" name="resultFrame" class="custom-iframe" [src]="url | safe" (load)="isLoading = false;"></iframe>
           </div>
         </div>
       </div>
