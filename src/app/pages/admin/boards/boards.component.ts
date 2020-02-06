@@ -48,26 +48,48 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
   }
 
-  removeBoard(boardId) {
-    this.isLoading = true;
-    this.removeBoardSub = this.boardService.deleteBoard(boardId).subscribe(
-      response => {
-      if (response.success && response.message && response.data) {
-       this.boards.forEach((board, index) => {
-         if (board._id === boardId) {
-            this.boards.splice(index, 1);
-         }
-       });
-       this.isLoading = false;
-       this.alertService.success(response.message);
+  removeBoard(boardId, boardKey) {
+    const isMad = confirm('Are you really mad?');
+
+    if (isMad) {
+
+      const enteredBoardKey = prompt('Are you really mad? ');
+
+      if (enteredBoardKey === boardKey) {
+
+        this.isLoading = true;
+        this.removeBoardSub = this.boardService.deleteBoard(boardId).subscribe(
+          response => {
+            if (response.success && response.message && response.data) {
+              this.boards.forEach((board, index) => {
+                if (board._id === boardId) {
+                  this.boards.splice(index, 1);
+                }
+              });
+              this.isLoading = false;
+              this.alertService.success(response.message);
+            }
+          },
+          error => {
+            this.isLoading = false;
+            if (error && error.error && error.error.message) {
+              this.alertService.danger(error.error.message);
+            }
+          });
+
+      } else {
+
+        this.alertService.warning('Invalid board key');
+
       }
-    },
-    error => {
-      this.isLoading = false;
-      if (error && error.error && error.error.message) {
-        this.alertService.danger(error.error.message);
-      }
-    });
+
+    } else {
+
+      this.alertService.success('Thank God, you are not mad');
+
+    }
+
+
   }
 
   editBoard(boardId: any) {

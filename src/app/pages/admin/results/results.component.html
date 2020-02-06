@@ -16,7 +16,7 @@
               <h3 class="mb-0">Results</h3>
             </div>
             <div class="col-4 text-right">
-              <a [routerLink]="['/rs-admin/add-result', selectedBoardKey]" class="btn btn-sm btn-primary">Add</a>
+              <a [routerLink]="['/rs-admin/add-result', {boardKey: selectedBoardKey}]" class="btn btn-sm btn-primary">Add</a>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@
                     <a class="btn btn-sm btn-icon-only text-light" (click)="editResult(result._id)">
                       <i class="fas fa-edit"></i>
                     </a>
-                    <a class="btn btn-sm btn-icon-only text-light" (click)="removeResult(result._id)" >
+                    <a class="btn btn-sm btn-icon-only text-light" (click)="removeResult(result._id, result.year)" >
                       <i style="font-size: large;" class="ni ni-fat-remove"></i>
                     </a>
                   </div>
