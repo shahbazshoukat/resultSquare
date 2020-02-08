@@ -10,7 +10,7 @@ import { ClassesComponent } from '../../pages/admin/classes/classes.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-    { path: 'add-result/:boardKey', component: AddResultComponent, canActivate: [AuthGuard] },
+    { path: 'add-result', component: AddResultComponent, canActivate: [AuthGuard] },
     { path: 'add-board', component: AddBoardComponent, canActivate: [AuthGuard] },
     { path: 'add-class', component: AddClassComponent, canActivate: [AuthGuard] },
     { path: 'results/:boardKey', component: ResultsComponent, canActivate: [AuthGuard] },

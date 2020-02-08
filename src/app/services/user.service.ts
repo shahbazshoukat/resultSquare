@@ -18,7 +18,7 @@ export class UsersService {
 
   getUserName() {
 
-    return this.username;
+    return localStorage.getItem('username');
 
   }
 

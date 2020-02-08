@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import {Router, ActivatedRoute, ParamMap, NavigationEnd} from '@angular/router';
 import { BoardService } from 'src/app/services/board.service';
 import { Board } from 'src/app/models/board.model';
 import { ClassService } from 'src/app/services/class.service';
@@ -40,6 +40,13 @@ export class SelectBoardComponent implements OnInit, OnDestroy {
   errorAnim: AnimationItem;
 
   ngOnInit() {
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0);
+    });
 
     this.paramSub = this.route.paramMap.subscribe((paramMap: ParamMap) => {
 

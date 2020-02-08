@@ -3,6 +3,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/user.service';
+import {AlertService} from 'ngx-alerts';
 
 @Component({
   selector: 'app-admin-navbar',
@@ -14,7 +15,8 @@ export class AdminNavbarComponent implements OnInit {
   public listTitles: any[];
   public location: Location;
   public username;
-  constructor(location: Location,  private element: ElementRef, private router: Router, private userService: UsersService) {
+  constructor(location: Location,  private element: ElementRef, private router: Router,
+              private userService: UsersService, private alertService: AlertService) {
     this.location = location;
   }
 
@@ -34,6 +36,20 @@ export class AdminNavbarComponent implements OnInit {
         }
     }
     return 'Dashboard';
+  }
+
+  logout() {
+    this.userService.logout().subscribe(
+      response => {
+        this.router.navigate(['']);
+        localStorage.clear();
+      },
+      error => {
+        if (error && error.error && error.error.message) {
+          this.alertService.danger(error.error.message);
+        }
+      }
+    );
   }
 
 }

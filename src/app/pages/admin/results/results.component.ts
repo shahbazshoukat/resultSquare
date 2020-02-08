@@ -4,6 +4,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {AnimationOptions} from 'ngx-lottie';
 import {AnimationItem} from 'lottie-web';
 import { AlertService } from 'ngx-alerts';
+import {createOutput} from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-results',
@@ -66,29 +67,36 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   editResult(resultId) {
-    this.router.navigate(['/rs-admin/add-result', {resultId: resultId}]);
+    this.router.navigate(['/rs-admin/add-result', {resultId: resultId, boardKey: this.selectedBoardKey}]);
   }
 
-  removeResult(resultId: string) {
-    this.isLoading = true;
-    this.removeResultSub = this.resultService.deleteResult(resultId).subscribe(
-      response => {
-      if (response.success && response.message) {
-        this.results.forEach((res, index) => {
-          if (res._id === resultId) {
-            this.results.splice(index, 1);
-          }
-        });
-        this.isLoading = false;
-        this.alertService.success(response.message);
-      }
-    },
-    error => {
-      this.isLoading = false;
-      if (error && error.error && error.error.message) {
-        this.alertService.danger(error.error.message);
-      }
-    });
+  removeResult(resultId: string, year: string) {
+    const resultYear = prompt('Are you mad? Enter reault year to remove.');
+
+    if (resultYear === year) {
+      this.isLoading = true;
+      this.removeResultSub = this.resultService.deleteResult(resultId).subscribe(
+          response => {
+            if (response.success && response.message) {
+              this.results.forEach((res, index) => {
+                if (res._id === resultId) {
+                  this.results.splice(index, 1);
+                }
+              });
+              this.isLoading = false;
+              this.alertService.success(response.message);
+            }
+          },
+          error => {
+            this.isLoading = false;
+            if (error && error.error && error.error.message) {
+              this.alertService.danger(error.error.message);
+            }
+          });
+    } else {
+      this.alertService.warning('Invalid year');
+    }
+
   }
 
   changeResultStatus(result: any) {
