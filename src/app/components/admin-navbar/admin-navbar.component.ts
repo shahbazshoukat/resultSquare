@@ -20,7 +20,7 @@ export class AdminNavbarComponent implements OnInit {
 
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
-    this.username = this.userService.getUserName();
+    this.username = localStorage.getItem('username');
   }
   getTitle() {
     let titlee = this.location.prepareExternalUrl(this.location.path());
