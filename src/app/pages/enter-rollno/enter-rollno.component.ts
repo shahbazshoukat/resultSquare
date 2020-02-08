@@ -370,6 +370,12 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
   }
 
+  navigateToBoardResultPage() {
+
+    window.open(this.url, '_blank');
+
+  }
+
   backToHome() {
 
     this.router.navigate(['']);
