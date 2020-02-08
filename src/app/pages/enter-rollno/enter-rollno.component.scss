@@ -43,3 +43,17 @@
 .custom-iframe {
   height: 800px;
 }
+
+@media screen and (min-width: 700px) {
+  .custom-res-pad {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .custom-res-pad {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

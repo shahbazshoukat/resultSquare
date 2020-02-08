@@ -34,7 +34,7 @@
           </div>
       </div>
 
-      <div *ngIf="!isError" class="row justify-content-center border-5 mt-100" id="print" >
+      <div *ngIf="!isError" class="row justify-content-center border-5 mt-100 custom-res-pad" id="print" >
         <div>
           <ng-lottie *ngIf="!announced && !isLoading" width="400px" height="400px" [options]="notAnnouncedAnimOptions" (animationCreated)="notAnnouncedAnimationCreated($event)"></ng-lottie>
         </div>
