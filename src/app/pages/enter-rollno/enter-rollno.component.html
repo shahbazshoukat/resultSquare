@@ -3,8 +3,8 @@
 <div class="container-fluid mt--7 bg-secondary">
   <!-- Table -->
   <div class=" order-xl-1 bg-secondary">
-    <div class="card shadow">
-      <div class="card-header bg-secondary border-0">
+    <div class="card shadow bg-secondary">
+      <div class="card-header bg-white border-0">
         <div class="row align-items-center">
           <div class="col-lg-3 col-md-3 col-sm-12">
             <button (click)="goBack()" class="btn btn-icon btn-2 btn-primary btn-sm">
@@ -24,7 +24,7 @@
       </div>
       <div class="row justify-content-center border-2 mt-100" >
           <div class="col-lg-6 col-md-7 ">
-            <div class="card border-0">
+            <div class="card border-0 bg-secondary">
               <div class="card-body">
                 <div class="text-center">
                   <span style="font-size: 25px; font-weight: bolder;" >{{resultTitle}}</span>
@@ -47,7 +47,7 @@
               Not working? <button class="btn btn-outline-primary btn-sm" (click)="navigateToBoardResultPage()">Click here</button>
             </div>
           </div>
-          <div class="card border-0 shadow bg-secondary">
+          <div class="card shadow border-0 bg-secondary">
             <iframe target="_self" id="resultFrame" name="resultFrame" class="custom-iframe" [src]="url | safe" (change)="isLoading = true;" (load)="isLoading = false;"></iframe>
           </div>
         </div>
@@ -65,22 +65,6 @@
         </div>
       </div>
 
-
-      <div *ngIf="!isError" class="row justify-content-center border-2 mt-100" >
-          <div class="col-lg-5 col-md-7 ">
-            <div class="card border-0">
-
-              <div class="card-body px-lg-5 py-lg-5">
-                <div class="text-center text-muted mb-4">
-                  <small>Tags:</small>
-                </div>
-                <div class="text-center text-muted mb-4">
-                    <span class="badge badge-default ml-3" *ngFor="let tag of tags" >{{tag}}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
       <div *ngIf="isLoading" class="loader">
         <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
       </div>
@@ -99,6 +83,111 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="!isError" class="row justify-content-center border-5 mt-100 custom-comments" >
+        <div class="col-10 mt-100 bg-secondary" style="width: 100%;">
+          <h1>Comments</h1>
+          <div>
+            <form>
+              <div class="media align-items-center">
+                <span class="avatar avatar-sm rounded-circle">
+                  <img alt="Image placeholder" src="assets/img/default-user.png">
+                </span>
+                <div class="ml-2">
+                  <input class="form-control form-control-alternative" placeholder="Enter your name">
+                </div>
+              </div>
+              <div class="media-body ml-2 mt-3 d-block" style="padding-left: 35px;">
+                <textarea class="form-control form-control-alternative" rows="2" placeholder="Write your comment"></textarea>
+              </div>
+              <div class="media-body ml-2 mt-3 d-block text-right">
+                <button class="btn btn-primary btn-sm">Add Comment</button>
+              </div>
+            </form>
+          </div>
+          <div class="mt-5">
+            <div class="media mt-4">
+              <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                <span>S</span>
+              </div>
+              <div class="media-body ml-2 shadow--hover">
+                <div class="card card-stats mb-4 mb-lg-0">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">@Shahbaz Shoukat</h5>
+                        <span class="text-muted mb-0">When the result will be announced?</span>
+                      </div>
+                      <div class="col-auto">
+                        <span class="text-muted text-sm" >Feb 09, 2020</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="media mt-4">
+                <span class="avatar avatar-sm rounded-circle">
+                  <img alt="Image placeholder" src="assets/img/user.png">
+                </span>
+              <div class="media-body ml-2 shadow--hover">
+                <div class="card card-stats mb-4 mb-lg-0">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">@Shahbaz Shoukat</h5>
+                        <span class="text-muted mb-0">When the result will be announced?</span>
+                      </div>
+                      <div class="col-auto">
+                        <span class="text-muted text-sm" >Feb 09, 2020</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="media mt-4">
+                <span class="avatar avatar-sm rounded-circle">
+                  <img alt="Image placeholder" src="assets/img/user.png">
+                </span>
+              <div class="media-body ml-2 shadow--hover">
+                <div class="card card-stats mb-4 mb-lg-0">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">@Shahbaz Shoukat</h5>
+                        <span class="text-muted mb-0">When the result will be announced?</span>
+                      </div>
+                      <div class="col-auto">
+                        <span class="text-muted text-sm" >Feb 09, 2020</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div *ngIf="!isError" class="row justify-content-center border-2 mt-100" >
+        <div class="col-lg-5 col-md-7 ">
+          <div class="card border-0 bg-secondary">
+
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+                <small>Tags:</small>
+              </div>
+              <div class="text-center text-muted mb-4">
+                <span class="badge badge-default ml-3" *ngFor="let tag of tags" >{{tag}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

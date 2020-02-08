@@ -57,3 +57,20 @@
     padding-right: 20px;
   }
 }
+
+@media screen and (min-width: 700px) {
+  .custom-comments {
+    padding: 100px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .custom-comments {
+    padding-top: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 100px;
+  }
+}
+
+
