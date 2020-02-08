@@ -158,20 +158,24 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
     if (this.selectedTest) {
 
+      this.isLoading = true;
+
       this.isError = false;
 
       this.errorMsg = '';
-
-      this.isLoading = true;
 
       this.serviceSub = this.boardService.getBoardBySectionTitle(this.selectedTest)
         .subscribe(
 
           response => {
 
-            this.isLoading = true;
-
             this.resultData = response.data[0];
+
+            if (this.resultData && this.resultData.isBlocked) {
+
+              window.open(this.url, '_blank');
+
+            }
 
             if (this.resultData) {
 
@@ -232,8 +236,6 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
         .subscribe(
 
           response => {
-
-            this.isLoading = true;
 
             this.resultData = response.data;
 
@@ -365,12 +367,6 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     document.getElementById('resultFrame')['src'] = this.url;
-
-  }
-
-  navigateToBoardWebsite() {
-
-    window.open(this.url, '_blank');
 
   }
 

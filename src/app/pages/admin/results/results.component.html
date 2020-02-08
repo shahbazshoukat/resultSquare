@@ -12,11 +12,14 @@
       <div class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
-            <div class="col-8">
+            <div class="col-4">
               <h3 class="mb-0">Results</h3>
             </div>
+            <div class="col-4 text-left">
+              <input name="search" (input)="searchResults($event)"  class="form-control form-control-alternative border-light border shadow-none" placeholder="Search" value="" type="text">
+            </div>
             <div class="col-4 text-right">
-              <a [routerLink]="['/rs-admin/add-result', {boardKey: selectedBoardKey}]" class="btn btn-sm btn-primary">Add</a>
+              <a [routerLink]="['/rs-admin/add-result', selectedBoardKey]" class="btn btn-sm btn-primary">Add</a>
             </div>
           </div>
         </div>
@@ -36,7 +39,7 @@
               </tr>
             </thead>
             <tbody *ngIf="!isLoading" style="max-height: 700px; overflow-y: auto" class="scrollbar-inner">
-              <tr *ngFor = "let result of results">
+              <tr *ngFor = "let result of filteredResults">
                 <td>
                   {{result.board.title}}
                 </td>
@@ -70,7 +73,7 @@
                     <a class="btn btn-sm btn-icon-only text-light" (click)="editResult(result._id)">
                       <i class="fas fa-edit"></i>
                     </a>
-                    <a class="btn btn-sm btn-icon-only text-light" (click)="removeResult(result._id, result.year)" >
+                    <a class="btn btn-sm btn-icon-only text-light" (click)="removeResult(result._id)" >
                       <i style="font-size: large;" class="ni ni-fat-remove"></i>
                     </a>
                   </div>

@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ResultService } from 'src/app/services/result.service';
 import { ClassService } from 'src/app/services/class.service';
 import { BoardService } from 'src/app/services/board.service';
+import { Route } from '@angular/compiler/src/core';
 import { ParamMap, ActivatedRoute, Router } from '@angular/router';
 import {AnimationOptions} from 'ngx-lottie';
 import {AnimationItem} from 'lottie-web';
