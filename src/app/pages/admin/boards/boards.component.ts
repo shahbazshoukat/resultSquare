@@ -15,6 +15,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
   isLoading = true;
   boards = [];
+  filteredBoards = [];
   boardSub: any;
   removeBoardSub: any;
   loadingAnimOptions: AnimationOptions = {
@@ -31,6 +32,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
       response => {
       if (response.success && response.data) {
         this.boards = response.data;
+        this.filteredBoards = this.boards;
         this.isLoading = false;
       }
     },
@@ -48,52 +50,43 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
   }
 
-  removeBoard(boardId, boardKey) {
-    const isMad = confirm('Are you really mad?');
-
-    if (isMad) {
-
-      const enteredBoardKey = prompt('Are you really mad? ');
-
-      if (enteredBoardKey === boardKey) {
-
-        this.isLoading = true;
-        this.removeBoardSub = this.boardService.deleteBoard(boardId).subscribe(
-          response => {
-            if (response.success && response.message && response.data) {
-              this.boards.forEach((board, index) => {
-                if (board._id === boardId) {
-                  this.boards.splice(index, 1);
-                }
-              });
-              this.isLoading = false;
-              this.alertService.success(response.message);
-            }
-          },
-          error => {
-            this.isLoading = false;
-            if (error && error.error && error.error.message) {
-              this.alertService.danger(error.error.message);
-            }
-          });
-
-      } else {
-
-        this.alertService.warning('Invalid board key');
-
+  removeBoard(boardId) {
+    this.isLoading = true;
+    this.removeBoardSub = this.boardService.deleteBoard(boardId).subscribe(
+      response => {
+      if (response.success && response.message && response.data) {
+       this.boards.forEach((board, index) => {
+         if (board._id === boardId) {
+            this.boards.splice(index, 1);
+         }
+       });
+       this.isLoading = false;
+       this.alertService.success(response.message);
       }
-
-    } else {
-
-      this.alertService.success('Thank God, you are not mad');
-
-    }
-
-
+    },
+    error => {
+      this.isLoading = false;
+      if (error && error.error && error.error.message) {
+        this.alertService.danger(error.error.message);
+      }
+    });
   }
 
   editBoard(boardId: any) {
     this.router.navigate(['/rs-admin/add-board', {boardId: boardId}]);
+  }
+
+  searchBoards(event) {
+
+    const searchQuery = event.target.value.toLowerCase();
+
+    this.filteredBoards = this.boards.filter(board => {
+
+      return board.title.toLowerCase().includes(searchQuery) || board.province.toLowerCase().includes(searchQuery)
+        || board.city.toLowerCase().includes(searchQuery);
+
+    });
+
   }
 
   ngOnDestroy() {

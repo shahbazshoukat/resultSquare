@@ -14,6 +14,8 @@ import { AlertService } from 'ngx-alerts';
 export class ClassesComponent implements OnInit, OnDestroy {
 
   classes = [];
+  filteredClasses = [];
+  isSearching = false;
   isLoading = true;
   classesSub: any;
   removeClassSub: any;
@@ -31,6 +33,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
       response => {
       if (response.success && response.data) {
         this.classes = response.data;
+        this.filteredClasses = this.classes;
         this.isLoading = false;
       }
     },
@@ -48,52 +51,44 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
   }
 
-  removeClass(classId: string, title) {
-
-    const isMad = confirm('Are you mad?');
-
-    if (isMad) {
-      const isReallyMad = confirm('Are you really MAD? It will destroy all your boards and results!!!');
-      if (isReallyMad) {
-        const classTitle = prompt('Ohh! you are mad! So enter class name to delete...');
-        if (classTitle === title) {
-
-          this.isLoading = true;
-          this.removeClassSub = this.classService.deleteClass(classId).subscribe(
-            response => {
-              if (response.success && response.message && response.data) {
-                this.classes.forEach((cls, index) => {
-                  if (cls._id === classId) {
-                    this.classes.splice(index, 1);
-                  }
-                });
-                this.isLoading = false;
-                this.alertService.success(response.message);
-              }
-            },
-            error => {
-              this.isLoading = false;
-              if (error && error.error && error.error.message) {
-                this.alertService.danger(error.error.message);
-              }
-            });
-
-        } else {
-
-          this.alertService.warning('Ohh Thank God! Invalid class title');
-
-        }
-
-      } else {
-        this.alertService.success('Thank God, you are not really mad');
+  removeClass(classId: string) {
+    this.isLoading = true;
+    this.removeClassSub = this.classService.deleteClass(classId).subscribe(
+      response => {
+      if (response.success && response.message && response.data) {
+        this.classes.forEach((cls, index) => {
+          if (cls._id === classId) {
+             this.classes.splice(index, 1);
+          }
+        });
+        this.isLoading = false;
+        this.alertService.success(response.message);
+       }
+    },
+    error => {
+      this.isLoading = false;
+      if (error && error.error && error.error.message) {
+        this.alertService.danger(error.error.message);
       }
-    } else {
-      this.alertService.success('Thank God, you are not mad');
-    }
+    });
   }
 
   editClass(clas: any) {
     this.router.navigate(['/rs-admin/add-class', {classId: clas._id, classTitle: clas.title, classType: clas.type}]);
+  }
+
+  searchClasses(event) {
+
+    this.isSearching = true;
+
+    const searchQuery = event.target.value.toLowerCase();
+
+    this.filteredClasses = this.classes.filter(cls => {
+
+      return cls.title.toLowerCase().includes(searchQuery) || cls.type.toLowerCase().includes(searchQuery);
+
+    });
+
   }
 
   ngOnDestroy() {

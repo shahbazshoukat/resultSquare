@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router, ActivatedRoute, ParamMap, NavigationEnd} from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ResultService } from 'src/app/services/result.service';
 import { BoardService } from 'src/app/services/board.service';
 import {AnimationOptions} from 'ngx-lottie';
@@ -35,13 +35,6 @@ export class SelectYearComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private resultService: ResultService, private boardService: BoardService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-      window.scrollTo(0, 0);
-    });
 
     this.paramSub = this.route.paramMap.subscribe((paramMap: ParamMap) => {
 

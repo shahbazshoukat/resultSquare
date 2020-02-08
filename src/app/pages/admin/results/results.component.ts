@@ -4,7 +4,6 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {AnimationOptions} from 'ngx-lottie';
 import {AnimationItem} from 'lottie-web';
 import { AlertService } from 'ngx-alerts';
-import {createOutput} from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-results',
@@ -15,6 +14,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   isLoading = true;
   results = [];
+  filteredResults = [];
   resultsSub: any;
   removeResultSub: any;
   paramSub: any;
@@ -44,6 +44,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
           response => {
             if (response.data) {
               this.results = response.data;
+              this.filteredResults = this.results;
               this.isLoading = false;
             }
           },
@@ -67,36 +68,29 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   editResult(resultId) {
-    this.router.navigate(['/rs-admin/add-result', {resultId: resultId, boardKey: this.selectedBoardKey}]);
+    this.router.navigate(['/rs-admin/add-result', {resultId: resultId}]);
   }
 
-  removeResult(resultId: string, year: string) {
-    const resultYear = prompt('Are you mad? Enter reault year to remove.');
-
-    if (resultYear === year) {
-      this.isLoading = true;
-      this.removeResultSub = this.resultService.deleteResult(resultId).subscribe(
-          response => {
-            if (response.success && response.message) {
-              this.results.forEach((res, index) => {
-                if (res._id === resultId) {
-                  this.results.splice(index, 1);
-                }
-              });
-              this.isLoading = false;
-              this.alertService.success(response.message);
-            }
-          },
-          error => {
-            this.isLoading = false;
-            if (error && error.error && error.error.message) {
-              this.alertService.danger(error.error.message);
-            }
-          });
-    } else {
-      this.alertService.warning('Invalid year');
-    }
-
+  removeResult(resultId: string) {
+    this.isLoading = true;
+    this.removeResultSub = this.resultService.deleteResult(resultId).subscribe(
+      response => {
+      if (response.success && response.message) {
+        this.results.forEach((res, index) => {
+          if (res._id === resultId) {
+            this.results.splice(index, 1);
+          }
+        });
+        this.isLoading = false;
+        this.alertService.success(response.message);
+      }
+    },
+    error => {
+      this.isLoading = false;
+      if (error && error.error && error.error.message) {
+        this.alertService.danger(error.error.message);
+      }
+    });
   }
 
   changeResultStatus(result: any) {
@@ -114,6 +108,19 @@ export class ResultsComponent implements OnInit, OnDestroy {
         this.alertService.danger(error.error.message);
       }
     });
+  }
+
+  searchResults(event) {
+
+    const searchQuery = event.target.value.toLowerCase();
+
+    this.filteredResults = this.results.filter(result => {
+
+      return result.board.title.toLowerCase().includes(searchQuery) || result.section.title.toLowerCase().includes(searchQuery) ||
+      result.year.toLowerCase().includes(searchQuery);
+
+    });
+
   }
 
   ngOnDestroy() {

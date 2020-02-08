@@ -1,5 +1,5 @@
 {
-  "name": "result-square-admin",
+  "name": "argon-dashboard-angular",
   "version": "1.0.1",
   "scripts": {
     "ng": "ng",
@@ -20,6 +20,7 @@
     "@angular/compiler": "8.2.14",
     "@angular/core": "8.2.14",
     "@angular/forms": "8.2.14",
+    "@angular/http": "7.2.4",
     "@angular/platform-browser": "8.2.14",
     "@angular/platform-browser-dynamic": "8.2.14",
     "@angular/router": "8.2.14",
@@ -45,17 +46,17 @@
     "path": "^0.12.7",
     "rxjs": "6.5.4",
     "xml-parser": "^1.2.1",
-    "zone.js": "~0.9.1"
+    "zone.js": "0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.803.23",
-    "@angular/cli": "8.3.23",
+    "@angular-devkit/build-angular": "^0.13.1",
+    "@angular/cli": "7.3.1",
     "@angular/compiler-cli": "8.2.14",
     "@angular/language-service": "8.2.14",
     "@types/jasmine": "3.3.8",
     "@types/jasminewd2": "2.0.6",
     "@types/node": "11.9.0",
-    "codelyzer": "^5.0.1",
+    "codelyzer": "4.5.0",
     "jasmine-core": "3.3.0",
     "jasmine-spec-reporter": "4.2.1",
     "karma": "4.0.0",
