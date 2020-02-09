@@ -19,6 +19,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   removeResultSub: any;
   paramSub: any;
   selectedBoardKey;
+  selectedBoard;
   loadingAnimOptions: AnimationOptions = {
     path: '/assets/lib/loading-spinner.json'
   };
@@ -39,6 +40,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
       if (paramMap.has('boardKey')) {
 
         this.selectedBoardKey = paramMap.get('boardKey');
+
+        this.selectedBoard = this.selectedBoardKey.replace(/-/g, ' ');
 
         this.resultsSub = this.resultService.getResultsByBoardKey(this.selectedBoardKey).subscribe(
           response => {

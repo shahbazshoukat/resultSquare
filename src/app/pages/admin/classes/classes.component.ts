@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ClassService } from 'src/app/services/class.service';
 import { Router, ParamMap, ActivatedRoute } from '@angular/router';
-import { Route } from '@angular/compiler/src/core';
 import {AnimationOptions} from 'ngx-lottie';
 import {AnimationItem} from 'lottie-web';
 import { AlertService } from 'ngx-alerts';

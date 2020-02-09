@@ -12,6 +12,7 @@ import { AddClassComponent } from '../../pages/admin/add-class/add-class.compone
 import { ResultsComponent } from '../../pages/admin/results/results.component';
 import { BoardsComponent } from '../../pages/admin/boards/boards.component';
 import { ClassesComponent } from '../../pages/admin/classes/classes.component';
+import { CommentsComponent } from '../../pages/admin/comments/comments.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 // import { ToastrModule } from 'ngx-toastr';
@@ -42,7 +43,8 @@ export function playerFactory() {
     AddClassComponent,
     ResultsComponent,
     BoardsComponent,
-    ClassesComponent
+    ClassesComponent,
+    CommentsComponent
   ],
   providers: [
     AlertService

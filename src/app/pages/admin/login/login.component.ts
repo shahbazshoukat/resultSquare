@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         if (token) {
           const expiresInDuration = response.data.expiresIn;
+          console.log(expiresInDuration);
           this.setAuthTimer(expiresInDuration);
           this.isAuthenticated = true;
           this.authStatusListener.next(true);

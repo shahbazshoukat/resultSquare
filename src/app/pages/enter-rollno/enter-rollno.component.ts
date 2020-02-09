@@ -5,6 +5,7 @@ import {Location} from '@angular/common';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import {BoardService} from '../../services/board.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-enter-rollno',
@@ -35,6 +36,13 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
   announceDate = '';
   paramSub: any;
   serviceSub: any;
+  commentName = '';
+  commentText = '';
+  comments = [];
+  showComments = false;
+  addCommentSubscription$: any;
+  isValidCommentName = false;
+  isValidCommentText = false;
   notAnnouncedAnimOptions: AnimationOptions = {
     path: '/assets/lib/not-announced.json'
   };
@@ -164,12 +172,14 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
       this.errorMsg = '';
 
-      this.serviceSub = this.boardService.getBoardBySectionTitle(this.selectedTest)
+      this.serviceSub = this.boardService.getBoardBySection(this.selectedTest)
         .subscribe(
 
           response => {
 
-            this.resultData = response.data[0];
+            this.isLoading = true;
+
+            this.resultData = response.data;
 
             if (this.resultData && this.resultData.isBlocked) {
 
@@ -182,6 +192,16 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
               this.tags = this.resultData.tags;
 
               this.url = this.resultData.resultUrl;
+
+              if (this.resultData.comments) {
+
+                this.comments = this.resultData.comments;
+
+                this.comments.reverse();
+
+                this.showComments = true;
+
+              }
 
               if (this.resultData.isBlocked) {
 
@@ -239,11 +259,23 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
             this.resultData = response.data;
 
+            this.isLoading = true;
+
             if (this.resultData) {
 
               this.tags = this.resultData.tags;
 
               this.url = this.resultData.resultUrl;
+
+              if (this.resultData.comments) {
+
+                this.comments = this.resultData.comments;
+
+                this.comments.reverse();
+
+                this.showComments = true;
+
+              }
 
               if (this.resultData.isBlocked) {
 
@@ -323,6 +355,16 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
               this.url = this.resultData.resultUrl;
 
+              if (this.resultData.comments) {
+
+                this.comments = this.resultData.comments;
+
+                this.comments.reverse();
+
+                this.showComments = true;
+
+              }
+
               if (this.resultData.isBlocked && this.announced) {
 
                 window.open(this.url, '_blank');
@@ -400,11 +442,105 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
   }
 
+  validateCommentName(event) {
+
+    if (event) {
+
+      this.commentName = event.target.value;
+
+      if (!this.commentName || this.commentName === '' || this.commentName.length < 2) {
+
+        this.isValidCommentName = false;
+
+        return;
+
+      }
+
+      this.isValidCommentName = true;
+
+    }
+
+  }
+
+  validateCommentText(event) {
+
+    if (event) {
+
+      this.commentText = event.target.value;
+
+      if (!this.commentText || this.commentText === '' || this.commentText.length < 2) {
+
+        this.isValidCommentText = false;
+
+        return;
+
+      }
+
+      this.isValidCommentText = true;
+
+    }
+
+  }
+
+  addComment (form: NgForm) {
+
+    if (form.invalid) {
+      return;
+    }
+
+    if (this.isValidCommentName && this.isValidCommentText) {
+
+      const comment = {
+        name: this.commentName,
+        text: this.commentText
+      };
+
+      this.isLoading = true;
+
+      if (this.isTest || this.isUni) {
+
+        this.addCommentSubscription$ = this.boardService.addComment(this.resultData._id, comment).subscribe(
+          response => {
+            this.comments.reverse();
+            this.comments.push(response.data);
+            this.comments.reverse();
+            form.resetForm();
+            this.isLoading = false;
+          },
+          error => {
+            console.log(error);
+            this.isLoading = false;
+          }
+        );
+
+      } else {
+
+        this.addCommentSubscription$ = this.resultService.addComment(this.resultData._id, comment).subscribe(
+          response => {
+            this.comments.reverse();
+            this.comments.push(response.data);
+            this.comments.reverse();
+            form.resetForm();
+            this.isLoading = false;
+          },
+          error => {
+            console.log(error);
+            this.isLoading = false;
+          }
+        );
+
+      }
+
+    }
+
+  }
   ngOnDestroy() {
 
     this.paramSub && this.paramSub.unsubscribe();
 
     this.serviceSub && this.serviceSub.unsubscribe();
+
+    this.addCommentSubscription$ && this.addCommentSubscription$.unsubscribe();
 
   }
 

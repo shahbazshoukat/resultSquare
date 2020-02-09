@@ -13,51 +13,46 @@
       <div class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
-            <div class="col-4">
-              <h3 class="mb-0">Classes</h3>
-            </div>
-            <div class="col-4 text-left">
-              <input name="search" (input)="searchClasses($event)"  class="form-control form-control-alternative border-light border shadow-none" placeholder="Search" value="" type="text">
+            <div class="col-8">
+              <h3 class="mb-0">Comments</h3>
             </div>
             <div class="col-4 text-right">
-              <a [routerLink] = "['/rs-admin/add-class']" class="btn btn-sm btn-primary">Add</a>
+              <input name="search" (input)="searchComments($event)"  class="form-control form-control-alternative border-light border shadow-none" placeholder="Search" value="" type="text">
             </div>
           </div>
         </div>
         <div class="table-responsive">
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Type</th>
-                <th scope="col"></th>
-              </tr>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Text</th>
+              <th scope="col">Reply</th>
+              <th scope="col"></th>
+            </tr>
             </thead>
             <div *ngIf="isLoading" class="loader">
               <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
             </div>
             <tbody *ngIf="!isLoading">
-              <tr *ngFor = "let class of filteredClasses"  >
-                <td>
-                  {{class.title}}
-                </td>
-                <td *ngIf="class.type == 0 ">
-                  Class
-                </td>
-                <td *ngIf="class.type == 1">
-                  Test
-                </td>
-                <td class="text-right">
-                  <div ngbDropdown   placement="bottom-right">
-                    <a class="btn btn-sm btn-icon-only text-light" (click)="editClass(class)">
-                      <i class="fas fa-edit"></i>
-                    </a>
-                    <a class="btn btn-sm btn-icon-only text-light" (click)="removeClass(class._id)" >
-                      <i style="font-size: large;" class="ni ni-fat-remove"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
+            <tr *ngFor = "let comment of filteredComments"  >
+              <td>
+                {{comment?.name}}
+              </td>
+              <td>
+                {{comment?.text}}
+              </td>
+              <td>
+                <a href="{{comment?.refUrl}}" target="_blank" class="btn btn-primary btn-sm">Reply</a>
+              </td>
+              <td class="text-right">
+                <div ngbDropdown   placement="bottom-right">
+                  <a class="btn btn-sm btn-icon-only text-light" (click)="removeComment(comment._id)" >
+                    <i style="font-size: large;" class="ni ni-fat-remove"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
             </tbody>
           </table>
         </div>

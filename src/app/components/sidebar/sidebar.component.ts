@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/user.service';
+import {AlertService} from 'ngx-alerts';
 
 declare interface RouteInfo {
     path: string;
@@ -20,12 +21,15 @@ export const ROUTES: RouteInfo[] = [
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
 
   public menuItems: any[];
   public isCollapsed = true;
+  logoutSubscription$: any;
+  isLoading = false;
 
-  constructor(private router: Router, private userService: UsersService) { }
+  constructor(private router: Router, private userService: UsersService,
+              private alertService: AlertService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -35,7 +39,31 @@ export class SidebarComponent implements OnInit {
   }
 
   logout() {
-    this.userService.logout();
+
+    this.isLoading = true;
+    this.logoutSubscription$ = this.userService.logout().subscribe(
+      response => {
+        if (response && response.message) {
+          this.alertService.success(response.message);
+          this.isLoading = false;
+          this.router.navigate(['']);
+        }
+      },
+      error => {
+        if (error && error.error && error.error.message) {
+
+          this.alertService.danger(error.error.messages);
+
+          this.isLoading = false;
+
+        }
+      }
+    );
+    localStorage.clear();
+  }
+
+  ngOnDestroy() {
+    this.logoutSubscription$ && this.logoutSubscription$.unsubscribe();
   }
 
 

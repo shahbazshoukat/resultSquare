@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
     <div class="header-body">
 
@@ -35,6 +35,7 @@
                 <th scope="col">Web URL</th>
                 <th scope="col">Result URL</th>
                 <th scope="col">Results</th>
+                <th scope="col">Comments</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -63,6 +64,9 @@
                 </td>
                 <td>
                   <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/results', board.key]">Results</a>
+                </td>
+                <td>
+                  <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/comments/board/', board._id]" >Comments</a>
                 </td>
                 <td class="text-right">
                   <div ngbDropdown   placement="bottom-right">

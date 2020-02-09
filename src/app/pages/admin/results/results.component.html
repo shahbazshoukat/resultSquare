@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
     <div class="header-body">
     </div>
@@ -13,7 +13,7 @@
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col-4">
-              <h3 class="mb-0">Results</h3>
+              <h3 class="mb-0">{{selectedBoard}} Results</h3>
             </div>
             <div class="col-4 text-left">
               <input name="search" (input)="searchResults($event)"  class="form-control form-control-alternative border-light border shadow-none" placeholder="Search" value="" type="text">
@@ -27,7 +27,6 @@
           <table class="table align-items-center table-flush table-sm">
             <thead class="thead-light">
               <tr>
-                <th scope="col">Board</th>
                 <th scope="col">Class</th>
                 <th scope="col">Year</th>
                 <th scope="col">Exam Type</th>
@@ -35,14 +34,12 @@
                 <th scope="col">Status</th>
                 <th scope="col">Views</th>
                 <th scope="col">URL</th>
+                <th scope="col">Comments</th>
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody *ngIf="!isLoading" style="max-height: 700px; overflow-y: auto" class="scrollbar-inner">
               <tr *ngFor = "let result of filteredResults">
-                <td>
-                  {{result.board.title}}
-                </td>
                 <td>
                   {{result.section.title}}
                 </td>
@@ -67,6 +64,9 @@
                 </td>
                 <td>
                   <a href="{{result.resultUrl}}" >URL</a>
+                </td>
+                <td>
+                  <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/comments/result/', result._id]" >Comments</a>
                 </td>
                 <td class="text-right">
                   <div ngbDropdown   placement="bottom-right">

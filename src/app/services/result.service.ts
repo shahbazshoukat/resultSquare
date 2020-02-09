@@ -89,4 +89,16 @@ export class ResultService {
     return this.http.put<{success: boolean, message: string, data: any}>('/api/updateStatus/' + resultId, update);
   }
 
+  addComment(resultId, comment) {
+
+    return this.http.post<{success: boolean, message: string, data: any}>(`/api/comment/${resultId}`, comment);
+
+  }
+
+  removeComment(resultId, commentId) {
+
+    return this.http.delete<{success: boolean, message: string, data: any}>(`/api/comment/${resultId}/${commentId}`);
+
+  }
+
 }

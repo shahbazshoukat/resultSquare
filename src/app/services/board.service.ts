@@ -48,11 +48,15 @@ export class BoardService {
   }
 
   getBoardByKey(boardKey: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/getBoard/' + boardKey);
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/board/key/' + boardKey);
   }
 
   getBoardBySectionTitle(sectionTitle: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/getBoardBySectionTitle/' + sectionTitle);
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/boards/section/' + sectionTitle);
+  }
+
+  getBoardBySection(sectionTitle: string): Observable<any> {
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/board/section/' + sectionTitle);
   }
 
   updateBoard(
@@ -87,6 +91,18 @@ export class BoardService {
 
   deleteBoard(boardId: string): Observable<any> {
     return this.http.delete<{success: boolean, message: string, data: any}>('/api/deleteBoard/' + boardId);
+  }
+
+  addComment(boardId, comment) {
+
+    return this.http.post<{success: boolean, message: string, data: any}>(`/api/board/comment/${boardId}`, comment);
+
+  }
+
+  removeComment(boardId, commentId) {
+
+    return this.http.delete<{success: boolean, message: string, data: any}>(`/api/board/comment/${boardId}/${commentId}`);
+
   }
 
 }

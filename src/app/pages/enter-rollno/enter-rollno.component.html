@@ -84,82 +84,42 @@
         </div>
       </div>
 
-      <div *ngIf="!isError" class="row justify-content-center border-5 mt-100 custom-comments" >
-        <div class="col-10 mt-100 bg-secondary" style="width: 100%;">
+      <div *ngIf="!isError && comments" class="row justify-content-center border-5 mt-100 custom-comments" >
+        <div class="col-10 mt-100 bg-secondary border-5" style="width: 100%;">
           <h1>Comments</h1>
           <div>
-            <form>
+            <form (submit)="addComment(commentForm)" #commentForm = "ngForm">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                   <img alt="Image placeholder" src="assets/img/default-user.png">
                 </span>
                 <div class="ml-2">
-                  <input class="form-control form-control-alternative" placeholder="Enter your name">
+                  <input (input)="validateCommentName($event)" ngModel name="commentNAme" class="form-control form-control-alternative" placeholder="Enter your name">
                 </div>
               </div>
               <div class="media-body ml-2 mt-3 d-block" style="padding-left: 35px;">
-                <textarea class="form-control form-control-alternative" rows="2" placeholder="Write your comment"></textarea>
+                <textarea (input)="validateCommentText($event)" ngModel name="commentText" class="form-control form-control-alternative" rows="2" placeholder="Write your comment"></textarea>
               </div>
               <div class="media-body ml-2 mt-3 d-block text-right">
-                <button class="btn btn-primary btn-sm">Add Comment</button>
+                <button class="btn btn-primary btn-sm" type="submit" >Add Comment</button>
               </div>
             </form>
           </div>
           <div class="mt-5">
-            <div class="media mt-4">
+            <div class="media mt-4 " *ngFor="let comment of comments">
               <div class="icon icon-shape bg-info text-white rounded-circle shadow">
                 <span>S</span>
               </div>
-              <div class="media-body ml-2 shadow--hover">
-                <div class="card card-stats mb-4 mb-lg-0">
+              <div class="media-body ml-2">
+                <div class="card card-stats mb-4 mb-lg-0 bg-white shadow--hover">
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-0">@Shahbaz Shoukat</h5>
-                        <span class="text-muted mb-0">When the result will be announced?</span>
+                        <h5 class="card-title text-uppercase text-muted mb-0">@{{comment?.name}}</h5>
+                        <span class="text-muted mb-0">{{comment?.text}}</span>
                       </div>
                       <div class="col-auto">
-                        <span class="text-muted text-sm" >Feb 09, 2020</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="media mt-4">
-                <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="assets/img/user.png">
-                </span>
-              <div class="media-body ml-2 shadow--hover">
-                <div class="card card-stats mb-4 mb-lg-0">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-0">@Shahbaz Shoukat</h5>
-                        <span class="text-muted mb-0">When the result will be announced?</span>
-                      </div>
-                      <div class="col-auto">
-                        <span class="text-muted text-sm" >Feb 09, 2020</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="media mt-4">
-                <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="assets/img/user.png">
-                </span>
-              <div class="media-body ml-2 shadow--hover">
-                <div class="card card-stats mb-4 mb-lg-0">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-0">@Shahbaz Shoukat</h5>
-                        <span class="text-muted mb-0">When the result will be announced?</span>
-                      </div>
-                      <div class="col-auto">
-                        <span class="text-muted text-sm" >Feb 09, 2020</span>
+                        <span class="text-muted text-sm" >{{comment?.createdAt | date: "mediumDate"}}</span>
                       </div>
                     </div>
                   </div>
