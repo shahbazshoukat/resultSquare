@@ -107,8 +107,8 @@
           </div>
           <div class="mt-5">
             <div class="media mt-4 " *ngFor="let comment of comments">
-              <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                <span>S</span>
+              <div class="icon icon-sm icon-shape bg-default text-white rounded-circle shadow">
+                <span>{{comment?.name?.charAt(0)?.toUpperCase()}}</span>
               </div>
               <div class="media-body ml-2">
                 <div class="card card-stats mb-4 mb-lg-0 bg-white shadow--hover">
