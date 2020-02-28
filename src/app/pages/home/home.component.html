@@ -1,76 +1,245 @@
-<!-- Page content -->
-<div class="container-fluid mt--6">
-  <!-- Table -->
-  <div class="row">
-    <div class="col">
-      <div class="card shadow bg-secondary">
-        <div class="card-header bg-white border-0">
-          <h3 class="mb-0">Select Your Class</h3>
-        </div>
-        <div *ngIf="!isError" class="table-responsive" style="padding: 60px;">
-          <div class="row">
-            <div class="col-12" >
-              <div class="text-center">
-                <h1>Latest Results</h1>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12" >
-              <div class="text-center">
-                <div>
-                  <button class="btn btn-secondary">Punjab</button>
-                  <button class="btn btn-secondary">KPK</button>
-                  <button class="btn btn-primary">Sindh</button>
-                  <button class="btn btn-secondary">Balochistan</button>
-                  <button class="btn btn-secondary">Federal</button>
-                  <button class="btn btn-secondary">AJK</button>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col-12" >
-              <div class="text-center">
-                <h1>Upcoming Results</h1>
-              </div>
+<div class="row">
+  <div class="col">
+    <div class="bg-secondary pl-5 pr-5">
+      <div *ngIf="!isError" style="padding: 60px">
+        <div class="row mt-5">
+          <div class="col-12 text-center">
+            <div class="btn-group">
+              <button class="btn btn-success">Latest</button>
+              <button class="btn btn-se">Upcoming</button>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12" >
-              <div class="text-center">
-                <div>
-                  <button class="btn btn-secondary">Punjab</button>
-                  <button class="btn btn-secondary">KPK</button>
-                  <button class="btn btn-primary">Sindh</button>
-                  <button class="btn btn-secondary">Balochistan</button>
-                  <button class="btn btn-secondary">Federal</button>
-                  <button class="btn btn-secondary">AJK</button>
-                </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-12" >
+            <div class="text-center">
+              <h1>Latest Results</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12" >
+            <div class="text-center mt-4">
+              <div>
+                <button class="btn btn-success mt-2">All</button>
+                <button class="btn mt-2">Punjab</button>
+                <button class="btn mt-2">KPK</button>
+                <button class="btn mt-2">Sindh</button>
+                <button class="btn mt-2">Balochistan</button>
+                <button class="btn mt-2">Federal</button>
+                <button class="btn mt-2">AJK</button>
               </div>
             </div>
           </div>
         </div>
-        <div *ngIf="isError" class="table-responsive classes-main-container justify-content-center">
-          <div class="row justify-content-center">
-            <div class="bg-transparent">
-              <div class="text-center">
-                <ng-lottie width="300px" height="300px" [options]="errorAnimOptions" (animationCreated)="errorAnimationCreated($event)"></ng-lottie>
+        <div class="row mt-4">
+          <div class="col-lg-3 col-md-3 col-sm-6 text-right" >
+            <div>
+              <div class="form-group">
+                <select name="year" class="form-control form-control-alternative">
+                  <option value="" disabled>Filter by Class</option>
+                  <option value="2023" >9th</option>
+                  <option value="2022" >10t</option>
+                  <option value="2021" >11th</option>
+                </select>
               </div>
-              <div class="text-center">
-                <span class="text-lg">{{errorMsg}}</span>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 text-right">
+
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 text-right">
+
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 text-right" >
+            <div>
+              <div class="form-group">
+                <select name="year" class="form-control form-control-alternative">
+                  <option value="" disabled>Filter by Board</option>
+                  <option value="2023" >BISE Lahore</option>
+                  <option value="2022" >BISE Gujranwala</option>
+                  <option value="2021" >BISE Faisalbad</option>
+                </select>
               </div>
-              <div class="text-center" style="margin-top: 30px;">
-                <span class="btn btn-primary" (click)="retry();">Retry</span>
+            </div>
+          </div>
+        </div>
+        <div class="row text-center mt-4">
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
               </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
+              </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
+              </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
+              </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
+              </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
+              </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
+              </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
+              </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
+              </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
+              </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
+              </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
+              </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
+              </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" >
+            <div class="result-card-main card shadow-lg bg-white result-card">
+
+              <div class="result-card-tile">
+                <span class="text-capitalize text-bold">BISE Lahore | 9th class annual result 2020</span>
+              </div>
+              <div class="result-card-tile mt-3">
+                <button class="btn btn-outline-success btn-sm">View Result</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div *ngIf="isError" class="table-responsive classes-main-container justify-content-center">
+        <div class="row justify-content-center">
+          <div class="bg-transparent">
+            <div class="text-center">
+              <ng-lottie width="300px" height="300px" [options]="errorAnimOptions" (animationCreated)="errorAnimationCreated($event)"></ng-lottie>
+            </div>
+            <div class="text-center">
+              <span class="text-lg">{{errorMsg}}</span>
+            </div>
+            <div class="text-center" style="margin-top: 30px;">
+              <span class="btn btn-primary" (click)="retry();">Retry</span>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </div>
-<div *ngIf="isLoading" class="loader">
-  <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
-</div>
+

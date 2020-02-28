@@ -6,7 +6,7 @@
 .class-container{
     height: 150px;
     vertical-align: middle;
-    padding: 10px;     
+    padding: 10px;
 }
 .class-container div {
     padding-top: 35px;
@@ -43,4 +43,30 @@
 .text-center{
     text-align: center;
 }
- 
+
+.result-card {
+  border-radius: 0px;
+  border-bottom-width: 3px;
+  border-bottom-color: #2dce89;
+}
+
+.result-card:hover {
+  border-radius: 0px;
+  border-width: 1px;
+  border-color: #2dce89;
+  border-bottom-width: 3px;
+  border-bottom-color: #2dce89;
+}
+
+.result-card-pad {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.result-card-main {
+  padding: 5px;
+}
+
+.result-card-tile {
+  padding: 5px;
+}
