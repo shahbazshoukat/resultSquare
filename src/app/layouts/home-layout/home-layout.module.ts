@@ -12,10 +12,10 @@ import { SelectExamComponent } from '../../pages/select-exam/select-exam.compone
 import { EnterRollNoComponent } from '../../pages/enter-rollno/enter-rollno.component';
 import { ResultPageComponent } from '../../pages/result-page/result-page.component';
 import { SelectSubClassComponent  } from '../../pages/select-sub-class/select-sub-class.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import {NgxPrintModule} from 'ngx-print';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { ToastrModule } from 'ngx-toastr';
 import { SafePipe } from '../../pipes';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
@@ -31,7 +31,8 @@ export function playerFactory() {
     HttpClientModule,
     NgbModule,
     LottieModule.forRoot({ player: playerFactory, useCache: true }),
-    NgxPrintModule
+    NgxPrintModule,
+    NgxPaginationModule
   ],
   declarations: [
     HomeComponent,

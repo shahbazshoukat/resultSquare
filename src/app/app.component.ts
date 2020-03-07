@@ -10,15 +10,16 @@ export class AppComponent implements OnInit {
   title = 'argon-dashboard-angular';
 
   constructor(private router: Router) {
-  }
-
-  ngOnInit() {
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
-      window.scrollTo(0, 0);
+      scrollTo(0, 0);
     });
+  }
+
+  ngOnInit() {
+
   }
 
 }

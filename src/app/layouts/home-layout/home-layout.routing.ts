@@ -6,6 +6,7 @@ import {SelectYearComponent} from '../../pages/select-year/select-year.component
 import {SelectExamComponent} from '../../pages/select-exam/select-exam.component';
 import { EnterRollNoComponent } from '../../pages/enter-rollno/enter-rollno.component';
 import { SelectSubClassComponent } from '../../pages/select-sub-class/select-sub-class.component';
+import {PageNotFoundComponent} from '../../pages/page-not-found/page-not-found.component';
 
 export const HomeLayoutRoutes: Routes = [
     { path: '',         component: HomeComponent },

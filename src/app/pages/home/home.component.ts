@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { ClassService } from 'src/app/services/class.service';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
+import {ResultService} from '@app/services/result.service';
+import {PaginationInstance} from 'ngx-pagination';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   isError = false;
   errorMsg = '';
   serviceSub: any;
+  result: any;
+  provinces = [
+    'All',
+    'Punjab',
+    'KPK',
+    'Sindh',
+    'Balochistan',
+    'AJK',
+    'Federal'
+  ];
+  selectedProvince = 'all';
+ status: {
+   Announced: { value: true, selected: true},
+   UnAnnounced: { value: false, selected: true}
+ };
+  showSearchResults = false;
   loadingAnimOptions: AnimationOptions = {
     path: '/assets/lib/loading-spinner.json'
   };
@@ -26,47 +43,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   };
 
   errorAnim: AnimationItem;
+  results = [];
+  filteredResults = [];
+  totalResults = 0;
+  noOfPages = 0;
+  pages;
+  selectedPageNo = 1;
+  resultsSubscription$: any;
+  config: PaginationInstance = {
+    itemsPerPage: 20,
+    currentPage: 1,
+    totalItems: this.totalResults
+  };
 
-  constructor(private router: Router, private classService: ClassService) { }
+  constructor(private router: Router, private resultService: ResultService) { }
 
   ngOnInit() {
-    this.init();
-  }
 
-  init() {
-
-    this.isLoading = true;
-    this.isError = false;
-    this.errorMsg = '';
-    this.serviceSub = this.classService.getAllClasses().subscribe(
-      response => {
-        if (response.success && response.data) {
-
-          this.classes = response.data;
-          if (!this.classes || this.classes.length === 0) {
-            this.isError = true;
-            this.errorMsg = 'No Class Found';
-          }
-          this.isLoading = false;
-        }
-      },
-      error => {
-
-        this.isLoading = false;
-
-        this.isError = true;
-
-        if (error && error.status && error.status === 404) {
-
-          this.errorMsg = '404 - Not Found';
-
-        } else {
-
-          this.errorMsg = 'Something went wrong';
-
-        }
-
-      });
+    this.getLatestResults();
 
   }
 
@@ -82,31 +76,78 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
 
-  retry() {
+  getLatestResults() {
 
-    this.init();
+    this.isLoading = true;
+
+    this.resultsSubscription$ = this.resultService.getLatestResults()
+      .subscribe(
+        response => {
+
+          if (response && response.data) {
+
+            this.results = response.data;
+
+            this.filteredResults = this.results;
+
+            this.selectedProvince = 'All';
+
+            this.totalResults = this.results && this.results.length;
+
+          }
+
+          this.isLoading = false;
+
+        },
+        error => {
+
+          this.isLoading = false;
+
+          this.isError = true;
+
+          if (error && error.status && error.status === 404) {
+
+            this.errorMsg = '404 - Not Found';
+
+          } else {
+
+            this.errorMsg = 'Something went wrong';
+
+          }
+
+        });
 
   }
 
-  onClassSelect(selectedClass) {
+  filterByProvince(province) {
 
-    if (selectedClass) {
+    if (province) {
 
-      if (selectedClass.type === '1') {
+      this.filteredResults = [];
 
-        this.router.navigate(['/test', selectedClass.title]);
+      this.selectedProvince = province;
 
-        return;
+      this.selectedPageNo = 1;
 
-      } else if (selectedClass.type === '0') {
+      console.log(province);
 
-        if (selectedClass.title === 'FA' || selectedClass.title === 'FSC' || selectedClass.title === 'ICS' || selectedClass.title === 'ICOM') {
+      if (this.results) {
 
-          this.router.navigate(['/class', selectedClass.title]);
+        if (this.selectedProvince === 'All') {
 
-        } else {
+          this.filteredResults = this.results;
 
-          this.router.navigate(['/result', selectedClass.title]);
+          return;
+
+        }
+
+        for (const res of this.results) {
+
+          if (res && res.board && res.board.province === this.selectedProvince) {
+
+            this.filteredResults.push(res);
+
+          }
 
         }
 
@@ -114,6 +155,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     }
 
+  }
+
+  onPageChange(event) {
+    console.log(event);
+    this.config.currentPage = event;
+  }
+
+  retry() {
+    this.getLatestResults();
   }
 
   ngOnDestroy() {

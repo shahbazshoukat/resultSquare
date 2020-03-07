@@ -4,30 +4,35 @@
   <!-- Table -->
   <div class=" order-xl-1 bg-secondary">
     <div class="bg-secondary">
-      <div class="card shadow-lg card-header bg-white border-0">
+      <div class="card card-body bg-secondary custom-sub-header" style="border-radius: 12px;">
         <div class="row align-items-center">
           <div class="col-lg-3 col-md-3 col-sm-12">
-            <button (click)="goBack()" class="btn btn-icon btn-2 btn-primary btn-sm">
+            <button (click)="goBack()" class="btn btn-icon btn-2 btn-success btn-sm">
               Back
             </button>
             <span class="mb-0 h3">Result</span>
           </div>
           <div class="col-lg-9 col-md-9 col-sm-12 text-right" style="margin-top: 20px;">
-              <span class="btn btn-sm badge badge-primary" *ngIf="selectedClass" [routerLink] = "['/']" >{{selectedClass}}</span>
-            <span class="btn btn-sm badge badge-primary" *ngIf="selectedTest" [routerLink] = "['/']" >{{selectedTest}}</span>
-            <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedBoard" [routerLink] = "['/result', selectedClass]"  >{{selectedBoard}}</span>
-            <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedUni" [routerLink] = "['/result', selectedClass]"  >{{selectedUni}}</span>
-            <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedYear" [routerLink] = "['/result'+'/'+selectedClass, selectedBoardKey]" >{{selectedYear}}</span>
-              <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedExamType" [routerLink] = "['/result'+'/'+selectedClass+'/'+selectedBoardKey, selectedYear]" >{{selectedExamType}}</span>
+              <span class="btn btn-sm badge badge-primary" *ngIf="selectedClass" >{{selectedClass}}</span>
+            <span class="btn btn-sm badge badge-primary" *ngIf="selectedTest">{{selectedTest}}</span>
+            <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedBoard"   >{{selectedBoard}}</span>
+            <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedUni"   >{{selectedUni}}</span>
+            <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedYear"  >{{selectedYear}}</span>
+              <span class="btn btn-sm badge badge-primary ml-1" *ngIf="selectedExamType" >{{selectedExamType}}</span>
           </div>
         </div>
       </div>
-      <div class="row justify-content-center border-2 mt-100" >
+      <div class="row justify-content-center border-2 mt-5" >
           <div class="col-lg-6 col-md-7 ">
-            <div class="card border-0 bg-secondary">
+            <div class="card border-0 bg-transparent">
               <div class="card-body">
                 <div class="text-center">
-                  <span style="font-size: 25px; font-weight: bolder;" >{{resultTitle}}</span>
+                  <span class="text-capitalize" *ngIf="resultTitle" style="font-size: 25px; font-weight: bolder;" >{{resultTitle}}</span>
+                </div>
+                <div class="text-center mt-4">
+                  <p class="text-sm text-muted text-capitalize" *ngIf="resultDescription">
+                   {{resultDescription}}
+                  </p>
                 </div>
               </div>
             </div>
@@ -44,7 +49,7 @@
               <button class="btn btn-primary btn-sm" (click)="reload()">Back To Result Page</button>
             </div>
             <div class="col-lg-6 col-sm-12 text-right">
-              Not working? <button class="btn btn-outline-primary btn-sm" (click)="navigateToBoardResultPage()">Click here</button>
+              If not working? <button class="btn btn-outline-primary btn-sm" (click)="navigateToBoardResultPage()">Click here</button>
             </div>
           </div>
           <div class="card shadow border-0 bg-secondary">

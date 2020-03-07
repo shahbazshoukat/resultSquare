@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import { ResultService } from 'src/app/services/result.service';
 import {Location} from '@angular/common';
@@ -25,6 +25,7 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
   isTest = false;
   isUni = false;
   resultTitle;
+  resultDescription;
   resultData;
   tags = [];
   result = 'NO RESULT FOUND';
@@ -60,6 +61,9 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
   };
 
   errorAnim: AnimationItem;
+  // @ts-ignore
+  @ViewChild('subheader')
+  subheader: ElementRef;
 
   constructor(private route: ActivatedRoute,
               private resultService: ResultService,
@@ -137,6 +141,8 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
         }
 
         this.resultTitle = `${this.selectedBoard} ${this.selectedClass} Class ${this.selectedExamType} Result ${this.selectedYear}`;
+
+        this.resultDescription = `${this.selectedExamType} result of ${this.selectedClass} class ${this.selectedBoard} board ${this.selectedYear}`;
 
       }
 
@@ -426,19 +432,7 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
   goBack() {
 
-    if (this.isTest) {
-
-      this.router.navigate(['']);
-
-    } else if (this.isUni) {
-
-      this.router.navigate(['/result', this.selectedClass]);
-
-    } else {
-
-      this.router.navigate(['/result' + '/' + this.selectedClass + '/' + this.selectedBoardKey, this.selectedYear]);
-
-    }
+    this.router.navigate(['']);
 
   }
 

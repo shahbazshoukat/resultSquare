@@ -36,7 +36,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-board">Class</label>
-                    <select  name="clas" [ngModel]=" isEdit ? resultToUpdate.section._id : ''" class="form-control form-control-alternative">
+                    <select  name="clas" [ngModel]=" isEdit ? resultToUpdate.section : ''" class="form-control form-control-alternative">
                       <option *ngFor="let cls of classes" value="{{cls._id}}" >{{cls.title}}</option>
                    </select>
                   </div>
@@ -44,7 +44,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-board">Board</label>
-                    <select (change) = "changeBoard($event.target.value)"  name="board" [ngModel]=" isEdit ? resultToUpdate.board._id : ''" class="form-control form-control-alternative">
+                    <select (change) = "changeBoard($event.target.value)"  name="board" [ngModel]=" isEdit ? resultToUpdate.board : ''" class="form-control form-control-alternative">
                       <option *ngFor="let board of boards" value="{{board._id}}" >{{board.title}}</option>
                    </select>
                   </div>

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-white fixed-top">
+<nav class="navbar navbar-expand-lg bg-white custom-box-shadow fixed-top">
     <a class="navbar-brand" style="margin-left: 10px;" [routerLink]="['']"><b><span style="color: #002E6E">Result</span><span style="color: #00B9F1">Square</span></b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -14,47 +14,37 @@
         <div class="col-md-6">
           <div class="form-group">
             <label class="form-control-label">Class</label>
-            <select name="year" class="form-control form-control-alternative">
-              <option value="" disabled>Select Class</option>
-              <option value="2023" >9th</option>
-              <option value="2022" >10th</option>
-              <option value="2021" >11th</option>
-              <option value="2020" >12th</option>
-              <option value="2019" >BA</option>
+            <select name="class" class="form-control form-control-alternative" [value]="selectedClass" (change)="onClassSelected($event)">
+              <option value="default" disabled>Select Class</option>
+              <option [value]="cls?.title" *ngFor="let cls of classes">{{cls?.title}}</option>
             </select>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label class="form-control-label">Board</label>
-            <select name="year" class="form-control form-control-alternative">
-              <option value="" disabled>Select Board</option>
-              <option value="2023" >BISE Lahore</option>
-              <option value="2022" >BISE Gujranwala</option>
-              <option value="2021" >BISE Faisalbad</option>
+            <select name="board" class="form-control form-control-alternative" [value]="selectedBoardKey" (change)="onBoardSelected($event)"  [disabled]="!classSelected">
+              <option value="default" disabled>Select Board</option>
+              <option [value]="board?.key" *ngFor="let board of boards" >{{board?.title}}</option>
             </select>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label class="form-control-label">Year</label>
-            <select name="year" class="form-control form-control-alternative">
-              <option value="" disabled>Select Year</option>
-              <option value="2023" >2023</option>
-              <option value="2022" >2022</option>
-              <option value="2021" >2021</option>
-              <option value="2020" >2020</option>
-              <option value="2019" >2019</option>
+            <select name="year" class="form-control form-control-alternative" [value]="selectedYear" (change)="onYearSelected($event)" [disabled]="!boardSelected">
+              <option value="default" disabled>Select Year</option>
+              <option [value]="year?.year" *ngFor="let year of years" >{{year?.year}}</option>
             </select>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label class="form-control-label">Exam Type</label>
-            <select name="year" class="form-control form-control-alternative">
-              <option value="" disabled>Select Exam Type</option>
-              <option value="2023" >Annual</option>
-              <option value="2022" >Supply</option>
+            <select name="examType" class="form-control form-control-alternative" [value]="selectedExamType" (change)="onExamTypeSelected($event)" [disabled]="!yearSelected">
+              <option value="default" disabled>Select Exam Type</option>
+              <option value="annual" >Annual</option>
+              <option value="supply" >Supply</option>
             </select>
           </div>
         </div>
@@ -62,7 +52,7 @@
       </div>
       <div class="row">
         <div class="col-12 text-center">
-          <button class="btn btn-primary">Find Your Result</button>
+          <button class="btn btn-success" [disabled]="!classSelected || !boardSelected || !yearSelected || !examTypeSelected" type="button" (click)="findResult()">Find Your Result</button>
         </div>
       </div>
     </form>

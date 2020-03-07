@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 export class PageNotFoundComponent implements OnInit {
 
   pageNotFoundAnimOptions: AnimationOptions = {
-    path: '/assets/lib/page-404.json'
+    path: '/assets/lib/error.json'
   };
 
   pageNotFoundAnim: AnimationItem;

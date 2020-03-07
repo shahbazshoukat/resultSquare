@@ -12,12 +12,12 @@ import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {PageNotFoundComponent} from './pages/page-not-found/page-not-found.component';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { AlertModule, AlertService } from 'ngx-alerts';
+import {PageNotFoundComponent} from '@app/pages/page-not-found/page-not-found.component';
 export function playerFactory() {
   return player;
 }
@@ -39,7 +39,7 @@ export function playerFactory() {
     HomeLayoutComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ],
   providers: [
     AlertService,
