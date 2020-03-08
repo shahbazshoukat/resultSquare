@@ -6,8 +6,8 @@
       <div class="card card-body bg-secondary custom-sub-header" style="border-radius: 12px;">
         <div class="row align-items-center text-center">
           <div  class="btn-group text-center" style="margin: 0 auto">
-            <button class="btn text-success">Latest</button>
-            <button class="btn text-muted">Upcoming</button>
+            <button class="btn" [ngClass]="{'text-success': selectedStatus, 'text-muted': !selectedStatus}" (click)="filterByStatus(true)">Latest</button>
+            <button class="btn" [ngClass]="{'text-success': !selectedStatus, 'text-muted': selectedStatus}" (click)="filterByStatus(false)">Upcoming</button>
           </div>
         </div>
       </div>
@@ -15,7 +15,8 @@
         <div class="row mt-5">
           <div class="col-12" >
             <div class="text-center">
-              <h1>Latest Results</h1>
+              <h1 *ngIf="selectedStatus">Latest Results</h1>
+              <h1 *ngIf="!selectedStatus">Upcoming Results</h1>
             </div>
           </div>
         </div>
@@ -29,14 +30,13 @@
           </div>
         </div>
         <div class="row mt-4">
-          <div class="col-lg-3 col-md-3 col-sm-6 text-right" >
+          <div class="col-lg-3 col-md-3 col-sm-12 text-right" >
             <div>
               <div class="form-group">
-                <select name="year" class="form-control form-control-alternative">
-                  <option value="" disabled>Filter by Class</option>
-                  <option value="2023" >9th</option>
-                  <option value="2022" >10t</option>
-                  <option value="2021" >11th</option>
+                <select name="class" class="form-control form-control-alternative" [value]="selectedClass" (change)="filterByClass($event)">
+                  <option value="default" disabled>Filter By Class</option>
+                  <option value="default">Clear Filter</option>
+                  <option [value]="cls?.title" *ngFor="let cls of classes">{{cls?.title}}</option>
                 </select>
               </div>
             </div>
@@ -47,14 +47,13 @@
           <div class="col-lg-3 col-md-3 col-sm-6 text-right">
 
           </div>
-          <div class="col-lg-3 col-md-3 col-sm-6 text-right" >
+          <div class="col-lg-3 col-md-3 col-sm-12 text-right" >
             <div>
               <div class="form-group">
-                <select name="year" class="form-control form-control-alternative">
-                  <option value="" disabled>Filter by Board</option>
-                  <option value="2023" >BISE Lahore</option>
-                  <option value="2022" >BISE Gujranwala</option>
-                  <option value="2021" >BISE Faisalbad</option>
+                <select name="board" class="form-control form-control-alternative" [value]="selectedBoardKey" (change)="filterByBoard($event)">
+                  <option value="default" disabled>Filter By Board</option>
+                  <option value="default">Clear Filter</option>
+                  <option [value]="board?.key" *ngFor="let board of boards" >{{board?.title}}</option>
                 </select>
               </div>
             </div>
@@ -74,6 +73,24 @@
               </div>
             </div>
           </div>
+
+          <div *ngIf="filteredResults && filteredResults.length === 0 && !isLoading && !isError" class="table-responsive classes-main-container justify-content-center">
+            <div class="row justify-content-center">
+              <div class="bg-transparent" >
+                <div class="text-center">
+                  <ng-lottie width="300px" height="300px" [options]="errorAnimOptions" (animationCreated)="errorAnimationCreated($event)"></ng-lottie>
+                </div>
+                <div class="text-center">
+                  <span class="text-lg">No Result Found</span>
+                </div>
+                <div class="text-center" style="margin-top: 30px;">
+                  <span class="btn btn-primary" (click)="setDefaultFilters()">Set Default Filters</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
         </div>
         <div class="mt-5">
             <nav aria-label="Page navigation example">

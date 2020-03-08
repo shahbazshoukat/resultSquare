@@ -4,6 +4,8 @@ import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import {ResultService} from '@app/services/result.service';
 import {PaginationInstance} from 'ngx-pagination';
+import {ClassService} from '@app/services/class.service';
+import {BoardService} from '@app/services/board.service';
 
 @Component({
   selector: 'app-home',
@@ -27,10 +29,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     'AJK',
     'Federal'
   ];
-  selectedProvince = 'all';
+  selectedProvince = 'All';
  status: {
    Announced: { value: true, selected: true},
-   UnAnnounced: { value: false, selected: true}
+   UnAnnounced: { value: false, selected: false}
  };
   showSearchResults = false;
   loadingAnimOptions: AnimationOptions = {
@@ -55,10 +57,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     currentPage: 1,
     totalItems: this.totalResults
   };
+  selectedClass = 'default';
+  getClassesSubscription$: any;
+  boards = [];
+  selectedBoardKey = 'default';
+  getBoardsSubscription$: any;
+  selectedStatus = true;
 
-  constructor(private router: Router, private resultService: ResultService) { }
+
+  constructor(private router: Router, private resultService: ResultService,
+              private classService: ClassService,
+              private boardService: BoardService) { }
 
   ngOnInit() {
+
+    this.getClasses();
+
+    this.getAllBoards();
 
     this.getLatestResults();
 
@@ -73,6 +88,88 @@ export class HomeComponent implements OnInit, OnDestroy {
   errorAnimationCreated(animationItem: AnimationItem): void {
 
     this.errorAnim = animationItem;
+
+  }
+
+  getClasses() {
+
+    this.isLoading = true;
+    this.isError = false;
+    this.errorMsg = '';
+    this.selectedClass = 'default';
+    this.getClassesSubscription$ = this.classService.getAllClasses().subscribe(
+      response => {
+        if (response.success && response.data) {
+
+          this.classes = response.data;
+          if (!this.classes || this.classes.length === 0) {
+            this.isError = true;
+            this.errorMsg = 'No Class Found';
+          }
+          // this.isLoading = false;
+        }
+      },
+      error => {
+
+        this.isLoading = false;
+
+        this.isError = true;
+
+        if (error && error.status && error.status === 404) {
+
+          this.errorMsg = '404 - Not Found';
+
+        } else {
+
+          this.errorMsg = 'Something went wrong';
+
+        }
+
+      });
+
+  }
+
+  getAllBoards() {
+
+    this.isError = false;
+
+    this.errorMsg = '';
+
+    this.getBoardsSubscription$ = this.boardService.getAllBoardes().subscribe(
+      response => {
+
+        this.boards = response.data;
+
+        if (!this.boards || this.boards.length === 0) {
+
+          this.isError = true;
+
+          this.errorMsg = `404 - Not Found`;
+
+        }
+
+        // this.isLoading = false;
+
+      },
+
+      error => {
+
+        this.isLoading = false;
+
+        this.isError = true;
+
+        if (error && error.status && error.status === 404) {
+
+          this.errorMsg = '404 - Not Found';
+
+        } else {
+
+          this.errorMsg = 'Something went wrong';
+
+        }
+
+      });
+
 
   }
 
@@ -93,6 +190,8 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.selectedProvince = 'All';
 
             this.totalResults = this.results && this.results.length;
+
+            this.filterByStatus(true);
 
           }
 
@@ -119,39 +218,94 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
 
-  filterByProvince(province) {
+  filterByStatus(status) {
 
-    if (province) {
+    this.selectedStatus = status;
+
+    this.selectedProvince = 'All';
+
+    this.selectedBoardKey = 'default';
+
+    this.selectedClass = 'default';
+
+    if (this.results) {
 
       this.filteredResults = [];
 
-      this.selectedProvince = province;
+      for (const res of this.results) {
 
-      this.selectedPageNo = 1;
+        if (res && res.status === this.selectedStatus) {
 
-      console.log(province);
-
-      if (this.results) {
-
-        if (this.selectedProvince === 'All') {
-
-          this.filteredResults = this.results;
-
-          return;
-
-        }
-
-        for (const res of this.results) {
-
-          if (res && res.board && res.board.province === this.selectedProvince) {
-
-            this.filteredResults.push(res);
-
-          }
+          this.filteredResults.push(res);
 
         }
 
       }
+
+    }
+
+  }
+
+  filterByProvince(province) {
+
+    if (province) {
+
+      this.selectedProvince = province;
+
+      this.filterResults();
+
+    }
+
+  }
+
+  filterResults() {
+
+    this.isLoading = true;
+
+    this.selectedPageNo = 1;
+
+    if (this.results) {
+
+      this.filteredResults = [];
+
+      for (const res of this.results) {
+
+        if (res && res.board && (res.board.province === this.selectedProvince || this.selectedProvince === 'All')
+            && (res.board.key === this.selectedBoardKey || this.selectedBoardKey === 'default')
+            && res.section && (res.section.title === this.selectedClass || this.selectedClass === 'default')
+            && res.status === this.selectedStatus) {
+
+          this.filteredResults.push(res);
+
+        }
+
+      }
+
+      this.isLoading = false;
+
+    }
+
+  }
+
+  filterByClass(event) {
+
+    if (event) {
+
+      this.selectedClass = event.target.value;
+
+      this.filterResults();
+
+    }
+
+  }
+
+  filterByBoard(event) {
+
+    if (event) {
+
+      this.selectedBoardKey = event.target.value;
+
+      this.filterResults();
 
     }
 
@@ -164,6 +318,20 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   retry() {
     this.getLatestResults();
+  }
+
+  setDefaultFilters() {
+
+    this.selectedProvince = 'All';
+
+    this.selectedBoardKey = 'default';
+
+    this.selectedClass = 'default';
+
+    this.selectedStatus = true;
+
+    this.filterByStatus(true);
+
   }
 
   ngOnDestroy() {

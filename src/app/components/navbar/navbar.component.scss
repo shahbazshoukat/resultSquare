@@ -5,3 +5,36 @@
   border-left-width: 5px;
   border-left-color:  #5e72e4;
 }
+
+@media screen and (max-width: 768px) {
+  .nav-main {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .nav-main {
+    height: 500px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .nav-news-container {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 840px) {
+  .nav-heading {
+    font-size: 60px;
+    font-weight: bolder;
+  }
+}
+
+@media screen and (max-width: 839px) {
+  .nav-heading {
+    font-size: 50px;
+    font-weight: bolder;
+  }
+}

@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit {
   getBoardsSubscription$: any;
   getResultYearsSubscription$: any;
   loadingAnimOptions: AnimationOptions = {
-    path: '/assets/lib/green-spinner.json'
+    path: '/assets/lib/loading-spinner.json'
   };
 
   loadingAnim: AnimationItem;
@@ -120,6 +120,8 @@ export class NavbarComponent implements OnInit {
       this.isError = false;
 
       this.errorMsg = '';
+
+      this.isLoading = true;
 
       this.getBoardsSubscription$ = this.boardService.getBoardBySectionTitle(this.selectedClass).subscribe(
         response => {
