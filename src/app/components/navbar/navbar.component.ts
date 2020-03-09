@@ -20,8 +20,7 @@ export class NavbarComponent implements OnInit {
   errorMsg = '';
   selectedClass = 'default';
   classSelected = false;
-  selectedBoard: any;
-  selectedBoardKey = 'default';
+  selectedBoard = 'default';
   boardSelected = false;
   selectedYear = 'default';
   yearSelected = false;
@@ -34,6 +33,7 @@ export class NavbarComponent implements OnInit {
   getClassesSubscription$: any;
   getBoardsSubscription$: any;
   getResultYearsSubscription$: any;
+  getExamTypesSubscription$: any;
   loadingAnimOptions: AnimationOptions = {
     path: '/assets/lib/loading-spinner.json'
   };
@@ -103,15 +103,15 @@ export class NavbarComponent implements OnInit {
 
       this.selectedClass = event.target.value;
 
-      this.selectedBoardKey = 'default';
+      this.selectedBoard = 'default';
 
-      this.getBoardsBySectionTitle();
+      this.getBoardsBySectionId();
 
     }
 
   }
 
-  getBoardsBySectionTitle() {
+  getBoardsBySectionId() {
 
     this.boards = [];
 
@@ -123,7 +123,7 @@ export class NavbarComponent implements OnInit {
 
       this.isLoading = true;
 
-      this.getBoardsSubscription$ = this.boardService.getBoardBySectionTitle(this.selectedClass).subscribe(
+      this.getBoardsSubscription$ = this.boardService.getBoardsBySectionId(this.selectedClass).subscribe(
         response => {
 
           this.boards = response.data;
@@ -172,7 +172,7 @@ export class NavbarComponent implements OnInit {
 
       this.boardSelected = false;
 
-      this.selectedBoardKey = event.target.value;
+      this.selectedBoard = event.target.value;
 
       this.selectedYear = 'default';
 
@@ -184,7 +184,7 @@ export class NavbarComponent implements OnInit {
 
   getResultYears() {
 
-    if (this.selectedClass && this.selectedBoardKey) {
+    if (this.selectedClass && this.selectedBoard) {
 
       this.isLoading = true;
 
@@ -192,7 +192,7 @@ export class NavbarComponent implements OnInit {
 
       this.errorMsg = '';
 
-      this.getResultYearsSubscription$ = this.resultService.getResultYears(this.selectedClass, this.selectedBoardKey).subscribe(
+      this.getResultYearsSubscription$ = this.resultService.getResultYears(this.selectedClass, this.selectedBoard).subscribe(
         response => {
 
           if (response && response.data) {
@@ -257,9 +257,78 @@ export class NavbarComponent implements OnInit {
 
   getExamTypes() {
 
-    this.yearSelected = true;
+    if (this.selectedClass && this.selectedBoard && this.selectedYear) {
 
-    this.examTypeSelected = false;
+      this.isLoading = true;
+
+      this.isError = false;
+
+      this.errorMsg = '';
+
+      this.getExamTypesSubscription$ = this.resultService.getExamTypes(this.selectedClass, this.selectedBoard, this.selectedYear)
+        .subscribe(
+        response => {
+
+          if (response && response.data) {
+
+            const eTypes = response.data;
+
+            this.examTypes = [];
+
+            for (const et of eTypes) {
+
+              let name = '';
+
+              if (et === Enums.EXAM_TYPE.ANNUAL) {
+                name = 'annual';
+              } else if (et === Enums.EXAM_TYPE.SUPPLY) {
+                name = 'supply';
+              } else if (et === Enums.EXAM_TYPE.TEST) {
+                name = 'test';
+              }
+
+              const ex = { title: name, value: et};
+
+              this.examTypes.push(ex);
+
+            }
+
+            if (!this.examTypes || this.examTypes.length === 0) {
+
+              this.isError = true;
+
+              this.errorMsg = `No Exam Type Found`;
+
+            }
+
+          }
+
+          this.isLoading = false;
+
+          this.yearSelected = true;
+
+          this.examTypeSelected = false;
+
+        },
+        error => {
+
+          this.isLoading = false;
+
+          this.isError = true;
+
+          if (error && error.status && error.status === 404) {
+
+            this.errorMsg = '404 - Not Found';
+
+          } else {
+
+            this.errorMsg = 'Something went wrong';
+
+          }
+
+        });
+
+    }
 
   }
 
@@ -277,11 +346,11 @@ export class NavbarComponent implements OnInit {
 
   findResult() {
 
-    if (this.selectedClass && this.selectedBoardKey && this.selectedYear && this.selectedExamType
-         && this.selectedClass !== 'default' && this.selectedBoardKey !== 'default' && this.selectedYear !== 'default'
+    if (this.selectedClass && this.selectedBoard && this.selectedYear && this.selectedExamType
+         && this.selectedClass !== 'default' && this.selectedBoard !== 'default' && this.selectedYear !== 'default'
          && this.selectedExamType !== 'default') {
 
-     const url = `/result/${this.selectedClass}/${this.selectedBoardKey}/${this.selectedYear}/${this.selectedExamType}`;
+     const url = `/result/${this.selectedClass}/${this.selectedBoard}/${this.selectedYear}/${this.selectedExamType}`;
 
      this.router.navigate([url]);
 

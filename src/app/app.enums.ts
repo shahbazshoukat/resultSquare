@@ -6,3 +6,10 @@ export enum PROVINCE {
   AJK = 'AJK',
   FEDERAL = 'Federal'
 }
+
+export enum EXAM_TYPE {
+  ANNUAL = 0,
+  SUPPLY = 1,
+  TEST = 2,
+  RETOTAL = 3
+}

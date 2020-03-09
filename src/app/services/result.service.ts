@@ -50,8 +50,12 @@ export class ResultService {
     return this.http.get<{success: boolean, message: string, data: any}>('/api/result/' + resultId);
   }
 
-  getResultYears(selectedClass, selectedBoardKey) {
-    return this.http.get<{success: boolean, message: string, data: any}>(`/api/result-year/${selectedClass}/${selectedBoardKey}`);
+  getResultYears(selectedClassId, selectedBoardId) {
+    return this.http.get<{success: boolean, message: string, data: any}>(`/api/result-year/${selectedClassId}/${selectedBoardId}`);
+  }
+
+  getExamTypes(selectedClassId, selectedBoardId, year) {
+    return this.http.get<{success: boolean, message: string, data: any}>(`/api/exam-types/${selectedClassId}/${selectedBoardId}/${year}`);
   }
 
   getResult(section, board, year, exam) {

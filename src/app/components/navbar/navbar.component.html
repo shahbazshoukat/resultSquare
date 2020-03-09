@@ -29,7 +29,7 @@
               <label class="form-control-label text-white">Class</label>
               <select name="class" class="form-control form-control-alternative" [value]="selectedClass" (change)="onClassSelected($event)">
                 <option value="default" disabled>Select Class</option>
-                <option [value]="cls?.title" *ngFor="let cls of classes">{{cls?.title}}</option>
+                <option [value]="cls?._id" *ngFor="let cls of classes">{{cls?.title}}</option>
               </select>
             </div>
           </div>
@@ -38,7 +38,7 @@
               <label class="form-control-label text-white">Board</label>
               <select name="board" class="form-control form-control-alternative" [value]="selectedBoardKey" (change)="onBoardSelected($event)"  [disabled]="!classSelected">
                 <option value="default" disabled>Select Board</option>
-                <option [value]="board?.key" *ngFor="let board of boards" >{{board?.title}}</option>
+                <option [value]="board?._id" *ngFor="let board of boards" >{{board?.title}}</option>
               </select>
             </div>
           </div>
@@ -56,8 +56,7 @@
               <label class="form-control-label text-white">Exam Type</label>
               <select name="examType" class="form-control form-control-alternative" [value]="selectedExamType" (change)="onExamTypeSelected($event)" [disabled]="!yearSelected">
                 <option value="default" disabled>Select Exam Type</option>
-                <option value="annual" >Annual</option>
-                <option value="supply" >Supply</option>
+                <option [value]="et?.title" *ngFor="let et of examTypes">{{et?.title}}</option>
               </select>
             </div>
           </div>
