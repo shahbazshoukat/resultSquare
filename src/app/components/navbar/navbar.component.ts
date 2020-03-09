@@ -199,6 +199,8 @@ export class NavbarComponent implements OnInit {
 
             this.years = response.data;
 
+            this.years.reverse();
+
             if (!this.years || this.years.length === 0) {
 
               this.isError = true;
@@ -346,11 +348,15 @@ export class NavbarComponent implements OnInit {
 
   findResult() {
 
-    if (this.selectedClass && this.selectedBoard && this.selectedYear && this.selectedExamType
+    const selBoard = this.boards.find(b => b._id === this.selectedBoard);
+
+    const selClass = this.classes.find(c => c._id === this.selectedClass);
+
+    if (selClass && selClass.title && selBoard && selBoard.key && this.selectedYear && this.selectedExamType
          && this.selectedClass !== 'default' && this.selectedBoard !== 'default' && this.selectedYear !== 'default'
          && this.selectedExamType !== 'default') {
 
-     const url = `/result/${this.selectedClass}/${this.selectedBoard}/${this.selectedYear}/${this.selectedExamType}`;
+     const url = `/result/${selClass.title}/${selBoard.key}/${this.selectedYear}/${this.selectedExamType}`;
 
      this.router.navigate([url]);
 

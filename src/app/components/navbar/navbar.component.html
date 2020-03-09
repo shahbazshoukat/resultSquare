@@ -36,7 +36,7 @@
           <div class="col-md-3">
             <div class="form-group">
               <label class="form-control-label text-white">Board</label>
-              <select name="board" class="form-control form-control-alternative" [value]="selectedBoardKey" (change)="onBoardSelected($event)"  [disabled]="!classSelected">
+              <select name="board" class="form-control form-control-alternative" [value]="selectedBoard" (change)="onBoardSelected($event)"  [disabled]="!classSelected">
                 <option value="default" disabled>Select Board</option>
                 <option [value]="board?._id" *ngFor="let board of boards" >{{board?.title}}</option>
               </select>
@@ -47,7 +47,7 @@
               <label class="form-control-label text-white">Year</label>
               <select name="year" class="form-control form-control-alternative" [value]="selectedYear" (change)="onYearSelected($event)" [disabled]="!boardSelected">
                 <option value="default" disabled>Select Year</option>
-                <option [value]="year?.year" *ngFor="let year of years" >{{year?.year}}</option>
+                <option [value]="year" *ngFor="let year of years" >{{year}}</option>
               </select>
             </div>
           </div>
@@ -56,7 +56,7 @@
               <label class="form-control-label text-white">Exam Type</label>
               <select name="examType" class="form-control form-control-alternative" [value]="selectedExamType" (change)="onExamTypeSelected($event)" [disabled]="!yearSelected">
                 <option value="default" disabled>Select Exam Type</option>
-                <option [value]="et?.title" *ngFor="let et of examTypes">{{et?.title}}</option>
+                <option class="text-capitalize" [value]="et?.title" *ngFor="let et of examTypes">{{et?.title}}</option>
               </select>
             </div>
           </div>

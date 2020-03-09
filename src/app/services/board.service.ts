@@ -56,7 +56,7 @@ export class BoardService {
   }
 
   getBoardsBySectionId(sectionId: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/board/section/' + sectionId);
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/boards/section/' + sectionId);
   }
 
   updateBoard(
