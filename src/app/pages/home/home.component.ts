@@ -60,6 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   selectedClass = 'default';
   getClassesSubscription$: any;
   boards = [];
+  filteredBoards = [];
   selectedBoardKey = 'default';
   getBoardsSubscription$: any;
   selectedStatus = true;
@@ -139,6 +140,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       response => {
 
         this.boards = response.data;
+
+        this.filteredBoards = this.boards;
 
         if (!this.boards || this.boards.length === 0) {
 
@@ -253,6 +256,26 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.selectedProvince = province;
 
       this.filterResults();
+
+      if (province === 'All') {
+
+        this.filteredBoards = this.boards;
+
+        return;
+
+      }
+
+      this.filteredBoards = [];
+
+      for (const board of this.boards) {
+
+        if (board && board.province === province) {
+
+          this.filteredBoards.push(board);
+
+        }
+
+      }
 
     }
 

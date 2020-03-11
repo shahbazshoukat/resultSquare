@@ -50,13 +50,30 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
   }
 
-  removeClass(classId: string) {
+  removeClass(clas: any) {
+
+    const confirmed = confirm('Are you sure you want to remove?');
+
+    if (!confirmed) {
+
+      return;
+
+    }
+
+    const classtoRemove = prompt('Enter name of class to remove');
+
+    if (classtoRemove !== clas.title) {
+
+      return;
+
+    }
+
     this.isLoading = true;
-    this.removeClassSub = this.classService.deleteClass(classId).subscribe(
+    this.removeClassSub = this.classService.deleteClass(clas._id).subscribe(
       response => {
       if (response.success && response.message && response.data) {
         this.classes.forEach((cls, index) => {
-          if (cls._id === classId) {
+          if (cls._id === clas._id) {
              this.classes.splice(index, 1);
           }
         });

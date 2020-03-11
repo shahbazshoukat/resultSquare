@@ -53,7 +53,7 @@
                 <select [disabled]="isLoading" name="board" class="form-control form-control-alternative" [value]="selectedBoardKey" (change)="filterByBoard($event)">
                   <option value="default" disabled>Filter By Board</option>
                   <option value="default">Clear Filter</option>
-                  <option [value]="board?.key" *ngFor="let board of boards" >{{board?.title}}</option>
+                  <option [value]="board?.key" *ngFor="let board of filteredBoards" >{{board?.title}}</option>
                 </select>
               </div>
             </div>

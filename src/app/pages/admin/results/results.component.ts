@@ -74,13 +74,30 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.router.navigate(['/rs-admin/add-result', {resultId: resultId}]);
   }
 
-  removeResult(resultId: string) {
+  removeResult(result: any) {
+
+    const confirmed = confirm('Are you sure you want to remove?');
+
+    if (!confirmed) {
+
+      return;
+
+    }
+
+    const resultToRemove = prompt('Enter name of year to remove result');
+
+    if (resultToRemove !== result.year) {
+
+      return;
+
+    }
+
     this.isLoading = true;
-    this.removeResultSub = this.resultService.deleteResult(resultId).subscribe(
+    this.removeResultSub = this.resultService.deleteResult(result._id).subscribe(
       response => {
       if (response.success && response.message) {
         this.results.forEach((res, index) => {
-          if (res._id === resultId) {
+          if (res._id === result._id) {
             this.results.splice(index, 1);
           }
         });
