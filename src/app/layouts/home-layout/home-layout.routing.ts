@@ -10,12 +10,12 @@ import {PageNotFoundComponent} from '../../pages/page-not-found/page-not-found.c
 
 export const HomeLayoutRoutes: Routes = [
     { path: '',         component: HomeComponent },
-    { path: 'result/:classTitle',         component: SelectBoardComponent },
-    { path: 'result/:classTitle/:boardKey', component: SelectYearComponent },
-    { path: 'result/:classTitle/:boardKey/:year', component: SelectExamComponent},
+    // { path: 'result/:classTitle',         component: SelectBoardComponent },
+    // { path: 'result/:classTitle/:boardKey', component: SelectYearComponent },
+    // { path: 'result/:classTitle/:boardKey/:year', component: SelectExamComponent},
     { path: 'result/:classTitle/:boardKey/:year/:examType', component: EnterRollNoComponent},
-    { path: 'test/:testTitle', component: EnterRollNoComponent},
-    { path: 'uni/:classTitle/:uniKey', component: EnterRollNoComponent},
-    { path: 'class/:classTitle', component: SelectSubClassComponent },
+    // { path: 'test/:testTitle', component: EnterRollNoComponent},
+    // { path: 'uni/:classTitle/:uniKey', component: EnterRollNoComponent},
+    // { path: 'class/:classTitle', component: SelectSubClassComponent },
     { path: '**', redirectTo: '' }
 ];

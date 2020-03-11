@@ -267,6 +267,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       this.filteredBoards = [];
 
+      this.selectedBoardKey = 'default';
+
       for (const board of this.boards) {
 
         if (board && board.province === province) {
