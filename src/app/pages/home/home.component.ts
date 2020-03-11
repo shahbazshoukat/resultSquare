@@ -255,6 +255,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       this.selectedProvince = province;
 
+      this.selectedBoardKey = 'default';
+
+      this.selectedClass = 'default';
+
       this.filterResults();
 
       if (province === 'All') {
@@ -266,8 +270,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
 
       this.filteredBoards = [];
-
-      this.selectedBoardKey = 'default';
 
       for (const board of this.boards) {
 
