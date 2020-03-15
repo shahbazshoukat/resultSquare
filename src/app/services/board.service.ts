@@ -1,9 +1,7 @@
-import {Board} from '../models/board.model';
+import { Board } from '@app/models';
 import { Injectable } from '@angular/core';
-import {Subject, Observable} from 'rxjs';
-import { map } from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
 export class BoardService {

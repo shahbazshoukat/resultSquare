@@ -26,7 +26,7 @@
         <div class="row">
           <div class="col-md-3">
             <div class="form-group">
-              <label class="form-control-label text-white">Class</label>
+              <label class="form-control-label text-white">Class/Test</label>
               <select name="class" class="form-control form-control-alternative" [value]="selectedClass" (change)="onClassSelected($event)">
                 <option value="default" disabled>Select Class</option>
                 <option [value]="cls?._id" *ngFor="let cls of classes">{{cls?.title}}</option>
@@ -35,7 +35,7 @@
           </div>
           <div class="col-md-3">
             <div class="form-group">
-              <label class="form-control-label text-white">Board</label>
+              <label class="form-control-label text-white">Board/University</label>
               <select name="board" class="form-control form-control-alternative" [value]="selectedBoard" (change)="onBoardSelected($event)"  [disabled]="!classSelected">
                 <option value="default" disabled>Select Board</option>
                 <option [value]="board?._id" *ngFor="let board of boards" >{{board?.title}}</option>

@@ -47,10 +47,10 @@
                   {{result.year}}
                 </td>
                 <td>
-                  {{result.examType === 0 ? 'Annual' : 'Supply'}}
+                  {{extractExamType(result.examType)}}
                 </td>
                 <td>
-                  {{result.announceDate.day + "-" + result.announceDate.month + "-" + result.announceDate.year }}
+                  {{extractDate(result.announceDate)}}
                 </td>
                 <td>
                   <label class="custom-toggle">

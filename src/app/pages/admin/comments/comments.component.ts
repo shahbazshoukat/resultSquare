@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ClassService } from 'src/app/services/class.service';
+import { ClassService } from '@app/services';
 import { Router, ParamMap, ActivatedRoute } from '@angular/router';
-import {AnimationOptions} from 'ngx-lottie';
-import {AnimationItem} from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
+import { AnimationItem } from 'lottie-web';
 import { AlertService } from 'ngx-alerts';
-import {ResultService} from '@app/services/result.service';
-import {BoardService} from '@app/services/board.service';
+import { ResultService } from '@app/services';
+import { BoardService } from '@app/services';
 
 @Component({
   selector: 'app-comments',

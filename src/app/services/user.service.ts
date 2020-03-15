@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../models/user.model';
+import { User } from '@app/models';
 
 
 @Injectable({ providedIn: 'root' })
@@ -13,12 +13,6 @@ export class UsersService {
   setUserName(name: string) {
 
     this.username = name;
-
-  }
-
-  getUserName() {
-
-    return this.username;
 
   }
 

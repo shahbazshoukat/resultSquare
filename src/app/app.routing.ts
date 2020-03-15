@@ -2,12 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-
-import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { AuthGuard } from './guards/auth.guard';
-import {PageNotFoundComponent} from './pages/page-not-found/page-not-found.component';
+import { HomeLayoutComponent } from '@app/layouts/home-layout/home-layout.component';
+import { AdminLayoutComponent } from '@app/layouts/admin-layout/admin-layout.component';
+import { AuthLayoutComponent } from '@app/layouts/auth-layout/auth-layout.component';
+import { AuthGuard } from '@app/guards/auth.guard';
+import { PageNotFoundComponent } from '@app/pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '404', component: PageNotFoundComponent},
@@ -18,7 +17,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
+        loadChildren: () => import('@app/layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
       }
     ]
   },
@@ -28,7 +27,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./layouts/auth-layout/auth-layout.module').then(m => m.AuthLayoutModule)
+        loadChildren: () => import('@app/layouts/auth-layout/auth-layout.module').then(m => m.AuthLayoutModule)
       }
     ]
   },
@@ -38,7 +37,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./layouts/home-layout/home-layout.module').then(m => m.HomeLayoutModule)
+        loadChildren: () => import('@app/layouts/home-layout/home-layout.module').then(m => m.HomeLayoutModule)
       }
     ]
   }

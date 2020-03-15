@@ -1,13 +1,14 @@
-
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthLayoutRoutes } from './auth-layout.routing';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
+import { AuthLayoutRoutes } from '@app/layouts/auth-layout/auth-layout.routing';
 
-import { LoginComponent } from '../../pages/admin/login/login.component';
-import { RegisterComponent } from '../../pages/admin/register/register.component';
+import {
+  LoginComponent,
+  RegisterComponent
+} from '@app/pages/admin';
+
 import { AlertModule, AlertService } from 'ngx-alerts';
 
 import { LottieModule } from 'ngx-lottie';
@@ -23,7 +24,6 @@ export function playerFactory() {
     FormsModule,
     LottieModule.forRoot({ player: playerFactory, useCache: true }),
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'right'})
-    // NgbModule
   ],
   declarations: [
     LoginComponent,

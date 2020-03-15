@@ -1,11 +1,11 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import { ResultService } from 'src/app/services/result.service';
-import {Location} from '@angular/common';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ResultService } from '@app/services';
+import { Location } from '@angular/common';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
-import {BoardService} from '../../services/board.service';
-import {NgForm} from '@angular/forms';
+import { BoardService } from '@app/services';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-enter-rollno',
@@ -19,11 +19,6 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
   selectedYear;
   selectedExamType;
   selectedBoard;
-  selectedTest;
-  selectedUniKey;
-  selectedUni;
-  isTest = false;
-  isUni = false;
   resultTitle;
   resultDescription;
   resultData;
@@ -35,8 +30,8 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
   url = '';
   announced = false;
   announceDate = '';
-  paramSub: any;
-  serviceSub: any;
+  paramSubscription$: any;
+  resultSubscription$: any;
   commentName = '';
   commentText = '';
   comments = [];
@@ -73,19 +68,15 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.isTest = false;
-
-    this.isUni = false;
-
     this.resultTitle = '';
 
-    this.paramSub = this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    this.paramSubscription$ = this.route.paramMap.subscribe((paramMap: ParamMap) => {
 
       if (paramMap.has('boardKey')) {
 
         this.selectedBoardKey = paramMap.get('boardKey');
 
-        this.selectedBoard = this.selectedBoardKey.replace(/-/g, ' ');
+        this.selectedBoard = this.selectedBoardKey && this.selectedBoardKey.replace(/-/g, ' ');
 
         if (paramMap.has('classTitle')) {
 
@@ -107,13 +98,30 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
         }
 
-        this.resultTitle = `${this.selectedBoard} ${this.selectedClass} Class ${this.selectedExamType} Result ${this.selectedYear}`;
-
-        this.resultDescription = `${this.selectedExamType} result of ${this.selectedClass} class ${this.selectedBoard} board ${this.selectedYear}`;
+        this.getResultTitleAndDescription();
 
       }
 
     });
+
+  }
+
+  getResultTitleAndDescription() {
+
+    if (this.selectedExamType && this.selectedExamType === 'test') {
+
+      this.resultTitle = `${this.selectedClass} Result ${this.selectedYear}`;
+
+      this.resultDescription = `Result of ${this.selectedClass} ${this.selectedYear}`;
+
+    } else {
+
+      this.resultTitle = `${this.selectedBoard} ${this.selectedClass} Class ${this.selectedExamType} Result ${this.selectedYear}`;
+
+      // tslint:disable-next-line:max-line-length
+      this.resultDescription = `${this.selectedExamType} result of ${this.selectedClass} class ${this.selectedBoard} board ${this.selectedYear}`;
+
+    }
 
   }
 
@@ -148,7 +156,8 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
       this.errorMsg = '';
 
-      this.serviceSub = this.resultService.getResult(this.selectedClass, this.selectedBoardKey, this.selectedYear, this.selectedExamType)
+      // tslint:disable-next-line:max-line-length
+      this.resultSubscription$ = this.resultService.getResult(this.selectedClass, this.selectedBoardKey, this.selectedYear, this.selectedExamType)
         .subscribe(
 
           response => {
@@ -161,11 +170,14 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
               if (!this.announced) {
 
-                this.isLoading = false;
+                // tslint:disable-next-line:max-line-length
+                if (this.resultData.announceDate) {
 
-                if (this.resultData.announceDate && this.resultData.announceDate.day && this.resultData.announceDate.month && this.resultData.announceDate.year) {
+                  const annDate = new Date(this.resultData.announceDate);
+                  // tslint:disable-next-line:max-line-length
+                  this.announceDate = `${annDate.getDate()}/${annDate.getMonth() + 1}/${annDate.getFullYear()}`;
 
-                  this.announceDate = `${this.resultData.announceDate.day}/${this.resultData.announceDate.month}/${this.resultData.announceDate.year}`;
+                  console.log(this.announceDate);
 
                 }
 
@@ -190,6 +202,8 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
                 window.open(this.url, '_blank');
 
               }
+
+              this.isLoading = false;
 
             } else {
 
@@ -305,49 +319,40 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
       this.isLoading = true;
 
-      if (this.isTest || this.isUni) {
+      this.addCommentSubscription$ = this.resultService.addComment(this.resultData._id, comment)
+        .subscribe(
+        response => {
 
-        this.addCommentSubscription$ = this.boardService.addComment(this.resultData._id, comment).subscribe(
-          response => {
-            this.comments.reverse();
-            this.comments.push(response.data);
-            this.comments.reverse();
-            form.resetForm();
-            this.isLoading = false;
-          },
-          error => {
-            console.log(error);
-            this.isLoading = false;
-          }
-        );
+          this.comments.reverse();
 
-      } else {
+          this.comments.push(response.data);
 
-        this.addCommentSubscription$ = this.resultService.addComment(this.resultData._id, comment).subscribe(
-          response => {
-            this.comments.reverse();
-            this.comments.push(response.data);
-            this.comments.reverse();
-            form.resetForm();
-            this.isLoading = false;
-          },
-          error => {
-            console.log(error);
-            this.isLoading = false;
-          }
-        );
+          this.comments.reverse();
 
-      }
+          form.resetForm();
+
+          this.isLoading = false;
+
+        },
+        error => {
+
+          this.isLoading = false;
+
+        });
 
     }
 
   }
+
   ngOnDestroy() {
 
-    this.paramSub && this.paramSub.unsubscribe();
+    // tslint:disable-next-line:no-unused-expression
+    this.paramSubscription$ && this.paramSubscription$.unsubscribe();
 
-    this.serviceSub && this.serviceSub.unsubscribe();
+    // tslint:disable-next-line:no-unused-expression
+    this.resultSubscription$ && this.resultSubscription$.unsubscribe();
 
+    // tslint:disable-next-line:no-unused-expression
     this.addCommentSubscription$ && this.addCommentSubscription$.unsubscribe();
 
   }

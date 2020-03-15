@@ -63,16 +63,16 @@
           <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngFor="let res of filteredResults  | paginate: { itemsPerPage: 20, currentPage: selectedPageNo, totalItems: filteredResults?.length}" >
             <div class="result-card-main card shadow-lg bg-white result-card">
               <div class="result-card-tile text-left">
-                <span class="badge text-muted text-capitalize">{{res?.board?.title}}</span>
+                <span class="badge text-success text-capitalize">{{res?.board?.title}}</span>
               </div>
               <div class="result-card-tile">
-                <span class="text-capitalize text-bold">{{res?.section?.title}} class {{res?.examType}} result</span>
+                <span class="text-capitalize text-bold">{{res?.section?.title}} {{extractExamType(res?.examType)}} result</span>
               </div>
               <div class="result-card-tile">
                 <span class="text-capitalize text-bold">{{res?.year}}</span>
               </div>
               <div class="result-card-tile mt-3">
-                <button class="btn btn-outline-success btn-sm"  [routerLink] = "['/result'+'/'+res?.section?.title+'/'+res?.board?.key+'/'+res?.year+'/'+res?.examType]" >View Result</button>
+                <button class="btn btn-outline-success btn-sm"  (click)="viewResult(res)" >View Result</button>
               </div>
             </div>
           </div>

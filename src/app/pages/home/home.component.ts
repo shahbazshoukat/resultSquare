@@ -1,11 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
-import {ResultService} from '@app/services/result.service';
-import {PaginationInstance} from 'ngx-pagination';
-import {ClassService} from '@app/services/class.service';
-import {BoardService} from '@app/services/board.service';
+import { ResultService } from '@app/services';
+import { PaginationInstance } from 'ngx-pagination';
+import { ClassService } from '@app/services';
+import { BoardService } from '@app/services';
+import * as Enums from '@app/app.enums';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   isLoading = true;
   isError = false;
   errorMsg = '';
-  serviceSub: any;
   result: any;
   provinces = [
     'All',
@@ -30,11 +30,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     'Federal'
   ];
   selectedProvince = 'All';
- status: {
-   Announced: { value: true, selected: true},
-   UnAnnounced: { value: false, selected: false}
- };
-  showSearchResults = false;
+   status: {
+     Announced: { value: true, selected: true},
+     UnAnnounced: { value: false, selected: false}
+   };
   loadingAnimOptions: AnimationOptions = {
     path: '/assets/lib/loading-spinner.json'
   };
@@ -48,7 +47,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   results = [];
   filteredResults = [];
   totalResults = 0;
-  noOfPages = 0;
   pages;
   selectedPageNo = 1;
   resultsSubscription$: any;
@@ -98,17 +96,25 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.isError = false;
     this.errorMsg = '';
     this.selectedClass = 'default';
-    this.getClassesSubscription$ = this.classService.getAllClasses().subscribe(
+
+    this.getClassesSubscription$ = this.classService.getAllClasses()
+      .subscribe(
       response => {
+
         if (response.success && response.data) {
 
           this.classes = response.data;
+
           if (!this.classes || this.classes.length === 0) {
+
             this.isError = true;
+
             this.errorMsg = 'No Class Found';
+
           }
           // this.isLoading = false;
         }
+
       },
       error => {
 
@@ -188,13 +194,23 @@ export class HomeComponent implements OnInit, OnDestroy {
 
             this.results = response.data;
 
-            this.filteredResults = this.results;
+            if (this.results) {
 
-            this.selectedProvince = 'All';
+              this.filteredResults = this.results;
 
-            this.totalResults = this.results && this.results.length;
+              this.selectedProvince = 'All';
 
-            this.filterByStatus(true);
+              this.totalResults = this.results && this.results.length;
+
+              this.filterByStatus(true);
+
+            } else {
+
+              this.isError = true;
+
+              this.errorMsg = '404 - Not Found';
+
+            }
 
           }
 
@@ -339,7 +355,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onPageChange(event) {
-    console.log(event);
     this.config.currentPage = event;
   }
 
@@ -361,9 +376,55 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
 
+  extractExamType(exam) {
+
+    if (exam === Enums.EXAM_TYPE.ANNUAL) {
+
+      return 'Class Annual';
+
+    } else if (exam === Enums.EXAM_TYPE.SUPPLY) {
+
+      return 'Class Supply';
+
+    } else if (exam === Enums.EXAM_TYPE.TEST) {
+
+      return 'Test';
+
+    }
+
+  }
+
+  viewResult(result) {
+
+    if (result) {
+
+      let eType = 'annual';
+
+      if (result.examType === Enums.EXAM_TYPE.ANNUAL) {
+
+        eType = 'annual';
+
+      } else if (result.examType === Enums.EXAM_TYPE.SUPPLY) {
+
+        eType = 'supply';
+
+      } else if (result.examType === Enums.EXAM_TYPE.TEST) {
+
+        eType = 'test';
+
+      }
+
+      this.router.navigate(['/result' + '/' + result.section.title + '/' + result.board.key + '/' + result.year + '/' + eType]);
+
+    }
+
+  }
+
   ngOnDestroy() {
 
-    this.serviceSub && this.serviceSub.unsubscribe();
+    this.getClassesSubscription$ && this.getClassesSubscription$.unsubscribe();
+    this.getBoardsSubscription$ && this.getBoardsSubscription$.unsubscribe();
+    this.resultsSubscription$ && this.resultsSubscription$.unsubscribe();
 
   }
 

@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BoardService } from 'src/app/services/board.service';
-import { Router, NavigationExtras } from '@angular/router';
-import {AnimationOptions} from 'ngx-lottie';
-import {AnimationItem} from 'lottie-web';
+import { BoardService } from '@app/services';
+import { Router } from '@angular/router';
+import { AnimationOptions } from 'ngx-lottie';
+import { AnimationItem } from 'lottie-web';
 import { AlertService } from 'ngx-alerts';
 
 @Component({

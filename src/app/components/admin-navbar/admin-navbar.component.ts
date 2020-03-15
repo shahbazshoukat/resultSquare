@@ -1,16 +1,16 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { UsersService } from 'src/app/services/user.service';
-import {AlertService} from 'ngx-alerts';
+import { UsersService } from '@app/services';
+import { AlertService } from 'ngx-alerts';
 
 @Component({
   selector: 'app-admin-navbar',
   templateUrl: './admin-navbar.component.html',
   styleUrls: ['./admin-navbar.component.scss']
 })
-export class AdminNavbarComponent implements OnInit {
+export class AdminNavbarComponent implements OnInit, OnDestroy {
   public focus;
   public listTitles: any[];
   public location: Location;

@@ -1,19 +1,18 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import {ClassService} from '@app/services/class.service';
-import {BoardService} from '@app/services/board.service';
+import { ClassService } from '@app/services';
+import { BoardService } from '@app/services';
 import * as Enums from '@app/app.enums';
-import {ResultService} from '@app/services/result.service';
-import {AnimationOptions} from 'ngx-lottie';
-import {AnimationItem} from 'lottie-web';
+import { ResultService } from '@app/services';
+import { AnimationOptions } from 'ngx-lottie';
+import { AnimationItem } from 'lottie-web';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
   isLoading = false;
   isError = false;
@@ -361,6 +360,15 @@ export class NavbarComponent implements OnInit {
      this.router.navigate([url]);
 
     }
+
+  }
+
+  ngOnDestroy() {
+
+    this.getExamTypesSubscription$ && this.getExamTypesSubscription$.unsubscribe();
+    this.getResultYearsSubscription$ && this.getResultYearsSubscription$.unsubscribe();
+    this.getBoardsSubscription$ && this.getBoardsSubscription$.unsubscribe();
+    this.getClassesSubscription$ && this.getClassesSubscription$.unsubscribe();
 
   }
 
