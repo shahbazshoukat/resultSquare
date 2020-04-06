@@ -61,7 +61,7 @@
         </div>
         <div class="row text-center mt-4">
           <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngFor="let res of filteredResults  | paginate: { itemsPerPage: 20, currentPage: selectedPageNo, totalItems: filteredResults?.length}" >
-            <div class="result-card-main card shadow-lg bg-white result-card">
+            <div class="result-card-main card shadow-lg bg-white result-card" (click)="viewResult(res)">
               <div class="result-card-tile text-left">
                 <span class="badge text-success text-capitalize">{{res?.board?.title}}</span>
               </div>

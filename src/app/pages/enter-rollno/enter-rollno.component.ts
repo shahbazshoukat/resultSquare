@@ -14,6 +14,9 @@ import { NgForm } from '@angular/forms';
 })
 export class EnterRollNoComponent implements OnInit, OnDestroy {
 
+  // @ts-ignore
+  @ViewChild('resultPage') resultPage: ElementRef;
+
   selectedBoardKey;
   selectedClass;
   selectedYear;
@@ -104,6 +107,8 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
     });
 
+    this.resultPage.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+
   }
 
   getResultTitleAndDescription() {
@@ -177,9 +182,9 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
                   // tslint:disable-next-line:max-line-length
                   this.announceDate = `${annDate.getDate()}/${annDate.getMonth() + 1}/${annDate.getFullYear()}`;
 
-                  console.log(this.announceDate);
-
                 }
+
+                this.isLoading = false;
 
               }
 
@@ -202,8 +207,6 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
                 window.open(this.url, '_blank');
 
               }
-
-              this.isLoading = false;
 
             } else {
 

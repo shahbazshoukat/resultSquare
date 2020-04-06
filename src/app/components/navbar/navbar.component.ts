@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { ClassService } from '@app/services';
 import { BoardService } from '@app/services';
@@ -13,6 +13,9 @@ import { AnimationItem } from 'lottie-web';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+
+  // @ts-ignore
+  @ViewChild('findBtn') findBtn: ElementRef;
 
   isLoading = false;
   isError = false;
@@ -361,6 +364,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     }
 
+  }
+
+  scrollToElement($element): void {
+    $element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
   }
 
   ngOnDestroy() {

@@ -1,6 +1,6 @@
 
 <!-- Page content -->
-<div class="container-fluid mt--5 bg-secondary">
+<div class="container-fluid mt--5 bg-secondary"  #resultPage>
   <!-- Table -->
   <div class=" order-xl-1 bg-secondary">
     <div class="bg-secondary">
@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="row justify-content-center border-2 mt-5" >
+      <div class="row justify-content-center border-2 mt-5">
           <div class="col-lg-6 col-md-7 ">
             <div class="card border-0 bg-transparent">
               <div class="card-body">
@@ -35,6 +35,16 @@
               </div>
             </div>
           </div>
+      </div>
+
+      <div class="row justify-content-center border-2 mt-100" *ngIf="!announced && !isError && !isLoading">
+        <div class="col-12 text-center">
+          <div style="margin-top: 30px;" *ngIf="resultData && resultData.announceDate">
+            <span class="text-capitalize">{{resultTitle}} is not announced yet,<br/> will probably be announced on </span>
+            <div class="announce-date font-weight-bold">{{announceDate}}</div>
+            <div>Keep visiting <a [routerLink]="['/']" >ResultSquare</a> for Latest updates.</div>
+          </div>
+        </div>
       </div>
 
       <div *ngIf="!isError" class="row justify-content-center border-5 mt-100 custom-res-pad" id="print" >
@@ -52,18 +62,6 @@
           </div>
           <div class="card shadow border-0 bg-secondary">
             <iframe target="_self" id="resultFrame" name="resultFrame" class="custom-iframe" [src]="url | safe" (change)="isLoading = true;" (load)="isLoading = false;"></iframe>
-          </div>
-        </div>
-      </div>
-
-      <div class="row justify-content-center border-2 mt-100" *ngIf="!announced && !isError && !isLoading">
-        <div class="col-12 text-center">
-          <div >
-            <span class="badge badge-default">Not announced</span>
-          </div>
-          <div style="margin-top: 30px;" *ngIf="resultData && resultData.announceDate">
-            <span>Will be announced on </span>
-            <span class="badge badge-primary btn-sm">{{announceDate}}</span>
           </div>
         </div>
       </div>
