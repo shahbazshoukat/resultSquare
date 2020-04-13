@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UsersService } from 'src/app/services/user.service';
-import {AnimationOptions} from 'ngx-lottie';
-import {AnimationItem} from 'lottie-web';
-import {Alert, AlertService} from 'ngx-alerts';
+import { UsersService } from '@app/services';
+import { AnimationOptions } from 'ngx-lottie';
+import { AnimationItem } from 'lottie-web';
+import { AlertService } from 'ngx-alerts';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   nameValid = false;
   emailValid = false;
   passwordValid = false;
   formStatus = false;
   isLoading = true;
+  addUserSubscription$: any;
   loadingAnimOptions: AnimationOptions = {
     path: '/assets/lib/loading-spinner.json'
   };
@@ -68,7 +69,7 @@ export class RegisterComponent implements OnInit {
       this.passwordValid = true;
     }
     if (this.nameValid && this.emailValid && this.passwordValid) {
-      this.usersService.addUser(
+      this.addUserSubscription$ = this.usersService.addUser(
         form.value.name,
         form.value.email,
         form.value.password
@@ -100,5 +101,9 @@ export class RegisterComponent implements OnInit {
 
     form.resetForm();
     this.formStatus = false;
+  }
+
+  ngOnDestroy(): void {
+    this.addUserSubscription$ && this.addUserSubscription$.unsubscribe();
   }
 }

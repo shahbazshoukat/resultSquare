@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UsersService } from 'src/app/services/user.service';
+import { UsersService } from '@app/services';
 import { NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { AlertService } from 'ngx-alerts';
-import {AnimationOptions} from 'ngx-lottie';
-import {AnimationItem} from 'lottie-web';
-import {User} from '../../../models/user.model';
+import { AnimationOptions } from 'ngx-lottie';
+import { AnimationItem } from 'lottie-web';
+import { User} from '@app/models';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,8 @@ import {User} from '../../../models/user.model';
 export class LoginComponent implements OnInit, OnDestroy {
 
   isLoading = false;
-  loginSub: any;
+  loginSubscription$: any;
+  logoutSubscription$: any;
   private isAuthenticated = false;
   private token: string;
   private tokenTimer: any;
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.isError = false;
     this.errorMsg = '';
-    this.loginSub = this.usersService.loginUser(form.value.email, form.value.password).subscribe(response => {
+    this.loginSubscription$ = this.usersService.loginUser(form.value.email, form.value.password).subscribe(response => {
         const token = response.data.token;
         this.token = token;
         this.user = {
@@ -102,7 +103,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.usersService.logout().subscribe(
+    this.logoutSubscription$ = this.usersService.logout().subscribe(
       response => {
 
         this.alertService.success(response.message);
@@ -152,7 +153,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loginSub && this.loginSub.unsubscribe();
+    this.loginSubscription$ && this.loginSubscription$.unsubscribe();
+    this.logoutSubscription$ && this.logoutSubscription$.unsubscribe();
   }
 
 }

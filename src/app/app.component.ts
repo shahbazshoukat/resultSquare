@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,18 +7,19 @@ import {NavigationEnd, Router} from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'argon-dashboard-angular';
+  title = 'result-square';
 
   constructor(private router: Router) {
-  }
-
-  ngOnInit() {
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
-      window.scrollTo(0, 0);
+      scrollTo(0, 0);
     });
+  }
+
+  ngOnInit() {
+
   }
 
 }

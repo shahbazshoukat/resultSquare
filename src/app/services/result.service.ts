@@ -1,9 +1,6 @@
-import {Result} from '../models/result.model';
+import { Result } from '@app/models';
 import { Injectable } from '@angular/core';
-import {Subject, Observable} from 'rxjs';
-import { map } from 'rxjs/operators';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
 export class ResultService {
@@ -16,7 +13,7 @@ export class ResultService {
     section: string,
     board: string,
     year: string,
-    announceDate: string,
+    announceDate: any,
     examType: number,
     resultUrl: string,
     tags: string[]
@@ -35,16 +32,20 @@ export class ResultService {
     return this.http.post<{success: boolean, message: string, data: any}>('/api/result', resultData);
   }
 
-  getAllResultes() {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/results');
+  getLatestResults() {
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/results/latest');
   }
 
   getResultById(resultId: string) {
     return this.http.get<{success: boolean, message: string, data: any}>('/api/result/' + resultId);
   }
 
-  getResultYears(selectedClass, selectedBoardKey) {
-    return this.http.get<{success: boolean, message: string, data: any}>(`/api/result-year/${selectedClass}/${selectedBoardKey}`);
+  getResultYears(selectedClassId, selectedBoardId) {
+    return this.http.get<{success: boolean, message: string, data: any}>(`/api/result-year/${selectedClassId}/${selectedBoardId}`);
+  }
+
+  getExamTypes(selectedClassId, selectedBoardId, year) {
+    return this.http.get<{success: boolean, message: string, data: any}>(`/api/exam-types/${selectedClassId}/${selectedBoardId}/${year}`);
   }
 
   getResult(section, board, year, exam) {
@@ -61,7 +62,7 @@ export class ResultService {
     section: string,
     boardId: string,
     year: string,
-    announceDate: string,
+    announceDate: any,
     examType: number,
     resultUrl: string,
     tags: string[]
@@ -85,8 +86,10 @@ export class ResultService {
   }
 
   changeResultStatus(resultId: string, value: boolean) {
+
     const update = {status: value};
     return this.http.put<{success: boolean, message: string, data: any}>('/api/updateStatus/' + resultId, update);
+
   }
 
   addComment(resultId, comment) {

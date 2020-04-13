@@ -1,16 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ResultService } from 'src/app/services/result.service';
-import { ClassService } from 'src/app/services/class.service';
-import { BoardService } from 'src/app/services/board.service';
-import { Route } from '@angular/compiler/src/core';
+import { ResultService } from '@app/services';
+import { ClassService } from '@app/services';
+import { BoardService } from '@app/services';
 import { ParamMap, ActivatedRoute, Router } from '@angular/router';
-import {AnimationOptions} from 'ngx-lottie';
-import {AnimationItem} from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
+import { AnimationItem } from 'lottie-web';
 import { AlertService } from 'ngx-alerts';
 
 @Component({
-  selector: 'add-result',
+  selector: 'app-add-result',
   templateUrl: './add-result.component.html',
   styleUrls: ['./add-result.component.scss']
 })
@@ -44,6 +43,11 @@ export class AddResultComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.paramSub = this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('board')) {
+
+        this.selectedBoardKey = paramMap.get('board');
+
+      }
       if (paramMap.has('resultId')) {
         this.resultToUpdateId = paramMap.get('resultId');
         this.resultSub = this.resultService.getResultById(this.resultToUpdateId).subscribe(
@@ -51,6 +55,7 @@ export class AddResultComponent implements OnInit, OnDestroy {
           if (response.success && response.data) {
             this.isEdit = true;
             this.resultToUpdate = response.data;
+            this.resultToUpdate.annDate = this.extractDate(this.resultToUpdate.announceDate);
             this.tags = this.resultToUpdate.tags;
             this.params = this.resultToUpdate.apiParams;
             this.isLoading = false;
@@ -131,8 +136,11 @@ export class AddResultComponent implements OnInit, OnDestroy {
     if (form.value.status !== true) {
       form.value.status = false;
     }
+    const announceData = form.value.announceDate;
+    const annDate = new Date(announceData.year, announceData.month - 1, announceData.day);
     if (this.isEdit && this.resultToUpdateId) {
-      this.updateResultSub = this.resultService.updateResult(this.resultToUpdateId, form.value.status, form.value.clas, form.value.board, form.value.year, form.value.announceDate, form.value.examType, form.value.resultUrl, this.tags ).subscribe(
+      // tslint:disable-next-line:max-line-length
+      this.updateResultSub = this.resultService.updateResult(this.resultToUpdateId, form.value.status, form.value.clas, form.value.board, form.value.year, annDate, form.value.examType, form.value.resultUrl, this.tags ).subscribe(
         response => {
         if (response.success && response.message) {
           this.isLoading = false;
@@ -150,13 +158,15 @@ export class AddResultComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-      this.addResultSub = this.resultService.addResult(null, form.value.status, form.value.clas, form.value.board, form.value.year, form.value.announceDate, form.value.examType, form.value.resultUrl, this.tags ).subscribe(
+      // tslint:disable-next-line:max-line-length
+      this.addResultSub = this.resultService.addResult(null, form.value.status, form.value.clas, form.value.board, form.value.year, annDate, form.value.examType, form.value.resultUrl, this.tags ).subscribe(
         response => {
         if (response.success && response.message) {
           this.alertService.success(response.message);
           this.isLoading = false;
           this.params = [];
-          // this.tags = [];
+          this.tags = [];
+          this.router.navigate(['/rs-admin/results', this.selectedBoardKey]);
         }
       },
       error => {
@@ -166,22 +176,42 @@ export class AddResultComponent implements OnInit, OnDestroy {
         }
       });
     }
-    // form.resetForm();
+    form.resetForm();
   }
 
-  changeBoard(boardId) {
-    this.boardSub = this.boardService.getBoardById(boardId).subscribe(
-      response => {
-      this.selectedBoard = response.data;
-      this.params = this.selectedBoard.apiParams;
-      this.tags = this.selectedBoard.tags;
-    },
-    error => {
-      this.isLoading = false;
-      if (error && error.error && error.error.message) {
-        this.alertService.danger(error.error.message);
-      }
-    });
+  changeBoard(event) {
+
+    if (event) {
+
+      const boardId = event.target.value;
+
+      this.boardSub = this.boardService.getBoardById(boardId).subscribe(
+        response => {
+          this.selectedBoard = response.data;
+          this.params = this.selectedBoard.apiParams;
+          this.tags = this.selectedBoard.tags;
+        },
+        error => {
+          this.isLoading = false;
+          if (error && error.error && error.error.message) {
+            this.alertService.danger(error.error.message);
+          }
+        });
+
+    }
+
+  }
+
+  extractDate(dateStr) {
+
+    const date = new Date(dateStr);
+
+    return {
+      day: date.getDate(),
+      month: date.getMonth() + 1,
+      year: date.getFullYear()
+    };
+
   }
 
   ngOnDestroy() {

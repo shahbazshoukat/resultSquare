@@ -1,15 +1,15 @@
-import { Component, OnInit, ErrorHandler, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NgForm } from '@angular/forms';
-import { ClassService } from 'src/app/services/class.service';
-import { BoardService } from 'src/app/services/board.service';
+import { ClassService } from '@app/services';
+import { BoardService } from '@app/services';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import {AnimationOptions} from 'ngx-lottie';
-import {AnimationItem} from 'lottie-web';
-import {AlertService} from 'ngx-alerts';
+import { AnimationOptions } from 'ngx-lottie';
+import { AnimationItem } from 'lottie-web';
+import { AlertService } from 'ngx-alerts';
 
 @Component({
-  selector: 'add-board',
+  selector: 'app-add-board',
   templateUrl: './add-board.component.html',
   styleUrls: ['./add-board.component.scss']
 })
@@ -17,7 +17,6 @@ export class AddBoardComponent implements OnInit, OnDestroy {
 
   examTypes = [];
   selectedExamTypes = [];
-  selectedET = [];
   examTypesSettings: IDropdownSettings = {};
   classes = [];
   params: string[] = [];
@@ -25,7 +24,6 @@ export class AddBoardComponent implements OnInit, OnDestroy {
   selectedClasses = [];
   selectedCls = [];
   classesSettings: IDropdownSettings = {};
-  cities: string[] = [];
   boardToUpdate = null;
   boardToUpdateId;
   isEdit = false;
@@ -143,6 +141,7 @@ export class AddBoardComponent implements OnInit, OnDestroy {
       this.selectedCls.push(cls._id);
     });
     if (this.isEdit && this.boardToUpdateId) {
+      // tslint:disable-next-line:max-line-length
       this.updateBoardSub = this.boardService.updateBoard(this.boardToUpdateId, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.type,  form.value.webUrl, form.value.resultUrl, this.tags)
       .subscribe(response => {
         if (response) {
@@ -165,6 +164,7 @@ export class AddBoardComponent implements OnInit, OnDestroy {
         }
       });
     } else {
+      // tslint:disable-next-line:max-line-length
       this.addBoardSub = this.boardService.addBoard(null, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes, this.selectedCls, form.value.type, form.value.webUrl, form.value.resultUrl, this.tags)
       .subscribe(
         response => {

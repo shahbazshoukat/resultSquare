@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ClassService } from 'src/app/services/class.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Class } from '../../../models/class.model';
-import {AnimationOptions} from 'ngx-lottie';
-import {AnimationItem} from 'lottie-web';
-import {AlertService} from 'ngx-alerts';
+import { Class } from '@app/models';
+import { AnimationOptions } from 'ngx-lottie';
+import { AnimationItem } from 'lottie-web';
+import { AlertService } from 'ngx-alerts';
 
 @Component({
-  selector: 'add-class',
+  selector: 'app-add-class',
   templateUrl: './add-class.component.html',
   styleUrls: ['./add-class.component.scss']
 })

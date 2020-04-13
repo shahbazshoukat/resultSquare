@@ -2,14 +2,10 @@ import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  Router,
-  ActivatedRoute,
-  ParamMap
+  Router
 } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-import { UsersService } from '../services/user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -17,10 +13,7 @@ export class AuthGuard implements CanActivate {
     private router: Router
   ) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean | Observable<boolean> | Promise<boolean> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
     const token = localStorage.getItem('token');
     if (!token) {
       this.router.navigate(['']);

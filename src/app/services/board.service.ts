@@ -1,9 +1,7 @@
-import {Board} from '../models/board.model';
+import { Board } from '@app/models';
 import { Injectable } from '@angular/core';
-import {Subject, Observable} from 'rxjs';
-import { map } from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
 export class BoardService {
@@ -55,8 +53,8 @@ export class BoardService {
     return this.http.get<{success: boolean, message: string, data: any}>('/api/boards/section/' + sectionTitle);
   }
 
-  getBoardBySection(sectionTitle: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/board/section/' + sectionTitle);
+  getBoardsBySectionId(sectionId: string): Observable<any> {
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/boards/section/' + sectionId);
   }
 
   updateBoard(

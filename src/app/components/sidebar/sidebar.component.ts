@@ -1,7 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/user.service';
-import {AlertService} from 'ngx-alerts';
+import { AlertService } from 'ngx-alerts';
 
 declare interface RouteInfo {
     path: string;

@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     } else {
 
-      const authRequest = req.clone({ setHeaders: { 'x-access-token': 'abcd' } });
+      const authRequest = req.clone({ setHeaders: { 'x-access-token': 'null' } });
       return next.handle(authRequest);
 
     }

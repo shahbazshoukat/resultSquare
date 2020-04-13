@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import { ResultService } from 'src/app/services/result.service';
-import {Location} from '@angular/common';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ResultService } from '@app/services';
+import { Location } from '@angular/common';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
-import {BoardService} from '../../services/board.service';
-import {NgForm} from '@angular/forms';
+import { BoardService } from '@app/services';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-enter-rollno',
@@ -14,17 +14,16 @@ import {NgForm} from '@angular/forms';
 })
 export class EnterRollNoComponent implements OnInit, OnDestroy {
 
+  // @ts-ignore
+  @ViewChild('resultPage') resultPage: ElementRef;
+
   selectedBoardKey;
   selectedClass;
   selectedYear;
   selectedExamType;
   selectedBoard;
-  selectedTest;
-  selectedUniKey;
-  selectedUni;
-  isTest = false;
-  isUni = false;
   resultTitle;
+  resultDescription;
   resultData;
   tags = [];
   result = 'NO RESULT FOUND';
@@ -34,8 +33,8 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
   url = '';
   announced = false;
   announceDate = '';
-  paramSub: any;
-  serviceSub: any;
+  paramSubscription$: any;
+  resultSubscription$: any;
   commentName = '';
   commentText = '';
   comments = [];
@@ -60,6 +59,9 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
   };
 
   errorAnim: AnimationItem;
+  // @ts-ignore
+  @ViewChild('subheader')
+  subheader: ElementRef;
 
   constructor(private route: ActivatedRoute,
               private resultService: ResultService,
@@ -69,52 +71,15 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.isTest = false;
-
-    this.isUni = false;
-
     this.resultTitle = '';
 
-    this.paramSub = this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    this.paramSubscription$ = this.route.paramMap.subscribe((paramMap: ParamMap) => {
 
-      if (paramMap.has('testTitle')) {
-
-        this.selectedTest = paramMap.get('testTitle');
-
-        this.isTest = true;
-
-        this.announced = true;
-
-        this.resultTitle = `${this.selectedTest} Result`;
-
-        this.getTestBoard();
-
-      } else if (paramMap.has('uniKey')) {
-
-        this.selectedUniKey = paramMap.get('uniKey');
-
-        this.selectedUni = this.selectedUniKey.replace(/-/g, ' ');
-
-        this.isUni = true;
-
-        this.announced = true;
-
-        if (paramMap.has('classTitle')) {
-
-          this.selectedClass = paramMap.get('classTitle');
-
-        }
-
-        this.resultTitle = `${this.selectedUni} ${this.selectedClass} Result`;
-
-        this.getUniBoard();
-
-
-      } else if (paramMap.has('boardKey')) {
+      if (paramMap.has('boardKey')) {
 
         this.selectedBoardKey = paramMap.get('boardKey');
 
-        this.selectedBoard = this.selectedBoardKey.replace(/-/g, ' ');
+        this.selectedBoard = this.selectedBoardKey && this.selectedBoardKey.replace(/-/g, ' ');
 
         if (paramMap.has('classTitle')) {
 
@@ -136,11 +101,32 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
         }
 
-        this.resultTitle = `${this.selectedBoard} ${this.selectedClass} Class ${this.selectedExamType} Result ${this.selectedYear}`;
+        this.getResultTitleAndDescription();
 
       }
 
     });
+
+    this.resultPage.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+
+  }
+
+  getResultTitleAndDescription() {
+
+    if (this.selectedExamType && this.selectedExamType === 'test') {
+
+      this.resultTitle = `${this.selectedClass} Result ${this.selectedYear}`;
+
+      this.resultDescription = `Result of ${this.selectedClass} ${this.selectedYear}`;
+
+    } else {
+
+      this.resultTitle = `${this.selectedBoard} ${this.selectedClass} Class ${this.selectedExamType} Result ${this.selectedYear}`;
+
+      // tslint:disable-next-line:max-line-length
+      this.resultDescription = `${this.selectedExamType} result of ${this.selectedClass} class ${this.selectedBoard} board ${this.selectedYear}`;
+
+    }
 
   }
 
@@ -162,159 +148,6 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
   }
 
-  getTestBoard() {
-
-    if (this.selectedTest) {
-
-      this.isLoading = true;
-
-      this.isError = false;
-
-      this.errorMsg = '';
-
-      this.serviceSub = this.boardService.getBoardBySection(this.selectedTest)
-        .subscribe(
-
-          response => {
-
-            this.isLoading = true;
-
-            this.resultData = response.data;
-
-            if (this.resultData && this.resultData.isBlocked) {
-
-              window.open(this.url, '_blank');
-
-            }
-
-            if (this.resultData) {
-
-              this.tags = this.resultData.tags;
-
-              this.url = this.resultData.resultUrl;
-
-              if (this.resultData.comments) {
-
-                this.comments = this.resultData.comments;
-
-                this.comments.reverse();
-
-                this.showComments = true;
-
-              }
-
-              if (this.resultData.isBlocked) {
-
-                window.open(this.url, '_blank');
-
-              }
-
-            } else {
-
-              this.isLoading = false;
-
-              this.isError = true;
-
-              this.errorMsg = 'Result Not Found';
-
-            }
-
-          },
-          error => {
-
-            this.isLoading = false;
-
-            this.isError = true;
-
-            if (error && error.status && error.status === 404) {
-
-              this.errorMsg = '404 - Not Found';
-
-            } else {
-
-              this.errorMsg = 'Something went wrong';
-
-            }
-
-          });
-
-    }
-
-  }
-
-  getUniBoard() {
-
-    if (this.selectedUniKey) {
-
-      this.isLoading = true;
-
-      this.isError = false;
-
-      this.errorMsg = '';
-
-      this.serviceSub = this.boardService.getBoardByKey(this.selectedUniKey)
-        .subscribe(
-
-          response => {
-
-            this.resultData = response.data;
-
-            this.isLoading = true;
-
-            if (this.resultData) {
-
-              this.tags = this.resultData.tags;
-
-              this.url = this.resultData.resultUrl;
-
-              if (this.resultData.comments) {
-
-                this.comments = this.resultData.comments;
-
-                this.comments.reverse();
-
-                this.showComments = true;
-
-              }
-
-              if (this.resultData.isBlocked) {
-
-                window.open(this.url, '_blank');
-
-              }
-
-            } else {
-
-              this.isLoading = false;
-
-              this.isError = true;
-
-              this.errorMsg = 'Result Not Found';
-
-            }
-
-          },
-          error => {
-
-            this.isLoading = false;
-
-            this.isError = true;
-
-            if (error && error.status && error.status === 404) {
-
-              this.errorMsg = '404 - Not Found';
-
-            } else {
-
-              this.errorMsg = 'Something went wrong';
-
-            }
-
-          });
-
-    }
-
-  }
 
   getResult() {
 
@@ -328,7 +161,8 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
       this.errorMsg = '';
 
-      this.serviceSub = this.resultService.getResult(this.selectedClass, this.selectedBoardKey, this.selectedYear, this.selectedExamType)
+      // tslint:disable-next-line:max-line-length
+      this.resultSubscription$ = this.resultService.getResult(this.selectedClass, this.selectedBoardKey, this.selectedYear, this.selectedExamType)
         .subscribe(
 
           response => {
@@ -341,13 +175,16 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
               if (!this.announced) {
 
-                this.isLoading = false;
+                // tslint:disable-next-line:max-line-length
+                if (this.resultData.announceDate) {
 
-                if (this.resultData.announceDate && this.resultData.announceDate.day && this.resultData.announceDate.month && this.resultData.announceDate.year) {
-
-                  this.announceDate = `${this.resultData.announceDate.day}/${this.resultData.announceDate.month}/${this.resultData.announceDate.year}`;
+                  const annDate = new Date(this.resultData.announceDate);
+                  // tslint:disable-next-line:max-line-length
+                  this.announceDate = `${annDate.getDate()}/${annDate.getMonth() + 1}/${annDate.getFullYear()}`;
 
                 }
+
+                this.isLoading = false;
 
               }
 
@@ -426,19 +263,7 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
   goBack() {
 
-    if (this.isTest) {
-
-      this.router.navigate(['']);
-
-    } else if (this.isUni) {
-
-      this.router.navigate(['/result', this.selectedClass]);
-
-    } else {
-
-      this.router.navigate(['/result' + '/' + this.selectedClass + '/' + this.selectedBoardKey, this.selectedYear]);
-
-    }
+    this.router.navigate(['']);
 
   }
 
@@ -497,49 +322,40 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
       this.isLoading = true;
 
-      if (this.isTest || this.isUni) {
+      this.addCommentSubscription$ = this.resultService.addComment(this.resultData._id, comment)
+        .subscribe(
+        response => {
 
-        this.addCommentSubscription$ = this.boardService.addComment(this.resultData._id, comment).subscribe(
-          response => {
-            this.comments.reverse();
-            this.comments.push(response.data);
-            this.comments.reverse();
-            form.resetForm();
-            this.isLoading = false;
-          },
-          error => {
-            console.log(error);
-            this.isLoading = false;
-          }
-        );
+          this.comments.reverse();
 
-      } else {
+          this.comments.push(response.data);
 
-        this.addCommentSubscription$ = this.resultService.addComment(this.resultData._id, comment).subscribe(
-          response => {
-            this.comments.reverse();
-            this.comments.push(response.data);
-            this.comments.reverse();
-            form.resetForm();
-            this.isLoading = false;
-          },
-          error => {
-            console.log(error);
-            this.isLoading = false;
-          }
-        );
+          this.comments.reverse();
 
-      }
+          form.resetForm();
+
+          this.isLoading = false;
+
+        },
+        error => {
+
+          this.isLoading = false;
+
+        });
 
     }
 
   }
+
   ngOnDestroy() {
 
-    this.paramSub && this.paramSub.unsubscribe();
+    // tslint:disable-next-line:no-unused-expression
+    this.paramSubscription$ && this.paramSubscription$.unsubscribe();
 
-    this.serviceSub && this.serviceSub.unsubscribe();
+    // tslint:disable-next-line:no-unused-expression
+    this.resultSubscription$ && this.resultSubscription$.unsubscribe();
 
+    // tslint:disable-next-line:no-unused-expression
     this.addCommentSubscription$ && this.addCommentSubscription$.unsubscribe();
 
   }

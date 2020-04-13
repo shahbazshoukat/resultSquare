@@ -47,10 +47,10 @@
                   {{result.year}}
                 </td>
                 <td>
-                  {{result.examType === 0 ? 'Annual' : 'Supply'}}
+                  {{extractExamType(result.examType)}}
                 </td>
                 <td>
-                  {{result.announceDate.day + "-" + result.announceDate.month + "-" + result.announceDate.year }}
+                  {{extractDate(result.announceDate)}}
                 </td>
                 <td>
                   <label class="custom-toggle">
@@ -73,7 +73,7 @@
                     <a class="btn btn-sm btn-icon-only text-light" (click)="editResult(result._id)">
                       <i class="fas fa-edit"></i>
                     </a>
-                    <a class="btn btn-sm btn-icon-only text-light" (click)="removeResult(result._id)" >
+                    <a class="btn btn-sm btn-icon-only text-light" (click)="removeResult(result)" >
                       <i style="font-size: large;" class="ni ni-fat-remove"></i>
                     </a>
                   </div>

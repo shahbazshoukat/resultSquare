@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BoardService } from 'src/app/services/board.service';
-import { Router, NavigationExtras } from '@angular/router';
-import {AnimationOptions} from 'ngx-lottie';
-import {AnimationItem} from 'lottie-web';
+import { BoardService } from '@app/services';
+import { Router } from '@angular/router';
+import { AnimationOptions } from 'ngx-lottie';
+import { AnimationItem } from 'lottie-web';
 import { AlertService } from 'ngx-alerts';
 
 @Component({
@@ -50,13 +50,30 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
   }
 
-  removeBoard(boardId) {
+  removeBoard(board) {
+
+    const confirmed = confirm('Are you sure you want to remove?');
+
+    if (!confirmed) {
+
+      return;
+
+    }
+
+    const boardToRemove = prompt('Enter name of board to remove');
+
+    if (boardToRemove !== board.title) {
+
+      return;
+
+    }
+
     this.isLoading = true;
-    this.removeBoardSub = this.boardService.deleteBoard(boardId).subscribe(
+    this.removeBoardSub = this.boardService.deleteBoard(board._id).subscribe(
       response => {
       if (response.success && response.message && response.data) {
-       this.boards.forEach((board, index) => {
-         if (board._id === boardId) {
+       this.boards.forEach((brd, index) => {
+         if (brd._id === board._id) {
             this.boards.splice(index, 1);
          }
        });

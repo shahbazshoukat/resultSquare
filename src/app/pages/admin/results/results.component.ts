@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ResultService } from 'src/app/services/result.service';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {AnimationOptions} from 'ngx-lottie';
-import {AnimationItem} from 'lottie-web';
+import { ResultService } from '@app/services';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AnimationOptions } from 'ngx-lottie';
+import { AnimationItem } from 'lottie-web';
 import { AlertService } from 'ngx-alerts';
+import * as Enums from '@app/app.enums';
 
 @Component({
   selector: 'app-results',
@@ -71,16 +72,33 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   editResult(resultId) {
-    this.router.navigate(['/rs-admin/add-result', {resultId: resultId}]);
+    this.router.navigate(['/rs-admin/add-result', {resultId: resultId, board: this.selectedBoardKey}]);
   }
 
-  removeResult(resultId: string) {
+  removeResult(result: any) {
+
+    const confirmed = confirm('Are you sure you want to remove?');
+
+    if (!confirmed) {
+
+      return;
+
+    }
+
+    const resultToRemove = prompt('Enter name of year to remove result');
+
+    if (resultToRemove !== result.year) {
+
+      return;
+
+    }
+
     this.isLoading = true;
-    this.removeResultSub = this.resultService.deleteResult(resultId).subscribe(
+    this.removeResultSub = this.resultService.deleteResult(result._id).subscribe(
       response => {
       if (response.success && response.message) {
         this.results.forEach((res, index) => {
-          if (res._id === resultId) {
+          if (res._id === result._id) {
             this.results.splice(index, 1);
           }
         });
@@ -123,6 +141,32 @@ export class ResultsComponent implements OnInit, OnDestroy {
       result.year.toLowerCase().includes(searchQuery);
 
     });
+
+  }
+
+  extractDate(dateStr) {
+
+    const date = new Date(dateStr);
+
+    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+
+  }
+
+  extractExamType(exam) {
+
+    if (exam === Enums.EXAM_TYPE.ANNUAL) {
+
+      return 'Annual';
+
+    } else if (exam === Enums.EXAM_TYPE.SUPPLY) {
+
+      return 'Supply';
+
+    } else if (exam === Enums.EXAM_TYPE.TEST) {
+
+      return 'Test';
+
+    }
 
   }
 
