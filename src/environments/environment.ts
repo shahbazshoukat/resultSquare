@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiURL : 'http://localhost:3000/api',
+  apiURL : 'http://ec2-3-12-197-80.us-east-2.compute.amazonaws.com',
   fbPageUrl: 'https://web.facebook.com/resultsquare/'
 };
 

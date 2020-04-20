@@ -59,7 +59,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
         }
       }
     );
-    localStorage.clear();
+    this.userService.clearAuthData();
   }
 
   ngOnDestroy() {

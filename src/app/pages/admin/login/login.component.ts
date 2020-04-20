@@ -65,12 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           const expirationDate = new Date(
             now.getTime() + expiresInDuration * 1000
           );
-          this.saveAuthData(
-            token,
-            expirationDate,
-            this.user.name,
-            this.user._id
-          );
+          this.usersService.saveAuthData(token, expirationDate, this.user.name, this.user._id);
           if (this.user && this.user.name) {
             this.usersService.setUserName(this.user.name);
           }
@@ -123,7 +118,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authStatusListener.next(false);
     this.user = null;
     clearTimeout(this.tokenTimer);
-    this.clearAuthData();
+    this.usersService.clearAuthData();
     this.router.navigate(['']);
   }
 
@@ -131,25 +126,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
-  }
-
-  private saveAuthData(
-    token: string,
-    expirationDate: Date,
-    username: string,
-    userId: string
-  ) {
-    localStorage.setItem('token', token);
-    localStorage.setItem('expiration', expirationDate.toISOString());
-    localStorage.setItem('username', username);
-    localStorage.setItem('userId', userId);
-  }
-
-  private clearAuthData() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiration');
-    localStorage.removeItem('username');
-    localStorage.removeItem('userId');
   }
 
   ngOnDestroy() {

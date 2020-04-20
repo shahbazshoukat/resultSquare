@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '@app/models';
-
+import { isPlatformBrowser } from '@angular/common';
+import { environment as ENV } from '@env/environment';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
 
   username = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   setUserName(name: string) {
 
@@ -23,7 +24,7 @@ export class UsersService {
       email: email,
       password: password
     };
-    return this.http.post<{message: string}>('/api/signUp', user);
+    return this.http.post<{message: string}>(ENV.apiURL + '/api/signUp', user);
   }
 
   loginUser(email: string, password: string) {
@@ -39,11 +40,49 @@ export class UsersService {
         };
         message: string;
         success: boolean;
-      }>('/api/login', authData);
+      }>(ENV.apiURL + '/api/login', authData);
   }
 
   logout() {
-    return this.http.get<{success: boolean, message: string}>('/api/logout');
+    return this.http.get<{success: boolean, message: string}>(ENV.apiURL + '/api/logout');
+  }
+
+  getToken() {
+
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('token');
+    }
+
+  }
+
+  getUserName() {
+
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('username');
+    }
+
+  }
+
+  saveAuthData(token: string, expirationDate: Date, username: string, userId: string) {
+
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('token', token);
+      localStorage.setItem('expiration', expirationDate.toISOString());
+      localStorage.setItem('username', username);
+      localStorage.setItem('userId', userId);
+    }
+
+  }
+
+  clearAuthData() {
+
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('expiration');
+      localStorage.removeItem('username');
+      localStorage.removeItem('userId');
+    }
+
   }
 
 }

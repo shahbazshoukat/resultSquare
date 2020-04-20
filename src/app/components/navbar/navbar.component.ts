@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClassService } from '@app/services';
 import { BoardService } from '@app/services';
@@ -6,6 +6,7 @@ import * as Enums from '@app/app.enums';
 import { ResultService } from '@app/services';
 import { AnimationOptions } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -45,7 +46,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private classService: ClassService,
               private boardService: BoardService,
               private resultService: ResultService,
-              private router: Router) {}
+              private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
 
@@ -367,7 +368,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   scrollToElement($element): void {
-    $element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+    if (isPlatformBrowser(this.platformId)) {
+      $element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+    }
   }
 
   ngOnDestroy() {

@@ -2,6 +2,7 @@ import { Board } from '@app/models';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment as ENV } from '@env/environment';
 
 @Injectable({providedIn: 'root'})
 export class BoardService {
@@ -34,27 +35,27 @@ export class BoardService {
       resultUrl: resultUrl,
       tags: tags
     };
-    return this.http.post<{success: boolean, message: string, data: any}>('/api/board', boardData);
+    return this.http.post<{success: boolean, message: string, data: any}>(ENV.apiURL + '/api/board', boardData);
   }
 
   getAllBoardes(): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>( '/api/boards');
+    return this.http.get<{success: boolean, message: string, data: any}>( ENV.apiURL + '/api/boards');
   }
 
   getBoardById(boardId: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/board/' + boardId);
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiURL + '/api/board/' + boardId);
   }
 
   getBoardByKey(boardKey: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/board/key/' + boardKey);
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiURL + '/api/board/key/' + boardKey);
   }
 
   getBoardBySectionTitle(sectionTitle: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/boards/section/' + sectionTitle);
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiURL + '/api/boards/section/' + sectionTitle);
   }
 
   getBoardsBySectionId(sectionId: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/boards/section/' + sectionId);
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiURL + '/api/boards/section/' + sectionId);
   }
 
   updateBoard(
@@ -83,23 +84,23 @@ export class BoardService {
       tags: tags
      };
 
-     return this.http.put<{success: boolean, message: string, data: any}>('/api/updateBoard/' + boardId, update);
+     return this.http.put<{success: boolean, message: string, data: any}>(ENV.apiURL + '/api/updateBoard/' + boardId, update);
   }
 
 
   deleteBoard(boardId: string): Observable<any> {
-    return this.http.delete<{success: boolean, message: string, data: any}>('/api/deleteBoard/' + boardId);
+    return this.http.delete<{success: boolean, message: string, data: any}>(ENV.apiURL + '/api/deleteBoard/' + boardId);
   }
 
   addComment(boardId, comment) {
 
-    return this.http.post<{success: boolean, message: string, data: any}>(`/api/board/comment/${boardId}`, comment);
+    return this.http.post<{success: boolean, message: string, data: any}>(ENV.apiURL + `/api/board/comment/${boardId}`, comment);
 
   }
 
   removeComment(boardId, commentId) {
 
-    return this.http.delete<{success: boolean, message: string, data: any}>(`/api/board/comment/${boardId}/${commentId}`);
+    return this.http.delete<{success: boolean, message: string, data: any}>(ENV.apiURL + `/api/board/comment/${boardId}/${commentId}`);
 
   }
 

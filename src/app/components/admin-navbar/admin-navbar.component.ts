@@ -25,7 +25,7 @@ export class AdminNavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
-    this.username = localStorage.getItem('username');
+    this.username = this.userService.getUserName();
   }
   getTitle() {
     let titlee = this.location.prepareExternalUrl(this.location.path());
@@ -62,7 +62,7 @@ export class AdminNavbarComponent implements OnInit, OnDestroy {
         }
       }
     );
-    localStorage.clear();
+    this.userService.clearAuthData();
   }
 
   ngOnDestroy() {

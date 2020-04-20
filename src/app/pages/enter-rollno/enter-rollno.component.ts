@@ -1,11 +1,12 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ResultService } from '@app/services';
-import { Location } from '@angular/common';
+import { isPlatformBrowser, Location } from '@angular/common';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import { BoardService } from '@app/services';
 import { NgForm } from '@angular/forms';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-enter-rollno',
@@ -67,7 +68,8 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
               private resultService: ResultService,
               private boardService: BoardService,
               private _location: Location,
-              private router: Router) { }
+              private router: Router, @Inject(PLATFORM_ID) private platformId: Object,
+              public meta: Meta, public title: Title) { }
 
   ngOnInit() {
 
@@ -107,7 +109,9 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
     });
 
-    this.resultPage.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+    if (isPlatformBrowser(this.platformId)) {
+      this.resultPage.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+    }
 
   }
 
@@ -127,6 +131,10 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
       this.resultDescription = `${this.selectedExamType} result of ${this.selectedClass} class ${this.selectedBoard} board ${this.selectedYear}`;
 
     }
+
+    this.title.setTitle(this.resultTitle);
+
+    this.meta.updateTag({ name: 'description', content: this.resultDescription });
 
   }
 
