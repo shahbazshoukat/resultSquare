@@ -92,43 +92,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getClasses() {
 
-    this.isLoading = true;
-    this.isError = false;
-    this.errorMsg = '';
     this.selectedClass = 'default';
 
-    this.getClassesSubscription$ = this.classService.getAllClasses()
+    this.getClassesSubscription$ = this.classService.getClassesUpdateListener()
       .subscribe(
-      response => {
+      classes => {
 
-        if (response.success && response.data) {
+        if (classes && classes.length > 0) {
 
-          this.classes = response.data;
-
-          if (!this.classes || this.classes.length === 0) {
-
-            this.isError = true;
-
-            this.errorMsg = 'No Class Found';
-
-          }
-          // this.isLoading = false;
-        }
-
-      },
-      error => {
-
-        this.isLoading = false;
-
-        this.isError = true;
-
-        if (error && error.status && error.status === 404) {
-
-          this.errorMsg = '404 - Not Found';
-
-        } else {
-
-          this.errorMsg = 'Something went wrong';
+          this.classes = classes;
 
         }
 
@@ -138,42 +110,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getAllBoards() {
 
-    this.isError = false;
+    this.getBoardsSubscription$ = this.boardService.getBoardsUpdateListener().subscribe(
+      boards => {
 
-    this.errorMsg = '';
+        if (boards && boards.length > 0) {
 
-    this.getBoardsSubscription$ = this.boardService.getAllBoardes().subscribe(
-      response => {
+          this.boards = boards;
 
-        this.boards = response.data;
-
-        this.filteredBoards = this.boards;
-
-        if (!this.boards || this.boards.length === 0) {
-
-          this.isError = true;
-
-          this.errorMsg = `404 - Not Found`;
-
-        }
-
-        // this.isLoading = false;
-
-      },
-
-      error => {
-
-        this.isLoading = false;
-
-        this.isError = true;
-
-        if (error && error.status && error.status === 404) {
-
-          this.errorMsg = '404 - Not Found';
-
-        } else {
-
-          this.errorMsg = 'Something went wrong';
+          this.filteredBoards = this.boards;
 
         }
 

@@ -45,26 +45,19 @@
 }
 
 .result-card {
-  border-radius: 15px;
-  border-bottom-width: 3px;
-  border-bottom-color: #2dce89;
-  border-top-right-radius: 0px;
-  border-bottom-left-radius: 0px;
-  cursor: pointer;
+  border-bottom-width: 2px !important;
+  border-bottom-color: #3369e7 !important;
+  cursor: pointer !important;
 }
 
 .result-card:hover {
-  border-radius: 15px;
-  border-width: 1px;
-  border-color: #2dce89;
-  border-right-width: 3px;
-  border-bottom-width: 3px;
-  border-bottom-color: #2dce89;
-  cursor: pointer;
+  border-width: 2px !important;
+  border-color: #3369e7 !important;
+  cursor: pointer !important;
 }
 
 .result-card:hover div button {
-  background-color: #2dce89;
+  background-color: #3369e7;
   color: white;
 }
 
@@ -105,4 +98,8 @@
 .pagination-previous,.pagination-next{
   display: inline-block;
   font-weight: bold;
+}
+
+.MB30 {
+  margin-bottom: 30px;
 }

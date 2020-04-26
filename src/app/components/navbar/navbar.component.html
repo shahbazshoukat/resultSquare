@@ -1,106 +1,59 @@
-<nav class="navbar navbar-expand-lg bg-white custom-box-shadow fixed-top">
-    <a class="navbar-brand" style="margin-left: 10px;" [routerLink]="['']">
-      <b>
-        <span style="color: #002E6E">Result</span>
-        <span style="color: #00B9F1">Square.pk</span>
-      </b>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-</nav>
-<div class="header align-items-center img-fluid img-center mt-5 nav-main" style="background-image: url(assets/img/theme/profile-cover-5.jpg); background-size: cover; background-position: center top;">
-  <!-- Header container -->
-  <div class="bg-opacity bgWrapper pb-6 pb-lg-8 pt-lg-7 pt-md-7 pt-xs-9">
-    <div class="row" style="margin-right: 15px; margin-left: 15px;">
-      <div class="col-12 text-center">
-        <div>
-          <span class="text-white nav-heading text-uppercase">SEARCHING FOR <span class="text-success">RESULTS?</span></span>
-        </div>
-        <div>
-        <span class="text-white text-lg text-capitalize">Now its
-          <span class="text-success">Easy</span>, Lets Get <span class="text-success">Started!</span></span>
-        </div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 align-items-center pl-5 pr-5 pb-5 mt-2">
-        <form>
-          <div class="row">
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="form-control-label text-white">Class/Test</label>
-                <select name="class" class="form-control form-control-alternative" [value]="selectedClass" (change)="onClassSelected($event)">
-                  <option value="default" disabled>Select Class</option>
-                  <option [value]="cls?._id" *ngFor="let cls of classes">{{cls?.title}}</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="form-control-label text-white">Board/University</label>
-                <select name="board" class="form-control form-control-alternative" [value]="selectedBoard" (change)="onBoardSelected($event)"  [disabled]="!classSelected">
-                  <option value="default" disabled>Select Board</option>
-                  <option [value]="board?._id" *ngFor="let board of boards" >{{board?.title}}</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="form-control-label text-white">Year</label>
-                <select name="year" class="form-control form-control-alternative" [value]="selectedYear" (change)="onYearSelected($event)" [disabled]="!boardSelected">
-                  <option value="default" disabled>Select Year</option>
-                  <option [value]="year" *ngFor="let year of years" >{{year}}</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="form-control-label text-white">Exam Type</label>
-                <select name="examType" class="form-control form-control-alternative" [value]="selectedExamType" (change)="onExamTypeSelected($event)" [disabled]="!yearSelected">
-                  <option value="default" disabled>Select Exam Type</option>
-                  <option class="text-capitalize" [value]="et?.title" *ngFor="let et of examTypes">{{et?.title}}</option>
-                </select>
-              </div>
-            </div>
-
-          </div>
-          <div class="row" #findBtn>
-            <div class="col-12 text-center">
-              <button class="btn btn-success" [disabled]="!classSelected || !boardSelected || !yearSelected || !examTypeSelected" type="button" (click)="findResult()">Find Your Result</button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <!--    <div class="col-lg-6 col-md-6 col-sm-12 align-items-center pl-5 pr-7 nav-news-container">-->
-      <!--      <div class="card bg-secondary" style="border-radius: 20px;">-->
-      <!--        <div class="card-body">-->
-      <!--          <h1 class="card-heading-1">-->
-      <!--            SEARCHING FOR-->
-      <!--          </h1>-->
-      <!--          <h1 class="card-heading-2">-->
-      <!--            RESULTS?-->
-      <!--          </h1>-->
-      <!--          <div class="row mt-2">-->
-      <!--            <div class="col-12">-->
-      <!--              <div class="card shadow bg-secondary card-stats news-tile">-->
-      <!--                <div class="card-body">-->
-      <!--                  <div class="row">-->
-      <!--                    <div class="col">-->
-      <!--                      <span class="text-uppercase text-primary badge badge-primary mb-0">BISE Lahore</span>-->
-      <!--                      <p class="mb-0 text-muted text-sm">-->
-      <!--                        <span class="text-nowrap">Result of 9th class 2020 will be announced on August 01, 2020.</span>-->
-      <!--                      </p>-->
-      <!--                    </div>-->
-      <!--                  </div>-->
-      <!--                </div>-->
-      <!--              </div>-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
+<!-- header -->
+<header>
+  <div class="top-head container">
+    <div class="ml-auto text-right right-p">
+      <ul>
+        <li class="mr-3" class="link" routerLinkActive="active-link">
+          <a [routerLink]="['/boards/Federal']">Federal Boards</a>
+        </li>
+        <li class="mr-3 ml-3">|</li>
+        <li class="mr-3" class="link" routerLinkActive="active-link">
+          <a [routerLink]="['/boards/Punjab']">Punjab Boards</a>
+        </li>
+        <li class="mr-3 ml-3">|</li>
+        <li class="mr-3" class="link" routerLinkActive="active-link">
+          <a [routerLink]="['/boards/KPK']">KPK Boards</a>
+        </li>
+        <li class="mr-3 ml-3">|</li>
+        <li class="mr-3" class="link" routerLinkActive="active-link">
+          <a [routerLink]="['/boards/Sindh']">Sindh Boards</a>
+        </li>
+        <li class="mr-3 ml-3">|</li>
+        <li class="mr-3" class="link" routerLinkActive="active-link">
+          <a [routerLink]="['/boards/Balochistan']">Balochistan Boards</a>
+        </li>
+        <li class="mr-3 ml-3">|</li>
+        <li class="mr-3" class="link" routerLinkActive="active-link">
+          <a [routerLink]="['/boards/AJK']">AJK Boards</a>
+        </li>
+      </ul>
     </div>
   </div>
-</div>
-<div *ngIf="isLoading" class="loader">
-  <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
-</div>
+  <div class="container">
+    <!-- nav -->
+    <nav class="py-3 d-lg-flex">
+      <div id="logo">
+        <h1> <a [routerLink]="['/']"><img src="assets/img/s2.png" alt=""> Resultsquare.pk </a></h1>
+      </div>
+      <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
+      <input type="checkbox" id="drop" />
+      <ul class="menu ml-auto mt-1">
+        <li class="link" routerLinkActive="active-link"><a [routerLink]="['/boards/class/5th']">5th</a></li>
+        <li class="link" routerLinkActive="active-link"><a [routerLink]="['/boards/class/8th']">8th</a></li>
+        <li class="link" routerLinkActive="active-link"><a [routerLink]="['/boards/class/9th']">9th</a></li>
+        <li class="link" routerLinkActive="active-link"><a [routerLink]="['/boards/class/10th']">10th</a></li>
+        <li class="link" routerLinkActive="active-link"><a [routerLink]="['/boards/class/11th']">11th</a></li>
+        <li class="link" routerLinkActive="active-link"><a [routerLink]="['/boards/class/12th']">12th</a></li>
+        <li class="link" routerLinkActive="active-link"><a [routerLink]="['/boards/class/DAE']">DAE</a></li>
+        <li class="link" routerLinkActive="active-link"><a [routerLink]="['/boards/class/BA']">BA</a></li>
+        <li class="link" routerLinkActive="active-link"><a [routerLink]="['/boards/class/BSC']">BSC</a></li>
+        <li class="link" routerLinkActive="active-link"><a [routerLink]="['/boards/class/BCom']">BCom</a></li>
+        <li class="link" routerLinkActive="active-link"><a [routerLink]="['/boards/class/NTS']">NTS</a></li>
+        <li class="link" routerLinkActive="active-link"><a [routerLink]="['/boards/class/ECAT']">ECAT</a></li>
+        <li class="link" routerLinkActive="active-link"><a [routerLink]="['/boards/class/MDCAT']">MDCAT</a></li>
+      </ul>
+    </nav>
+    <!-- //nav -->
+  </div>
+</header>
+<!-- //header -->

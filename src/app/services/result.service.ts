@@ -57,6 +57,10 @@ export class ResultService {
     return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiURL + `/api/results/board/${boardKey}`);
   }
 
+  getResultsBySectionAndBoard(sectionTitle, boardKey) {
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiURL + `/api/results/${sectionTitle}/${boardKey}`);
+  }
+
   updateResult(
     resultId: string,
     status: boolean,

@@ -1,16 +1,16 @@
 
-<div class="container-fluid mt--5 bg-secondary">
+<div class="container-fluid mt--5 bg-secondary" id="results">
   <!-- Table -->
   <div class=" order-xl-1 bg-secondary">
     <div class="bg-secondary">
-      <div class="card card-body bg-secondary custom-sub-header" style="border-radius: 12px;">
-        <div class="row align-items-center text-center">
-          <div  class="btn-group text-center" style="margin: 0 auto">
-            <button class="btn" [disabled]="isLoading" [ngClass]="{'text-success': selectedStatus, 'text-muted': !selectedStatus}" (click)="filterByStatus(true)">Latest</button>
-            <button class="btn" [disabled]="isLoading" [ngClass]="{'text-success': !selectedStatus, 'text-muted': selectedStatus}" (click)="filterByStatus(false)">Upcoming</button>
-          </div>
-        </div>
-      </div>
+<!--      <div class="card card-body bg-secondary custom-sub-header" style="border-radius: 12px;">-->
+<!--        <div class="row align-items-center text-center">-->
+<!--          <div  class="btn-group text-center" style="margin: 0 auto">-->
+<!--            <button class="btn" [disabled]="isLoading" [ngClass]="{'text-success': selectedStatus, 'text-muted': !selectedStatus}" (click)="filterByStatus(true)">Latest</button>-->
+<!--            <button class="btn" [disabled]="isLoading" [ngClass]="{'text-success': !selectedStatus, 'text-muted': selectedStatus}" (click)="filterByStatus(false)">Upcoming</button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
       <div *ngIf="!isError" style="padding: 60px">
         <div class="row mt-5">
           <div class="col-12" >
@@ -33,7 +33,7 @@
           <div class="col-lg-3 col-md-3 col-sm-12 text-right" >
             <div>
               <div class="form-group">
-                <select [disabled]="isLoading" name="class" class="form-control form-control-alternative" [value]="selectedClass" (change)="filterByClass($event)">
+                <select [disabled]="isLoading" name="class"  [value]="selectedClass" (change)="filterByClass($event)">
                   <option value="default" disabled>Filter By Class</option>
                   <option value="default">Clear Filter</option>
                   <option [value]="cls?.title" *ngFor="let cls of classes">{{cls?.title}}</option>
@@ -50,7 +50,7 @@
           <div class="col-lg-3 col-md-3 col-sm-12 text-right" >
             <div>
               <div class="form-group">
-                <select [disabled]="isLoading" name="board" class="form-control form-control-alternative" [value]="selectedBoardKey" (change)="filterByBoard($event)">
+                <select [disabled]="isLoading" name="board" [value]="selectedBoardKey" (change)="filterByBoard($event)">
                   <option value="default" disabled>Filter By Board</option>
                   <option value="default">Clear Filter</option>
                   <option [value]="board?.key" *ngFor="let board of filteredBoards" >{{board?.title}}</option>
@@ -60,19 +60,16 @@
           </div>
         </div>
         <div class="row text-center mt-4">
-          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngFor="let res of filteredResults  | paginate: { itemsPerPage: 20, currentPage: selectedPageNo, totalItems: filteredResults?.length}" >
-            <div class="result-card-main card shadow-lg bg-white result-card" (click)="viewResult(res)">
-              <div class="result-card-tile text-left">
-                <span class="badge text-success text-capitalize">{{res?.board?.title}}</span>
-              </div>
-              <div class="result-card-tile">
-                <span class="text-capitalize text-bold">{{res?.section?.title}} {{extractExamType(res?.examType)}} result</span>
-              </div>
-              <div class="result-card-tile">
-                <span class="text-capitalize text-bold">{{res?.year}}</span>
-              </div>
-              <div class="result-card-tile mt-3">
-                <button class="btn btn-outline-success btn-sm"  (click)="viewResult(res)" >View Result</button>
+          <div class="col-lg-4 col-md-4 col-sm-6 mt-3" *ngFor="let res of filteredResults  | paginate: { itemsPerPage: 12, currentPage: selectedPageNo, totalItems: filteredResults?.length}" >
+            <div class="our-services-wrapper MB30" (click)="viewResult(res)">
+              <div class="services-inner">
+                <div class="our-services-img">
+<!--                  <img src="assets/img/s2.png" alt="">-->
+                </div>
+                <div class="our-services-text" style="padding: 30px;">
+                  <h4 class="text-left">{{res?.section?.title}} | {{res?.board?.title}}</h4>
+                  <p class="text-left text-sm text-muted">{{res?.section?.title}} {{extractExamType(res?.examType)}} result {{res?.board?.title}} board {{res?.year}}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -96,7 +93,7 @@
 
         </div>
         <div class="mt-5">
-            <nav aria-label="Page navigation example">
+            <nav>
               <ul class="pagination justify-content-center">
                 <pagination-controls class="pagination" (pageChange)="selectedPageNo = $event"></pagination-controls>
 <!--                <pagination-template #p="paginationApi" [id]="config.id" (pageChange)="config.currentPage = $event">-->

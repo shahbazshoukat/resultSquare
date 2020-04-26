@@ -1,11 +1,13 @@
 import { Board } from '@app/models';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment as ENV } from '@env/environment';
 
 @Injectable({providedIn: 'root'})
 export class BoardService {
+
+  boards = new BehaviorSubject<any>([]);
 
   constructor (private http: HttpClient) {}
 
@@ -50,8 +52,12 @@ export class BoardService {
     return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiURL + '/api/board/key/' + boardKey);
   }
 
-  getBoardBySectionTitle(sectionTitle: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiURL + '/api/boards/section/' + sectionTitle);
+  getBoardsBySectionTitle(sectionTitle: string): Observable<any> {
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiURL + '/api/board/section/' + sectionTitle);
+  }
+
+  getBoardsByProvince(province: string): Observable<any> {
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiURL + '/api/boards/province/' + province);
   }
 
   getBoardsBySectionId(sectionId: string): Observable<any> {
@@ -104,6 +110,17 @@ export class BoardService {
 
   }
 
+  setBoardsUpdateListener(boards) {
+
+    this.boards.next(boards);
+
+  }
+
+  getBoardsUpdateListener(): Observable<any> {
+
+    return this.boards.asObservable();
+
+  }
 }
 
 

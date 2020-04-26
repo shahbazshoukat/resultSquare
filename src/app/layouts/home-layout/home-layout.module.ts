@@ -8,7 +8,9 @@ import { HomeLayoutRoutes } from '@app/layouts/home-layout/home-layout.routing';
 
 import {
   HomeComponent,
-  EnterRollNoComponent
+  EnterRollNoComponent,
+  BoardsListComponent,
+  ResultsListComponent
 } from '@app/pages';
 
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -36,7 +38,9 @@ export function playerFactory() {
   declarations: [
     HomeComponent,
     EnterRollNoComponent,
-    SafePipe
+    SafePipe,
+    BoardsListComponent,
+    ResultsListComponent
   ]
 })
 

@@ -1,0 +1,25 @@
+.footer-list {
+  list-style-type: none;
+}
+.active-link a{
+  color: #2dce89;
+}
+li.link a{
+  color: #fff;
+}
+li.link:hover  a{
+  color: #2dce89;
+}
+.footer-nav-head {
+  color: #fff;
+  border-width: 2px;
+  border-color: #2dce89;
+}
+.footer-nav-head h3{
+  color: #fff;
+}
+@media(max-width:568px) {
+  .footer-links {
+    display: none;
+  }
+}

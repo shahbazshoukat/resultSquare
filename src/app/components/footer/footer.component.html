@@ -1,24 +1,126 @@
-<footer class="footer">
-  <div class="row align-items-center justify-content-xl-between">
-    <div class="col-xl-6">
-      <div class="copyright text-center text-xl-left text-muted">
-        &copy; {{ test | date: "yyyy" }} <a [routerLink]="['/']" class="font-weight-bold ml-1" >ResultSquare.pk</a>
+
+<!-- subscribe -->
+<!--<section class="subscribe" id="subscribe">-->
+<!--  <div class="container-fluid">-->
+<!--    <div class="row">-->
+<!--      <div class="col-lg-5 d-flex subscribe-left p-sm-5 py-4">-->
+<!--        <div class="image mr-3">-->
+<!--          <img src="images/mail.png" alt="" class="img-fluid">-->
+<!--        </div>-->
+<!--        <div class="text">-->
+<!--          <h3>Subscribe To Our Newsletter</h3>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col-lg-7 subscribe-right p-sm-5 py-3">-->
+<!--        <form action="#" method="post">-->
+<!--          <input type="email" name="email" placeholder="Enter your email here" required="">-->
+<!--          <button class="btn1"><span class="fa fa-paper-plane" aria-hidden="true"></span></button>-->
+<!--        </form>-->
+<!--        <p>we never share your email with anyone else</p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+<!-- //subscribe -->
+
+<!-- footer -->
+<footer>
+  <div class="footer-layer py-sm-5 pt-5 pb-3">
+    <div class="container footer-links">
+      <div class="row">
+        <div class="col-lg-2">
+          <div class="our-services-text">
+            <h4 class="text-white">Class/<br/>Test</h4>
+          </div>
+          <ul class="footer-list">
+            <li class="link" routerLinkActive="active-link" *ngFor="let cls of classes"><a [routerLink]="['/boards/class/' + cls?.title]">{{cls?.title}}</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2">
+          <div class="our-services-text">
+            <h4 class="text-white">Punjab<br/>Boards</h4>
+          </div>
+          <ul class="footer-list">
+            <li class="link" routerLinkActive="active-link" *ngFor="let board of punjabBoards"><a [routerLink]="['/results/' + board?.key]">{{board?.title}}</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2">
+          <div class="our-services-text">
+            <h4 class="text-white">KPK<br/>Boards</h4>
+          </div>
+          <ul class="footer-list">
+            <li class="link" routerLinkActive="active-link" *ngFor="let board of kpkBoards"><a [routerLink]="['/results/' + board?.key]">{{board?.title}}</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2">
+          <div class="our-services-text">
+            <h4 class="text-white">Sindh<br/>Boards</h4>
+          </div>
+          <ul class="footer-list">
+            <li class="link" routerLinkActive="active-link" *ngFor="let board of sindhBoards"><a [routerLink]="['/results/' + board?.key]">{{board?.title}}</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2">
+          <div class="our-services-text">
+            <h4 class="text-white">Balochistan<br/>Boards</h4>
+          </div>
+          <ul class="footer-list">
+            <li class="link" routerLinkActive="active-link" *ngFor="let board of balochBoards"><a [routerLink]="['/results/' + board?.key]">{{board?.title}}</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2">
+          <div class="our-services-text">
+            <h4 class="text-white">AJK<br/>Boards</h4>
+          </div>
+          <ul class="footer-list">
+            <li class="link" routerLinkActive="active-link" *ngFor="let board of ajkBoards"><a [routerLink]="['/results/' + board?.key]">{{board?.title}}</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="col-xl-6">
-      <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link" >About Us</a>-->
-<!--        </li>-->
-        <li class="nav-item">
-            <a class="nav-link">Find Us Online</a>
-          </li>
-        <button class="btn btn-icon btn-2 btn-primary btn-sm" (click)="openFbPage()" type="button">
-            <span class="btn-inner--icon"><i class="fa fa-facebook"></i></span>
-        </button>
-
-      </ul>
+    <div class="container py-md-3">
+      <div class="footer-grid_section text-center">
+        <div class="footer-title mb-3">
+          <a href="#"><img src="assets/img/s2.png" alt=""> Resultsquare.pk</a>
+        </div>
+        <div class="footer-text">
+          <p>Resultsquare brings a simple way to get results of exams from all over the Pakistan.
+            You can find results of all boards at one place.</p>
+        </div>
+        <ul class="social_section_1info">
+          <li class="mb-2 facebook"><a href="#"><span class="fa fa-facebook"></span></a></li>
+          <li class="mb-2 twitter"><a href="#"><span class="fa fa-twitter"></span></a></li>
+          <li class="google"><a href="#"><span class="fa fa-google-plus"></span></a></li>
+          <li class="linkedin"><a href="#"><span class="fa fa-linkedin"></span></a></li>
+          <li class="pinterest"><a href="#"><span class="fa fa-pinterest"></span></a></li>
+          <li class="vimeo"><a href="#"><span class="fa fa-vimeo"></span></a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </footer>
+<!-- //footer -->
+
+<!-- copyright -->
+<section class="copyright">
+  <div class="container py-4">
+    <div class="row bottom">
+      <ul class="col-lg-6 links p-0">
+        <li><a href="#why" class="">About us </a></li>
+        <li><a href="#services" class="">Find us Online </a></li>
+      </ul>
+      <div class="col-lg-6 copy-right p-0">
+        <p class="">© {{ test | date: "yyyy" }} Resultsquare.pk. All rights reserved</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- //copyright -->
+
+<!-- move top -->
+<div class="move-top text-right">
+  <a href="#home" class="move-top">
+    <span class="fa fa-angle-up  mb-3" aria-hidden="true"></span>
+  </a>
+</div>
+<!-- move top -->

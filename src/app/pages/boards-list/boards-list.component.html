@@ -1,0 +1,51 @@
+<!-- services -->
+<section class="services py-5" id="services">
+  <div class="container">
+    <h3 class="heading mb-5">{{this.selectedProvince || this.selectedSection}} Boards</h3>
+    <div class="row ml-sm-5">
+      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12" *ngFor="let board of boards">
+        <div class="our-services-wrapper mb-60" *ngIf="!selectedSection" [routerLink]="['/results/' + board?.key]">
+          <div class="services-inner">
+            <div class="our-services-img">
+              <img src="assets/img/s1.jpg" alt="">
+            </div>
+            <div class="our-services-text">
+              <h4>{{board?.title}}</h4>
+              <p>Proin varius pellentesque nunc tincidunt ante. Init id lacus</p>
+            </div>
+          </div>
+        </div>
+        <div class="our-services-wrapper mb-60" *ngIf="selectedSection" [routerLink]="['/results/' + selectedSection + '/' + board?.key]">
+          <div class="services-inner">
+            <div class="our-services-img">
+              <img src="assets/img/s1.jpg" alt="">
+            </div>
+            <div class="our-services-text">
+              <h4>{{board?.title}}</h4>
+              <p>Proin varius pellentesque nunc tincidunt ante. Init id lacus</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isError">
+      <div class="row justify-content-center">
+        <div class="bg-transparent">
+          <div class="text-center">
+            <ng-lottie width="300px" height="300px" [options]="errorAnimOptions" (animationCreated)="errorAnimationCreated($event)"></ng-lottie>
+          </div>
+          <div class="text-center">
+            <span class="text-lg">{{errorMsg}}</span>
+          </div>
+          <div class="text-center" style="margin-top: 30px;">
+            <span class="btn btn-primary" (click)="retry();">Retry</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div *ngIf="isLoading" class="loader">
+  <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+</div>
+<!-- //services -->

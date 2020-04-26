@@ -1,0 +1,95 @@
+<div class="banner" id="home">
+  <div class="layer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 banner-text-w3pvt">
+          <!-- banner slider-->
+          <div class="csslider infinity" id="slider1">
+            <input type="radio" name="slides" checked="checked" id="slides_1" />
+            <input type="radio" name="slides" id="slides_2" />
+            <input type="radio" name="slides" id="slides_3" />
+            <ul class="banner_slide_bg">
+              <li>
+                <div class="container-fluid">
+                  <div class="w3ls_banner_txt">
+                    <h4 class="b-w3ltxt text-capitalize mt-md-4">Searching for results?</h4>
+<!--                    <h5 class="b-w3ltxt text-capitalize mt-md-2">Now it easy and simple!</h5>-->
+                    <p class="w3ls_pvt-title my-3">Resultsquare brings a simple way to get results of exams from all over the Pakistan.
+                      You can find results of all boards at one place.</p>
+                    <a href="#results" class="btn btn-banner my-3">Let start</a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="container-fluid">
+                  <div class="w3ls_banner_txt">
+                    <h3 class="b-w3ltxt text-capitalize mt-md-4">Education Courses.</h3>
+                    <h4 class="b-w3ltxt text-capitalize mt-md-2">Study For Better Future</h4>
+                    <p class="w3ls_pvt-title my-3">onec consequat sapien ut leo cursus rhoncus. Nullam dui mi, vulputate ac metus semper Nullam dui mi.
+                      Vestibulum ante. Morbi at dui nisl.</p>
+                    <a href="#about" class="btn btn-banner my-3">Read More</a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="container-fluid">
+                  <div class="w3ls_banner_txt">
+                    <h3 class="b-w3ltxt text-capitalize mt-md-4">Education Courses.</h3>
+                    <h4 class="b-w3ltxt text-capitalize mt-md-2">Study For Better Future</h4>
+                    <p class="w3ls_pvt-title my-3">onec consequat sapien ut leo cursus rhoncus. Nullam dui mi, vulputate ac metus semper Nullam dui mi.
+                      Vestibulum ante. Morbi at dui nisl.</p>
+                    <a href="#about" class="btn btn-banner my-3">Read More</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="navigation">
+              <div>
+                <label for="slides_1"></label>
+                <label for="slides_2"></label>
+                <label for="slides_3"></label>
+              </div>
+            </div>
+          </div>
+          <!-- //banner slider-->
+        </div>
+        <div class="col-lg-5 col-md-8 px-lg-3 px-0">
+          <div class="banner-form-w3 ml-lg-5">
+            <div class="padding">
+              <!-- banner form -->
+              <div>
+                <div class="mb-3">Quick Filter your results</div>
+                <div class="form-style-w3ls">
+                  <select name="class" [value]="selectedClass" (change)="onClassSelected($event)">
+                    <option value="default" disabled>Select Class</option>
+                    <option [value]="cls?._id" *ngFor="let cls of classes">{{cls?.title}}</option>
+                  </select>
+                  <select name="board" class="MT20" [value]="selectedBoard" (change)="onBoardSelected($event)"  [disabled]="!classSelected">
+                    <option value="default" disabled>Select Board</option>
+                    <option [value]="board?._id" *ngFor="let board of boards" >{{board?.title}}</option>
+                  </select>
+                  <select name="year" class="MT20" [value]="selectedYear" (change)="onYearSelected($event)" [disabled]="!boardSelected">
+                    <option value="default" disabled>Select Year</option>
+                    <option [value]="year" *ngFor="let year of years" >{{year}}</option>
+                  </select>
+                  <select name="examType" class="MT20" [value]="selectedExamType" (change)="onExamTypeSelected($event)" [disabled]="!yearSelected">
+                    <option value="default" disabled>Select Exam Type</option>
+                    <option class="text-capitalize" [value]="et?.title" *ngFor="let et of examTypes">{{et?.title}}</option>
+                  </select>
+                  <!--<input placeholder="Password" name="password" type="password" required=""> -->
+                  <button class="btn MT20" [disabled]="!classSelected || !boardSelected || !yearSelected || !examTypeSelected" type="button" (click)="findResult()">Find Your Result</button>
+
+                  <span></span>
+                </div>
+              </div>
+              <!-- //banner form -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isLoading" class="loader">
+  <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+</div>

@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { MainMenuComponent } from './main-menu/main-menu.component';
+import { AdminFooterComponent } from './admin-footer/admin-footer.component';
 export function playerFactory() {
   return player;
 }
@@ -23,13 +25,17 @@ export function playerFactory() {
     SidebarComponent,
     FooterComponent,
     NavbarComponent,
-    AdminNavbarComponent
+    AdminNavbarComponent,
+    MainMenuComponent,
+    AdminFooterComponent
   ],
-  exports: [
-    SidebarComponent,
-    FooterComponent,
-    NavbarComponent,
-    AdminNavbarComponent
-  ]
+    exports: [
+        SidebarComponent,
+        FooterComponent,
+        NavbarComponent,
+        AdminNavbarComponent,
+        MainMenuComponent,
+        AdminFooterComponent
+    ]
 })
 export class ComponentsModule { }
