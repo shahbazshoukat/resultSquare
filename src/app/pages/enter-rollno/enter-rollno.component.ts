@@ -214,6 +214,8 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
                 window.open(this.url, '_blank');
 
+                this.isLoading = false;
+
               }
 
             } else {

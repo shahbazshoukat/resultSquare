@@ -1,5 +1,5 @@
 
-<div class="container-fluid mt--5 bg-secondary" id="results">
+<div class="container-fluid bg-secondary" id="results">
   <!-- Table -->
   <div class=" order-xl-1 bg-secondary">
     <div class="bg-secondary">
@@ -33,7 +33,7 @@
           <div class="col-lg-3 col-md-3 col-sm-12 text-right" >
             <div>
               <div class="form-group">
-                <select [disabled]="isLoading" name="class"  [value]="selectedClass" (change)="filterByClass($event)">
+                <select [disabled]="isLoading" name="class" class="select-input"  [value]="selectedClass" (change)="filterByClass($event)">
                   <option value="default" disabled>Filter By Class</option>
                   <option value="default">Clear Filter</option>
                   <option [value]="cls?.title" *ngFor="let cls of classes">{{cls?.title}}</option>
@@ -50,7 +50,7 @@
           <div class="col-lg-3 col-md-3 col-sm-12 text-right" >
             <div>
               <div class="form-group">
-                <select [disabled]="isLoading" name="board" [value]="selectedBoardKey" (change)="filterByBoard($event)">
+                <select [disabled]="isLoading" name="board" class="select-input" [value]="selectedBoardKey" (change)="filterByBoard($event)">
                   <option value="default" disabled>Filter By Board</option>
                   <option value="default">Clear Filter</option>
                   <option [value]="board?.key" *ngFor="let board of filteredBoards" >{{board?.title}}</option>
@@ -59,16 +59,19 @@
             </div>
           </div>
         </div>
-        <div class="row text-center mt-4">
-          <div class="col-lg-4 col-md-4 col-sm-6 mt-3" *ngFor="let res of filteredResults  | paginate: { itemsPerPage: 12, currentPage: selectedPageNo, totalItems: filteredResults?.length}" >
+        <div class="row text-center mt-4 px-lg-4">
+          <div class="col-lg-4 col-md-4 col-sm-6 mt-3" *ngFor="let res of filteredResults  | paginate: { itemsPerPage: 15, currentPage: selectedPageNo, totalItems: filteredResults?.length}" >
             <div class="our-services-wrapper MB30" (click)="viewResult(res)">
               <div class="services-inner">
                 <div class="our-services-img">
 <!--                  <img src="assets/img/s2.png" alt="">-->
                 </div>
                 <div class="our-services-text" style="padding: 30px;">
-                  <h4 class="text-left">{{res?.section?.title}} | {{res?.board?.title}}</h4>
+                  <h4 class="text-sm text-left">{{res?.section?.title}}
+                    <span class="text-left text-sm text-uppercase"> | {{res?.board?.title}}</span>
+                  </h4>
                   <p class="text-left text-sm text-muted">{{res?.section?.title}} {{extractExamType(res?.examType)}} result {{res?.board?.title}} board {{res?.year}}</p>
+                  <span></span>
                 </div>
               </div>
             </div>

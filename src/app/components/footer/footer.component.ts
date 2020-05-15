@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { environment as ENV } from '@env/environment';
-import {BoardService, ClassService} from '@app/services';
+import { BoardService, ClassService } from '@app/services';
 import * as Enums from '@app/app.enums';
 
 @Component({
