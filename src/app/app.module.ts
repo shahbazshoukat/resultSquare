@@ -7,8 +7,6 @@ import { HttpErrorInterceptor } from '@app/interceptors/http-error.interceptor';
 import { AuthInterceptor } from '@app/interceptors/auth-interceptor';
 import { AppComponent } from '@app/app.component';
 import { HomeLayoutComponent } from '@app/layouts/home-layout/home-layout.component';
-import { AdminLayoutComponent } from '@app/layouts/admin-layout/admin-layout.component';
-import { AuthLayoutComponent } from '@app/layouts/auth-layout/auth-layout.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from '@app/app.routing';
 import { ComponentsModule } from '@app/components/components.module';
@@ -35,8 +33,6 @@ export function playerFactory() {
   declarations: [
     AppComponent,
     HomeLayoutComponent,
-    AdminLayoutComponent,
-    AuthLayoutComponent,
     PageNotFoundComponent
   ],
   providers: [

@@ -32,16 +32,19 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
   errorMsg = '';
   url = '';
   announced = false;
-  announceDate = '';
+  blocked = false;
+  announceStatus: string;
   paramSubscription$: any;
   resultSubscription$: any;
   commentName = '';
+  commentEmail = '';
   commentText = '';
   comments = [];
   showComments = false;
   addCommentSubscription$: any;
   isValidCommentName = false;
   isValidCommentText = false;
+  isValidCommentEmail = false;
   notAnnouncedAnimOptions: AnimationOptions = {
     path: '/assets/lib/not-announced.json'
   };
@@ -161,6 +164,8 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
       this.errorMsg = '';
 
+      this.blocked = false;
+
       // tslint:disable-next-line:max-line-length
       this.resultSubscription$ = this.resultService.getResult(this.selectedClass, this.selectedBoardKey, this.selectedYear, this.selectedExamType)
         .subscribe(
@@ -175,16 +180,13 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
               if (!this.announced) {
 
-                // tslint:disable-next-line:max-line-length
-                if (this.resultData.announceDate) {
-
-                  const annDate = new Date(this.resultData.announceDate);
-                  // tslint:disable-next-line:max-line-length
-                  this.announceDate = `${annDate.getDate()}/${annDate.getMonth() + 1}/${annDate.getFullYear()}`;
-
-                }
-
                 this.isLoading = false;
+
+                this.announceStatus = 'Not announced';
+
+              } else {
+
+                this.announceStatus = 'Announced';
 
               }
 
@@ -204,7 +206,10 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
               if (this.resultData.isBlocked && this.announced) {
 
-                window.open(this.url, '_blank');
+                this.blocked = true;
+                // window.open(this.url, '_blank');
+
+                this.isLoading = false;
 
               }
 
@@ -287,6 +292,26 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
   }
 
+  validateCommentEmail(event) {
+
+    if (event) {
+
+      this.commentEmail = event.target.value;
+
+      if (!this.commentEmail || this.commentEmail === '' || this.commentEmail.length < 2) {
+
+        this.isValidCommentEmail = false;
+
+        return;
+
+      }
+
+      this.isValidCommentEmail = true;
+
+    }
+
+  }
+
   validateCommentText(event) {
 
     if (event) {
@@ -313,11 +338,12 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.isValidCommentName && this.isValidCommentText) {
+    if (this.isValidCommentName && this.isValidCommentText && this.isValidCommentEmail) {
 
       const comment = {
         name: this.commentName,
-        text: this.commentText
+        text: this.commentText,
+        email: this.commentEmail
       };
 
       this.isLoading = true;

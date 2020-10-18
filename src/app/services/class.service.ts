@@ -6,22 +6,8 @@ export class ClassService {
 
   constructor (private http: HttpClient) {}
 
-  addClass(title: string, type: string) {
-    const classData: any = { title: title, type: type};
-    return this.http.post<{success: boolean, message: string, data: any}>('/api/section', classData);
-  }
-
   getAllClasses() {
     return this.http.get<{success: boolean, message: string, data: any}>('/api/sections');
-  }
-
-  updateClass( classId: string, title: string, type: string ) {
-    const update = { title: title, type: type };
-    return this.http.put<{success: boolean, message: string, data: any}>('/api/updateSection' + classId, update);
-  }
-
-  deleteClass(classId: string) {
-    return this.http.delete<{success: boolean, message: string, data: any}>('/api/deleteSection' + classId);
   }
 
 }

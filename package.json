@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "localserve": "ng serve --port 4200 --proxy-config proxy.conf.json",
+    "localserve": "ng serve --port 4300 --proxy-config proxy.conf.json",
     "localServeNoReload": "ng serve  --port 4200 --proxy-config proxy.conf.json --live-reload false"
   },
   "private": true,
