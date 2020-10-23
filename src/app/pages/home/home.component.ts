@@ -202,8 +202,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
               this.totalResults = this.results && this.results.length;
 
-              this.filterByStatus(true);
-
             } else {
 
               this.isError = true;
@@ -237,7 +235,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
 
-  filterByStatus(status) {
+  /*filterByStatus(status) {
 
     this.selectedStatus = status;
 
@@ -263,7 +261,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     }
 
-  }
+  }*/
 
   filterByProvince(province) {
 
@@ -371,8 +369,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.selectedClass = 'default';
 
     this.selectedStatus = true;
-
-    this.filterByStatus(true);
 
   }
 

@@ -41,6 +41,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   };
 
   loadingAnim: AnimationItem;
+  examAnimOptions: AnimationOptions = {
+    path: 'assets/lib/exam.json',
+    loop: true,
+    autoplay: true
+  };
 
   constructor(private classService: ClassService,
               private boardService: BoardService,

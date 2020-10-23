@@ -66,6 +66,27 @@
 }
 
 @media screen and (min-width: 768px) {
+  .veryLargeNgLottie {
+    width: 500px !important;
+    height: 500px !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .veryLargeNgLottie {
+    width: 300px !important;
+    height: 300px !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .veryLargeNgLottie {
+    width: 150px !important;
+    height: 150px !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
   .largeNgLottie {
     width: 300px !important;
     height: 300px !important;

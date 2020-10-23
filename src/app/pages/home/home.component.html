@@ -1,13 +1,12 @@
 
-<div class="container-fluid mt--5 bg-secondary">
+<div class="container-fluid main-wrapper bg-secondary">
   <!-- Table -->
   <div class=" order-xl-1 bg-secondary">
     <div class="bg-secondary">
-      <div class="card card-body bg-secondary custom-sub-header" style="border-radius: 12px;">
-        <div class="row align-items-center text-center">
-          <div  class="btn-group text-center" style="margin: 0 auto">
-            <button class="btn" [disabled]="isLoading" [ngClass]="{'text-success': selectedStatus, 'text-muted': !selectedStatus}" (click)="filterByStatus(true)">Latest</button>
-            <button class="btn" [disabled]="isLoading" [ngClass]="{'text-success': !selectedStatus, 'text-muted': selectedStatus}" (click)="filterByStatus(false)">Upcoming</button>
+      <div class="card card-body bg-secondary custom-sub-header news-wrapper">
+        <div class="row align-items-center text-right">
+          <div>
+            <span class="text text-sm text-left">This is the news</span>
           </div>
         </div>
       </div>
