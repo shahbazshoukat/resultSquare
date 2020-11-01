@@ -3,7 +3,6 @@ import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeLayoutComponent } from '@app/layouts/home-layout/home-layout.component';
-import { AuthGuard } from '@app/guards/auth.guard';
 import { PageNotFoundComponent } from '@app/pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
@@ -27,8 +26,6 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [AuthGuard],
-  exports: [
-  ],
+  exports: []
 })
 export class AppRoutingModule { }

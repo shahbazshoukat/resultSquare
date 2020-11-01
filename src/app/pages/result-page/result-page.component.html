@@ -5,15 +5,15 @@
   <div class=" order-xl-1 bg-secondary">
     <div class="bg-secondary">
       <div class="row border-2 mt-5">
-          <div class="col-lg-12 col-md-12">
-            <div class="card border-0 bg-transparent">
-              <div class="card-body mt-5">
-                <div>
-                  <span class="text-capitalize" *ngIf="resultTitle" style="font-size: 25px; font-weight: bolder;" >{{resultTitle}}</span>
-                </div>
+        <div class="col-lg-12 col-md-12">
+          <div class="card border-0 bg-transparent">
+            <div class="card-body mt-5">
+              <div>
+                <span class="text-capitalize" *ngIf="resultTitle" style="font-size: 25px; font-weight: bolder;" >{{resultTitle}}</span>
               </div>
             </div>
           </div>
+        </div>
       </div>
 
       <div class="card card-body bg-secondary result-info-wrapper">
@@ -77,11 +77,11 @@
           <div *ngIf="!announced && !isLoading">
             <div class="card shadow border-0 bg-secondary error-wrapper">
               <div class="error-anim">
-                <ng-lottie containerClass="largeNgLottie" [options]="notAnnouncedAnimOptions" (animationCreated)="notAnnouncedAnimationCreated($event)"></ng-lottie>
+                <ng-lottie containerClass="largeNgLottie" [options]="notAnnouncedAnimOptions"></ng-lottie>
               </div>
               <div class="col-12 text-center">
                 <div style="margin-top: 30px;">
-                  <span>Ahhh, result is not announced yet, please </span>
+                  <span>Ohhh, result is not announced yet, please </span>
                   <span>Keep visiting <a [routerLink]="['/']" >ResultSquare</a> for latest news and updates.</span>
                 </div>
               </div>
@@ -107,7 +107,7 @@
         <div *ngIf="isError" class="col-11 mt-100">
           <div class="card shadow border-0 bg-secondary error-wrapper">
             <div class="error-anim">
-              <ng-lottie containerClass="largeNgLottie" [options]="errorAnimOptions" (animationCreated)="errorAnimationCreated($event)"></ng-lottie>
+              <ng-lottie containerClass="largeNgLottie" [options]="errorAnimOptions"></ng-lottie>
             </div>
             <div class="col-12 text-center">
               <div style="margin-top: 30px;">
@@ -121,7 +121,7 @@
         <div *ngIf="blocked" class="col-11 mt-100">
           <div class="card shadow border-0 bg-secondary error-wrapper">
             <div class="error-anim">
-              <ng-lottie containerClass="largeNgLottie" [options]="errorAnimOptions" (animationCreated)="errorAnimationCreated($event)"></ng-lottie>
+              <ng-lottie containerClass="largeNgLottie" [options]="errorAnimOptions"></ng-lottie>
             </div>
             <div class="col-12 text-center">
               <div style="margin-top: 30px;">
@@ -212,7 +212,7 @@
       </div>
 
       <div *ngIf="isLoading" class="loader">
-        <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+        <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions"></ng-lottie>
       </div>
 
     </div>

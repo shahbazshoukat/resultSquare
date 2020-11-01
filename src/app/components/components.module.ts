@@ -6,24 +6,25 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
-export function playerFactory() {
-  return player;
-}
+import { SliderComponent } from './slider/slider.component';
+export function playerFactory() { return player; }
 
 @NgModule({
   imports: [
+    NgbModule,
     CommonModule,
     RouterModule,
-    NgbModule,
     LottieModule.forRoot({ player: playerFactory, useCache: true })
   ],
   declarations: [
     FooterComponent,
     NavbarComponent,
+    SliderComponent
   ],
   exports: [
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    SliderComponent
   ]
 })
 export class ComponentsModule { }

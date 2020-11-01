@@ -2,81 +2,76 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ResultService } from '@app/services';
 import { Location } from '@angular/common';
-import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import { BoardService } from '@app/services';
 import { NgForm } from '@angular/forms';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-enter-rollno',
-  templateUrl: './enter-rollno.component.html',
-  styleUrls: ['./enter-rollno.component.scss']
+  selector: 'app-result-page',
+  templateUrl: './result-page.component.html',
+  styleUrls: ['./result-page.component.scss']
 })
-export class EnterRollNoComponent implements OnInit, OnDestroy {
+export class ResultPageComponent implements OnInit, OnDestroy {
 
-  // @ts-ignore
-  @ViewChild('resultPage') resultPage: ElementRef;
-
-  selectedBoardKey;
-  selectedClass;
-  selectedYear;
-  selectedExamType;
-  selectedBoard;
-  resultTitle;
-  resultDescription;
-  resultData;
-  tags = [];
-  result = 'NO RESULT FOUND';
-  isLoading = false;
-  isError = false;
-  errorMsg = '';
   url = '';
-  announced = false;
-  blocked = false;
-  announceStatus: string;
-  paramSubscription$: any;
-  resultSubscription$: any;
-  commentName = '';
-  commentEmail = '';
-  commentText = '';
+  tags = [];
+  alive = true;
+  errorMsg = '';
   comments = [];
+  blocked = false;
+  isError = false;
+  resultData: any;
+  commentName = '';
+  commentText = '';
+  resultTitle: any;
+  commentEmail = '';
+  announced = false;
+  selectedYear: any;
+  isLoading = false;
+  selectedClass: any;
+  selectedBoard: any;
   showComments = false;
-  addCommentSubscription$: any;
+  selectedBoardKey: any;
+  selectedExamType: any;
+  resultDescription: any;
+  announceStatus: string;
+  result = 'NO RESULT FOUND';
   isValidCommentName = false;
   isValidCommentText = false;
   isValidCommentEmail = false;
-  notAnnouncedAnimOptions: AnimationOptions = {
-    path: '/assets/lib/not-announced.json'
+  @ViewChild('subheader', { static: false }) subheader: ElementRef;
+  @ViewChild('resultPage', { static: false }) resultPage: ElementRef;
+
+  errorAnimOptions: AnimationOptions = {
+    path: '/assets/lib/error.json',
+    loop: true,
+    autoplay: true
   };
 
   loadingAnimOptions: AnimationOptions = {
-    path: '/assets/lib/loading-spinner.json'
+    path: '/assets/lib/loading-spinner.json',
+    loop: true,
+    autoplay: true
   };
 
-  loadingAnim: AnimationItem;
-
-  notAnnouncedAnim: AnimationItem;
-
-  errorAnimOptions: AnimationOptions = {
-    path: '/assets/lib/error.json'
+  notAnnouncedAnimOptions: AnimationOptions = {
+    path: '/assets/lib/not-announced.json',
+    loop: true,
+    autoplay: true
   };
 
-  errorAnim: AnimationItem;
-  // @ts-ignore
-  @ViewChild('subheader')
-  subheader: ElementRef;
-
-  constructor(private route: ActivatedRoute,
-              private resultService: ResultService,
-              private boardService: BoardService,
+  constructor(private router: Router,
               private _location: Location,
-              private router: Router) { }
+              private route: ActivatedRoute,
+              private boardService: BoardService,
+              private resultService: ResultService) { }
 
   ngOnInit() {
 
     this.resultTitle = '';
 
-    this.paramSubscription$ = this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    this.route.paramMap.pipe(takeWhile(this.isAlive)).subscribe((paramMap: ParamMap) => {
 
       if (paramMap.has('boardKey')) {
 
@@ -110,7 +105,17 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
     });
 
-    this.resultPage.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+    if (this.resultPage && this.resultPage.nativeElement) {
+
+      this.resultPage.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+
+    }
+
+  }
+
+  isAlive = () => {
+
+    return this.alive;
 
   }
 
@@ -133,25 +138,6 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
   }
 
-  notAnnouncedAnimationCreated(animationItem: AnimationItem): void {
-
-    this.notAnnouncedAnim = animationItem;
-
-  }
-
-  loadingAnimationCreated(animationItem: AnimationItem): void {
-
-    this.loadingAnim = animationItem;
-
-  }
-
-  errorAnimationCreated(animationItem: AnimationItem): void {
-
-    this.errorAnim = animationItem;
-
-  }
-
-
   getResult() {
 
     if (this.selectedClass && this.selectedBoardKey && this.selectedYear && this.selectedExamType) {
@@ -166,8 +152,8 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
       this.blocked = false;
 
-      // tslint:disable-next-line:max-line-length
-      this.resultSubscription$ = this.resultService.getResult(this.selectedClass, this.selectedBoardKey, this.selectedYear, this.selectedExamType)
+      this.resultService.getResult(this.selectedClass, this.selectedBoardKey, this.selectedYear, this.selectedExamType)
+        .pipe(takeWhile(this.isAlive))
         .subscribe(
 
           response => {
@@ -348,26 +334,27 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
       this.isLoading = true;
 
-      this.addCommentSubscription$ = this.resultService.addComment(this.resultData._id, comment)
+      this.resultService.addComment(this.resultData._id, comment)
+        .pipe(takeWhile(this.isAlive))
         .subscribe(
-        response => {
+          response => {
 
-          this.comments.reverse();
+            this.comments.reverse();
 
-          this.comments.push(response.data);
+            this.comments.push(response.data);
 
-          this.comments.reverse();
+            this.comments.reverse();
 
-          form.resetForm();
+            form.resetForm();
 
-          this.isLoading = false;
+            this.isLoading = false;
 
-        },
-        error => {
+          },
+          error => {
 
-          this.isLoading = false;
+            this.isLoading = false;
 
-        });
+          });
 
     }
 
@@ -375,14 +362,7 @@ export class EnterRollNoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
 
-    // tslint:disable-next-line:no-unused-expression
-    this.paramSubscription$ && this.paramSubscription$.unsubscribe();
-
-    // tslint:disable-next-line:no-unused-expression
-    this.resultSubscription$ && this.resultSubscription$.unsubscribe();
-
-    // tslint:disable-next-line:no-unused-expression
-    this.addCommentSubscription$ && this.addCommentSubscription$.unsubscribe();
+    this.alive = false;
 
   }
 

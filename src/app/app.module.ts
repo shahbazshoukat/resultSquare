@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { HttpErrorInterceptor } from '@app/interceptors/http-error.interceptor';
 import { AuthInterceptor } from '@app/interceptors/auth-interceptor';
 import { AppComponent } from '@app/app.component';
 import { HomeLayoutComponent } from '@app/layouts/home-layout/home-layout.component';
@@ -20,15 +19,15 @@ export function playerFactory() {
 
 @NgModule({
   imports: [
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    ComponentsModule,
     NgbModule,
+    FormsModule,
     RouterModule,
     AppRoutingModule,
+    HttpClientModule,
+    ComponentsModule,
+    AlertModule.forRoot(),
+    BrowserAnimationsModule,
     LottieModule.forRoot({player: playerFactory, useCache: true}),
-    AlertModule.forRoot()
   ],
   declarations: [
     AppComponent,

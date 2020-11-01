@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import { ResultService } from '@app/services';
 import { PaginationInstance } from 'ngx-pagination';
 import { ClassService } from '@app/services';
 import { BoardService } from '@app/services';
 import * as Enums from '@app/app.enums';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +15,24 @@ import * as Enums from '@app/app.enums';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  classes = [];
-  isLoading = true;
-  isError = false;
-  errorMsg = '';
+  pages: any;
   result: any;
+  boards = [];
+  alive = true;
+  classes = [];
+  results = [];
+  errorMsg = '';
+  isError = false;
+  isLoading = true;
+  totalResults = 0;
+  selectedPageNo = 1;
+  filteredBoards = [];
+  filteredResults = [];
+  selectedStatus = true;
+  selectedProvince = 'All';
+  selectedClass = 'default';
+  selectedBoardKey = 'default';
+
   provinces = [
     'All',
     'Punjab',
@@ -29,44 +42,34 @@ export class HomeComponent implements OnInit, OnDestroy {
     'AJK',
     'Federal'
   ];
-  selectedProvince = 'All';
-   status: {
-     Announced: { value: true, selected: true},
-     UnAnnounced: { value: false, selected: false}
-   };
-  loadingAnimOptions: AnimationOptions = {
-    path: '/assets/lib/loading-spinner.json'
-  };
 
-  loadingAnim: AnimationItem;
-  errorAnimOptions: AnimationOptions = {
-    path: '/assets/lib/error.json'
-  };
-
-  errorAnim: AnimationItem;
-  results = [];
-  filteredResults = [];
-  totalResults = 0;
-  pages;
-  selectedPageNo = 1;
-  resultsSubscription$: any;
   config: PaginationInstance = {
     itemsPerPage: 20,
     currentPage: 1,
     totalItems: this.totalResults
   };
-  selectedClass = 'default';
-  getClassesSubscription$: any;
-  boards = [];
-  filteredBoards = [];
-  selectedBoardKey = 'default';
-  getBoardsSubscription$: any;
-  selectedStatus = true;
 
+  status: {
+    Announced: { value: true, selected: true},
+    UnAnnounced: { value: false, selected: false}
+  };
 
-  constructor(private router: Router, private resultService: ResultService,
+  errorAnimOptions: AnimationOptions = {
+    path: '/assets/lib/error.json',
+    loop: true,
+    autoplay: true
+  };
+
+  loadingAnimOptions: AnimationOptions = {
+    path: '/assets/lib/loading-spinner.json',
+    loop: true,
+    autoplay: true
+  };
+
+  constructor(private router: Router,
               private classService: ClassService,
-              private boardService: BoardService) { }
+              private boardService: BoardService,
+              private resultService: ResultService) { }
 
   ngOnInit() {
 
@@ -78,26 +81,23 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
 
-  loadingAnimationCreated(animationItem: AnimationItem): void {
+  isAlive = () => {
 
-    this.loadingAnim = animationItem;
-
-  }
-
-  errorAnimationCreated(animationItem: AnimationItem): void {
-
-    this.errorAnim = animationItem;
+    return this.alive;
 
   }
 
   getClasses() {
 
     this.isLoading = true;
+
     this.isError = false;
+
     this.errorMsg = '';
+
     this.selectedClass = 'default';
 
-    this.getClassesSubscription$ = this.classService.getAllClasses()
+    this.classService.getAllClasses().pipe(takeWhile(this.isAlive))
       .subscribe(
       response => {
 
@@ -112,7 +112,9 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.errorMsg = 'No Class Found';
 
           }
+
           // this.isLoading = false;
+
         }
 
       },
@@ -142,7 +144,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.errorMsg = '';
 
-    this.getBoardsSubscription$ = this.boardService.getAllBoardes().subscribe(
+    this.boardService.getAllBoards().pipe(takeWhile(this.isAlive)).subscribe(
       response => {
 
         this.boards = response.data;
@@ -186,7 +188,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    this.resultsSubscription$ = this.resultService.getLatestResults()
+    this.resultService.getLatestResults().pipe(takeWhile(this.isAlive))
       .subscribe(
         response => {
 
@@ -353,11 +355,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onPageChange(event) {
+
     this.config.currentPage = event;
+
   }
 
   retry() {
+
     this.getLatestResults();
+
   }
 
   setDefaultFilters() {
@@ -418,9 +424,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
 
-    this.getClassesSubscription$ && this.getClassesSubscription$.unsubscribe();
-    this.getBoardsSubscription$ && this.getBoardsSubscription$.unsubscribe();
-    this.resultsSubscription$ && this.resultsSubscription$.unsubscribe();
+   this.alive = false;
 
   }
 
