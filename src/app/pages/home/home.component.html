@@ -1,16 +1,15 @@
 
-<div class="container-fluid mt--5 bg-secondary">
+<div class="container-fluid main-wrapper bg-secondary">
   <!-- Table -->
   <div class=" order-xl-1 bg-secondary">
     <div class="bg-secondary">
-      <div class="card card-body bg-secondary custom-sub-header" style="border-radius: 12px;">
-        <div class="row align-items-center text-center">
-          <div  class="btn-group text-center" style="margin: 0 auto">
-            <button class="btn" [disabled]="isLoading" [ngClass]="{'text-success': selectedStatus, 'text-muted': !selectedStatus}" (click)="filterByStatus(true)">Latest</button>
-            <button class="btn" [disabled]="isLoading" [ngClass]="{'text-success': !selectedStatus, 'text-muted': selectedStatus}" (click)="filterByStatus(false)">Upcoming</button>
+      <!-- <div class="card card-body bg-secondary custom-sub-header news-wrapper">
+        <div class="row align-items-center text-right">
+          <div>
+            <span class="text text-sm text-left"></span>
           </div>
         </div>
-      </div>
+      </div> -->
       <div *ngIf="!isError" style="padding: 60px">
         <div class="row mt-5">
           <div class="col-12" >
@@ -81,7 +80,7 @@
             <div class="row justify-content-center">
               <div class="bg-transparent" >
                 <div class="text-center">
-                  <ng-lottie width="300px" height="300px" [options]="errorAnimOptions" (animationCreated)="errorAnimationCreated($event)"></ng-lottie>
+                  <ng-lottie width="300px" height="300px" [options]="errorAnimOptions"></ng-lottie>
                 </div>
                 <div class="text-center">
                   <span class="text-lg">No Result Found</span>
@@ -129,7 +128,7 @@
         <div class="row justify-content-center">
           <div class="bg-transparent">
             <div class="text-center">
-              <ng-lottie width="300px" height="300px" [options]="errorAnimOptions" (animationCreated)="errorAnimationCreated($event)"></ng-lottie>
+              <ng-lottie width="300px" height="300px" [options]="errorAnimOptions"></ng-lottie>
             </div>
             <div class="text-center">
               <span class="text-lg">{{errorMsg}}</span>
@@ -142,7 +141,7 @@
       </div>
     </div>
     <div *ngIf="isLoading" class="loader">
-      <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+      <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions"></ng-lottie>
     </div>
   </div>
 </div>

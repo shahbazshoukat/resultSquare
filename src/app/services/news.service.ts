@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
-export class ClassService {
+export class NewsService {
 
   constructor (private http: HttpClient) {}
 
-  getAllClasses() {
+  getAllNews() {
 
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/sections');
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/news');
 
   }
 

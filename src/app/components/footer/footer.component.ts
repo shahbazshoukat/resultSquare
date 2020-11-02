@@ -7,6 +7,7 @@ import { environment as ENV } from '@env/environment';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
+
   test: Date = new Date();
 
   constructor() { }

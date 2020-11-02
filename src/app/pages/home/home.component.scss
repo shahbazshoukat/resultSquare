@@ -1,3 +1,7 @@
+.main-wrapper {
+  margin-top: -1.7rem !important;
+}
+
 .class-text{
     font-size: 35px;
     font-weight: bold;
@@ -45,11 +49,11 @@
 }
 
 .result-card {
-  border-radius: 15px;
-  border-bottom-width: 3px;
-  border-bottom-color: #2dce89;
-  border-top-right-radius: 0px;
-  border-bottom-left-radius: 0px;
+  border-radius: 5px;
+  //border-bottom-width: 3px;
+  //border-bottom-color: #2dce89;
+  //border-top-right-radius: 0px;
+  //border-bottom-left-radius: 0px;
   cursor: pointer;
 }
 
@@ -57,9 +61,9 @@
   border-radius: 15px;
   border-width: 1px;
   border-color: #2dce89;
-  border-right-width: 3px;
-  border-bottom-width: 3px;
-  border-bottom-color: #2dce89;
+  //border-right-width: 3px;
+  //border-bottom-width: 3px;
+  //border-bottom-color: #2dce89;
   cursor: pointer;
 }
 
@@ -105,4 +109,16 @@
 .pagination-previous,.pagination-next{
   display: inline-block;
   font-weight: bold;
+}
+
+.news-wrapper {
+  padding: 1rem !important;
+  border-radius: 5px;
+}
+
+.news-head {
+  height: 100%;
+  background: #2dce89;
+  padding: 1rem;
+  border-radius: 5px 0px 0px 5px;
 }

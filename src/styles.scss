@@ -1,4 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+
+.row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+.DF {
+  display: flex !important;
+}
+
 .loader {
   display: block;
   position: fixed;
@@ -16,3 +26,89 @@
 .custom-sub-header {
   box-shadow: 0 10px 18px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
 }
+
+.box-shadow-large {
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.BR5 {
+  border-radius: 5px;
+}
+
+.WP100 {
+  width: 100% !important;
+}
+
+.CP {
+  cursor: pointer;
+}
+
+.rs-footer {
+  padding: 0px !important;
+
+  .footer-content-wrapper {
+    height: 250px;
+
+    .footer-content {
+
+      .description {
+        padding: 0px 50px;
+      }
+
+    }
+
+  }
+
+  .footer-tile {
+    height: 70px;
+    padding: 10px 50px 0px 50px;
+
+    .brand-logo {
+      font-size: 14px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .veryLargeNgLottie {
+    width: 500px !important;
+    height: 500px !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .veryLargeNgLottie {
+    width: 300px !important;
+    height: 300px !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .veryLargeNgLottie {
+    width: 150px !important;
+    height: 150px !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .largeNgLottie {
+    width: 300px !important;
+    height: 300px !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .largeNgLottie {
+    width: 200px !important;
+    height: 200px !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .largeNgLottie {
+    width: 150px !important;
+    height: 150px !important;
+  }
+}
+
+

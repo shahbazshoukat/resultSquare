@@ -3,34 +3,10 @@ import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeLayoutComponent } from '@app/layouts/home-layout/home-layout.component';
-import { AdminLayoutComponent } from '@app/layouts/admin-layout/admin-layout.component';
-import { AuthLayoutComponent } from '@app/layouts/auth-layout/auth-layout.component';
-import { AuthGuard } from '@app/guards/auth.guard';
 import { PageNotFoundComponent } from '@app/pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '404', component: PageNotFoundComponent},
-  {
-    path: 'rs-admin',
-    component: AdminLayoutComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('@app/layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
-      }
-    ]
-  },
-  {
-    path: 'secret-rs-admin',
-    component: AuthLayoutComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('@app/layouts/auth-layout/auth-layout.module').then(m => m.AuthLayoutModule)
-      }
-    ]
-  },
   {
     path: '',
     component: HomeLayoutComponent,
@@ -50,8 +26,6 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [AuthGuard],
-  exports: [
-  ],
+  exports: []
 })
 export class AppRoutingModule { }
