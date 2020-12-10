@@ -12,6 +12,10 @@ import { ComponentsModule } from '@app/components/components.module';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { AlertModule, AlertService } from 'ngx-alerts';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { LoadingBarHttpModule } from '@ngx-loading-bar/http';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { PageNotFoundComponent } from '@app/pages/page-not-found/page-not-found.component';
 export function playerFactory() {
   return player;
@@ -25,9 +29,14 @@ export function playerFactory() {
     AppRoutingModule,
     HttpClientModule,
     ComponentsModule,
+    LoadingBarModule,
     AlertModule.forRoot(),
+    LoadingBarHttpModule,
+    LoadingBarRouterModule,
     BrowserAnimationsModule,
+    LoadingBarHttpClientModule,
     LottieModule.forRoot({player: playerFactory, useCache: true}),
+    LoadingBarHttpClientModule
   ],
   declarations: [
     AppComponent,
