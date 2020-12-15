@@ -16,7 +16,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarHttpModule } from '@ngx-loading-bar/http';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
-import { PageNotFoundComponent } from '@app/pages/page-not-found/page-not-found.component';
+import { PageNotFoundComponent, HowItWorksComponent, HowToDoComponent } from '@app/pages';
 export function playerFactory() {
   return player;
 }
@@ -41,7 +41,9 @@ export function playerFactory() {
   declarations: [
     AppComponent,
     HomeLayoutComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    HowItWorksComponent,
+    HowToDoComponent
   ],
   providers: [
     AlertService,

@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SafePipe } from '@app/pipes';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 export function playerFactory() { return player; }
 
 @NgModule({
@@ -22,7 +23,8 @@ export function playerFactory() { return player; }
     HttpClientModule,
     NgxPaginationModule,
     RouterModule.forChild(HomeLayoutRoutes),
-    LottieModule.forRoot({ player: playerFactory, useCache: true }),
+    LottieModule.forRoot({player: playerFactory, useCache: true}),
+    LoadingBarModule,
   ],
   declarations: [
     SafePipe,

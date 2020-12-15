@@ -9,6 +9,11 @@
   display: flex !important;
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 .loader {
   display: block;
   position: fixed;

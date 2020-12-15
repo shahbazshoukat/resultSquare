@@ -18,3 +18,23 @@
   width: 30px !important;
   height: 30px !important;
 }
+
+@media screen and (min-width: 576px) {
+  .footer-logo {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .footer-links {
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .footer-logo {
+    display: flex;
+    justify-content: center;
+  }
+  .footer-links {
+    justify-content: center;
+  }
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment as ENV } from '@env/environment';
+import {UtilService} from '@app/services';
 
 @Component({
   selector: 'app-footer',
@@ -10,14 +11,38 @@ export class FooterComponent implements OnInit {
 
   test: Date = new Date();
 
-  constructor() { }
+  constructor(private utilService: UtilService) { }
 
   ngOnInit() {
   }
 
   openFbPage() {
 
-    window.open(ENV.fbPageUrl, '_blank');
+    if (ENV && ENV.fbPageUrl) {
+
+      this.utilService.openLink(ENV.fbPageUrl);
+
+    }
+
+  }
+
+  openTwitterPage() {
+
+    if (ENV && ENV.twitterPageUrl) {
+
+      this.utilService.openLink(ENV.twitterPageUrl);
+
+    }
+
+  }
+
+  openYoutubePage() {
+
+    if (ENV && ENV.youtubePageUrl) {
+
+      this.utilService.openLink(ENV.youtubePageUrl);
+
+    }
 
   }
 

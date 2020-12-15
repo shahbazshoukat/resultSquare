@@ -6,6 +6,7 @@ import { AnimationOptions } from 'ngx-lottie';
 import { BoardService } from '@app/services';
 import { NgForm } from '@angular/forms';
 import { takeWhile } from 'rxjs/operators';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 
 @Component({
   selector: 'app-result-page',
@@ -65,11 +66,14 @@ export class ResultPageComponent implements OnInit, OnDestroy {
               private _location: Location,
               private route: ActivatedRoute,
               private boardService: BoardService,
-              private resultService: ResultService) { }
+              private resultService: ResultService,
+              private loadingBar: LoadingBarService) { }
 
   ngOnInit() {
 
     this.resultTitle = '';
+
+    this.loadingBar.start();
 
     this.route.paramMap.pipe(takeWhile(this.isAlive)).subscribe((paramMap: ParamMap) => {
 
@@ -160,13 +164,13 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
             this.resultData = response.data;
 
+            this.loadingBar.start();
+
             if (this.resultData) {
 
               this.announced = this.resultData.status;
 
               if (!this.announced) {
-
-                this.isLoading = false;
 
                 this.announceStatus = 'Not announced';
 
@@ -193,21 +197,18 @@ export class ResultPageComponent implements OnInit, OnDestroy {
               if (this.resultData.isBlocked && this.announced) {
 
                 this.blocked = true;
-                // window.open(this.url, '_blank');
-
-                this.isLoading = false;
 
               }
 
             } else {
-
-              this.isLoading = false;
 
               this.isError = true;
 
               this.errorMsg = 'Result Not Found';
 
             }
+
+            this.isLoading = false;
 
           },
           error => {
@@ -237,6 +238,14 @@ export class ResultPageComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     document.getElementById('resultFrame')['src'] = this.url;
+
+    this.loadingBar.start();
+
+  }
+
+  onPageLoad() {
+
+    this.loadingBar.stop();
 
   }
 
@@ -320,7 +329,7 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
   addComment (form: NgForm) {
 
-    if (form.invalid) {
+    if (!form || form.invalid) {
       return;
     }
 
