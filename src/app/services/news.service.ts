@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment as ENV } from '@env/environment';
 
 @Injectable({providedIn: 'root'})
 export class NewsService {
@@ -8,7 +9,7 @@ export class NewsService {
 
   getAllNews() {
 
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/news');
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiUrl + '/api/news');
 
   }
 

@@ -1,9 +1,10 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { AuthInterceptor } from '@app/interceptors/auth-interceptor';
+import { HttpErrorInterceptor } from '@app/interceptors/http-error.interceptor';
 import { AppComponent } from '@app/app.component';
 import { HomeLayoutComponent } from '@app/layouts/home-layout/home-layout.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -26,6 +27,7 @@ export function playerFactory() {
     NgbModule,
     FormsModule,
     RouterModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     ComponentsModule,
@@ -46,12 +48,7 @@ export function playerFactory() {
     HowToDoComponent
   ],
   providers: [
-    AlertService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
+    AlertService
   ],
   bootstrap: [AppComponent]
 })

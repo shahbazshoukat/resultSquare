@@ -376,6 +376,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.selectedStatus = true;
 
+    this.filterResults();
+
   }
 
   extractExamType(exam) {

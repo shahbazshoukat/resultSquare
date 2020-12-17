@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment as ENV } from '@env/environment';
 
 @Injectable({providedIn: 'root'})
 export class BoardService {
@@ -9,13 +10,13 @@ export class BoardService {
 
   getAllBoards(): Observable<any> {
 
-    return this.http.get<{success: boolean, message: string, data: any}>( '/api/boards');
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiUrl + '/api/boards');
 
   }
 
   getBoardsBySectionId(sectionId: string): Observable<any> {
 
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/boards/section/' + sectionId);
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiUrl + '/api/boards/section/' + sectionId);
 
   }
 

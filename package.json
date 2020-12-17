@@ -11,7 +11,11 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "localserve": "ng serve --port 4200 --proxy-config proxy.conf.json",
-    "localServeNoReload": "ng serve  --port 4200 --proxy-config proxy.conf.json --live-reload false"
+    "localServeNoReload": "ng serve  --port 4200 --proxy-config proxy.conf.json --live-reload false",
+    "compile:server": "webpack --config webpack.server.config.js --progress --colors",
+    "serve:ssr": "node dist/server",
+    "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
+    "build:client-and-server-bundles": "ng build --prod && ng run result-square:server:production --bundleDependencies all"
   },
   "private": true,
   "dependencies": {
@@ -24,8 +28,11 @@
     "@angular/http": "7.2.4",
     "@angular/platform-browser": "8.2.14",
     "@angular/platform-browser-dynamic": "8.2.14",
+    "@angular/platform-server": "8.2.14",
     "@angular/router": "8.2.14",
     "@ng-bootstrap/ng-bootstrap": "4.0.1",
+    "@nguniversal/express-engine": "v8.2.6",
+    "@nguniversal/module-map-ngfactory-loader": "v8.2.6",
     "@ngx-loading-bar/core": "4.2.0",
     "@ngx-loading-bar/http": "4.2.0",
     "@ngx-loading-bar/http-client": "4.2.0",
@@ -36,6 +43,7 @@
     "config": "^3.2.3",
     "core-js": "2.6.4",
     "dateformat": "^3.0.3",
+    "express": "^4.15.2",
     "font-awesome": "^4.7.0",
     "fs": "0.0.1-security",
     "jquery": "^3.4.1",
@@ -58,6 +66,7 @@
     "@angular/cli": "^8.3.23",
     "@angular/compiler-cli": "8.2.14",
     "@angular/language-service": "8.2.14",
+    "@types/express": "^4.17.0",
     "@types/jasmine": "3.3.8",
     "@types/jasminewd2": "2.0.6",
     "@types/node": "11.9.0",
@@ -71,8 +80,10 @@
     "karma-jasmine-html-reporter": "1.4.0",
     "nodemon": "^1.19.3",
     "protractor": "5.4.2",
+    "ts-loader": "^5.2.0",
     "ts-node": "8.0.2",
     "tslint": "5.12.1",
-    "typescript": "3.5.3"
+    "typescript": "3.5.3",
+    "webpack-cli": "^3.1.0"
   }
 }
