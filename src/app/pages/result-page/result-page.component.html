@@ -25,23 +25,23 @@
           <div class="col-lg-4 col-md-4 col-sm-12 result-info-tile">
             <div>
               <span class="h5">Class/Grade: </span>
-              <span class="text-sm text-muted">{{selectedClass}}</span>
+              <span class="text-sm text-muted">{{selectedClass ? selectedClass : '---' }}</span>
             </div>
             <div>
               <span class="h5">Board: </span>
-              <span class="text-sm text-muted">{{selectedBoard}}
-                <a *ngIf="resultData?.board?.webUrl" target="_blank" class="btn btn-link btn-sm" [href]="resultData?.board?.webUrl">(Official Website)</a>
+              <span class="text-sm text-muted">{{selectedBoard ? selectedBoard : '---' }}
+                <a *ngIf="selectedBoard && resultData?.board?.webUrl" target="_blank" class="btn btn-link btn-sm" [href]="resultData?.board?.webUrl">(Official Website)</a>
               </span>
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 result-info-tile">
             <div>
               <span class="h5">Year: </span>
-              <span class="text-sm text-muted">{{selectedYear}}</span>
+              <span class="text-sm text-muted">{{selectedYear ? selectedYear : '---'}}</span>
             </div>
             <div>
               <span class="h5">Exam type: </span>
-              <span class="text-sm text-muted">{{selectedExamType}}</span>
+              <span class="text-sm text-muted">{{selectedExamType ? selectedExamType : '---'}}</span>
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12">
@@ -78,11 +78,9 @@
 
       <div class="row justify-content-center border-5 mt-100 custom-res-pad" id="print">
 
-        <ngx-loading-bar [includeSpinner]="false" color="#2dce89" height="4px"></ngx-loading-bar>
+        <div class="col-11 mt-100" *ngIf="!isError && !isLoading">
 
-        <div class="col-11 mt-100" *ngIf="!isError">
-
-          <div *ngIf="!announced && !isLoading">
+          <div *ngIf="!announced">
             <div class="card shadow border-0 bg-secondary error-wrapper">
               <div class="error-anim">
                 <ng-lottie containerClass="largeNgLottie" [options]="notAnnouncedAnimOptions"></ng-lottie>
@@ -90,7 +88,7 @@
               <div class="col-12 text-center">
                 <div style="margin-top: 30px;">
                   <span>Ohhh, result is not announced yet, please </span>
-                  <span>Keep visiting <a [routerLink]="['/']" >ResultSquare</a> for latest news and updates.</span>
+                  <span>Keep visiting <a [routerLink]="['/']" >resultSquare.pk</a> for latest news and updates.</span>
                 </div>
               </div>
             </div>
@@ -98,11 +96,14 @@
 
           <div *ngIf="announced && !blocked">
             <div class="row mb-3">
-              <div class="col-lg-6 col-sm-12 text-left">
-                <button class="btn btn-success btn-sm" (click)="reload()">Refresh The Page</button>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 refresh-btn">
+                <button class="btn btn-success btn-sm" (click)="reload()">
+                  <span class="btn-inner--icon"><i class="ni ni-curved-next"></i></span>
+                  <span>Result Page</span>
+                </button>
               </div>
-              <div class="col-lg-6 col-sm-12 text-right">
-                Not working? <button class="btn btn-sm" (click)="navigateToBoardResultPage()">Click here</button>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-sm link-btn">
+                Not working? <button class="btn btn-sm btn-link" (click)="navigateToBoardResultPage()">Click here</button>
               </div>
             </div>
             <div class="card shadow border-0 bg-secondary">
@@ -112,7 +113,7 @@
 
         </div>
 
-        <div *ngIf="isError" class="col-11 mt-100">
+        <div *ngIf="isError && !isLoading" class="col-11 mt-100">
           <div class="card shadow border-0 bg-secondary error-wrapper">
             <div class="error-anim">
               <ng-lottie containerClass="largeNgLottie" [options]="errorAnimOptions"></ng-lottie>
@@ -120,13 +121,13 @@
             <div class="col-12 text-center">
               <div style="margin-top: 30px;">
                 <span>{{errorMsg}}</span>
-                <span>, please keep visiting <a [routerLink]="['/']" >ResultSquare</a> for latest news and updates.</span>
+                <span>, please keep visiting <a [routerLink]="['/']" >resultSquare.pk</a> for latest news and updates.</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div *ngIf="blocked" class="col-11 mt-100">
+        <div *ngIf="blocked && !isLoading" class="col-11 mt-100">
           <div class="card shadow border-0 bg-secondary error-wrapper">
             <div class="error-anim">
               <ng-lottie containerClass="largeNgLottie" [options]="errorAnimOptions"></ng-lottie>
@@ -139,6 +140,19 @@
                     Click here
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="isLoading" class="col-11 mt-100">
+          <div class="card shadow border-0 bg-secondary error-wrapper">
+            <div class="error-anim">
+              <ng-lottie containerClass="smallNgLottie" [options]="dotsLoaderAnimOptions"></ng-lottie>
+            </div>
+            <div class="col-12 text-center">
+              <div style="margin-top: 30px;">
+                <span>Loading...</span>
               </div>
             </div>
           </div>
@@ -214,7 +228,7 @@
                 <small>Tags:</small>
               </div>
               <div class="text-muted mb-4">
-                <span class="badge badge-default ml-3" *ngFor="let tag of tags" >{{tag}}</span>
+                <span class="badge badge-default ml-3 custom-badge" *ngFor="let tag of tags" >{{tag}}</span>
               </div>
             </div>
           </div>

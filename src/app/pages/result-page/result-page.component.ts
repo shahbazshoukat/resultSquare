@@ -33,6 +33,7 @@ export class ResultPageComponent implements OnInit, OnDestroy {
   selectedClass: any;
   selectedBoard: any;
   showComments = false;
+  addingComment = false;
   selectedBoardKey: any;
   selectedExamType: any;
   resultDescription: any;
@@ -62,6 +63,12 @@ export class ResultPageComponent implements OnInit, OnDestroy {
     autoplay: true
   };
 
+  dotsLoaderAnimOptions: AnimationOptions = {
+    path: '/assets/lib/dots-loader-circle.json',
+    loop: true,
+    autoplay: true
+  };
+
   constructor(private router: Router,
               private _location: Location,
               private route: ActivatedRoute,
@@ -72,8 +79,6 @@ export class ResultPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.resultTitle = '';
-
-    this.loadingBar.start();
 
     this.route.paramMap.pipe(takeWhile(this.isAlive)).subscribe((paramMap: ParamMap) => {
 
@@ -164,21 +169,11 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
             this.resultData = response.data;
 
-            this.loadingBar.start();
-
             if (this.resultData) {
 
               this.announced = this.resultData.status;
 
-              if (!this.announced) {
-
-                this.announceStatus = 'Not announced';
-
-              } else {
-
-                this.announceStatus = 'Announced';
-
-              }
+              this.announceStatus = this.announced ? 'Announced' : 'Not announced';
 
               this.tags = this.resultData.tags;
 
@@ -210,6 +205,12 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
             this.isLoading = false;
 
+            if (!this.isError && !this.blocked && this.announced && this.url) {
+
+              this.loadingBar.start();
+
+            }
+
           },
           error => {
 
@@ -235,11 +236,13 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
   reload() {
 
-    this.isLoading = true;
+    if (!this.isError && !this.blocked && this.announced && this.url) {
+
+      this.loadingBar.start();
+
+    }
 
     document.getElementById('resultFrame')['src'] = this.url;
-
-    this.loadingBar.start();
 
   }
 
@@ -341,27 +344,31 @@ export class ResultPageComponent implements OnInit, OnDestroy {
         email: this.commentEmail
       };
 
-      this.isLoading = true;
+      this.addingComment = true;
 
       this.resultService.addComment(this.resultData._id, comment)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
           response => {
 
-            this.comments.reverse();
+            if (response && response.data) {
 
-            this.comments.push(response.data);
+              this.comments.reverse();
 
-            this.comments.reverse();
+              this.comments.push(response.data);
 
-            form.resetForm();
+              this.comments.reverse();
 
-            this.isLoading = false;
+              form.resetForm();
+
+            }
+
+            this.addingComment = false;
 
           },
           error => {
 
-            this.isLoading = false;
+            this.addingComment = false;
 
           });
 
