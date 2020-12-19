@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
+import { environment as ENV } from '@env/environment';
 
 @Component({
   selector: 'app-how-to-do',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HowToDoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private meta: Meta,
+              private title: Title) { }
 
   ngOnInit() {
+
+    this.title.setTitle(ENV.pageTitle);
+
   }
 
 }

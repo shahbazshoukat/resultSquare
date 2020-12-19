@@ -7,6 +7,7 @@ import { BoardService } from '@app/services';
 import { NgForm } from '@angular/forms';
 import { takeWhile } from 'rxjs/operators';
 import { LoadingBarService } from '@ngx-loading-bar/core';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-result-page',
@@ -69,7 +70,9 @@ export class ResultPageComponent implements OnInit, OnDestroy {
     autoplay: true
   };
 
-  constructor(private router: Router,
+  constructor(private meta: Meta,
+              private title: Title,
+              private router: Router,
               private _location: Location,
               private route: ActivatedRoute,
               private boardService: BoardService,
@@ -145,6 +148,8 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
     }
 
+    this.title.setTitle(this.resultTitle);
+
   }
 
   getResult() {
@@ -211,6 +216,10 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
             }
 
+            this.removeExistingTags();
+
+            this.setMetaTags();
+
           },
           error => {
 
@@ -229,6 +238,86 @@ export class ResultPageComponent implements OnInit, OnDestroy {
             }
 
           });
+
+    }
+
+  }
+
+  setResultDescriptionMetaTag() {
+
+    let pageDescription = '';
+
+    if (this.resultData) {
+
+      if (this.resultData.board && this.resultData.board.description) {
+
+        pageDescription = pageDescription + this.resultData.board.description;
+
+      }
+
+      if (this.resultData.description) {
+
+        pageDescription = pageDescription + this.resultData.description;
+
+      }
+
+    }
+
+    this.meta.updateTag({ name: 'description', content: pageDescription });
+
+    this.meta.updateTag({ property: 'og:title', content: this.resultTitle });
+
+    this.meta.updateTag({ property: 'og:description', content: pageDescription });
+
+  }
+
+  setMetaTags() {
+
+    if (Array.isArray(this.tags)) {
+
+      this.meta.updateTag({ name: 'keywords', content: this.tags.toString() });
+
+      this.meta.addTag({ property: 'article:tag', content: 'result'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'result 2020'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'results 2020'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'resultsquare'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'resultsquare.pk'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'result square pk'});
+
+      this.meta.addTag({ property: 'article:tag', content: this.resultTitle });
+
+      this.tags.forEach(tag => {
+
+        if (tag) {
+
+          this.meta.addTag({ property: 'article:tag', content: tag });
+
+        }
+
+      });
+
+    }
+
+    this.setResultDescriptionMetaTag();
+
+  }
+
+  removeExistingTags() {
+
+    const existingMetaTags = this.meta.getTags('property=\'article:tag\'');
+
+    if (Array.isArray(existingMetaTags)) {
+
+      existingMetaTags.forEach(metaTag => {
+
+        this.meta.removeTagElement(metaTag);
+
+      });
 
     }
 

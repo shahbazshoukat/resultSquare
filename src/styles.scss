@@ -9,6 +9,14 @@
   display: flex !important;
 }
 
+.MTO {
+  margin-top: 0 !important;
+}
+
+.MT15O {
+  margin-top: 150px !important;
+}
+
 .disabled {
   pointer-events: none;
   opacity: 0.5;
@@ -52,7 +60,8 @@
   padding: 0px !important;
 
   .footer-content-wrapper {
-    height: 250px;
+    min-height: 250px;
+    padding: 30px 0px;
 
     .footer-content {
 
