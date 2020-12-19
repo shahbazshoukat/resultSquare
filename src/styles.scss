@@ -17,6 +17,10 @@
   margin-top: 150px !important;
 }
 
+.WP100 {
+  width: 100% !important;
+}
+
 .disabled {
   pointer-events: none;
   opacity: 0.5;
@@ -81,6 +85,10 @@
       font-size: 14px;
     }
   }
+}
+
+.ngx-pagination {
+  padding: 0 !important;
 }
 
 @media screen and (min-width: 768px) {

@@ -18,6 +18,13 @@
 .bgWrapper {
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-main {
+  // background-image: url(/assets/img/theme/profile-cover-5.jpg); background-size: cover; background-position: center top;
 }
 
 @media screen and (max-width: 768px) {
@@ -30,6 +37,7 @@
 @media screen and (min-width: 768px) {
   .nav-main {
     height: 500px;
+    background-image: url(/assets/img/theme/profile-cover-5.jpg); background-size: cover; background-position: center top;
   }
   .search-result-wrapper {
     padding: 50px 50px;
