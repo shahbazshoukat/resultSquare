@@ -61,11 +61,11 @@
         <div class="col-lg-12 col-md-12">
           <div class="card border-0 bg-transparent">
             <div class="card-body">
-              <div class="mt-4" *ngIf="resultData?.board?.description">
-                <p class="text-sm text-muted text-capitalize" [innerHTML]="resultData?.board?.description"></p>
+              <div *ngIf="resultData?.board?.description">
+                <p class="text-sm text-muted" [innerHTML]="resultData?.board?.description"></p>
               </div>
               <div class="mt-4" *ngIf="resultData?.description">
-                <p class="text-sm text-muted text-capitalize" [innerHTML]="resultData?.description"></p>
+                <p class="text-sm text-muted" [innerHTML]="resultData?.description"></p>
               </div>
             </div>
           </div>
