@@ -1,9 +1,10 @@
 .news-tile {
-
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-left-width: 5px;
-  border-left-color:  #5e72e4;
+  display: block;
+  width: 100%;
+  margin: 0 0 20px 0;
+  padding: 0 0 20px 0;
+  list-style: none;
+  border-bottom: 1px solid #DEDACB;
 }
 
 .bg-opacity {
@@ -17,24 +18,57 @@
 .bgWrapper {
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (max-width: 768px) {
   .nav-main {
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-image: url(/assets/img/theme/profile-cover-5.jpg); background-size: cover; background-position: center top;
   }
 }
 
 @media screen and (min-width: 768px) {
   .nav-main {
     height: 500px;
+    background-image: url(/assets/img/theme/profile-cover-5.jpg); background-size: cover; background-position: center top;
+  }
+  .search-result-wrapper {
+    padding: 50px 50px;
+  }
+  .notifications-wrapper {
+    padding: 20px 50px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+  }
+  .notification-card {
+    max-width: 500px;
   }
 }
 
 @media screen and (max-width: 767px) {
   .nav-news-container {
     display: none;
+  }
+  .search-result-wrapper {
+    padding: 0px 0px;
+  }
+  .notifications-wrapper {
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+  }
+  .notification-card {
+    width: 100%;
   }
 }
 
@@ -43,6 +77,9 @@
     font-size: 60px;
     font-weight: bolder;
   }
+  .search-result-wrapper {
+    padding: 50px 50px;
+  }
 }
 
 @media screen and (max-width: 839px) {
@@ -50,23 +87,21 @@
     font-size: 50px;
     font-weight: bolder;
   }
+  .search-result-wrapper {
+    padding: 50px 0px;
+  }
 }
 
-.search-result-wrapper {
-  padding: 50px;
+@media screen and (min-width: 992px) {
+  .search-result-wrapper {
+    padding: 50px 50px;
+  }
 }
 
-.notifications-wrapper {
-  padding: 20px 50px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  justify-items: center;
-  align-items: center;
-}
-
-.notification-card {
-  max-width: 500px;
+@media screen and (max-width: 991px) {
+  .search-result-wrapper {
+    padding: 50px 0px;
+  }
 }
 
 .notifications-head {
@@ -93,7 +128,6 @@
 }
 
 .notifications-wrap {
-  padding: 0px 20px;
   max-height: 240px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -121,4 +155,17 @@
   justify-items: center;
   align-items: center;
   display: flex;
+}
+
+.alert-news {
+  color: #990000;
+}
+
+.news-list {
+  list-style: none;
+  padding: 20px;
+}
+
+.news-header {
+  padding: 15px;
 }

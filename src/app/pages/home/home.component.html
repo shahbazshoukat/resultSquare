@@ -10,7 +10,7 @@
           </div>
         </div>
       </div> -->
-      <div *ngIf="!isError" style="padding: 60px">
+      <div *ngIf="!isError">
         <div class="row mt-5">
           <div class="col-12" >
             <div class="text-center">
@@ -86,7 +86,7 @@
                   <span class="text-lg">No Result Found</span>
                 </div>
                 <div class="text-center" style="margin-top: 30px;">
-                  <span class="btn btn-primary" (click)="setDefaultFilters()">Set Default Filters</span>
+                  <span class="btn btn-primary" (click)="setDefaultFilters()">Clear Filters</span>
                 </div>
               </div>
             </div>
@@ -139,9 +139,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div *ngIf="isLoading" class="loader">
-      <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions"></ng-lottie>
     </div>
   </div>
 </div>

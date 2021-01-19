@@ -11,25 +11,25 @@
         </a>
       </div>
       <div class="mt-3 description">
-        <p>Resultsquare.pk brings a simple way to get exam results from all over the Pakistan.</p>
+        <p>Latest Academic results online at Resultsquare.pk. <br/>View latest educational results of all classes, tests, boards and universities of Pakistan.</p>
       </div>
       <div class="mt-3">
         <button class="btn btn-icon btn-2 btn-primary btn-sm facebook" (click)="openFbPage()" type="button">
           <span class="btn-inner--icon"><i class="fa fa-facebook"></i></span>
         </button>
-        <button class="btn btn-icon btn-2 btn-primary btn-sm twitter" (click)="openFbPage()" type="button">
+        <button class="btn btn-icon btn-2 btn-primary btn-sm twitter" (click)="openTwitterPage()" type="button">
           <span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
         </button>
-        <button class="btn btn-icon btn-2 btn-primary btn-sm youtube" (click)="openFbPage()" type="button">
+        <button class="btn btn-icon btn-2 btn-primary btn-sm youtube" (click)="openYoutubePage()" type="button">
           <span class="btn-inner--icon"><i class="fa fa-youtube"></i></span>
         </button>
       </div>
     </div>
   </div>
 
-  <div class="row align-items-center justify-content-xl-between footer-tile box-shadow-large">
+  <div class="row align-items-center footer-tile box-shadow-large">
     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-      <div class="copyright text-center text-xl-left text-muted">
+      <div class="copyright text-muted footer-logo">
         &copy; {{ test | date: "yyyy" }}
         <a class="navbar-brand brand-logo" style="margin-left: 10px;" [routerLink]="['']">
         <span>
@@ -40,13 +40,9 @@
       </div>
     </div>
     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-      <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-
+      <ul class="nav nav-footer footer-links">
         <li class="nav-item CP">
-          <a class="nav-link" >About Us</a>
-        </li>
-        <li class="nav-item CP">
-          <a class="nav-link">Contact Us</a>
+          <a class="nav-link" [routerLink]="['/how-to-find-results']">How To Find</a>
         </li>
       </ul>
     </div>

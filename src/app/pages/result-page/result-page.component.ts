@@ -6,6 +6,8 @@ import { AnimationOptions } from 'ngx-lottie';
 import { BoardService } from '@app/services';
 import { NgForm } from '@angular/forms';
 import { takeWhile } from 'rxjs/operators';
+import { LoadingBarService } from '@ngx-loading-bar/core';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-result-page',
@@ -32,6 +34,7 @@ export class ResultPageComponent implements OnInit, OnDestroy {
   selectedClass: any;
   selectedBoard: any;
   showComments = false;
+  addingComment = false;
   selectedBoardKey: any;
   selectedExamType: any;
   resultDescription: any;
@@ -61,11 +64,20 @@ export class ResultPageComponent implements OnInit, OnDestroy {
     autoplay: true
   };
 
-  constructor(private router: Router,
+  dotsLoaderAnimOptions: AnimationOptions = {
+    path: '/assets/lib/dots-loader-circle.json',
+    loop: true,
+    autoplay: true
+  };
+
+  constructor(private meta: Meta,
+              private title: Title,
+              private router: Router,
               private _location: Location,
               private route: ActivatedRoute,
               private boardService: BoardService,
-              private resultService: ResultService) { }
+              private resultService: ResultService,
+              private loadingBar: LoadingBarService) { }
 
   ngOnInit() {
 
@@ -136,6 +148,8 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
     }
 
+    this.title.setTitle(this.resultTitle);
+
   }
 
   getResult() {
@@ -164,17 +178,7 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
               this.announced = this.resultData.status;
 
-              if (!this.announced) {
-
-                this.isLoading = false;
-
-                this.announceStatus = 'Not announced';
-
-              } else {
-
-                this.announceStatus = 'Announced';
-
-              }
+              this.announceStatus = this.announced ? 'Announced' : 'Not announced';
 
               this.tags = this.resultData.tags;
 
@@ -193,21 +197,28 @@ export class ResultPageComponent implements OnInit, OnDestroy {
               if (this.resultData.isBlocked && this.announced) {
 
                 this.blocked = true;
-                // window.open(this.url, '_blank');
-
-                this.isLoading = false;
 
               }
 
             } else {
-
-              this.isLoading = false;
 
               this.isError = true;
 
               this.errorMsg = 'Result Not Found';
 
             }
+
+            this.isLoading = false;
+
+            if (!this.isError && !this.blocked && this.announced && this.url) {
+
+              this.loadingBar.start();
+
+            }
+
+            this.removeExistingTags();
+
+            this.setMetaTags();
 
           },
           error => {
@@ -232,11 +243,101 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
   }
 
+  setResultDescriptionMetaTag() {
+
+    let pageDescription = '';
+
+    if (this.resultData) {
+
+      if (this.resultData.board && this.resultData.board.description) {
+
+        pageDescription = pageDescription + this.resultData.board.description;
+
+      }
+
+      if (this.resultData.description) {
+
+        pageDescription = pageDescription + this.resultData.description;
+
+      }
+
+    }
+
+    this.meta.updateTag({ name: 'description', content: pageDescription });
+
+    this.meta.updateTag({ property: 'og:title', content: this.resultTitle });
+
+    this.meta.updateTag({ property: 'og:description', content: pageDescription });
+
+  }
+
+  setMetaTags() {
+
+    if (Array.isArray(this.tags)) {
+
+      this.meta.updateTag({ name: 'keywords', content: this.tags.toString() });
+
+      this.meta.addTag({ property: 'article:tag', content: 'result'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'result 2020'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'results 2020'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'resultsquare'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'resultsquare.pk'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'result square pk'});
+
+      this.meta.addTag({ property: 'article:tag', content: this.resultTitle });
+
+      this.tags.forEach(tag => {
+
+        if (tag) {
+
+          this.meta.addTag({ property: 'article:tag', content: tag });
+
+        }
+
+      });
+
+    }
+
+    this.setResultDescriptionMetaTag();
+
+  }
+
+  removeExistingTags() {
+
+    const existingMetaTags = this.meta.getTags('property=\'article:tag\'');
+
+    if (Array.isArray(existingMetaTags)) {
+
+      existingMetaTags.forEach(metaTag => {
+
+        this.meta.removeTagElement(metaTag);
+
+      });
+
+    }
+
+  }
+
   reload() {
 
-    this.isLoading = true;
+    if (!this.isError && !this.blocked && this.announced && this.url) {
+
+      this.loadingBar.start();
+
+    }
 
     document.getElementById('resultFrame')['src'] = this.url;
+
+  }
+
+  onPageLoad() {
+
+    this.loadingBar.stop();
 
   }
 
@@ -320,7 +421,7 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
   addComment (form: NgForm) {
 
-    if (form.invalid) {
+    if (!form || form.invalid) {
       return;
     }
 
@@ -332,27 +433,31 @@ export class ResultPageComponent implements OnInit, OnDestroy {
         email: this.commentEmail
       };
 
-      this.isLoading = true;
+      this.addingComment = true;
 
       this.resultService.addComment(this.resultData._id, comment)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
           response => {
 
-            this.comments.reverse();
+            if (response && response.data) {
 
-            this.comments.push(response.data);
+              this.comments.reverse();
 
-            this.comments.reverse();
+              this.comments.push(response.data);
 
-            form.resetForm();
+              this.comments.reverse();
 
-            this.isLoading = false;
+              form.resetForm();
+
+            }
+
+            this.addingComment = false;
 
           },
           error => {
 
-            this.isLoading = false;
+            this.addingComment = false;
 
           });
 

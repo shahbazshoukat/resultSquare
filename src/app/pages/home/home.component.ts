@@ -7,6 +7,8 @@ import { ClassService } from '@app/services';
 import { BoardService } from '@app/services';
 import * as Enums from '@app/app.enums';
 import { takeWhile } from 'rxjs/operators';
+import { Meta, Title } from '@angular/platform-browser';
+import { environment as ENV } from '@env/environment';
 
 @Component({
   selector: 'app-home',
@@ -66,12 +68,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     autoplay: true
   };
 
-  constructor(private router: Router,
+  constructor(private meta: Meta,
+              private title: Title,
+              private router: Router,
               private classService: ClassService,
               private boardService: BoardService,
               private resultService: ResultService) { }
 
   ngOnInit() {
+
+    this.title.setTitle(ENV.pageTitle);
 
     this.getClasses();
 
@@ -214,6 +220,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
           }
 
+          this.removeExistingTags();
+
+          this.addMetaTags();
+
           this.isLoading = false;
 
         },
@@ -234,6 +244,60 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
 
         });
+
+  }
+
+  addMetaTags() {
+
+    if (Array.isArray(this.results)) {
+
+      const keyWords = [];
+
+      this.meta.addTag({ property: 'article:tag', content: 'result'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'result 2020'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'results 2020'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'resultsquare'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'resultsquare.pk'});
+
+      this.meta.addTag({ property: 'article:tag', content: 'result square pk'});
+
+      this.results.forEach(result => {
+
+        if (result && result.year && result.section && result.section.title && result.board && result.board.title) {
+
+          const tagContent = `${result.board.title} ${result.section.title} result ${result.year}`;
+
+          keyWords.push(tagContent);
+
+          this.meta.addTag({ property: 'article:tag', content: tagContent });
+
+        }
+
+      });
+
+      this.meta.updateTag({ name: 'keywords', content: keyWords && keyWords.toString() });
+
+    }
+
+  }
+
+  removeExistingTags() {
+
+    const existingMetaTags = this.meta.getTags('property=\'article:tag\'');
+
+    if (Array.isArray(existingMetaTags)) {
+
+      existingMetaTags.forEach(metaTag => {
+
+        this.meta.removeTagElement(metaTag);
+
+      });
+
+    }
 
   }
 
@@ -375,6 +439,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.selectedClass = 'default';
 
     this.selectedStatus = true;
+
+    this.filterResults();
 
   }
 

@@ -1,23 +1,13 @@
-<div class="header align-items-center img-fluid img-center mt-5 nav-main" style="background-image: url(assets/img/theme/profile-cover-5.jpg); background-size: cover; background-position: center top;">
-  <!-- Header container -->
+<div class="header align-items-center img-fluid img-center mt-5 nav-main">
   <div class="bg-opacity bgWrapper">
-    <div class="row" style="margin-right: 15px; margin-left: 15px;">
-      <!-- <div class="col-12 text-center">
-        <div>
-          <span class="text-white nav-heading text-uppercase">SEARCHING FOR <span class="text-success">RESULTS?</span></span>
-        </div>
-        <div>
-        <span class="text-white text-lg text-capitalize">Now its
-          <span class="text-success">Easy</span>, Lets Get <span class="text-success">Started!</span></span>
-        </div>
-      </div> -->
-      <div class="col-lg-12 col-md-12 col-sm-12 align-items-center pl-5 pr-5 pb-5 pt-5 mt-2">
+    <div class="row WP100">
+      <div class="col-lg-12 col-md-12 col-sm-12 align-items-center pb-5 pt-md-5 mt-2">
         <form>
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 search-result-wrapper">
 
               <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                   <div class="form-group">
                     <label class="form-control-label text-white">Class/Test</label>
                     <select name="class" class="form-control form-control-alternative" [value]="selectedClass" (change)="onClassSelected($event)">
@@ -26,7 +16,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                   <div class="form-group">
                     <label class="form-control-label text-white">Board/University</label>
                     <select name="board" class="form-control form-control-alternative" [value]="selectedBoard" (change)="onBoardSelected($event)"  [disabled]="!classSelected">
@@ -37,7 +27,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                   <div class="form-group">
                     <label class="form-control-label text-white">Year</label>
                     <select name="year" class="form-control form-control-alternative" [value]="selectedYear" (change)="onYearSelected($event)" [disabled]="!boardSelected">
@@ -46,7 +36,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                   <div class="form-group">
                     <label class="form-control-label text-white">Exam Type</label>
                     <select name="examType" class="form-control form-control-alternative" [value]="selectedExamType" (change)="onExamTypeSelected($event)" [disabled]="!yearSelected">
@@ -67,20 +57,20 @@
             <div class="col-md-6 col-md-6 col-sm-12 col-xs-12 notifications-wrapper" *ngIf="news?.length">
 
               <div class="card notification-card">
-                <div class="card-header">
+                <div class="card-header news-header">
                   <h5 class="h3 mb-0">News and Updates</h5>
                 </div>
-                <div class="card-body p-0">
-                  <ul class="list-group list-group-flush notifications-wrap" data-toggle="checklist">
-                    <li class="checklist-entry list-group-item flex-column align-items-start notification-tile"
-                        *ngFor="let nw of news">
-                      <div class="checklist-item checklist-item-warning DF">
-                        <div class="checklist-info news-tile-content">
-                          <small [innerHTML]="nw?.description"></small>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
+                <div class="card-body p-0 list-group list-group-flush notifications-wrap">
+                  <marquee height="240" direction="up" onmouseover="this.stop();" onmouseout="this.start();" scrolldelay="60" behavior="scroll" scrollamount="3">
+                    <ul class="news-list">
+                      <li *ngFor="let nw of news">
+                        <p>
+                          <i><a *ngIf="nw?.link" [href]="nw?.link" target="_blank" [innerHTML]="nw?.description"></a></i>
+                          <i><span class="alert-news" *ngIf="!nw?.link" [innerHTML]="nw?.description"></span></i>
+                        </p>
+                      </li>
+                    </ul>
+                  </marquee>
                 </div>
               </div>
 
@@ -89,37 +79,6 @@
           </div>
         </form>
       </div>
-      <!--    <div class="col-lg-6 col-md-6 col-sm-12 align-items-center pl-5 pr-7 nav-news-container">-->
-      <!--      <div class="card bg-secondary" style="border-radius: 20px;">-->
-      <!--        <div class="card-body">-->
-      <!--          <h1 class="card-heading-1">-->
-      <!--            SEARCHING FOR-->
-      <!--          </h1>-->
-      <!--          <h1 class="card-heading-2">-->
-      <!--            RESULTS?-->
-      <!--          </h1>-->
-      <!--          <div class="row mt-2">-->
-      <!--            <div class="col-12">-->
-      <!--              <div class="card shadow bg-secondary card-stats news-tile">-->
-      <!--                <div class="card-body">-->
-      <!--                  <div class="row">-->
-      <!--                    <div class="col">-->
-      <!--                      <span class="text-uppercase text-primary badge badge-primary mb-0">BISE Lahore</span>-->
-      <!--                      <p class="mb-0 text-muted text-sm">-->
-      <!--                        <span class="text-nowrap">Result of 9th class 2020 will be announced on August 01, 2020.</span>-->
-      <!--                      </p>-->
-      <!--                    </div>-->
-      <!--                  </div>-->
-      <!--                </div>-->
-      <!--              </div>-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
     </div>
   </div>
-</div>
-<div *ngIf="isLoading" class="loader">
-  <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions"></ng-lottie>
 </div>

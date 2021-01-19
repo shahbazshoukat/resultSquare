@@ -66,7 +66,9 @@ export class SliderComponent implements OnInit, OnDestroy {
 
         if (response.success && response.data) {
 
-          this.news = response.data;
+          this.news = response.data ? response.data : [];
+
+          this.news.reverse();
 
           this.isLoading = false;
 
@@ -76,18 +78,6 @@ export class SliderComponent implements OnInit, OnDestroy {
       error => {
 
         this.isLoading = false;
-
-        this.isError = true;
-
-        if (error && error.status && error.status === 404) {
-
-          this.errorMsg = '404 - Not Found';
-
-        } else {
-
-          this.errorMsg = 'Something went wrong';
-
-        }
 
       });
 
