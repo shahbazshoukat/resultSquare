@@ -51,7 +51,7 @@
             </div>
             <div>
               <span class="h5">Announce date: </span>
-              <span class="text-sm text-muted">{{resultData?.announceDate ? (resultData?.announceDate | date: 'dd MMM, yyyy') : "---"}}</span>
+              <span class="text-sm text-muted">{{resultData?.announceDate && resultData?.showAnnounceDate ? (resultData?.announceDate | date: 'dd MMM, yyyy') : "---"}}</span>
             </div>
           </div>
         </div>
