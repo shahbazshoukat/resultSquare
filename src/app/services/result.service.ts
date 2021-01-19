@@ -1,92 +1,40 @@
-import {Result} from '../models/result.model';
 import { Injectable } from '@angular/core';
-import {Subject, Observable} from 'rxjs';
-import { map } from 'rxjs/operators';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { environment as ENV } from '@env/environment';
 
 @Injectable({providedIn: 'root'})
 export class ResultService {
 
   constructor (private http: HttpClient) {}
 
-  addResult(
-    _id: string,
-    status: boolean,
-    section: string,
-    board: string,
-    year: string,
-    announceDate: string,
-    examType: number,
-    resultUrl: string,
-    tags: string[]
-  ) {
-    const resultData: Result = {
-      _id: _id,
-      status: status,
-      sectionId: section,
-      boardId: board,
-      year: year,
-      announceDate: announceDate,
-      examType: examType,
-      resultUrl: resultUrl,
-      tags: tags
-    };
-    return this.http.post<{success: boolean, message: string, data: any}>('/api/result', resultData);
+  getLatestResults() {
+
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiUrl + '/api/results/latest');
+
   }
 
-  getAllResultes() {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/results');
+  getResultYears(selectedClassId, selectedBoardId) {
+
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiUrl + `/api/result-year/${selectedClassId}/${selectedBoardId}`);
+
   }
 
-  getResultById(resultId: string) {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/result/' + resultId);
-  }
+  getExamTypes(selectedClassId, selectedBoardId, year) {
 
-  getResultYears(selectedClass, selectedBoardKey) {
-    return this.http.get<{success: boolean, message: string, data: any}>(`/api/result-year/${selectedClass}/${selectedBoardKey}`);
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiUrl + `/api/exam-types/${selectedClassId}/${selectedBoardId}/${year}`);
+
   }
 
   getResult(section, board, year, exam) {
-    return this.http.get<{success: boolean, message: string, data: any}>(`/api/result/${section}/${board}/${year}/${exam}`);
+
+    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiUrl + `/api/result/${section}/${board}/${year}/${exam}`);
+
   }
 
-  getResultsByBoardKey(boardKey) {
-    return this.http.get<{success: boolean, message: string, data: any}>(`/api/results/board/${boardKey}`);
-  }
+  addComment(resultId, comment) {
 
-  updateResult(
-    resultId: string,
-    status: boolean,
-    section: string,
-    boardId: string,
-    year: string,
-    announceDate: string,
-    examType: number,
-    resultUrl: string,
-    tags: string[]
-  ) {
-    const update = {
-      status: status,
-      sectionId: section,
-      boardId: boardId,
-      year: year,
-      announceDate: announceDate,
-      examType: examType,
-      resultUrl: resultUrl,
-      tags: tags
-     };
-      return this.http.put<{success: boolean, message: string, data: any}>('/api/updateResult/' + resultId, update);
-  }
+    return this.http.post<{success: boolean, message: string, data: any}>(ENV.apiUrl + `/api/comment/${resultId}`, comment);
 
-
-  deleteResult(resultId: string) {
-    return this.http.delete<{success: boolean, message: string, data: any}>('/api/deleteResult/' + resultId);
-  }
-
-  changeResultStatus(resultId: string, value: boolean) {
-    const update = {status: value};
-    return this.http.put<{success: boolean, message: string, data: any}>('/api/updateStatus/' + resultId, update);
   }
 
 }

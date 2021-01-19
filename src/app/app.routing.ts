@@ -2,43 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-
-import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { AuthGuard } from './guards/auth.guard';
-import {PageNotFoundComponent} from './pages/page-not-found/page-not-found.component';
+import { HomeLayoutComponent } from '@app/layouts/home-layout/home-layout.component';
+import { PageNotFoundComponent, HowItWorksComponent, HowToDoComponent } from '@app/pages';
 
 const routes: Routes = [
   { path: '404', component: PageNotFoundComponent},
-  {
-    path: 'rs-admin',
-    component: AdminLayoutComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: '',
-        loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
-      }
-    ]
-  },
-  {
-    path: 'secret-rs-admin',
-    component: AuthLayoutComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: './layouts/auth-layout/auth-layout.module#AuthLayoutModule'
-      }
-    ]
-  },
+  // { path: 'how-it-works', component: HowItWorksComponent},
+  { path: 'how-to-find-results', component: HowToDoComponent},
   {
     path: '',
     component: HomeLayoutComponent,
     children: [
       {
         path: '',
-        loadChildren: './layouts/home-layout/home-layout.module#HomeLayoutModule'
+        loadChildren: () => import('@app/layouts/home-layout/home-layout.module').then(m => m.HomeLayoutModule)
       }
     ]
   }
@@ -51,8 +28,6 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [AuthGuard],
-  exports: [
-  ],
+  exports: []
 })
 export class AppRoutingModule { }

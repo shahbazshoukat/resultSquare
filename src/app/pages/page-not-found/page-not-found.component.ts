@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AnimationOptions} from 'ngx-lottie';
-import {AnimationItem} from 'lottie-web';
-import {Router} from '@angular/router';
+import { AnimationOptions } from 'ngx-lottie';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-not-found',
@@ -11,19 +10,14 @@ import {Router} from '@angular/router';
 export class PageNotFoundComponent implements OnInit {
 
   pageNotFoundAnimOptions: AnimationOptions = {
-    path: '/assets/lib/page-404.json'
+    path: '/assets/lib/error.json',
+    loop: true,
+    autoplay: true
   };
 
-  pageNotFoundAnim: AnimationItem;
   constructor(private router: Router) { }
 
   ngOnInit() {
-  }
-
-  pageNotFoundAnimationCreated(animationItem: AnimationItem): void {
-
-    this.pageNotFoundAnim = animationItem;
-
   }
 
   backToHome() {

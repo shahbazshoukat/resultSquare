@@ -1,3 +1,8 @@
+.main-wrapper {
+  margin-top: -1.7rem !important;
+  padding: 50px 0px;
+}
+
 .class-text{
     font-size: 35px;
     font-weight: bold;
@@ -6,7 +11,7 @@
 .class-container{
     height: 150px;
     vertical-align: middle;
-    padding: 10px;     
+    padding: 10px;
 }
 .class-container div {
     padding-top: 35px;
@@ -43,4 +48,78 @@
 .text-center{
     text-align: center;
 }
- 
+
+.result-card {
+  border-radius: 5px;
+  //border-bottom-width: 3px;
+  //border-bottom-color: #2dce89;
+  //border-top-right-radius: 0px;
+  //border-bottom-left-radius: 0px;
+  cursor: pointer;
+}
+
+.result-card:hover {
+  border-radius: 15px;
+  border-width: 1px;
+  border-color: #2dce89;
+  //border-right-width: 3px;
+  //border-bottom-width: 3px;
+  //border-bottom-color: #2dce89;
+  cursor: pointer;
+}
+
+.result-card:hover div button {
+  background-color: #2dce89;
+  color: white;
+}
+
+.result-card-pad {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.result-card-main {
+  padding: 5px;
+}
+
+.result-card-tile {
+  padding: 5px;
+}
+
+.custom-pagination .page-number{
+  display: inline-block;
+  /* padding: 5px 12px; */
+  background: #afffe6;
+  margin: 0px 4px;
+  border-radius: 25px;
+}
+
+.page-number.current{
+  background: #ffffff!important;
+  border: 2px solid #458873;
+}
+
+.page-number span{
+  display: block;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.pagination-previous,.pagination-next{
+  display: inline-block;
+  font-weight: bold;
+}
+
+.news-wrapper {
+  padding: 1rem !important;
+  border-radius: 5px;
+}
+
+.news-head {
+  height: 100%;
+  background: #2dce89;
+  padding: 1rem;
+  border-radius: 5px 0px 0px 5px;
+}

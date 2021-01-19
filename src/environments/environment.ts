@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  apiURL : 'http://localhost:3000/api'
+  apiUrl: 'https://resultsquare.pk',
+  fbPageUrl: 'https://web.facebook.com/resultsquare/',
+  twitterPageUrl: '',
+  youtubePageUrl: '',
+  pageTitle: 'Result Square - Online Results for 5th, 8th, Matric, Inter, FA, FSc, BA, BSc, MSc, Board, University'
 };
 
 /*
