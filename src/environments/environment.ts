@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://resultsquare.pk',
+  apiUrl: 'http://resultsquare.pk',
   fbPageUrl: 'https://web.facebook.com/resultsquare/',
   twitterPageUrl: '',
   youtubePageUrl: '',
