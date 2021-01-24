@@ -6,7 +6,7 @@ import { AnimationOptions } from 'ngx-lottie';
 import { BoardService } from '@app/services';
 import { NgForm } from '@angular/forms';
 import { takeWhile } from 'rxjs/operators';
-import { LoadingBarService } from '@ngx-loading-bar/core';
+import { LoadingBarService, LoadingBarComponent } from '@ngx-loading-bar/core';
 import { Meta, Title } from '@angular/platform-browser';
 
 @Component({

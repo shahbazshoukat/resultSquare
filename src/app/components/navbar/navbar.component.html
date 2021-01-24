@@ -1,8 +1,75 @@
-<nav class="navbar navbar-expand-lg bg-white custom-box-shadow fixed-top">
-    <a class="navbar-brand" style="margin-left: 10px;" [routerLink]="['']">
+<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white fixed-top custom-nav custom-box-shadow" id="sidenav-main">
+  <div class="container-fluid PLR0">
+    <a class="navbar-brand pt-0 text-left collapse-brand navBrand" routerLinkActive="active" [routerLink]="['/']">
       <b>
         <span style="color: #002E6E">Result</span>
         <span style="color: #00B9F1">Square.pk</span>
       </b>
     </a>
+    <button class="navbar-toggler" type="button" (click)="isCollapsed=!isCollapsed"
+            aria-controls="sidenav-collapse-main">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse navCollapse" [ngbCollapse]="isCollapsed" id="sidenav-collapse-main">
+      <div class="navbar-collapse-header d-md-none">
+        <div class="row">
+          <div class="col-6 collapse-brand">
+            <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/']">
+              <b>
+                <span style="color: #002E6E">Result</span>
+                <span style="color: #00B9F1">Square.pk</span>
+              </b>
+            </a>
+          </div>
+          <div class="col-6 collapse-close">
+            <button type="button" class="navbar-toggler" (click)="isCollapsed=!isCollapsed">
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <ul class="boardsList" [ngClass]="{'collapsed': !isCollapsed}">
+        <a class="navbar-brand pt-0 text-left navBrand" *ngIf="isCollapsed" routerLinkActive="active" [routerLink]="['/']">
+          <b>
+            <span style="color: #002E6E">Result</span>
+            <span style="color: #00B9F1">Square.pk</span>
+          </b>
+        </a>
+        <div class="boardsWrap" [ngClass]="{'collapsed': !isCollapsed}">
+          <li class="boardItem" [routerLink]="['/boards/Federal']">
+            <div class="boardText" [ngClass]="{'activeNav': activeNavItem === '/boards/Federal'}">
+              <span>Federal Boards</span>
+            </div>
+          </li>
+          <li class="boardItem" [routerLink]="['/boards/Punjab']">
+            <div class="boardText" [ngClass]="{'activeNav': activeNavItem === '/boards/Punjab'}">
+              <span>Punjab Boards</span>
+            </div>
+          </li>
+          <li class="boardItem" [routerLink]="['/boards/KPK']">
+            <div class="boardText" [ngClass]="{'activeNav': activeNavItem === '/boards/KPK'}">
+              <span>KPK Boards</span>
+            </div>
+          </li>
+          <li class="boardItem" [routerLink]="['/boards/Sindh']">
+            <div class="boardText" [ngClass]="{'activeNav': activeNavItem === '/boards/Sindh'}">
+              <span>Sindh Boards</span>
+            </div>
+          </li>
+          <li class="boardItem" [routerLink]="['/boards/Balochistan']">
+            <div class="boardText" [ngClass]="{'activeNav': activeNavItem === '/boards/Balochistan'}">
+              <span>Balochistan Boards</span>
+            </div>
+          </li>
+          <li class="boardItem" [routerLink]="['/boards/AJK']">
+            <div class="boardText" [ngClass]="{'activeNav': activeNavItem === '/boards/AJK'}">
+              <span>AJK Boards</span>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
 </nav>
+

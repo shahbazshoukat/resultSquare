@@ -52,4 +52,5 @@ export function playerFactory() {
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
