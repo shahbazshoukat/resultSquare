@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomeLayoutRoutes } from '@app/layouts/home-layout/home-layout.routing';
-import { HomeComponent, ResultPageComponent } from '@app/pages';
+import { HomeComponent, ResultPageComponent, BoardsListComponent, BoardResultsComponent } from '@app/pages';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxPrintModule } from 'ngx-print';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -24,12 +24,14 @@ export function playerFactory() { return player; }
     NgxPaginationModule,
     RouterModule.forChild(HomeLayoutRoutes),
     LottieModule.forRoot({player: playerFactory, useCache: true}),
-    LoadingBarModule,
+    LoadingBarModule
   ],
   declarations: [
     SafePipe,
     HomeComponent,
-    ResultPageComponent
+    ResultPageComponent,
+    BoardsListComponent,
+    BoardResultsComponent
   ]
 })
 

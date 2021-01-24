@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment as ENV } from '@env/environment';
+import { APIResponse } from '@app/models';
 
 @Injectable({providedIn: 'root'})
 export class BoardService {
@@ -10,13 +11,19 @@ export class BoardService {
 
   getAllBoards(): Observable<any> {
 
-    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiUrl + '/api/boards');
+    return this.http.get<APIResponse>(ENV.apiUrl + '/api/boards');
 
   }
 
   getBoardsBySectionId(sectionId: string): Observable<any> {
 
-    return this.http.get<{success: boolean, message: string, data: any}>(ENV.apiUrl + '/api/boards/section/' + sectionId);
+    return this.http.get<APIResponse>(ENV.apiUrl + '/api/boards/section/' + sectionId);
+
+  }
+
+  getBoardsByProvince(province: string): Observable<any> {
+
+    return this.http.get<APIResponse>(ENV.apiUrl + '/api/boards/province/' + province);
 
   }
 
