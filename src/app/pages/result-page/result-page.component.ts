@@ -279,10 +279,6 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
       this.meta.addTag({ property: 'article:tag', content: 'result'});
 
-      this.meta.addTag({ property: 'article:tag', content: 'result 2020'});
-
-      this.meta.addTag({ property: 'article:tag', content: 'results 2020'});
-
       this.meta.addTag({ property: 'article:tag', content: 'resultsquare'});
 
       this.meta.addTag({ property: 'article:tag', content: 'resultsquare.pk'});
