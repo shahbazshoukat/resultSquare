@@ -165,10 +165,6 @@ export class BoardsListComponent implements OnInit, OnDestroy {
 
       this.meta.addTag({ property: 'article:tag', content: 'result'});
 
-      this.meta.addTag({ property: 'article:tag', content: 'result 2020'});
-
-      this.meta.addTag({ property: 'article:tag', content: 'results 2020'});
-
       this.meta.addTag({ property: 'article:tag', content: 'resultsquare'});
 
       this.meta.addTag({ property: 'article:tag', content: 'resultsquare.pk'});
@@ -179,13 +175,9 @@ export class BoardsListComponent implements OnInit, OnDestroy {
 
         if (board && board.title) {
 
-          const tagContent = `${board.title}`;
-
           keyWords.push(board.title);
 
-          keyWords.push(board.description);
-
-          this.meta.addTag({ property: 'article:tag', content: tagContent });
+          this.meta.addTag({ property: 'article:tag', content: board.title });
 
         }
 

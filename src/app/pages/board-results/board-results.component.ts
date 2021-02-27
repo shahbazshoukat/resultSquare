@@ -169,10 +169,6 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
 
       this.meta.addTag({ property: 'article:tag', content: 'result'});
 
-      this.meta.addTag({ property: 'article:tag', content: 'result 2020'});
-
-      this.meta.addTag({ property: 'article:tag', content: 'results 2020'});
-
       this.meta.addTag({ property: 'article:tag', content: 'resultsquare'});
 
       this.meta.addTag({ property: 'article:tag', content: 'resultsquare.pk'});
@@ -192,6 +188,20 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
         }
 
       });
+
+      if (this.boardData && Array.isArray(this.boardData.tags)) {
+
+        this.boardData.tags.forEach(tag => {
+
+          if (tag) {
+
+            this.meta.addTag({ property: 'article:tag', content: tag });
+
+          }
+
+        });
+
+      }
 
       this.meta.updateTag({ name: 'keywords', content: keyWords && keyWords.toString() });
 
