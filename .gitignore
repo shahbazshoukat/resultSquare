@@ -49,3 +49,6 @@ cf-private-key.pem
 
 #SSL certificates
 certs
+
+dist
+/dist
