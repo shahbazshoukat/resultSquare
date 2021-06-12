@@ -3,7 +3,7 @@
   <div class="row align-items-center justify-content-center footer-content-wrapper text-center">
     <div class="footer-content text-center">
       <div class="mt-3">
-        <a class="navbar-brand" style="margin-left: 10px;" [routerLink]="['']">
+        <a class="navbar-brand CP" style="margin-left: 10px;" (click)="navigateToHomePage()">
           <b>
             <span style="color: #002E6E">Result</span>
             <span style="color: #00B9F1">Square.pk</span>
@@ -31,7 +31,7 @@
     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
       <div class="copyright text-muted footer-logo">
         &copy; {{ test | date: "yyyy" }}
-        <a class="navbar-brand brand-logo" style="margin-left: 10px;" [routerLink]="['']">
+        <a class="navbar-brand brand-logo CP" style="margin-left: 10px;" (click)="navigateToHomePage()">
         <span>
           <span style="color: #002E6E">Result</span>
           <span style="color: #00B9F1">Square.pk</span>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { ClassService, NewsService} from '@app/services';
 import { BoardService } from '@app/services';
@@ -6,6 +6,7 @@ import * as Enums from '@app/app.enums';
 import { ResultService } from '@app/services';
 import { AnimationOptions } from 'ngx-lottie';
 import { takeWhile } from 'rxjs/operators';
+import {environment as ENV} from '@env/environment';
 
 @Component({
   selector: 'app-slider',
@@ -23,6 +24,7 @@ export class SliderComponent implements OnInit, OnDestroy {
   examTypes = [];
   isError = false;
   isLoading = false;
+  selectedNavItem: any;
   yearSelected = false;
   classSelected = false;
   boardSelected = false;
@@ -31,7 +33,12 @@ export class SliderComponent implements OnInit, OnDestroy {
   selectedClass = 'default';
   selectedBoard = 'default';
   selectedExamType = 'default';
+  @Input() title: string;
+  @Input() navItems = [];
+  @Input() description: string;
+  @Output() selectNav: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('findBtn', { static: false }) findBtn: ElementRef;
+  @ViewChild('subHeader', { static: false }) subHeader: ElementRef;
 
   loadingAnimOptions: AnimationOptions = {
     path: '/assets/lib/loading-spinner.json',
@@ -43,13 +50,19 @@ export class SliderComponent implements OnInit, OnDestroy {
               private classService: ClassService,
               private boardService: BoardService,
               private resultService: ResultService,
-              private router: Router) {}
+              private renderer: Renderer2) {}
 
   ngOnInit() {
 
     this.getNews();
 
     this.getClasses();
+
+    this.selectedNavItem = this.navItems[0];
+
+    this.selectNav.emit(this.selectedNavItem);
+
+    document.addEventListener('scroll', this.stickHeaderOnScroll);
 
   }
 
@@ -390,13 +403,13 @@ export class SliderComponent implements OnInit, OnDestroy {
 
     const selClass = this.classes.find(c => c._id === this.selectedClass);
 
-    if (selClass && selClass.title && selBoard && selBoard.key && this.selectedYear && this.selectedExamType
+    if (selClass && selClass.title && selBoard && selBoard.domain && this.selectedYear && this.selectedExamType
       && this.selectedClass !== 'default' && this.selectedBoard !== 'default' && this.selectedYear !== 'default'
       && this.selectedExamType !== 'default') {
 
-      const url = `/result/${selClass.title}/${selBoard.key}/${this.selectedYear}/${this.selectedExamType}`;
+      const url = `result/${selClass.title}/${this.selectedExamType}/${this.selectedYear}`;
 
-      this.router.navigate([url]);
+      window.location.href = `${window.location.protocol}//${selBoard.domain}.${ENV.host}/${url}`;
 
     }
 
@@ -408,9 +421,37 @@ export class SliderComponent implements OnInit, OnDestroy {
 
   }
 
+  selectNavItem = (navItem) => {
+
+    this.selectedNavItem = navItem;
+
+    this.selectNav.emit(this.selectedNavItem);
+
+  }
+
+  stickHeaderOnScroll = () => {
+
+    const sticky = 600; // this.subHeader && this.subHeader.nativeElement && this.subHeader.nativeElement.offsetTop;
+
+    console.log(window.pageYOffset, sticky);
+
+    if (window.pageYOffset > sticky) {
+
+      this.renderer.addClass(this.subHeader.nativeElement, 'stickySubHeader');
+
+    } else {
+
+      this.renderer.removeClass(this.subHeader.nativeElement, 'stickySubHeader');
+
+    }
+
+  }
+
   ngOnDestroy() {
 
     this.alive = false;
+
+    document.removeEventListener('scroll', this.stickHeaderOnScroll);
 
   }
 

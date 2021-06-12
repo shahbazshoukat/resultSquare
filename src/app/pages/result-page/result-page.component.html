@@ -1,9 +1,20 @@
-<!-- Page content -->
-<div class="container-fluid mt--5 bg-secondary"  #resultPage>
-  <!-- Table -->
+<app-slider [title]="boardTitle" [description]="resultData?.board?.shortDesc" [navItems]="miniNavItems"
+            (selectNav)="onNavItemSelection($event)"></app-slider>
+<div class="container-fluid bg-secondary main-wrapper" #resultPage>
   <div class=" order-xl-1 bg-secondary">
+    <div class="row">
+      <div class="DF pageBadges">
+        <div class="badgeItem text-capitalize">Home</div>
+        <div class="badgeItem">></div>
+        <div class="badgeItem text-capitalize">{{boardTitle}}</div>
+        <div class="badgeItem">></div>
+        <div class="badgeItem text-capitalize">{{selectedNavItem?.label}}</div>
+        <div class="badgeItem">></div>
+        <div class="badgeItem text-capitalize">{{resultTitle}}</div>
+      </div>
+    </div>
     <div class="bg-secondary">
-      <div class="row border-2 mt-5">
+      <div class="row border-2">
         <div class="col-lg-12 col-md-12">
           <div class="card border-0 bg-transparent">
             <div class="mt-5">
@@ -29,8 +40,8 @@
             </div>
             <div>
               <span class="h5">Board: </span>
-              <span class="text-sm text-muted">{{selectedBoard ? selectedBoard : '---' }}
-                <a *ngIf="selectedBoard && resultData?.board?.webUrl" target="_blank" class="btn btn-link btn-sm" [href]="resultData?.board?.webUrl">(Official Website)</a>
+              <span class="text-sm text-muted">{{boardTitle ? boardTitle : '---' }}
+                <a *ngIf="boardTitle && resultData?.board?.webUrl" target="_blank" class="btn btn-link btn-sm" [href]="resultData?.board?.webUrl">(Official Website)</a>
               </span>
             </div>
           </div>

@@ -20,12 +20,14 @@ export class BoardsListComponent implements OnInit, OnDestroy {
   boards = [];
   alive = true;
   errorMsg = '';
+  totalBoards = 0;
   isError = false;
   isLoading = true;
-  totalBoards = 0;
   selectedPageNo = 1;
   filteredBoards = [];
   selectedProvince: string;
+  sliderTitle = 'Resultsquare.pk';
+  sliderDescription = 'View latest educational updates from all over the Pakistan';
 
   config: PaginationInstance = {
     itemsPerPage: 20,
@@ -52,23 +54,17 @@ export class BoardsListComponent implements OnInit, OnDestroy {
               private classService: ClassService,
               private boardService: BoardService) {
 
-    this.route.params.pipe(takeWhile(this.isAlive)).subscribe(params => {
-
-      if (params) {
-
-        this.selectedProvince = params.province;
-
-        this.getBoardsByProvince();
-
-      }
-
-    });
-
   }
 
   ngOnInit() {
 
     this.title.setTitle(ENV.pageTitle);
+
+    const domain = window.location.hostname && window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
+
+    this.selectedProvince = ENV.provinces.includes(domain) ? domain : undefined;
+
+    this.getBoardsByProvince();
 
   }
 
@@ -82,7 +78,9 @@ export class BoardsListComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    this.boardService.getBoardsByProvince(this.selectedProvince).pipe(takeWhile(this.isAlive))
+    this.boards = [];
+
+    this.boardService.getAllBoards().pipe(takeWhile(this.isAlive))
       .subscribe(
         response => {
 
@@ -237,9 +235,11 @@ export class BoardsListComponent implements OnInit, OnDestroy {
 
   viewBoard(board) {
 
-    if (board) {
+    console.log(board);
 
-      this.router.navigate(['/' + board.key]);
+    if (board && board.domain) {
+
+      window.location.href = `${window.location.protocol}//${board.domain}.${ENV.host}`;
 
     }
 

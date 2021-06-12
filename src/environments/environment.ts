@@ -6,9 +6,18 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000',
   fbPageUrl: 'https://web.facebook.com/resultsquare/',
+  host: 'localhost:4200',
   twitterPageUrl: '',
   youtubePageUrl: '',
-  pageTitle: 'Result Square - Online Results for 5th, 8th, Matric, Inter, FA, FSc, BA, BSc, MSc, Board, University'
+  pageTitle: 'Result Square - Online Results for 5th, 8th, Matric, Inter, FA, FSc, BA, BSc, MSc, Board, University',
+  provinces: [
+    'federal',
+    'punjab',
+    'kpk',
+    'sindh',
+    'balochistan',
+    'ajk'
+  ]
 };
 
 /*

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomeLayoutRoutes } from '@app/layouts/home-layout/home-layout.routing';
-import { HomeComponent, ResultPageComponent, BoardsListComponent, BoardResultsComponent } from '@app/pages';
+import { HomeComponent, ResultPageComponent, BoardsListComponent, BoardResultsComponent, LatestResultsComponent, SliderComponent } from '@app/pages';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxPrintModule } from 'ngx-print';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +31,9 @@ export function playerFactory() { return player; }
     HomeComponent,
     ResultPageComponent,
     BoardsListComponent,
-    BoardResultsComponent
+    BoardResultsComponent,
+    LatestResultsComponent,
+    SliderComponent
   ]
 })
 

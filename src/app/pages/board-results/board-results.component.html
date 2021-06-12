@@ -1,12 +1,22 @@
-
+<app-slider [title]="selectedBoard" [description]="boardData?.shortDesc" [navItems]="miniNavItems"
+            (selectNav)="onNavItemSelection($event)"></app-slider>
 <div class="container-fluid main-wrapper bg-secondary">
   <div class=" order-xl-1 bg-secondary">
     <div class="bg-secondary">
+      <div class="row">
+        <div class="DF pageBadges">
+          <div class="badgeItem text-capitalize">Home</div>
+          <div class="badgeItem">></div>
+          <div class="badgeItem text-capitalize">{{selectedBoard}}</div>
+          <div class="badgeItem">></div>
+          <div class="badgeItem text-capitalize">{{selectedNavItem?.label}}</div>
+        </div>
+      </div>
       <div *ngIf="!isError">
         <div class="row mt-5">
           <div class="col-12" >
             <div>
-              <h1>{{selectedBoard}} Results
+              <h1 class="text-capitalize">{{selectedBoard}} {{selectedNavItem?.pageTitle}}
                 <span class="text-sm text-muted">
                   <a *ngIf="selectedBoard && boardData?.webUrl" target="_blank" class="btn btn-link btn-sm" [href]="boardData?.webUrl">(Official Website)</a>
                 </span>

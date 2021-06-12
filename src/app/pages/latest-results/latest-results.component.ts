@@ -2,18 +2,18 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PaginationInstance} from 'ngx-pagination';
 import {AnimationOptions} from 'ngx-lottie';
 import {Meta, Title} from '@angular/platform-browser';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {BoardService, ClassService, ResultService} from '@app/services';
 import {environment as ENV} from '@env/environment';
 import {takeWhile} from 'rxjs/operators';
 import * as Enums from '@app/app.enums';
 
 @Component({
-  selector: 'app-board-results',
-  templateUrl: './board-results.component.html',
-  styleUrls: ['./board-results.component.scss']
+  selector: 'app-latest-results',
+  templateUrl: './latest-results.component.html',
+  styleUrls: ['./latest-results.component.scss']
 })
-export class BoardResultsComponent implements OnInit, OnDestroy {
+export class LatestResultsComponent implements OnInit, OnDestroy {
 
   pages: any;
   result: any;
@@ -22,36 +22,56 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
   classes = [];
   results = [];
   errorMsg = '';
-  boardData: any;
   isError = false;
   isLoading = true;
   totalResults = 0;
   selectedPageNo = 1;
-  boardDomain: string;
   filteredBoards = [];
   filteredResults = [];
   selectedNavItem: any;
   selectedStatus = true;
-  selectedBoard: string;
-  selectedProvince = 'All';
   selectedClass = 'default';
   selectedBoardKey = 'default';
+  sliderTitle = 'Resultsquare.pk';
+  sliderDescription = 'View latest educational updates from all over the Pakistan';
 
   provinces = [
-    'All',
-    'Punjab',
-    'KPK',
-    'Sindh',
-    'Balochistan',
-    'AJK',
-    'Federal'
+    {
+      label: 'All',
+      key: 'all'
+    },
+    {
+      label: 'Federal',
+      key: 'federal'
+    },
+    {
+      label: 'Punjab',
+      key: 'punjab'
+    },
+    {
+      label: 'KPK',
+      key: 'kpk'
+    },
+    {
+      label: 'Sindh',
+      key: 'sindh'
+    },
+    {
+      label: 'Balochistan',
+      key: 'balochistan'
+    },
+    {
+      label: 'AJK',
+      key: 'ajk'
+    }
   ];
+  selectedProvince = this.provinces[0];
 
   miniNavItems = [
     {
       label: 'Results',
       key: Enums.MINI_NAV_ITEMS.RESULTS,
-      pageTitle: 'Results'
+      pageTitle: 'Latest Results'
     },
     {
       label: 'Date Sheets',
@@ -96,20 +116,19 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
   constructor(private meta: Meta,
               private title: Title,
               private router: Router,
-              private route: ActivatedRoute,
               private classService: ClassService,
               private boardService: BoardService,
-              private resultService: ResultService) {
-
-  }
+              private resultService: ResultService) { }
 
   ngOnInit() {
 
     this.title.setTitle(ENV.pageTitle);
 
-    this.boardDomain = window.location.hostname && window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
+    this.getClasses();
 
-    this.getResultsByBoardDomain();
+    this.getAllBoards();
+
+    this.getLatestResults();
 
   }
 
@@ -119,31 +138,120 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
 
   }
 
-  getResultsByBoardDomain() {
+  getClasses() {
 
     this.isLoading = true;
 
-    this.resultService.getResultsByBoardDomain(this.boardDomain).pipe(takeWhile(this.isAlive))
+    this.isError = false;
+
+    this.errorMsg = '';
+
+    this.selectedClass = 'default';
+
+    this.classService.getAllClasses().pipe(takeWhile(this.isAlive))
+      .subscribe(
+        response => {
+
+          if (response.success && response.data) {
+
+            this.classes = response.data;
+
+            if (!this.classes || this.classes.length === 0) {
+
+              this.isError = true;
+
+              this.errorMsg = 'No Class Found';
+
+            }
+
+            // this.isLoading = false;
+
+          }
+
+        },
+        error => {
+
+          this.isLoading = false;
+
+          this.isError = true;
+
+          if (error && error.status && error.status === 404) {
+
+            this.errorMsg = '404 - Not Found';
+
+          } else {
+
+            this.errorMsg = 'Something went wrong';
+
+          }
+
+        });
+
+  }
+
+  getAllBoards() {
+
+    this.isError = false;
+
+    this.errorMsg = '';
+
+    this.boardService.getAllBoards().pipe(takeWhile(this.isAlive)).subscribe(
+      response => {
+
+        this.boards = response.data;
+
+        this.filteredBoards = this.boards;
+
+        if (!this.boards || this.boards.length === 0) {
+
+          this.isError = true;
+
+          this.errorMsg = `404 - Not Found`;
+
+        }
+
+        // this.isLoading = false;
+
+      },
+
+      error => {
+
+        this.isLoading = false;
+
+        this.isError = true;
+
+        if (error && error.status && error.status === 404) {
+
+          this.errorMsg = '404 - Not Found';
+
+        } else {
+
+          this.errorMsg = 'Something went wrong';
+
+        }
+
+      });
+
+
+  }
+
+  getLatestResults() {
+
+    this.isLoading = true;
+
+    this.resultService.getLatestResults().pipe(takeWhile(this.isAlive))
       .subscribe(
         response => {
 
           if (response && response.data) {
 
-            this.results = response.data.results;
-
-            this.boardData = response.data.board;
-
-            if (this.boardData && this.boardData.description) {
-
-              this.boardData.shortDesc = this.boardData.description.substring(0, 110) + '...';
-
-              this.selectedBoard = this.boardData.title;
-
-            }
+            this.results = response.data;
 
             if (this.results) {
 
               this.filteredResults = this.results;
+
+              this.selectedProvince = this.provinces[0];
 
               this.totalResults = this.results && this.results.length;
 
@@ -212,20 +320,6 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
 
       });
 
-      if (this.boardData && Array.isArray(this.boardData.tags)) {
-
-        this.boardData.tags.forEach(tag => {
-
-          if (tag) {
-
-            this.meta.addTag({ property: 'article:tag', content: tag });
-
-          }
-
-        });
-
-      }
-
       this.meta.updateTag({ name: 'keywords', content: keyWords && keyWords.toString() });
 
     }
@@ -248,39 +342,11 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
 
   }
 
-  /*filterByStatus(status) {
-
-    this.selectedStatus = status;
-
-    this.selectedProvince = 'All';
-
-    this.selectedBoardKey = 'default';
-
-    this.selectedClass = 'default';
-
-    if (this.results) {
-
-      this.filteredResults = [];
-
-      for (const res of this.results) {
-
-        if (res && res.status === this.selectedStatus) {
-
-          this.filteredResults.push(res);
-
-        }
-
-      }
-
-    }
-
-  }*/
-
   filterByProvince(province) {
 
-    if (province) {
+    this.selectedProvince = province;
 
-      this.selectedProvince = province;
+    if (this.selectedProvince) {
 
       this.selectedBoardKey = 'default';
 
@@ -288,7 +354,7 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
 
       this.filterResults();
 
-      if (province === 'All') {
+      if (this.selectedProvince.key === 'all') {
 
         this.filteredBoards = this.boards;
 
@@ -300,7 +366,7 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
 
       for (const board of this.boards) {
 
-        if (board && board.province === province) {
+        if (board && board.province === this.selectedProvince.key) {
 
           this.filteredBoards.push(board);
 
@@ -324,7 +390,7 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
 
       for (const res of this.results) {
 
-        if (res && res.board && (res.board.province === this.selectedProvince || this.selectedProvince === 'All')
+        if (res && res.board && (res.board.province === this.selectedProvince.key || this.selectedProvince.key === 'all')
           && (res.board.key === this.selectedBoardKey || this.selectedBoardKey === 'default')
           && res.section && (res.section.title === this.selectedClass || this.selectedClass === 'default')
           && res.status === this.selectedStatus) {
@@ -373,13 +439,13 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
 
   retry() {
 
-    this.getResultsByBoardDomain();
+    this.getLatestResults();
 
   }
 
   setDefaultFilters() {
 
-    this.selectedProvince = 'All';
+    this.selectedProvince = this.provinces[0];
 
     this.selectedBoardKey = 'default';
 
@@ -411,7 +477,7 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
 
   viewResult(result) {
 
-    if (result) {
+    if (result && result.board) {
 
       let examType = 'annual';
 
@@ -429,7 +495,8 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
 
       }
 
-      this.router.navigate(['/result' + '/' + result.section.title + '/' + examType + '/' + result.year]);
+      // tslint:disable-next-line:max-line-length
+      window.location.href = `${window.location.protocol}//${result.board.domain}.${ENV.host}/result/${result.section.title}/${examType}/${result.year}`;
 
     }
 

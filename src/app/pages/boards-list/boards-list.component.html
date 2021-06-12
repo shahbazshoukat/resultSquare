@@ -1,4 +1,4 @@
-
+<app-slider [title]="sliderTitle" [description]="sliderDescription"></app-slider>
 <div class="container-fluid main-wrapper bg-secondary">
   <!-- Table -->
   <div class=" order-xl-1 bg-secondary">
@@ -10,11 +10,18 @@
           </div>
         </div>
       </div> -->
+      <div class="row">
+        <div class="DF pageBadges">
+          <div class="badgeItem">Home</div>
+          <div class="badgeItem">></div>
+          <div class="badgeItem text-capitalize">{{selectedProvince}}</div>
+        </div>
+      </div>
       <div *ngIf="!isError">
         <div class="row mt-5">
           <div class="col-12" >
             <div>
-              <h1>{{selectedProvince}} Boards</h1>
+              <h1 class="text-capitalize">{{selectedProvince}} Boards</h1>
             </div>
           </div>
         </div>

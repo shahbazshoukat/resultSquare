@@ -15,26 +15,39 @@
   height: auto;
 }
 
+.title {
+  color: white;
+  font-size: 50px;
+}
+
+.subTitle {
+  color: white;
+  font-size: 25px;
+}
+
 .bgWrapper {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 @media screen and (max-width: 768px) {
   .nav-main {
     padding-top: 0px;
     padding-bottom: 0px;
-    background-image: url(/assets/img/theme/profile-cover-5.jpg); background-size: cover; background-position: center top;
+    // background-image: url(/assets/img/theme/profile-cover-5.jpg); background-size: cover; background-position: center top;
+    background-image: linear-gradient(331deg, rgb(0, 169, 196), rgb(57, 177, 197));
   }
 }
 
 @media screen and (min-width: 768px) {
   .nav-main {
-    height: 500px;
-    background-image: url(/assets/img/theme/profile-cover-5.jpg); background-size: cover; background-position: center top;
+    height: 600px;
+    // background-image: url(/assets/img/theme/profile-cover-5.jpg); background-size: cover; background-position: center top;
+    background-image: linear-gradient(331deg, rgb(0, 169, 196), rgb(57, 177, 197));
   }
   .search-result-wrapper {
     padding: 50px 50px;
@@ -168,4 +181,29 @@
 
 .news-header {
   padding: 15px;
+}
+
+.miniNavBar {
+  background: white;
+  height: 60px;
+  padding: 0px 50px;
+
+  .navItem {
+    padding: 20px 10px;
+    font-size: 14px;
+    cursor: pointer;
+
+    &.selected {
+      color: #FFFFFF;
+      background: #2dce89;
+
+      &:hover {
+        color: #FFFFFF;
+      }
+    }
+
+    &:hover {
+      color: #2dce89;
+    }
+  }
 }

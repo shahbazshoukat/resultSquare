@@ -46,4 +46,10 @@ export class FooterComponent implements OnInit {
 
   }
 
+  navigateToHomePage() {
+
+    window.location.href = `${window.location.protocol}//${ENV.host}`;
+
+  }
+
 }

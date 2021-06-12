@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
-import { SliderComponent } from './slider/slider.component';
 export function playerFactory() { return player; }
 
 @NgModule({
@@ -18,13 +17,11 @@ export function playerFactory() { return player; }
   ],
   declarations: [
     FooterComponent,
-    NavbarComponent,
-    SliderComponent
+    NavbarComponent
   ],
   exports: [
     FooterComponent,
-    NavbarComponent,
-    SliderComponent
+    NavbarComponent
   ]
 })
 export class ComponentsModule { }

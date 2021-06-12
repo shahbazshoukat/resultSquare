@@ -8,6 +8,7 @@ import { NgForm } from '@angular/forms';
 import { takeWhile } from 'rxjs/operators';
 import { LoadingBarService, LoadingBarComponent } from '@ngx-loading-bar/core';
 import { Meta, Title } from '@angular/platform-browser';
+import * as Enums from '@app/app.enums';
 
 @Component({
   selector: 'app-result-page',
@@ -32,10 +33,11 @@ export class ResultPageComponent implements OnInit, OnDestroy {
   selectedYear: any;
   isLoading = false;
   selectedClass: any;
-  selectedBoard: any;
+  boardTitle: any;
+  boardDomain: string;
+  selectedNavItem: any;
   showComments = false;
   addingComment = false;
-  selectedBoardKey: any;
   selectedExamType: any;
   resultDescription: any;
   announceStatus: string;
@@ -45,6 +47,29 @@ export class ResultPageComponent implements OnInit, OnDestroy {
   isValidCommentEmail = false;
   @ViewChild('subheader', { static: false }) subheader: ElementRef;
   @ViewChild('resultPage', { static: false }) resultPage: ElementRef;
+
+  miniNavItems = [
+    {
+      label: 'Results',
+      key: Enums.MINI_NAV_ITEMS.RESULTS,
+      pageTitle: 'Latest Results'
+    },
+    {
+      label: 'Date Sheets',
+      key: Enums.MINI_NAV_ITEMS.DATE_SHEETS,
+      pageTitle: 'Date Sheets'
+    },
+    {
+      label: 'Model Papers',
+      key: Enums.MINI_NAV_ITEMS.MODEL_PAPERS,
+      pageTitle: 'Model Papers'
+    },
+    {
+      label: 'Past Papers',
+      key: Enums.MINI_NAV_ITEMS.PAST_PAPERS,
+      pageTitle: 'Past Papers'
+    }
+  ];
 
   errorAnimOptions: AnimationOptions = {
     path: '/assets/lib/error.json',
@@ -77,19 +102,13 @@ export class ResultPageComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private boardService: BoardService,
               private resultService: ResultService,
-              private loadingBar: LoadingBarService) { }
+              private loadingBar: LoadingBarService) {
 
-  ngOnInit() {
-
-    this.resultTitle = '';
+    this.boardDomain = this.boardTitle = window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
 
     this.route.paramMap.pipe(takeWhile(this.isAlive)).subscribe((paramMap: ParamMap) => {
 
-      if (paramMap.has('boardKey')) {
-
-        this.selectedBoardKey = paramMap.get('boardKey');
-
-        this.selectedBoard = this.selectedBoardKey && this.selectedBoardKey.replace(/-/g, ' ');
+      if (paramMap) {
 
         if (paramMap.has('classTitle')) {
 
@@ -107,15 +126,21 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
           this.selectedExamType = paramMap.get('examType');
 
-          this.getResult();
-
         }
-
-        this.getResultTitleAndDescription();
 
       }
 
     });
+
+  }
+
+  ngOnInit() {
+
+    this.resultTitle = '';
+
+    this.getResult();
+
+    this.getResultTitleAndDescription();
 
     if (this.resultPage && this.resultPage.nativeElement) {
 
@@ -141,10 +166,10 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
     } else {
 
-      this.resultTitle = `${this.selectedBoard} ${this.selectedClass} Class ${this.selectedExamType} Result ${this.selectedYear}`;
+      this.resultTitle = `${this.boardTitle} ${this.selectedClass} ${this.selectedExamType} Result ${this.selectedYear}`;
 
       // tslint:disable-next-line:max-line-length
-      this.resultDescription = `${this.selectedExamType} result of ${this.selectedClass} class ${this.selectedBoard} board ${this.selectedYear}`;
+      this.resultDescription = `${this.selectedExamType} result of ${this.selectedClass} class ${this.boardTitle} board ${this.selectedYear}`;
 
     }
 
@@ -154,7 +179,7 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
   getResult() {
 
-    if (this.selectedClass && this.selectedBoardKey && this.selectedYear && this.selectedExamType) {
+    if (this.selectedClass && this.boardDomain && this.selectedYear && this.selectedExamType) {
 
       this.announced = false;
 
@@ -166,7 +191,7 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
       this.blocked = false;
 
-      this.resultService.getResult(this.selectedClass, this.selectedBoardKey, this.selectedYear, this.selectedExamType)
+      this.resultService.getResult(this.selectedClass, this.selectedYear, this.selectedExamType)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
 
@@ -199,6 +224,16 @@ export class ResultPageComponent implements OnInit, OnDestroy {
                 this.blocked = true;
 
               }
+
+              if (this.resultData.board && this.resultData.board.description) {
+
+                this.resultData.board.shortDesc = this.resultData.board.description.substring(0, 110) + '...';
+
+                this.boardTitle = this.resultData.board.title;
+
+              }
+
+              this.getResultTitleAndDescription();
 
             } else {
 
@@ -458,6 +493,12 @@ export class ResultPageComponent implements OnInit, OnDestroy {
           });
 
     }
+
+  }
+
+  onNavItemSelection = (navItem) => {
+
+    this.selectedNavItem = navItem;
 
   }
 

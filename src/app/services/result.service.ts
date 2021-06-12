@@ -14,9 +14,9 @@ export class ResultService {
 
   }
 
-  getResultsByBoardKey(boardKey) {
+  getResultsByBoardDomain(domain) {
 
-    return this.http.get<APIResponse>(ENV.apiUrl + `/api/board-results/${boardKey}`);
+    return this.http.get<APIResponse>(ENV.apiUrl + `/api/board-results/${domain}`);
 
   }
 
@@ -32,9 +32,9 @@ export class ResultService {
 
   }
 
-  getResult(section, board, year, exam) {
+  getResult(section, year, exam) {
 
-    return this.http.get<APIResponse>(ENV.apiUrl + `/api/result/${section}/${board}/${year}/${exam}`);
+    return this.http.get<APIResponse>(ENV.apiUrl + `/api/result/${section}/${exam}/${year}`);
 
   }
 
