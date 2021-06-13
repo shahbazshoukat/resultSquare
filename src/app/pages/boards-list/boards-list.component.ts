@@ -236,8 +236,6 @@ export class BoardsListComponent implements OnInit, OnDestroy {
 
   viewBoard(board) {
 
-    console.log(board);
-
     if (board && board.domain) {
 
       window.location.href = `${window.location.protocol}//${board.domain}.${ENV.host}`;

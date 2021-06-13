@@ -275,7 +275,6 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
 
   viewDateSheet(dateSheet) {
 
-    console.log(dateSheet);
     // tslint:disable-next-line:max-line-length
     window.location.href = `${window.location.protocol}//${dateSheet.board.domain}.${ENV.host}/date-sheets/${dateSheet.pageId}`;
 
