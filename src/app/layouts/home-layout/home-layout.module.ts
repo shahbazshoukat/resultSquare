@@ -25,6 +25,7 @@ import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { ComponentsModule } from '@app/components/components.module';
 export function playerFactory() { return player; }
 
 @NgModule({
@@ -38,7 +39,8 @@ export function playerFactory() { return player; }
     RouterModule.forChild(HomeLayoutRoutes),
     LottieModule.forRoot({player: playerFactory, useCache: true}),
     LoadingBarModule,
-    NgxDocViewerModule
+    NgxDocViewerModule,
+    ComponentsModule
   ],
   declarations: [
     SafePipe,

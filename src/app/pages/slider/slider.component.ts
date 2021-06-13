@@ -434,13 +434,17 @@ export class SliderComponent implements OnInit, OnDestroy {
 
     const sticky = 600;
 
-    if (window.pageYOffset > sticky) {
+    if (this.subHeader && this.subHeader.nativeElement) {
 
-      this.renderer.addClass(this.subHeader.nativeElement, 'stickySubHeader');
+      if (window.pageYOffset > sticky) {
 
-    } else {
+        this.renderer.addClass(this.subHeader.nativeElement, 'stickySubHeader');
 
-      this.renderer.removeClass(this.subHeader.nativeElement, 'stickySubHeader');
+      } else {
+
+        this.renderer.removeClass(this.subHeader.nativeElement, 'stickySubHeader');
+
+      }
 
     }
 
