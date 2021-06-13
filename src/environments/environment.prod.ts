@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://3.21.127.241:3000',
+  apiUrl: 'http://resultsquare.pk:3000',
   fbPageUrl: 'https://web.facebook.com/resultsquare/',
   host: 'resultsquare.pk',
   twitterPageUrl: '',
