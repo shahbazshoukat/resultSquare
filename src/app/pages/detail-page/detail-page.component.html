@@ -1,0 +1,5 @@
+<app-slider [title]="sliderTitle" [description]="sliderDescription" [navItems]="miniNavItems"></app-slider>
+<div>
+  <app-result-page *ngIf="selectedNavItem?.key === allEnums?.MINI_NAV_ITEMS?.RESULTS"></app-result-page>
+  <app-date-sheet-detail *ngIf="selectedNavItem?.key === allEnums?.MINI_NAV_ITEMS?.DATE_SHEETS"></app-date-sheet-detail>
+</div>

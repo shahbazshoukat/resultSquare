@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { environment as ENV } from '@env/environment';
 import * as Enums from '@app/app.enums';
+import {ActivatedRoute, Router} from '@angular/router';
+import {takeWhile} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   pageViewEnums = Enums.PAGE_VIEW;
   pageView = Enums.PAGE_VIEW.HOME;
 
-  constructor() {
+  constructor(private router: Router,
+              private route: ActivatedRoute) {
 
   }
 
@@ -28,8 +31,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.pageView = ENV.provinces.includes(domain) ? this.pageViewEnums.PROVINCE : this.pageViewEnums.BOARD;
 
     }
-
-    console.log(window.location, host, domain, this.pageView);
 
   }
 

@@ -1,75 +1,46 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { ResultService } from '@app/services';
-import { Location } from '@angular/common';
-import { AnimationOptions } from 'ngx-lottie';
-import { BoardService } from '@app/services';
-import { NgForm } from '@angular/forms';
-import { takeWhile } from 'rxjs/operators';
-import { LoadingBarService, LoadingBarComponent } from '@ngx-loading-bar/core';
-import { Meta, Title } from '@angular/platform-browser';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import * as Enums from '@app/app.enums';
+import {AnimationOptions} from 'ngx-lottie';
+import {Meta, Title} from '@angular/platform-browser';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {Location} from '@angular/common';
+import {BoardService, DateSheetService} from '@app/services';
+import {LoadingBarService} from '@ngx-loading-bar/core';
+import {takeWhile} from 'rxjs/operators';
+import {NgForm} from '@angular/forms';
+import {environment as ENV} from '@env/environment';
 
 @Component({
-  selector: 'app-result-page',
-  templateUrl: './result-page.component.html',
-  styleUrls: ['./result-page.component.scss']
+  selector: 'app-date-sheet-detail',
+  templateUrl: './date-sheet-detail.component.html',
+  styleUrls: ['./date-sheet-detail.component.scss']
 })
-export class ResultPageComponent implements OnInit, OnDestroy {
+export class DateSheetDetailComponent implements OnInit, OnDestroy {
 
   url = '';
   tags = [];
   alive = true;
+  pageId: string;
   errorMsg = '';
   comments = [];
-  blocked = false;
   isError = false;
-  resultData: any;
+  dateSheetData: any;
   commentName = '';
   commentText = '';
-  resultTitle: any;
+  dateSheetTitle: any;
   commentEmail = '';
-  announced = false;
-  selectedYear: any;
   isLoading = false;
-  selectedClass: any;
   boardTitle: any;
   boardDomain: string;
-  selectedNavItem: any;
   showComments = false;
   addingComment = false;
-  selectedExamType: any;
-  resultDescription: any;
-  announceStatus: string;
-  result = 'NO RESULT FOUND';
+  dateSheetDescription: any;
   isValidCommentName = false;
   isValidCommentText = false;
   isValidCommentEmail = false;
+  hostAddress = `${window.location.protocol}//${ENV.host}`;
   @ViewChild('subheader', { static: false }) subheader: ElementRef;
   @ViewChild('resultPage', { static: false }) resultPage: ElementRef;
-
-  miniNavItems = [
-    {
-      label: 'Results',
-      key: Enums.MINI_NAV_ITEMS.RESULTS,
-      pageTitle: 'Latest Results'
-    },
-    {
-      label: 'Date Sheets',
-      key: Enums.MINI_NAV_ITEMS.DATE_SHEETS,
-      pageTitle: 'Date Sheets'
-    },
-    {
-      label: 'Model Papers',
-      key: Enums.MINI_NAV_ITEMS.MODEL_PAPERS,
-      pageTitle: 'Model Papers'
-    },
-    {
-      label: 'Past Papers',
-      key: Enums.MINI_NAV_ITEMS.PAST_PAPERS,
-      pageTitle: 'Past Papers'
-    }
-  ];
 
   errorAnimOptions: AnimationOptions = {
     path: '/assets/lib/error.json',
@@ -101,7 +72,7 @@ export class ResultPageComponent implements OnInit, OnDestroy {
               private _location: Location,
               private route: ActivatedRoute,
               private boardService: BoardService,
-              private resultService: ResultService,
+              private dateSheetService: DateSheetService,
               private loadingBar: LoadingBarService) {
 
     this.boardDomain = this.boardTitle = window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
@@ -110,21 +81,9 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
       if (paramMap) {
 
-        if (paramMap.has('classTitle')) {
+        if (paramMap.has('pageId')) {
 
-          this.selectedClass = paramMap.get('classTitle');
-
-        }
-
-        if (paramMap.has('year')) {
-
-          this.selectedYear = paramMap.get('year');
-
-        }
-
-        if (paramMap.has('examType')) {
-
-          this.selectedExamType = paramMap.get('examType');
+          this.pageId = paramMap.get('pageId');
 
         }
 
@@ -136,11 +95,11 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.resultTitle = '';
+    this.getDateSheet();
 
-    this.getResult();
+    this.dateSheetTitle = '';
 
-    this.getResultTitleAndDescription();
+    this.getDateSheetTitleAndDescription();
 
     if (this.resultPage && this.resultPage.nativeElement) {
 
@@ -156,32 +115,23 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
   }
 
-  getResultTitleAndDescription() {
+  getDateSheetTitleAndDescription() {
 
-    if (this.selectedExamType && this.selectedExamType === 'test') {
+    if (this.dateSheetData) {
 
-      this.resultTitle = `${this.selectedClass} Result ${this.selectedYear}`;
+      this.dateSheetTitle = this.dateSheetData.title;
 
-      this.resultDescription = `Result of ${this.selectedClass} ${this.selectedYear}`;
+      this.dateSheetDescription = this.dateSheetData.description;
 
-    } else {
-
-      this.resultTitle = `${this.boardTitle} ${this.selectedClass} ${this.selectedExamType} Result ${this.selectedYear}`;
-
-      // tslint:disable-next-line:max-line-length
-      this.resultDescription = `${this.selectedExamType} result of ${this.selectedClass} class ${this.boardTitle} board ${this.selectedYear}`;
+      this.title.setTitle(this.dateSheetTitle);
 
     }
 
-    this.title.setTitle(this.resultTitle);
-
   }
 
-  getResult() {
+  getDateSheet() {
 
-    if (this.selectedClass && this.boardDomain && this.selectedYear && this.selectedExamType) {
-
-      this.announced = false;
+    if (this.pageId) {
 
       this.isLoading = true;
 
@@ -189,29 +139,23 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
       this.errorMsg = '';
 
-      this.blocked = false;
-
-      this.resultService.getResult(this.selectedClass, this.selectedYear, this.selectedExamType)
+      this.dateSheetService.getDateSheetByPageId(this.pageId)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
 
           response => {
 
-            this.resultData = response.data;
+            this.dateSheetData = response.data;
 
-            if (this.resultData) {
+            if (this.dateSheetData) {
 
-              this.announced = this.resultData.status;
+              this.tags = this.dateSheetData.tags;
 
-              this.announceStatus = this.announced ? 'Announced' : 'Not announced';
+              this.dateSheetData.examTypeText = this.dateSheetService.getExamType(this.dateSheetData.examType);
 
-              this.tags = this.resultData.tags;
+              if (this.dateSheetData.comments) {
 
-              this.url = this.resultData.resultUrl;
-
-              if (this.resultData.comments) {
-
-                this.comments = this.resultData.comments;
+                this.comments = this.dateSheetData.comments;
 
                 this.comments.reverse();
 
@@ -219,37 +163,25 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
               }
 
-              if (this.resultData.isBlocked && this.announced) {
+              if (this.dateSheetData.board && this.dateSheetData.board.description) {
 
-                this.blocked = true;
+                this.dateSheetData.board.shortDesc = this.dateSheetData.board.description.substring(0, 110) + '...';
 
-              }
-
-              if (this.resultData.board && this.resultData.board.description) {
-
-                this.resultData.board.shortDesc = this.resultData.board.description.substring(0, 110) + '...';
-
-                this.boardTitle = this.resultData.board.title;
+                this.boardTitle = this.dateSheetData.board.title;
 
               }
 
-              this.getResultTitleAndDescription();
+              this.getDateSheetTitleAndDescription();
 
             } else {
 
               this.isError = true;
 
-              this.errorMsg = 'Result Not Found';
+              this.errorMsg = 'Date Sheet Not Found';
 
             }
 
             this.isLoading = false;
-
-            if (!this.isError && !this.blocked && this.announced && this.url) {
-
-              this.loadingBar.start();
-
-            }
 
             this.removeExistingTags();
 
@@ -278,21 +210,21 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
   }
 
-  setResultDescriptionMetaTag() {
+  setDateSheetDescriptionMetaTag() {
 
     let pageDescription = '';
 
-    if (this.resultData) {
+    if (this.dateSheetData) {
 
-      if (this.resultData.board && this.resultData.board.description) {
+      if (this.dateSheetData.board && this.dateSheetData.board.description) {
 
-        pageDescription = pageDescription + this.resultData.board.description;
+        pageDescription = pageDescription + this.dateSheetData.board.description;
 
       }
 
-      if (this.resultData.description) {
+      if (this.dateSheetData.description) {
 
-        pageDescription = pageDescription + this.resultData.description;
+        pageDescription = pageDescription + this.dateSheetData.description;
 
       }
 
@@ -300,7 +232,7 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
     this.meta.updateTag({ name: 'description', content: pageDescription });
 
-    this.meta.updateTag({ property: 'og:title', content: this.resultTitle });
+    this.meta.updateTag({ property: 'og:title', content: this.dateSheetTitle });
 
     this.meta.updateTag({ property: 'og:description', content: pageDescription });
 
@@ -320,7 +252,7 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
       this.meta.addTag({ property: 'article:tag', content: 'result square pk'});
 
-      this.meta.addTag({ property: 'article:tag', content: this.resultTitle });
+      this.meta.addTag({ property: 'article:tag', content: this.dateSheetTitle });
 
       this.tags.forEach(tag => {
 
@@ -334,7 +266,7 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
     }
 
-    this.setResultDescriptionMetaTag();
+    this.setDateSheetDescriptionMetaTag();
 
   }
 
@@ -351,18 +283,6 @@ export class ResultPageComponent implements OnInit, OnDestroy {
       });
 
     }
-
-  }
-
-  reload() {
-
-    if (!this.isError && !this.blocked && this.announced && this.url) {
-
-      this.loadingBar.start();
-
-    }
-
-    document.getElementById('resultFrame')['src'] = this.url;
 
   }
 
@@ -466,7 +386,7 @@ export class ResultPageComponent implements OnInit, OnDestroy {
 
       this.addingComment = true;
 
-      this.resultService.addComment(this.resultData._id, comment)
+      this.dateSheetService.addComment(this.dateSheetData._id, comment)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
           response => {
@@ -493,12 +413,6 @@ export class ResultPageComponent implements OnInit, OnDestroy {
           });
 
     }
-
-  }
-
-  onNavItemSelection = (navItem) => {
-
-    this.selectedNavItem = navItem;
 
   }
 

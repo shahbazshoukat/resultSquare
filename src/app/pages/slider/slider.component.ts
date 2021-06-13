@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild} from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { ClassService, NewsService} from '@app/services';
 import { BoardService } from '@app/services';
 import * as Enums from '@app/app.enums';
@@ -24,6 +24,7 @@ export class SliderComponent implements OnInit, OnDestroy {
   examTypes = [];
   isError = false;
   isLoading = false;
+  boardDomain: string;
   selectedNavItem: any;
   yearSelected = false;
   classSelected = false;
@@ -50,17 +51,19 @@ export class SliderComponent implements OnInit, OnDestroy {
               private classService: ClassService,
               private boardService: BoardService,
               private resultService: ResultService,
-              private renderer: Renderer2) {}
+              private renderer: Renderer2,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this.boardDomain = window.location.hostname && window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
+
+    this.checkSelectedNavItem();
 
     this.getNews();
 
     this.getClasses();
-
-    this.selectedNavItem = this.navItems[0];
-
-    this.selectNav.emit(this.selectedNavItem);
 
     document.addEventListener('scroll', this.stickHeaderOnScroll);
 
@@ -407,7 +410,7 @@ export class SliderComponent implements OnInit, OnDestroy {
       && this.selectedClass !== 'default' && this.selectedBoard !== 'default' && this.selectedYear !== 'default'
       && this.selectedExamType !== 'default') {
 
-      const url = `result/${selClass.title}/${this.selectedExamType}/${this.selectedYear}`;
+      const url = `results/${selClass.title}/${this.selectedExamType}/${this.selectedYear}`;
 
       window.location.href = `${window.location.protocol}//${selBoard.domain}.${ENV.host}/${url}`;
 
@@ -423,17 +426,13 @@ export class SliderComponent implements OnInit, OnDestroy {
 
   selectNavItem = (navItem) => {
 
-    this.selectedNavItem = navItem;
-
-    this.selectNav.emit(this.selectedNavItem);
+    this.router.navigate([navItem && navItem.key]);
 
   }
 
   stickHeaderOnScroll = () => {
 
-    const sticky = 600; // this.subHeader && this.subHeader.nativeElement && this.subHeader.nativeElement.offsetTop;
-
-    console.log(window.pageYOffset, sticky);
+    const sticky = 600;
 
     if (window.pageYOffset > sticky) {
 
@@ -442,6 +441,21 @@ export class SliderComponent implements OnInit, OnDestroy {
     } else {
 
       this.renderer.removeClass(this.subHeader.nativeElement, 'stickySubHeader');
+
+    }
+
+  }
+
+  checkSelectedNavItem = () => {
+
+    if (this.route && this.route.snapshot && this.route.snapshot.url && this.route.snapshot.url[0] && this.route.snapshot.url[0].path
+      && Array.isArray(this.navItems)) {
+
+      this.selectedNavItem = this.navItems.find(item => item && item.key === this.route.snapshot.url[0].path);
+
+    } else {
+
+      this.selectedNavItem = this.navItems[0];
 
     }
 

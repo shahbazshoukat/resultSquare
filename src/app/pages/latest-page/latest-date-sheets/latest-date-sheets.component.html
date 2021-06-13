@@ -1,5 +1,3 @@
-<app-slider [title]="sliderTitle" [description]="sliderDescription" [navItems]="miniNavItems"
-            (selectNav)="onNavItemSelection($event)"></app-slider>
 <div class="container-fluid main-wrapper bg-secondary">
   <!-- Table -->
   <div class=" order-xl-1 bg-secondary">
@@ -13,16 +11,16 @@
       </div> -->
       <div class="row">
         <div class="DF pageBadges">
-          <div class="badgeItem">Home</div>
+          <div class="badgeItem" [routerLink]="['/']">Home</div>
           <div class="badgeItem">></div>
-          <div class="badgeItem">{{selectedNavItem?.label}}</div>
+          <div class="badgeItem" [routerLink]="['/date-sheets']">Date Sheets</div>
         </div>
       </div>
       <div *ngIf="!isError">
         <div class="row mt-5">
           <div class="col-12" >
             <div class="text-center">
-              <h1>{{selectedNavItem?.pageTitle}}</h1>
+              <h1>Latest Date Sheets</h1>
             </div>
           </div>
         </div>
@@ -66,24 +64,21 @@
           </div>
         </div>
         <div class="row text-center mt-4">
-          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngFor="let res of filteredResults  | paginate: { itemsPerPage: 20, currentPage: selectedPageNo, totalItems: filteredResults?.length}" >
-            <div class="result-card-main card shadow-lg bg-white result-card" (click)="viewResult(res)">
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngFor="let res of filteredDateSheets  | paginate: { itemsPerPage: 20, currentPage: selectedPageNo, totalItems: filteredDateSheets?.length}" >
+            <div class="result-card-main card shadow-lg bg-white result-card" (click)="viewDateSheet(res)">
               <div class="result-card-tile text-left">
                 <span class="badge text-success text-capitalize board-title">{{res?.board?.title}}</span>
               </div>
               <div class="result-card-tile">
-                <span class="text-capitalize text-bold">{{res?.section?.title}} {{extractExamType(res?.examType)}} result</span>
-              </div>
-              <div class="result-card-tile">
-                <span class="text-capitalize text-bold">{{res?.year}}</span>
+                <span class="text-capitalize text-bold">{{res?.title}}</span>
               </div>
               <div class="result-card-tile mt-3">
-                <button class="btn btn-outline-success btn-sm"  (click)="viewResult(res)" >View Result</button>
+                <button class="btn btn-outline-success btn-sm"  (click)="viewDateSheet(res)" >View Date Sheet</button>
               </div>
             </div>
           </div>
 
-          <div *ngIf="filteredResults && filteredResults.length === 0 && !isLoading && !isError" class="table-responsive classes-main-container justify-content-center">
+          <div *ngIf="filteredDateSheets && filteredDateSheets.length === 0 && !isLoading && !isError" class="table-responsive classes-main-container justify-content-center">
             <div class="row justify-content-center">
               <div class="bg-transparent" >
                 <div class="text-center">

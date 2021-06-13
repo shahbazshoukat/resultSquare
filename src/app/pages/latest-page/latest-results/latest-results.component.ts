@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PaginationInstance} from 'ngx-pagination';
 import {AnimationOptions} from 'ngx-lottie';
 import {Meta, Title} from '@angular/platform-browser';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {BoardService, ClassService, ResultService} from '@app/services';
 import {environment as ENV} from '@env/environment';
 import {takeWhile} from 'rxjs/operators';
@@ -24,6 +24,7 @@ export class LatestResultsComponent implements OnInit, OnDestroy {
   errorMsg = '';
   isError = false;
   isLoading = true;
+  allEnums = Enums;
   totalResults = 0;
   selectedPageNo = 1;
   filteredBoards = [];
@@ -32,8 +33,6 @@ export class LatestResultsComponent implements OnInit, OnDestroy {
   selectedStatus = true;
   selectedClass = 'default';
   selectedBoardKey = 'default';
-  sliderTitle = 'Resultsquare.pk';
-  sliderDescription = 'View latest educational updates from all over the Pakistan';
 
   provinces = [
     {
@@ -67,29 +66,6 @@ export class LatestResultsComponent implements OnInit, OnDestroy {
   ];
   selectedProvince = this.provinces[0];
 
-  miniNavItems = [
-    {
-      label: 'Results',
-      key: Enums.MINI_NAV_ITEMS.RESULTS,
-      pageTitle: 'Latest Results'
-    },
-    {
-      label: 'Date Sheets',
-      key: Enums.MINI_NAV_ITEMS.DATE_SHEETS,
-      pageTitle: 'Date Sheets'
-    },
-    {
-      label: 'Model Papers',
-      key: Enums.MINI_NAV_ITEMS.MODEL_PAPERS,
-      pageTitle: 'Model Papers'
-    },
-    {
-      label: 'Past Papers',
-      key: Enums.MINI_NAV_ITEMS.PAST_PAPERS,
-      pageTitle: 'Past Papers'
-    }
-  ];
-
   config: PaginationInstance = {
     itemsPerPage: 20,
     currentPage: 1,
@@ -116,6 +92,7 @@ export class LatestResultsComponent implements OnInit, OnDestroy {
   constructor(private meta: Meta,
               private title: Title,
               private router: Router,
+              private route: ActivatedRoute,
               private classService: ClassService,
               private boardService: BoardService,
               private resultService: ResultService) { }
@@ -231,7 +208,6 @@ export class LatestResultsComponent implements OnInit, OnDestroy {
         }
 
       });
-
 
   }
 
@@ -496,15 +472,16 @@ export class LatestResultsComponent implements OnInit, OnDestroy {
       }
 
       // tslint:disable-next-line:max-line-length
-      window.location.href = `${window.location.protocol}//${result.board.domain}.${ENV.host}/result/${result.section.title}/${examType}/${result.year}`;
+      window.location.href = `${window.location.protocol}//${result.board.domain}.${ENV.host}/results/${result.section.title}/${examType}/${result.year}`;
 
     }
 
   }
 
-  onNavItemSelection = (navItem) => {
+  viewDateSheet(dateSheet) {
 
-    this.selectedNavItem = navItem;
+    // tslint:disable-next-line:max-line-length
+    window.location.href = `${window.location.protocol}//${dateSheet.board.domain}.${ENV.host}/date-sheets/${dateSheet.pageId}`;
 
   }
 

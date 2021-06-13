@@ -21,10 +21,9 @@ export enum PAGE_VIEW {
 }
 
 export enum MINI_NAV_ITEMS {
-  RESULTS= 'RESULTS',
-  DATE_SHEETS = 'DATE_SHEETS',
-  MODEL_PAPERS = 'MODEL_PAPERS',
-  PAST_PAPERS = 'PAST_PAPERS',
-  NOTIFICATIONS = 'NOTIFICATIONS',
-  ABOUT = 'ABOUT'
+  RESULTS= 'results',
+  DATE_SHEETS = 'date-sheets',
+  MODEL_PAPERS = 'model-papers',
+  PAST_PAPERS = 'past-papers',
+  NEWS = 'news'
 }

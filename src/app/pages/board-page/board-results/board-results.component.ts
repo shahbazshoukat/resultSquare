@@ -3,7 +3,7 @@ import {PaginationInstance} from 'ngx-pagination';
 import {AnimationOptions} from 'ngx-lottie';
 import {Meta, Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BoardService, ClassService, ResultService} from '@app/services';
+import {BoardService, ClassService, DateSheetService, ResultService} from '@app/services';
 import {environment as ENV} from '@env/environment';
 import {takeWhile} from 'rxjs/operators';
 import * as Enums from '@app/app.enums';
@@ -25,18 +25,12 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
   boardData: any;
   isError = false;
   isLoading = true;
+  allEnums = Enums;
   totalResults = 0;
   selectedPageNo = 1;
   boardDomain: string;
-  filteredBoards = [];
-  filteredResults = [];
-  selectedNavItem: any;
-  selectedStatus = true;
   selectedBoard: string;
-  selectedProvince = 'All';
-  selectedClass = 'default';
-  selectedBoardKey = 'default';
-
+  hostAddress = `${window.location.protocol}//${ENV.host}`;
   provinces = [
     'All',
     'Punjab',
@@ -45,29 +39,6 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
     'Balochistan',
     'AJK',
     'Federal'
-  ];
-
-  miniNavItems = [
-    {
-      label: 'Results',
-      key: Enums.MINI_NAV_ITEMS.RESULTS,
-      pageTitle: 'Results'
-    },
-    {
-      label: 'Date Sheets',
-      key: Enums.MINI_NAV_ITEMS.DATE_SHEETS,
-      pageTitle: 'Date Sheets'
-    },
-    {
-      label: 'Model Papers',
-      key: Enums.MINI_NAV_ITEMS.MODEL_PAPERS,
-      pageTitle: 'Model Papers'
-    },
-    {
-      label: 'Past Papers',
-      key: Enums.MINI_NAV_ITEMS.PAST_PAPERS,
-      pageTitle: 'Past Papers'
-    }
   ];
 
   config: PaginationInstance = {
@@ -142,8 +113,6 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
             }
 
             if (this.results) {
-
-              this.filteredResults = this.results;
 
               this.totalResults = this.results && this.results.length;
 
@@ -248,123 +217,6 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
 
   }
 
-  /*filterByStatus(status) {
-
-    this.selectedStatus = status;
-
-    this.selectedProvince = 'All';
-
-    this.selectedBoardKey = 'default';
-
-    this.selectedClass = 'default';
-
-    if (this.results) {
-
-      this.filteredResults = [];
-
-      for (const res of this.results) {
-
-        if (res && res.status === this.selectedStatus) {
-
-          this.filteredResults.push(res);
-
-        }
-
-      }
-
-    }
-
-  }*/
-
-  filterByProvince(province) {
-
-    if (province) {
-
-      this.selectedProvince = province;
-
-      this.selectedBoardKey = 'default';
-
-      this.selectedClass = 'default';
-
-      this.filterResults();
-
-      if (province === 'All') {
-
-        this.filteredBoards = this.boards;
-
-        return;
-
-      }
-
-      this.filteredBoards = [];
-
-      for (const board of this.boards) {
-
-        if (board && board.province === province) {
-
-          this.filteredBoards.push(board);
-
-        }
-
-      }
-
-    }
-
-  }
-
-  filterResults() {
-
-    this.isLoading = true;
-
-    this.selectedPageNo = 1;
-
-    if (this.results) {
-
-      this.filteredResults = [];
-
-      for (const res of this.results) {
-
-        if (res && res.board && (res.board.province === this.selectedProvince || this.selectedProvince === 'All')
-          && (res.board.key === this.selectedBoardKey || this.selectedBoardKey === 'default')
-          && res.section && (res.section.title === this.selectedClass || this.selectedClass === 'default')
-          && res.status === this.selectedStatus) {
-
-          this.filteredResults.push(res);
-
-        }
-
-      }
-
-      this.isLoading = false;
-
-    }
-
-  }
-
-  filterByClass(event) {
-
-    if (event) {
-
-      this.selectedClass = event.target.value;
-
-      this.filterResults();
-
-    }
-
-  }
-
-  filterByBoard(event) {
-
-    if (event) {
-
-      this.selectedBoardKey = event.target.value;
-
-      this.filterResults();
-
-    }
-
-  }
-
   onPageChange(event) {
 
     this.config.currentPage = event;
@@ -374,20 +226,6 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
   retry() {
 
     this.getResultsByBoardDomain();
-
-  }
-
-  setDefaultFilters() {
-
-    this.selectedProvince = 'All';
-
-    this.selectedBoardKey = 'default';
-
-    this.selectedClass = 'default';
-
-    this.selectedStatus = true;
-
-    this.filterResults();
 
   }
 
@@ -429,15 +267,17 @@ export class BoardResultsComponent implements OnInit, OnDestroy {
 
       }
 
-      this.router.navigate(['/result' + '/' + result.section.title + '/' + examType + '/' + result.year]);
+      this.router.navigate(['/results' + '/' + result.section.title + '/' + examType + '/' + result.year]);
 
     }
 
   }
 
-  onNavItemSelection = (navItem) => {
+  viewDateSheet(dateSheet) {
 
-    this.selectedNavItem = navItem;
+    console.log(dateSheet);
+    // tslint:disable-next-line:max-line-length
+    window.location.href = `${window.location.protocol}//${dateSheet.board.domain}.${ENV.host}/date-sheets/${dateSheet.pageId}`;
 
   }
 

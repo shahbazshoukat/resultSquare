@@ -12,9 +12,9 @@
       </div> -->
       <div class="row">
         <div class="DF pageBadges">
-          <div class="badgeItem">Home</div>
+          <a class="badgeItem" [href]="hostAddress">Home</a>
           <div class="badgeItem">></div>
-          <div class="badgeItem text-capitalize">{{selectedProvince}}</div>
+          <a class="badgeItem text-capitalize" [routerLink]="['/']">{{selectedProvince}}</a>
         </div>
       </div>
       <div *ngIf="!isError">

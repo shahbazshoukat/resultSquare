@@ -12,6 +12,7 @@ import { AppRoutingModule } from '@app/app.routing';
 import { ComponentsModule } from '@app/components/components.module';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { AlertModule, AlertService } from 'ngx-alerts';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarHttpModule } from '@ngx-loading-bar/http';
@@ -38,7 +39,8 @@ export function playerFactory() {
     BrowserAnimationsModule,
     LoadingBarHttpClientModule,
     LottieModule.forRoot({player: playerFactory, useCache: true}),
-    LoadingBarHttpClientModule
+    LoadingBarHttpClientModule,
+    NgxDocViewerModule
   ],
   declarations: [
     AppComponent,

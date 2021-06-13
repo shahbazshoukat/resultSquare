@@ -1,5 +1,5 @@
 <div>
-  <app-latest-results *ngIf="pageView === pageViewEnums?.HOME"></app-latest-results>
+  <app-latest-page *ngIf="pageView === pageViewEnums?.HOME"></app-latest-page>
   <app-boards-list *ngIf="pageView === pageViewEnums?.PROVINCE"></app-boards-list>
-  <app-board-results *ngIf="pageView === pageViewEnums?.BOARD"></app-board-results>
+  <app-board-page *ngIf="pageView === pageViewEnums?.BOARD"></app-board-page>
 </div>

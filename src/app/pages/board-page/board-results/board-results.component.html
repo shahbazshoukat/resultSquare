@@ -1,22 +1,20 @@
-<app-slider [title]="selectedBoard" [description]="boardData?.shortDesc" [navItems]="miniNavItems"
-            (selectNav)="onNavItemSelection($event)"></app-slider>
 <div class="container-fluid main-wrapper bg-secondary">
   <div class=" order-xl-1 bg-secondary">
     <div class="bg-secondary">
       <div class="row">
         <div class="DF pageBadges">
-          <div class="badgeItem text-capitalize">Home</div>
+          <a class="badgeItem text-capitalize" [href]="hostAddress">Home</a>
           <div class="badgeItem">></div>
-          <div class="badgeItem text-capitalize">{{selectedBoard}}</div>
+          <div class="badgeItem text-capitalize" [routerLink]="['/']">{{selectedBoard}}</div>
           <div class="badgeItem">></div>
-          <div class="badgeItem text-capitalize">{{selectedNavItem?.label}}</div>
+          <div class="badgeItem text-capitalize" [routerLink]="['/results']">Results</div>
         </div>
       </div>
       <div *ngIf="!isError">
         <div class="row mt-5">
           <div class="col-12" >
             <div>
-              <h1 class="text-capitalize">{{selectedBoard}} {{selectedNavItem?.pageTitle}}
+              <h1 class="text-capitalize">{{selectedBoard}}
                 <span class="text-sm text-muted">
                   <a *ngIf="selectedBoard && boardData?.webUrl" target="_blank" class="btn btn-link btn-sm" [href]="boardData?.webUrl">(Official Website)</a>
                 </span>
@@ -27,8 +25,15 @@
             </div>
           </div>
         </div>
+        <div class="row mt-5">
+          <div class="col-12" >
+            <div>
+              <h1 class="text-capitalize">Results</h1>
+            </div>
+          </div>
+        </div>
         <div class="row text-center mt-4">
-          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngFor="let res of filteredResults  | paginate: { itemsPerPage: 20, currentPage: selectedPageNo, totalItems: filteredResults?.length}" >
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngFor="let res of results  | paginate: { itemsPerPage: 20, currentPage: selectedPageNo, totalItems: results?.length}" >
             <div class="result-card-main card shadow-lg bg-white result-card" (click)="viewResult(res)">
               <div class="result-card-tile text-left">
                 <span class="badge text-success text-capitalize board-title">{{res?.board?.title}}</span>
@@ -45,7 +50,7 @@
             </div>
           </div>
 
-          <div *ngIf="filteredResults && filteredResults.length === 0 && !isLoading && !isError" class="table-responsive classes-main-container justify-content-center">
+          <div *ngIf="results && results.length === 0 && !isLoading && !isError" class="table-responsive classes-main-container justify-content-center">
             <div class="row justify-content-center">
               <div class="bg-transparent" >
                 <div class="text-center">
@@ -53,9 +58,6 @@
                 </div>
                 <div class="text-center">
                   <span class="text-lg">No Result Found</span>
-                </div>
-                <div class="text-center" style="margin-top: 30px;">
-                  <span class="btn btn-primary" (click)="setDefaultFilters()">Clear Filters</span>
                 </div>
               </div>
             </div>
