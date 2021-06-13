@@ -7,6 +7,7 @@ export const environment = {
   apiUrl: 'http://localhost:3000',
   fbPageUrl: 'https://web.facebook.com/resultsquare/',
   host: 'localhost:4200',
+  appDomain: 'resultsquare',
   twitterPageUrl: '',
   youtubePageUrl: '',
   pageTitle: 'Result Square - Online Results for 5th, 8th, Matric, Inter, FA, FSc, BA, BSc, MSc, Board, University',
