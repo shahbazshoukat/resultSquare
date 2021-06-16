@@ -27,8 +27,8 @@ export class BoardsListComponent implements OnInit, OnDestroy {
   filteredBoards = [];
   hostAddress = `${window.location.protocol}//${ENV.host}`;
   selectedProvince: string;
-  sliderTitle = 'Resultsquare.pk';
-  sliderDescription = 'View latest educational updates from all over the Pakistan';
+  sliderTitle = 'Are you looking for <br/> latest educational updates?';
+  sliderDescription = 'Then don\'t worry! you are on the right place &#128578;. Here you can find educational updates from all over the 🇵🇰';
 
   config: PaginationInstance = {
     itemsPerPage: 20,

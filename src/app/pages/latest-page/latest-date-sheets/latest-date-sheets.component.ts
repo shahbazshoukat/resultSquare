@@ -224,6 +224,12 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
             if (this.dateSheets) {
 
+              this.dateSheets.forEach(dateSheet => {
+
+                dateSheet.parsedExamType = this.extractExamType(dateSheet.examType);
+
+              });
+
               this.filteredDateSheets = this.dateSheets;
 
               this.selectedProvince = this.provinces[0];
@@ -435,11 +441,11 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
     if (exam === Enums.EXAM_TYPE.ANNUAL) {
 
-      return 'Class Annual';
+      return 'Annual';
 
     } else if (exam === Enums.EXAM_TYPE.SUPPLY) {
 
-      return 'Class Supply';
+      return 'Supply';
 
     } else if (exam === Enums.EXAM_TYPE.TEST) {
 

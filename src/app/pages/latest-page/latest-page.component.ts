@@ -11,8 +11,8 @@ export class LatestPageComponent implements OnInit {
 
   allEnums = Enums;
   selectedNavItem: any;
-  sliderTitle = 'Resultsquare.pk';
-  sliderDescription = 'View latest educational updates from all over the Pakistan';
+  sliderTitle = 'Are you looking for <br/> latest educational updates?';
+  sliderDescription = 'Then don\'t worry! you are on the right place &#128578;. Here you can find educational updates from all over the 🇵🇰';
   miniNavItems = [
     {
       label: 'Results',

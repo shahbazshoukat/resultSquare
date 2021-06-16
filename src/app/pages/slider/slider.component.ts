@@ -40,6 +40,7 @@ export class SliderComponent implements OnInit, OnDestroy {
   @Output() selectNav: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('findBtn', { static: false }) findBtn: ElementRef;
   @ViewChild('subHeader', { static: false }) subHeader: ElementRef;
+  @ViewChild('bgWrapper', { static: false }) bgWrapper: ElementRef;
 
   loadingAnimOptions: AnimationOptions = {
     path: '/assets/lib/loading-spinner.json',
@@ -432,7 +433,9 @@ export class SliderComponent implements OnInit, OnDestroy {
 
   stickHeaderOnScroll = () => {
 
-    const sticky = 600;
+    const offSetHeightOfMainElement = this.bgWrapper && this.bgWrapper.nativeElement && this.bgWrapper.nativeElement.offsetHeight;
+
+    const sticky = offSetHeightOfMainElement ? offSetHeightOfMainElement - 10 : 590;
 
     if (this.subHeader && this.subHeader.nativeElement) {
 
