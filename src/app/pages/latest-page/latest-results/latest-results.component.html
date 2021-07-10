@@ -17,14 +17,7 @@
         </div>
       </div>
       <div *ngIf="!isError">
-        <div class="row mt-5">
-          <div class="col-12" >
-            <div class="text-center">
-              <h1>Latest Results</h1>
-            </div>
-          </div>
-        </div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-12" >
             <div class="text-center mt-4">
               <div>
@@ -62,9 +55,17 @@
               </div>
             </div>
           </div>
+        </div> -->
+        <div class="row mt-5">
+          <div class="col-12" >
+            <div class="text-center DF">
+              <h1>Latest Results</h1>
+            </div>
+          </div>
         </div>
+        <app-filter-panel></app-filter-panel>
         <div class="row text-center mt-4">
-          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngFor="let res of filteredResults  | paginate: { itemsPerPage: 20, currentPage: selectedPageNo, totalItems: filteredResults?.length}" >
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngFor="let res of filteredResults  | paginate: { itemsPerPage: 12, currentPage: selectedPageNo, totalItems: filteredResults?.length}" >
             <div class="result-card-main card shadow-lg bg-white result-card" (click)="viewResult(res)">
               <div class="result-card-tile text-left">
                 <span class="badge text-success text-capitalize board-title">{{res?.board?.title}}</span>

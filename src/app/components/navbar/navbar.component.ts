@@ -16,28 +16,24 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   navItems = [
     {
-      label: 'Federal Boards',
-      key: 'federal'
+      label: 'Home',
+      key: '/'
     },
     {
-      label: 'Punjab Boards',
-      key: 'punjab'
+      label: 'Results',
+      key: '/results'
     },
     {
-      label: 'KPK Boards',
-      key: 'kpk'
+      label: 'Date Sheets',
+      key: '/date-sheets'
     },
     {
-      label: 'Sindh Boards',
-      key: 'sindh'
+      label: 'Model Papers',
+      key: '/model-papers'
     },
     {
-      label: 'Balochistan Boards',
-      key: 'balochistan'
-    },
-    {
-      label: 'AJK Boards',
-      key: 'ajk'
+      label: 'Educational Boards',
+      key: '/boards'
     }
   ];
 
@@ -50,6 +46,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationEnd) {
 
         this.activeNavItem = event.url;
+
+        console.log(event);
 
       }
 

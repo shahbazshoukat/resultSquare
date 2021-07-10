@@ -37,8 +37,9 @@
           </b>
         </a>
         <div class="boardsWrap" [ngClass]="{'collapsed': !isCollapsed}">
-          <li class="boardItem" *ngFor="let item of navItems" (click)="navigateToNavItem(item)">
-            <div class="boardText" [ngClass]="{'activeNav': item?.key === activeDomain}">
+          <li class="boardItem" [ngClass]="{'activeNav': item?.key === activeNavItem}"
+              *ngFor="let item of navItems" [routerLink]="[item?.key]">
+            <div class="boardText">
               <span>{{item?.label}}</span>
             </div>
           </li>

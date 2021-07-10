@@ -67,7 +67,7 @@ export class LatestResultsComponent implements OnInit, OnDestroy {
   selectedProvince = this.provinces[0];
 
   config: PaginationInstance = {
-    itemsPerPage: 20,
+    itemsPerPage: 12,
     currentPage: 1,
     totalItems: this.totalResults
   };

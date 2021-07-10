@@ -1,0 +1,26 @@
+.result-info-wrapper {
+  margin: 30px 20px;
+  border-radius: 5px;
+  box-shadow: 0 10px 18px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.result-info {
+  padding: 10px 10px 10px 10px;
+  border: 1px solid #8898aa;
+  border-radius: 5px;
+  margin: 10px 10px 10px 10px;
+  background-color: rgba(147, 231, 195, 0.5);
+}
+
+@media screen and (min-width: 768px) {
+  .result-info-tile {
+    border-right: 1px solid #8898aa;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .result-info-tile {
+    border-bottom: 1px solid #8898aa;
+    padding: 5px 5px 10px 15px;
+  }
+}

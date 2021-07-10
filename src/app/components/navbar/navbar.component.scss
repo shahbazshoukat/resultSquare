@@ -184,17 +184,22 @@
       .boardText {
         padding: 2px 0px;
         border-bottom: 2px solid transparent;
-        font-size: 12px;
-
-        &.activeNav {
-          color: #2dce89;
-          border-bottom: 2px solid #2dce89;
-        }
+        font-size: 14px;
 
         &:hover {
-          color: #2dce89;
+          border-bottom: 2px solid #2dce89;
         }
       }
+
+      &.activeNav {
+        background: #2dce89;
+        color: white;
+        border-radius: 3px;
+        &.hover {
+
+        }
+      }
+
     }
 
   }

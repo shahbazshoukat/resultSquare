@@ -1,37 +1,45 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import * as Enums from '@app/app.enums';
 import {PaginationInstance} from 'ngx-pagination';
 import {AnimationOptions} from 'ngx-lottie';
 import {Meta, Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BoardService, ClassService, DateSheetService} from '@app/services';
+import {BoardService, ClassService, ResultService} from '@app/services';
 import {environment as ENV} from '@env/environment';
 import {takeWhile} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-latest-date-sheets',
-  templateUrl: './latest-date-sheets.component.html',
-  styleUrls: ['./latest-date-sheets.component.scss']
+  selector: 'app-results',
+  templateUrl: './results.component.html',
+  styleUrls: ['./results.component.scss']
 })
-export class LatestDateSheetsComponent implements OnInit, OnDestroy {
+export class ResultsComponent implements OnInit, OnDestroy {
 
   pages: any;
   result: any;
   boards = [];
   alive = true;
   classes = [];
-  dateSheets = [];
+  results = [];
   errorMsg = '';
   isError = false;
   isLoading = true;
   allEnums = Enums;
-  totalDateSheets = 0;
+  totalResults = 0;
+  itemsPerPage = 12;
   selectedPageNo = 1;
+  boardDomain: string;
+  boardData: any;
   filteredBoards = [];
-  filteredDateSheets = [];
+  filteredResults = [];
+  selectedNavItem: any;
   selectedStatus = true;
   selectedClass = 'default';
   selectedBoardKey = 'default';
+
+  @Input() showFilters = true;
+  @Input() showBadgeLinks = false;
+  @Input() showPagination = false;
 
   provinces = [
     {
@@ -68,7 +76,7 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
   config: PaginationInstance = {
     itemsPerPage: 12,
     currentPage: 1,
-    totalItems: this.totalDateSheets
+    totalItems: this.totalResults
   };
 
   status: {
@@ -94,17 +102,23 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private classService: ClassService,
               private boardService: BoardService,
-              private dateSheetService: DateSheetService) { }
+              private resultService: ResultService) { }
 
   ngOnInit() {
 
+    this.boardDomain = window.location.hostname && window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
+
     this.title.setTitle(ENV.pageTitle);
 
-    this.getClasses();
+    if (this.showFilters && !this.boardDomain) {
 
-    this.getAllBoards();
+      this.getClasses();
 
-    this.getLatestDateSheets();
+      this.getAllBoards();
+
+    }
+
+    this.getLatestResults();
 
   }
 
@@ -210,31 +224,30 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
   }
 
-  getLatestDateSheets() {
+  getLatestResults() {
 
     this.isLoading = true;
 
-    this.dateSheetService.getLatestDateSheets().pipe(takeWhile(this.isAlive))
+    // tslint:disable-next-line:max-line-length
+    const resultsHttp = this.boardDomain ? this.resultService.getResultsByBoardDomain(this.boardDomain) : this.resultService.getLatestResults();
+
+    resultsHttp.pipe(takeWhile(this.isAlive))
       .subscribe(
         response => {
 
           if (response && response.data) {
 
-            this.dateSheets = response.data;
+            this.results = response.data.results ? response.data.results : response.data;
 
-            if (this.dateSheets) {
+            this.boardData = response.data.board;
 
-              this.dateSheets.forEach(dateSheet => {
+            if (this.results) {
 
-                dateSheet.parsedExamType = this.extractExamType(dateSheet.examType);
-
-              });
-
-              this.filteredDateSheets = this.dateSheets;
+              this.filteredResults = this.results;
 
               this.selectedProvince = this.provinces[0];
 
-              this.totalDateSheets = this.dateSheets && this.dateSheets.length;
+              this.totalResults = this.results && this.results.length;
 
             } else {
 
@@ -275,7 +288,7 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
   addMetaTags() {
 
-    if (Array.isArray(this.dateSheets)) {
+    if (Array.isArray(this.results)) {
 
       const keyWords = [];
 
@@ -287,7 +300,7 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
       this.meta.addTag({ property: 'article:tag', content: 'result square pk'});
 
-      this.dateSheets.forEach(result => {
+      this.results.forEach(result => {
 
         if (result && result.year && result.section && result.section.title && result.board && result.board.title) {
 
@@ -333,7 +346,7 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
       this.selectedClass = 'default';
 
-      this.filterDateSheets();
+      this.filterResults();
 
       if (this.selectedProvince.key === 'all') {
 
@@ -359,23 +372,24 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
   }
 
-  filterDateSheets() {
+  filterResults() {
 
     this.isLoading = true;
 
     this.selectedPageNo = 1;
 
-    if (this.dateSheets) {
+    if (this.results) {
 
-      this.filteredDateSheets = [];
+      this.filteredResults = [];
 
-      for (const res of this.dateSheets) {
+      for (const res of this.results) {
 
         if (res && res.board && (res.board.province === this.selectedProvince.key || this.selectedProvince.key === 'all')
           && (res.board.key === this.selectedBoardKey || this.selectedBoardKey === 'default')
-          && res.sections && ((res.sections.find(section => section.title === this.selectedClass) || this.selectedClass === 'default'))) {
+          && res.section && (res.section.title === this.selectedClass || this.selectedClass === 'default')
+          && res.status === this.selectedStatus) {
 
-          this.filteredDateSheets.push(res);
+          this.filteredResults.push(res);
 
         }
 
@@ -393,7 +407,7 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
       this.selectedClass = event.target.value;
 
-      this.filterDateSheets();
+      this.filterResults();
 
     }
 
@@ -405,7 +419,7 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
       this.selectedBoardKey = event.target.value;
 
-      this.filterDateSheets();
+      this.filterResults();
 
     }
 
@@ -419,7 +433,7 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
   retry() {
 
-    this.getLatestDateSheets();
+    this.getLatestResults();
 
   }
 
@@ -433,7 +447,7 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
     this.selectedStatus = true;
 
-    this.filterDateSheets();
+    this.filterResults();
 
   }
 
@@ -441,11 +455,11 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
     if (exam === Enums.EXAM_TYPE.ANNUAL) {
 
-      return 'Annual';
+      return 'Class Annual';
 
     } else if (exam === Enums.EXAM_TYPE.SUPPLY) {
 
-      return 'Supply';
+      return 'Class Supply';
 
     } else if (exam === Enums.EXAM_TYPE.TEST) {
 
@@ -455,10 +469,43 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
   }
 
+  viewResult(result) {
+
+    if (result && result.board) {
+
+      let examType = 'annual';
+
+      if (result.examType === Enums.EXAM_TYPE.ANNUAL) {
+
+        examType = 'annual';
+
+      } else if (result.examType === Enums.EXAM_TYPE.SUPPLY) {
+
+        examType = 'supply';
+
+      } else if (result.examType === Enums.EXAM_TYPE.TEST) {
+
+        examType = 'test';
+
+      }
+
+      // tslint:disable-next-line:max-line-length
+      window.location.href = `${window.location.protocol}//${result.board.domain}.${ENV.host}/results/${result.section.title}/${examType}/${result.year}`;
+
+    }
+
+  }
+
   viewDateSheet(dateSheet) {
 
     // tslint:disable-next-line:max-line-length
     window.location.href = `${window.location.protocol}//${dateSheet.board.domain}.${ENV.host}/date-sheets/${dateSheet.pageId}`;
+
+  }
+
+  loadMore = () => {
+
+    this.itemsPerPage = this.itemsPerPage + 4;
 
   }
 

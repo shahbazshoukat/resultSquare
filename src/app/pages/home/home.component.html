@@ -1,6 +1,4 @@
 <div>
-  <app-latest-page *ngIf="pageView === pageViewEnums?.HOME"></app-latest-page>
-  <app-boards-list *ngIf="pageView === pageViewEnums?.PROVINCE"></app-boards-list>
+  <app-home-page *ngIf="pageView === pageViewEnums?.HOME"></app-home-page>
   <app-board-page *ngIf="pageView === pageViewEnums?.BOARD"></app-board-page>
 </div>
-<app-footer></app-footer>

@@ -1,4 +1,5 @@
 .main-wrapper {
+  margin-top: 20px !important;
   padding: 50px 0px;
 }
 
@@ -50,18 +51,23 @@
 
 .result-card {
   border-radius: 5px;
-  min-height: 200px;
+  min-height: 150px;
   //border-bottom-width: 3px;
   //border-bottom-color: #2dce89;
   //border-top-right-radius: 0px;
   //border-bottom-left-radius: 0px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  border-width: 1px;
+  border-color: #2dce89 !important;
 }
 
 .result-card:hover {
   border-radius: 15px;
   border-width: 1px;
-  border-color: #2dce89;
+  background: #2dce89 !important;
+  color: white;
   //border-right-width: 3px;
   //border-bottom-width: 3px;
   //border-bottom-color: #2dce89;
@@ -124,6 +130,10 @@
   border-radius: 5px 0px 0px 5px;
 }
 
-.board-title {
+.board-desc {
   font-size: 12px !important;
+}
+
+.board-title {
+  font-size: 20px !important;
 }

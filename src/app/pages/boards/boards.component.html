@@ -1,0 +1,89 @@
+<div class="container-fluid main-wrapper bg-secondary">
+  <!-- Table -->
+  <div class=" order-xl-1 bg-secondary">
+    <div class="bg-secondary">
+      <!-- <div class="card card-body bg-secondary custom-sub-header news-wrapper">
+        <div class="row align-items-center text-right">
+          <div>
+            <span class="text text-sm text-left"></span>
+          </div>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="DF pageBadges">
+          <a class="badgeItem" [href]="hostAddress">Home</a>
+          <div class="badgeItem">></div>
+          <a class="badgeItem text-capitalize" [routerLink]="['/']">Educational Boards</a>
+        </div>
+      </div>
+      <div *ngIf="!isError">
+        <div class="row mt-5">
+          <div class="col-12" >
+            <div>
+              <h1 class="text-capitalize text-center">Educational Boards</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="showFilters">
+          <div class="col-12" >
+            <div class="text-center mt-4">
+              <div>
+                <button [disabled]="isLoading" class="btn mt-2" [ngClass]="{'btn-success': prov?.key === selectedProvince?.key}" *ngFor="let prov of provinces" (click)="filterByProvince(prov)">{{prov?.label}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row text-center mt-4">
+          <ng-container *ngFor="let board of filteredBoards; let currentIndex = index;">
+            <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngIf="currentIndex < itemsPerPage">
+              <div class="result-card-main card shadow-lg bg-white result-card" (click)="viewBoard(board)">
+                <div class="result-card-tile text-center">
+                  <span class="text-capitalize board-title">{{board?.title}}</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <div *ngIf="filteredBoards && filteredBoards.length === 0 && !isLoading && !isError" class="table-responsive classes-main-container justify-content-center">
+            <div class="row justify-content-center">
+              <div class="bg-transparent" >
+                <div class="text-center">
+                  <ng-lottie width="300px" height="300px" [options]="errorAnimOptions"></ng-lottie>
+                </div>
+                <div class="text-center">
+                  <span class="text-lg">No Result Found</span>
+                </div>
+                <div class="text-center" style="margin-top: 30px;">
+                  <span class="btn btn-primary" (click)="retry()">Clear Filters</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="mt-5 text-center" *ngIf="!isLoading && filteredBoards.length && itemsPerPage < filteredBoards?.length">
+          <button class="btn btn-outline-success" (click)="loadMore()">Load More</button>
+        </div>
+
+      </div>
+      <div *ngIf="isError" class="table-responsive classes-main-container justify-content-center">
+        <div class="row justify-content-center">
+          <div class="bg-transparent">
+            <div class="text-center">
+              <ng-lottie width="300px" height="300px" [options]="errorAnimOptions"></ng-lottie>
+            </div>
+            <div class="text-center">
+              <span class="text-lg">{{errorMsg}}</span>
+            </div>
+            <div class="text-center" style="margin-top: 30px;">
+              <span class="btn btn-primary" (click)="retry();">Retry</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

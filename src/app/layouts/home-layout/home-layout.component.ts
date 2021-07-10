@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeLayoutComponent implements OnInit {
 
+  sliderTitle = 'Are you looking for <br/> latest educational updates?';
+  sliderDescription = 'Then don\'t worry! you are on the right place &#128578;. Here you can find educational updates from all over the 🇵🇰';
   constructor() { }
 
   ngOnInit() {

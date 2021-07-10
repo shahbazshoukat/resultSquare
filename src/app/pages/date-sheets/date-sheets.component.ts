@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import * as Enums from '@app/app.enums';
 import {PaginationInstance} from 'ngx-pagination';
 import {AnimationOptions} from 'ngx-lottie';
@@ -9,11 +9,11 @@ import {environment as ENV} from '@env/environment';
 import {takeWhile} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-latest-date-sheets',
-  templateUrl: './latest-date-sheets.component.html',
-  styleUrls: ['./latest-date-sheets.component.scss']
+  selector: 'app-date-sheets',
+  templateUrl: './date-sheets.component.html',
+  styleUrls: ['./date-sheets.component.scss']
 })
-export class LatestDateSheetsComponent implements OnInit, OnDestroy {
+export class DateSheetsComponent implements OnInit, OnDestroy {
 
   pages: any;
   result: any;
@@ -22,9 +22,12 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
   classes = [];
   dateSheets = [];
   errorMsg = '';
+  boardData: any;
   isError = false;
   isLoading = true;
   allEnums = Enums;
+  itemsPerPage = 12;
+  boardDomain: string;
   totalDateSheets = 0;
   selectedPageNo = 1;
   filteredBoards = [];
@@ -32,6 +35,10 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
   selectedStatus = true;
   selectedClass = 'default';
   selectedBoardKey = 'default';
+
+  @Input() showFilters = true;
+  @Input() showBadgeLinks = true;
+  @Input() showPagination = false;
 
   provinces = [
     {
@@ -98,11 +105,17 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    this.boardDomain = window.location.hostname && window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
+
     this.title.setTitle(ENV.pageTitle);
 
-    this.getClasses();
+    if (this.showFilters && !this.boardDomain) {
 
-    this.getAllBoards();
+      this.getClasses();
+
+      this.getAllBoards();
+
+    }
 
     this.getLatestDateSheets();
 
@@ -214,13 +227,18 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    this.dateSheetService.getLatestDateSheets().pipe(takeWhile(this.isAlive))
+    const dateSheetsHttp = this.boardDomain
+      ? this.dateSheetService.getDateSheetsByBoardDomain(this.boardDomain) : this.dateSheetService.getLatestDateSheets();
+
+    dateSheetsHttp.pipe(takeWhile(this.isAlive))
       .subscribe(
         response => {
 
           if (response && response.data) {
 
-            this.dateSheets = response.data;
+            this.dateSheets = response.data.dateSheets ? response.data.dateSheets : response.data;
+
+            this.boardData = response.data.board;
 
             if (this.dateSheets) {
 
@@ -459,6 +477,12 @@ export class LatestDateSheetsComponent implements OnInit, OnDestroy {
 
     // tslint:disable-next-line:max-line-length
     window.location.href = `${window.location.protocol}//${dateSheet.board.domain}.${ENV.host}/date-sheets/${dateSheet.pageId}`;
+
+  }
+
+  loadMore = () => {
+
+    this.itemsPerPage = this.itemsPerPage + 4;
 
   }
 

@@ -27,3 +27,54 @@ export enum MINI_NAV_ITEMS {
   PAST_PAPERS = 'past-papers',
   NEWS = 'news'
 }
+
+export enum HOME_MENU_ITEMS {
+  RESULTS = 'RESULTS',
+  DATE_SHEETS = 'DATE_SHEETS',
+  MODEL_PAPERS = 'MODEL_PAPERS'
+}
+
+export enum FILTER_PANEL_MODE {
+  RESULTS = 'RESULTS',
+  DATE_SHEETS = 'DATE_SHEETS',
+  MODEL_PAPERS = 'MODEL_PAPERS'
+}
+
+export const SUBJECTS = [
+  {
+    label: 'Urdu',
+    key: 'urdu'
+  },
+  {
+    label: 'English',
+    key: 'english'
+  },
+  {
+    label: 'Islamiyat',
+    key: 'islamiyat'
+  },
+  {
+    label: 'Pak Study',
+    key: 'pak_study'
+  },
+  {
+    label: 'Physics',
+    key: 'physics'
+  },
+  {
+    label: 'Chemistry',
+    key: 'chemistry'
+  },
+  {
+    label: 'Urdu',
+    key: 'biology'
+  },
+  {
+    label: 'Math',
+    key: 'math'
+  },
+  {
+    label: 'General Math',
+    key: 'general_math'
+  }
+]

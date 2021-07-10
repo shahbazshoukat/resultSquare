@@ -4,3 +4,4 @@ export * from './result.service';
 export * from './news.service';
 export * from './util.service';
 export * from './date-sheet.service';
+export * from './model-paper.service';

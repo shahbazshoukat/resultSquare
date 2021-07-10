@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     if (domain && domain !== ENV.appDomain) {
 
-      this.pageView = ENV.provinces.includes(domain) ? this.pageViewEnums.PROVINCE : this.pageViewEnums.BOARD;
+      this.pageView = this.pageViewEnums.BOARD;
 
     }
 

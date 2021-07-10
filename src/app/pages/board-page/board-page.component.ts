@@ -10,42 +10,55 @@ import {ActivatedRoute} from '@angular/router';
 export class BoardPageComponent implements OnInit {
 
   allEnums = Enums;
-  selectedNavItem: any;
   sliderTitle = 'Are you looking for <br/> latest educational updates?';
   sliderDescription = 'Then don\'t worry! you are on the right place &#128578;. Here you can find educational updates from all over the 🇵🇰';
-  miniNavItems = [
+
+  menuItems = [
     {
       label: 'Results',
-      key: Enums.MINI_NAV_ITEMS.RESULTS,
-      pageTitle: 'Results'
+      route: '/results',
+      key: Enums.HOME_MENU_ITEMS.RESULTS
     },
     {
       label: 'Date Sheets',
-      key: Enums.MINI_NAV_ITEMS.DATE_SHEETS,
-      pageTitle: 'Date Sheets'
+      route: '/date-sheets',
+      key: Enums.HOME_MENU_ITEMS.DATE_SHEETS
+    },
+    {
+      label: 'Model Papers',
+      route: '/model-papers',
+      key: Enums.HOME_MENU_ITEMS.MODEL_PAPERS
     }
   ];
+
+  selectedMenuItem = this.menuItems[0];
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
 
-    this.checkSelectedNavItem();
+    // this.checkSelectedNavItem();
 
   }
 
   checkSelectedNavItem = () => {
 
     if (this.route && this.route.snapshot && this.route.snapshot.url && this.route.snapshot.url[0] && this.route.snapshot.url[0].path
-      && Array.isArray(this.miniNavItems)) {
+      && Array.isArray(this.menuItems)) {
 
-      this.selectedNavItem = this.miniNavItems.find(item => item && item.key === this.route.snapshot.url[0].path);
+      this.selectedMenuItem = this.menuItems.find(item => item && item.key === this.route.snapshot.url[0].path);
 
     } else {
 
-      this.selectedNavItem = this.miniNavItems[0];
+      this.selectedMenuItem = this.menuItems[0];
 
     }
+
+  }
+
+  selectMenuItem = (menuItem) => {
+
+    this.selectedMenuItem = menuItem;
 
   }
 

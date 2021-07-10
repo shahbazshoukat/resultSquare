@@ -23,19 +23,19 @@ export class DateSheetService {
 
   getDateSheetYears(selectedClassId, selectedBoardId) {
 
-    return this.http.get<APIResponse>(ENV.apiUrl + `/api/result-year/${selectedClassId}/${selectedBoardId}`);
+    return this.http.get<APIResponse>(ENV.apiUrl + `/api/date-sheet-year/${selectedClassId}/${selectedBoardId}`);
 
   }
 
   getExamTypes(selectedClassId, selectedBoardId, year) {
 
-    return this.http.get<APIResponse>(ENV.apiUrl + `/api/exam-types/${selectedClassId}/${selectedBoardId}/${year}`);
+    return this.http.get<APIResponse>(ENV.apiUrl + `/api/date-sheets/exam-types/${selectedClassId}/${selectedBoardId}/${year}`);
 
   }
 
-  getDateSheet(section, year, exam) {
+  getDateSheet(params) {
 
-    return this.http.get<APIResponse>(ENV.apiUrl + `/api/result/${section}/${exam}/${year}`);
+    return this.http.get<APIResponse>(ENV.apiUrl + `/api/date-sheet/${params.domain}/${params.section}/${params.examType}/${params.year}`);
 
   }
 

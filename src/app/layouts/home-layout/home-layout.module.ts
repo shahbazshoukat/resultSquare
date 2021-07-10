@@ -9,13 +9,19 @@ import { HomeComponent,
   BoardsListComponent,
   BoardResultsComponent,
   LatestResultsComponent,
-  SliderComponent,
   DetailPageComponent,
   DateSheetDetailComponent,
   LatestPageComponent,
   LatestDateSheetsComponent,
   BoardPageComponent,
-  BoardDateSheetsComponent
+  BoardDateSheetsComponent,
+  FilterPanelComponent,
+  ResultsComponent,
+  DateSheetsComponent,
+  ModelPapersComponent,
+  BoardsComponent,
+  HomePageComponent,
+  ModelPaperDetailComponent
 } from '@app/pages';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxPrintModule } from 'ngx-print';
@@ -29,34 +35,43 @@ import { ComponentsModule } from '@app/components/components.module';
 export function playerFactory() { return player; }
 
 @NgModule({
-  imports: [
-    NgbModule,
-    FormsModule,
-    CommonModule,
-    NgxPrintModule,
-    HttpClientModule,
-    NgxPaginationModule,
-    RouterModule.forChild(HomeLayoutRoutes),
-    LottieModule.forRoot({player: playerFactory, useCache: true}),
-    LoadingBarModule,
-    NgxDocViewerModule,
-    ComponentsModule
-  ],
-  declarations: [
-    SafePipe,
-    HomeComponent,
-    ResultPageComponent,
-    BoardsListComponent,
-    BoardResultsComponent,
-    LatestResultsComponent,
-    DetailPageComponent,
-    DateSheetDetailComponent,
-    SliderComponent,
-    LatestPageComponent,
-    LatestDateSheetsComponent,
-    BoardPageComponent,
-    BoardDateSheetsComponent
-  ]
+    imports: [
+        NgbModule,
+        FormsModule,
+        CommonModule,
+        NgxPrintModule,
+        HttpClientModule,
+        NgxPaginationModule,
+        RouterModule.forChild(HomeLayoutRoutes),
+        LottieModule.forRoot({player: playerFactory, useCache: true}),
+        LoadingBarModule,
+        NgxDocViewerModule,
+        ComponentsModule
+    ],
+    exports: [
+        FilterPanelComponent
+    ],
+    declarations: [
+        SafePipe,
+        HomeComponent,
+        ResultPageComponent,
+        BoardsListComponent,
+        BoardResultsComponent,
+        LatestResultsComponent,
+        DetailPageComponent,
+        DateSheetDetailComponent,
+        LatestPageComponent,
+        LatestDateSheetsComponent,
+        BoardPageComponent,
+        BoardDateSheetsComponent,
+        FilterPanelComponent,
+        ResultsComponent,
+        DateSheetsComponent,
+        ModelPapersComponent,
+        BoardsComponent,
+        HomePageComponent,
+        ModelPaperDetailComponent
+    ]
 })
 
 export class HomeLayoutModule {}

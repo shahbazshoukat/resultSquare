@@ -1,5 +1,5 @@
 .main-wrapper {
-  padding: 50px 0px;
+  padding: 20px 0px 50px 0px;
 }
 
 .class-text{
@@ -50,7 +50,7 @@
 
 .result-card {
   border-radius: 5px;
-  min-height: 200px;
+  min-height: 180px;
   //border-bottom-width: 3px;
   //border-bottom-color: #2dce89;
   //border-top-right-radius: 0px;
@@ -84,6 +84,10 @@
 
 .result-card-tile {
   padding: 5px;
+
+  &.MT10 {
+    margin-top: 10px;
+  }
 }
 
 .custom-pagination .page-number{
