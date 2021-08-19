@@ -32,9 +32,9 @@ export class ResultService {
 
   }
 
-  getResult(section, year, exam) {
+  getResult(board, section, year, exam) {
 
-    return this.http.get<APIResponse>(ENV.apiUrl + `/api/result/${section}/${exam}/${year}`);
+    return this.http.get<APIResponse>(ENV.apiUrl + `/api/result/${board}/${section}/${exam}/${year}`);
 
   }
 

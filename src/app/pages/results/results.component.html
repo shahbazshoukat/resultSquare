@@ -2,22 +2,22 @@
   <!-- Table -->
   <div class=" order-xl-1 bg-secondary">
     <div class="bg-secondary">
-      <div class="row" *ngIf="showBadgeLinks">
+      <div class="row">
         <div class="DF pageBadges">
           <div class="badgeItem" [routerLink]="['/']">Home</div>
           <div class="badgeItem">></div>
           <div class="badgeItem" [routerLink]="['/results']">Results</div>
         </div>
       </div>
-      <div *ngIf="!isError">
-        <div class="row mt-5" *ngIf="!isLoading">
+      <div>
+        <div class="row mt-5">
           <div class="col-12" >
-            <div class="text-center">
-              <h1>{{boardDomain ? boardData?.title + ' Results' : 'Latest Results'}}</h1>
+            <div class="center">
+              <h1>Latest Results</h1>
             </div>
           </div>
         </div>
-        <div class="row" *ngIf="showFilters">
+        <div class="row">
           <div class="col-12" >
             <div class="text-center mt-4">
               <div>
@@ -26,7 +26,7 @@
             </div>
           </div>
         </div>
-        <div class="row mt-4" *ngIf="showFilters">
+        <div class="row mt-4">
           <div class="col-lg-3 col-md-3 col-sm-12 text-right" >
             <div>
               <div class="form-group">
@@ -56,10 +56,7 @@
             </div>
           </div>
         </div>
-        <div>
-          <app-filter-panel [panelMode]="allEnums.FILTER_PANEL_MODE.RESULTS"></app-filter-panel>
-        </div>
-        <div class="row text-center mt-4" *ngIf="filteredResults?.length">
+        <div class="row text-center mt-4">
           <ng-container *ngFor="let res of filteredResults; let currentIndex = index">
 
             <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngIf="currentIndex < itemsPerPage">
@@ -81,7 +78,7 @@
 
           </ng-container>
 
-          <div *ngIf="filteredResults && filteredResults.length === 0 && !isLoading && !isError" class="table-responsive classes-main-container justify-content-center">
+          <div *ngIf="(!filteredResults || filteredResults?.length === 0) && !isLoading && !isError" class="table-responsive classes-main-container justify-content-center">
             <div class="row justify-content-center">
               <div class="bg-transparent" >
                 <div class="text-center">
@@ -99,7 +96,7 @@
 
         </div>
 
-        <div class="mt-5 text-center" *ngIf="!isLoading && filteredResults?.length && itemsPerPage < filteredResults?.length">
+        <div class="mt-5 text-center" *ngIf="!isLoading && !isError && filteredResults?.length && itemsPerPage < filteredResults?.length">
           <button class="btn btn-outline-success" (click)="loadMore()">Load More</button>
         </div>
 
@@ -119,6 +116,17 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="isLoading" class="table-responsive classes-main-container justify-content-center">
+        <div class="row justify-content-center">
+          <div class="bg-transparent">
+            <div class="text-center">
+              <ng-lottie width="200px" height="200px" [options]="loadingAnimOptions"></ng-lottie>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

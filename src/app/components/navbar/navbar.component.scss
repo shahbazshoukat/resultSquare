@@ -187,17 +187,13 @@
         font-size: 14px;
 
         &:hover {
-          border-bottom: 2px solid #2dce89;
+          color: #2dce89;
         }
       }
 
       &.activeNav {
-        background: #2dce89;
-        color: white;
-        border-radius: 3px;
-        &.hover {
-
-        }
+        color: #2dce89;
+        border-bottom: 2px solid #2dce89;
       }
 
     }

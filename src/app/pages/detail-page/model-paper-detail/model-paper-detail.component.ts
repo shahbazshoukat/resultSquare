@@ -31,7 +31,8 @@ export class ModelPaperDetailComponent implements OnInit, OnDestroy {
   boardTitle: any;
   selectedSection: any;
   selectedSubject: any;
-  boardDomain: string;
+  selectedBoardDomain: string;
+  // boardDomain: string;
   showComments = false;
   addingComment = false;
   modelPaperDescription: any;
@@ -74,15 +75,21 @@ export class ModelPaperDetailComponent implements OnInit, OnDestroy {
               private modelPaperService: ModelPaperService,
               private loadingBar: LoadingBarService) {
 
-    this.boardDomain = this.boardTitle = window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
+    // this.boardDomain = this.boardTitle = window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
 
     this.route.paramMap.pipe(takeWhile(this.isAlive)).subscribe((paramMap: ParamMap) => {
 
       if (paramMap) {
 
-        if (paramMap.has('sectionId')) {
+        if (paramMap.has('boardDomain')) {
 
-          this.selectedSection = paramMap.get('sectionId');
+          this.selectedBoardDomain = paramMap.get('boardDomain');
+
+        }
+
+        if (paramMap.has('classTitle')) {
+
+          this.selectedSection = paramMap.get('classTitle');
 
         }
 
@@ -144,8 +151,9 @@ export class ModelPaperDetailComponent implements OnInit, OnDestroy {
 
     const payload = {
       section: this.selectedSection,
-      subject: this.selectedSubject
-    }
+      subject: this.selectedSubject,
+      board: this.selectedBoardDomain
+    };
 
     this.modelPaperService.getModelPaper(payload)
       .pipe(takeWhile(this.isAlive))

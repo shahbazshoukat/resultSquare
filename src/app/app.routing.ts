@@ -3,12 +3,12 @@ import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeLayoutComponent } from '@app/layouts/home-layout/home-layout.component';
-import { PageNotFoundComponent, HowItWorksComponent, HowToDoComponent } from '@app/pages';
+import { PageNotFoundComponent, HowToDoComponent, BoardsComponent } from '@app/pages';
 
 const routes: Routes = [
   { path: '404', component: PageNotFoundComponent},
-  // { path: 'how-it-works', component: HowItWorksComponent},
-  { path: 'how-to-find-results', component: HowToDoComponent},
+  // { path: 'how-to-find-results', component: HowToDoComponent},
+  { path: 'educational-boards', component: BoardsComponent},
   {
     path: '',
     component: HomeLayoutComponent,

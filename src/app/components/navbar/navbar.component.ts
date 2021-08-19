@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { takeWhile } from 'rxjs/operators';
-import { NavigationEnd, Router} from '@angular/router';
-import { environment as ENV } from '@env/environment';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -16,10 +15,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   navItems = [
     {
-      label: 'Home',
-      key: '/'
-    },
-    {
       label: 'Results',
       key: '/results'
     },
@@ -33,7 +28,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     },
     {
       label: 'Educational Boards',
-      key: '/boards'
+      key: '/educational-boards'
     }
   ];
 
@@ -45,9 +40,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
       if (event instanceof NavigationEnd) {
 
-        this.activeNavItem = event.url;
+        const url = event.url.split('/');
 
-        console.log(event);
+        this.activeNavItem = `/${url && url[1]}`;
+
+        console.log(this.activeNavItem);
 
       }
 
@@ -71,7 +68,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     if (navItem && navItem.key) {
 
-      window.location.href = `${window.location.protocol}//${navItem.key}.${ENV.host}`;
+      this.router.navigate([navItem.key]);
 
     }
 
@@ -79,7 +76,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   navigateToHomePage() {
 
-    window.location.href = `${window.location.protocol}//${ENV.host}`;
+    this.router.navigate(['/']);
 
   }
 

@@ -10,36 +10,33 @@
 .bg-opacity {
   background-color: rgba(0,0,0, 0.6);
 }
+
 .responsive {
   max-width: 100%;
   height: auto;
 }
 
-@media screen and (min-width: 992px) {
-  .title {
-    color: white;
-    font-size: 45px;
-  }
+
+.titleWrap {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media screen and (max-width: 991px) {
-  .title {
-    color: white;
-    font-size: 35px;
-  }
-}
-
-@media screen and (min-width: 992px) {
-  .subTitle {
-    color: white;
-    font-size: 20px;
-  }
+.subTitle {
+  color: white;
+  font-size: 32px;
+  font-weight: 600;
+  text-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 @media screen and (max-width: 991px) {
   .subTitle {
-    color: white;
-    font-size: 19px;
+    font-size: 18px;
+  }
+  .bgMiniWrap {
+    max-width: 100% !important;
   }
 }
 
@@ -49,24 +46,30 @@
   display: flex;
   padding-bottom: 30px;
   justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.1);
+  align-items: flex-end;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.bgMiniWrap {
+  max-width: 80%;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
 }
 
 @media screen and (max-width: 768px) {
   .nav-main {
     padding-top: 0px;
     padding-bottom: 0px;
-    // background-image: url(/assets/img/theme/profile-cover-5.jpg); background-size: cover; background-position: center top;
-    background-image: linear-gradient(331deg, rgb(0, 169, 196), rgb(57, 177, 197));
+    background-image: url(/assets/img/theme/profile-cover-7.jpg); background-size: cover; background-position: center top;
+    // background-image: linear-gradient(331deg, rgb(0, 169, 196), rgb(57, 177, 197));
   }
 }
 
 @media screen and (min-width: 768px) {
   .nav-main {
-    height: 450px;
-    // background-image: url(/assets/img/theme/profile-cover-5.jpg); background-size: cover; background-position: center top;
-    background-image: linear-gradient(331deg, rgb(0, 169, 196), rgb(57, 177, 197));
+    height: 500px;
+    background-image: url(/assets/img/theme/profile-cover-7.jpg); background-size: cover; background-position: center top;
+    // background-image: linear-gradient(331deg, rgb(0, 169, 196), rgb(57, 177, 197));
   }
   .search-result-wrapper {
     padding: 50px 50px;
@@ -238,3 +241,4 @@
     padding: 0px 10px;
   }
 }
+

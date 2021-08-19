@@ -137,3 +137,13 @@
 .board-title {
   font-size: 20px !important;
 }
+
+.boards-table {
+  margin: 100px 50px;
+}
+
+@media screen and (max-width: 767px) {
+  .boards-table {
+    margin: 100px 0px;
+  }
+}

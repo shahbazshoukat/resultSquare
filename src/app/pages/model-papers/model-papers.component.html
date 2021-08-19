@@ -1,30 +1,22 @@
 <div class="container-fluid main-wrapper bg-secondary">
-  <!-- Table -->
   <div class=" order-xl-1 bg-secondary">
     <div class="bg-secondary">
-      <!-- <div class="card card-body bg-secondary custom-sub-header news-wrapper">
-        <div class="row align-items-center text-right">
-          <div>
-            <span class="text text-sm text-left"></span>
-          </div>
-        </div>
-      </div> -->
-      <div class="row" *ngIf="showBadgeLinks">
+      <div class="row">
         <div class="DF pageBadges">
           <div class="badgeItem" [routerLink]="['/']">Home</div>
           <div class="badgeItem">></div>
           <div class="badgeItem" [routerLink]="['/model-papers']">Model Papers</div>
         </div>
       </div>
-      <div *ngIf="!isError">
-        <div class="row mt-5" *ngIf="!isLoading">
+      <div>
+        <div class="row mt-5">
           <div class="col-12" >
-            <div class="text-center">
-              <h1>{{boardDomain ? boardData?.title + ' Model Papers' : 'Latest Model Papers'}}</h1>
+            <div class="center">
+              <h1>Latest Model Papers</h1>
             </div>
           </div>
         </div>
-        <div class="row" *ngIf="showFilters">
+        <div class="row">
           <div class="col-12" >
             <div class="text-center mt-4">
               <div>
@@ -33,7 +25,7 @@
             </div>
           </div>
         </div>
-        <div class="row mt-4" *ngIf="showFilters">
+        <div class="row mt-4">
           <div class="col-lg-3 col-md-3 col-sm-12 text-right" >
             <div>
               <div class="form-group">
@@ -63,9 +55,6 @@
             </div>
           </div>
         </div>
-        <div>
-          <app-filter-panel [panelMode]="allEnums.FILTER_PANEL_MODE.MODEL_PAPERS"></app-filter-panel>
-        </div>
         <div class="row text-center mt-4">
           <ng-container *ngFor="let res of filteredModelPapers; let currentIndex = index;">
             <div class="col-lg-3 col-md-4 col-sm-6 mt-3" *ngIf="currentIndex < itemsPerPage">
@@ -83,14 +72,14 @@
             </div>
           </ng-container>
 
-          <div *ngIf="filteredModelPapers && filteredModelPapers.length === 0 && !isLoading && !isError" class="table-responsive classes-main-container justify-content-center">
+          <div *ngIf="(!filteredModelPapers || filteredModelPapers.length === 0) && !isLoading && !isError" class="table-responsive classes-main-container justify-content-center">
             <div class="row justify-content-center">
               <div class="bg-transparent" >
                 <div class="text-center">
                   <ng-lottie width="300px" height="300px" [options]="errorAnimOptions"></ng-lottie>
                 </div>
                 <div class="text-center">
-                  <span class="text-lg">No Result Found</span>
+                  <span class="text-lg">No Model Paper Found</span>
                 </div>
                 <div class="text-center" style="margin-top: 30px;">
                   <span class="btn btn-primary" (click)="setDefaultFilters()">Clear Filters</span>
@@ -101,7 +90,7 @@
 
         </div>
 
-        <div class="mt-5 text-center" *ngIf="!isLoading && filteredModelPapers.length && itemsPerPage < filteredModelPapers?.length">
+        <div class="mt-5 text-center" *ngIf="!isLoading && !isError && filteredModelPapers.length && itemsPerPage < filteredModelPapers?.length">
           <button class="btn btn-outline-success" (click)="loadMore()">Load More</button>
         </div>
 
@@ -121,6 +110,17 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="isLoading" class="table-responsive classes-main-container justify-content-center">
+        <div class="row justify-content-center">
+          <div class="bg-transparent">
+            <div class="text-center">
+              <ng-lottie width="200px" height="200px" [options]="loadingAnimOptions"></ng-lottie>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

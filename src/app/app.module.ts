@@ -2,9 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { HttpErrorInterceptor } from '@app/interceptors/http-error.interceptor';
 import { AppComponent } from '@app/app.component';
 import { HomeLayoutComponent } from '@app/layouts/home-layout/home-layout.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +17,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarHttpModule } from '@ngx-loading-bar/http';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
-import { PageNotFoundComponent, HowItWorksComponent, HowToDoComponent } from '@app/pages';
+import {PageNotFoundComponent, HowItWorksComponent, HowToDoComponent, BoardsComponent} from '@app/pages';
 export function playerFactory() {
   return player;
 }
@@ -47,7 +46,8 @@ export function playerFactory() {
     HomeLayoutComponent,
     PageNotFoundComponent,
     HowItWorksComponent,
-    HowToDoComponent
+    HowToDoComponent,
+    BoardsComponent
   ],
   providers: [
     AlertService

@@ -35,7 +35,7 @@ export class DateSheetService {
 
   getDateSheet(params) {
 
-    return this.http.get<APIResponse>(ENV.apiUrl + `/api/date-sheet/${params.domain}/${params.section}/${params.examType}/${params.year}`);
+    return this.http.get<APIResponse>(ENV.apiUrl + `/api/date-sheet/${params.board}/${params.section}/${params.examType}/${params.year}`);
 
   }
 

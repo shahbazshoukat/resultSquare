@@ -1,12 +1,12 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as Enums from '@app/app.enums';
-import {PaginationInstance} from 'ngx-pagination';
-import {AnimationOptions} from 'ngx-lottie';
-import {Meta, Title} from '@angular/platform-browser';
-import {ActivatedRoute, Router} from '@angular/router';
-import {BoardService, ClassService, DateSheetService} from '@app/services';
-import {environment as ENV} from '@env/environment';
-import {takeWhile} from 'rxjs/operators';
+import { PaginationInstance } from 'ngx-pagination';
+import { AnimationOptions } from 'ngx-lottie';
+import { Meta, Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BoardService, ClassService, DateSheetService } from '@app/services';
+import { environment as ENV } from '@env/environment';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-date-sheets',
@@ -16,18 +16,15 @@ import {takeWhile} from 'rxjs/operators';
 export class DateSheetsComponent implements OnInit, OnDestroy {
 
   pages: any;
-  result: any;
   boards = [];
   alive = true;
   classes = [];
   dateSheets = [];
   errorMsg = '';
-  boardData: any;
   isError = false;
   isLoading = true;
   allEnums = Enums;
   itemsPerPage = 12;
-  boardDomain: string;
   totalDateSheets = 0;
   selectedPageNo = 1;
   filteredBoards = [];
@@ -35,10 +32,6 @@ export class DateSheetsComponent implements OnInit, OnDestroy {
   selectedStatus = true;
   selectedClass = 'default';
   selectedBoardKey = 'default';
-
-  @Input() showFilters = true;
-  @Input() showBadgeLinks = true;
-  @Input() showPagination = false;
 
   provinces = [
     {
@@ -105,17 +98,11 @@ export class DateSheetsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.boardDomain = window.location.hostname && window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
-
     this.title.setTitle(ENV.pageTitle);
 
-    if (this.showFilters && !this.boardDomain) {
+    this.getClasses();
 
-      this.getClasses();
-
-      this.getAllBoards();
-
-    }
+    this.getAllBoards();
 
     this.getLatestDateSheets();
 
@@ -129,12 +116,6 @@ export class DateSheetsComponent implements OnInit, OnDestroy {
 
   getClasses() {
 
-    this.isLoading = true;
-
-    this.isError = false;
-
-    this.errorMsg = '';
-
     this.selectedClass = 'default';
 
     this.classService.getAllClasses().pipe(takeWhile(this.isAlive))
@@ -143,36 +124,12 @@ export class DateSheetsComponent implements OnInit, OnDestroy {
 
           if (response.success && response.data) {
 
-            this.classes = response.data;
-
-            if (!this.classes || this.classes.length === 0) {
-
-              this.isError = true;
-
-              this.errorMsg = 'No Class Found';
-
-            }
-
-            // this.isLoading = false;
+            this.classes = Array.isArray(response.data) ? response.data : [];
 
           }
 
         },
         error => {
-
-          this.isLoading = false;
-
-          this.isError = true;
-
-          if (error && error.status && error.status === 404) {
-
-            this.errorMsg = '404 - Not Found';
-
-          } else {
-
-            this.errorMsg = 'Something went wrong';
-
-          }
 
         });
 
@@ -180,44 +137,20 @@ export class DateSheetsComponent implements OnInit, OnDestroy {
 
   getAllBoards() {
 
-    this.isError = false;
-
-    this.errorMsg = '';
-
     this.boardService.getAllBoards().pipe(takeWhile(this.isAlive)).subscribe(
       response => {
 
-        this.boards = response.data;
+        if (response && response.data) {
 
-        this.filteredBoards = this.boards;
+          this.boards = Array.isArray(response.data) ? response.data : [];
 
-        if (!this.boards || this.boards.length === 0) {
-
-          this.isError = true;
-
-          this.errorMsg = `404 - Not Found`;
+          this.filteredBoards = this.boards;
 
         }
-
-        // this.isLoading = false;
 
       },
 
       error => {
-
-        this.isLoading = false;
-
-        this.isError = true;
-
-        if (error && error.status && error.status === 404) {
-
-          this.errorMsg = '404 - Not Found';
-
-        } else {
-
-          this.errorMsg = 'Something went wrong';
-
-        }
 
       });
 
@@ -227,40 +160,35 @@ export class DateSheetsComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    const dateSheetsHttp = this.boardDomain
-      ? this.dateSheetService.getDateSheetsByBoardDomain(this.boardDomain) : this.dateSheetService.getLatestDateSheets();
+    this.isError = false;
 
-    dateSheetsHttp.pipe(takeWhile(this.isAlive))
+    this.errorMsg = '';
+
+    this.dateSheetService.getLatestDateSheets().pipe(takeWhile(this.isAlive))
       .subscribe(
         response => {
 
-          if (response && response.data) {
+          if (response && response.data && Array.isArray(response.data)) {
 
-            this.dateSheets = response.data.dateSheets ? response.data.dateSheets : response.data;
+            this.dateSheets = response.data;
 
-            this.boardData = response.data.board;
+            this.dateSheets.forEach(dateSheet => {
 
-            if (this.dateSheets) {
+              dateSheet.parsedExamType = this.extractExamType(dateSheet.examType);
 
-              this.dateSheets.forEach(dateSheet => {
+            });
 
-                dateSheet.parsedExamType = this.extractExamType(dateSheet.examType);
+            this.filteredDateSheets = this.dateSheets;
 
-              });
+            this.selectedProvince = this.provinces[0];
 
-              this.filteredDateSheets = this.dateSheets;
+            this.totalDateSheets = this.dateSheets && this.dateSheets.length;
 
-              this.selectedProvince = this.provinces[0];
+          } else {
 
-              this.totalDateSheets = this.dateSheets && this.dateSheets.length;
+            this.isError = true;
 
-            } else {
-
-              this.isError = true;
-
-              this.errorMsg = '404 - Not Found';
-
-            }
+            this.errorMsg = '404 - No Date Sheet Found';
 
           }
 
@@ -279,7 +207,7 @@ export class DateSheetsComponent implements OnInit, OnDestroy {
 
           if (error && error.status && error.status === 404) {
 
-            this.errorMsg = '404 - Not Found';
+            this.errorMsg = '404 - No Date Sheet Found';
 
           } else {
 
@@ -391,7 +319,7 @@ export class DateSheetsComponent implements OnInit, OnDestroy {
 
         if (res && res.board && (res.board.province === this.selectedProvince.key || this.selectedProvince.key === 'all')
           && (res.board.key === this.selectedBoardKey || this.selectedBoardKey === 'default')
-          && res.sections && ((res.sections.find(section => section.title === this.selectedClass) || this.selectedClass === 'default'))) {
+          && res.section && (res.section.title === this.selectedClass || this.selectedClass === 'default')) {
 
           this.filteredDateSheets.push(res);
 
@@ -475,8 +403,27 @@ export class DateSheetsComponent implements OnInit, OnDestroy {
 
   viewDateSheet(dateSheet) {
 
-    // tslint:disable-next-line:max-line-length
-    window.location.href = `${window.location.protocol}//${dateSheet.board.domain}.${ENV.host}/date-sheets/${dateSheet.pageId}`;
+    if (dateSheet && dateSheet.board) {
+
+      let examType = 'annual';
+
+      if (dateSheet.examType === Enums.EXAM_TYPE.ANNUAL) {
+
+        examType = 'annual';
+
+      } else if (dateSheet.examType === Enums.EXAM_TYPE.SUPPLY) {
+
+        examType = 'supply';
+
+      } else if (dateSheet.examType === Enums.EXAM_TYPE.TEST) {
+
+        examType = 'test';
+
+      }
+
+      this.router.navigate(['/date-sheets/', dateSheet.board.domain, dateSheet.section.title, examType, dateSheet.year]);
+
+    }
 
   }
 

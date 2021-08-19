@@ -22,7 +22,7 @@ export class ModelPaperService {
 
   getModelPaper(params) {
 
-    return this.http.get<APIResponse>(ENV.apiUrl + `/api/model-paper/${params.section}/${params.subject}`);
+    return this.http.get<APIResponse>(ENV.apiUrl + `/api/model-paper/${params.board}/${params.section}/${params.subject}`);
 
   }
 

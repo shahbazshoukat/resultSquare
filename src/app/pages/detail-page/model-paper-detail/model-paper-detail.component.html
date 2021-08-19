@@ -4,8 +4,6 @@
       <div class="DF pageBadges">
         <a class="badgeItem text-capitalize" [href]="hostAddress">Home</a>
         <div class="badgeItem">></div>
-        <div class="badgeItem text-capitalize" [routerLink]="['/']">{{boardTitle}}</div>
-        <div class="badgeItem">></div>
         <div class="badgeItem text-capitalize" [routerLink]="['/model-papers']">Model Papers</div>
         <div class="badgeItem">></div>
         <div class="badgeItem text-capitalize">{{modelPaperData?.title}}</div>
@@ -34,7 +32,7 @@
           <div class="col-lg-4 col-md-4 col-sm-12 result-info-tile">
             <div>
               <span class="h5">Class/Grade: </span>
-              <span class="text-sm text-muted" *ngFor="let section of modelPaperData?.sections">{{section?.title}}</span>
+              <span class="text-sm text-muted">{{modelPaperData?.section?.title}}</span>
             </div>
             <div>
               <span class="h5">Board: </span>

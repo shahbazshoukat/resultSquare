@@ -16,7 +16,6 @@ import {takeWhile} from 'rxjs/operators';
 export class ResultsComponent implements OnInit, OnDestroy {
 
   pages: any;
-  result: any;
   boards = [];
   alive = true;
   classes = [];
@@ -28,18 +27,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
   totalResults = 0;
   itemsPerPage = 12;
   selectedPageNo = 1;
-  boardDomain: string;
-  boardData: any;
   filteredBoards = [];
   filteredResults = [];
   selectedNavItem: any;
   selectedStatus = true;
   selectedClass = 'default';
   selectedBoardKey = 'default';
-
-  @Input() showFilters = true;
-  @Input() showBadgeLinks = false;
-  @Input() showPagination = false;
 
   provinces = [
     {
@@ -106,17 +99,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.boardDomain = window.location.hostname && window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
-
     this.title.setTitle(ENV.pageTitle);
 
-    if (this.showFilters && !this.boardDomain) {
+    this.getClasses();
 
-      this.getClasses();
-
-      this.getAllBoards();
-
-    }
+    this.getAllBoards();
 
     this.getLatestResults();
 
@@ -130,14 +117,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   getClasses() {
 
-    this.isLoading = true;
-
-    this.isError = false;
-
-    this.errorMsg = '';
-
-    this.selectedClass = 'default';
-
     this.classService.getAllClasses().pipe(takeWhile(this.isAlive))
       .subscribe(
         response => {
@@ -146,44 +125,16 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
             this.classes = response.data;
 
-            if (!this.classes || this.classes.length === 0) {
-
-              this.isError = true;
-
-              this.errorMsg = 'No Class Found';
-
-            }
-
-            // this.isLoading = false;
-
           }
 
         },
         error => {
-
-          this.isLoading = false;
-
-          this.isError = true;
-
-          if (error && error.status && error.status === 404) {
-
-            this.errorMsg = '404 - Not Found';
-
-          } else {
-
-            this.errorMsg = 'Something went wrong';
-
-          }
 
         });
 
   }
 
   getAllBoards() {
-
-    this.isError = false;
-
-    this.errorMsg = '';
 
     this.boardService.getAllBoards().pipe(takeWhile(this.isAlive)).subscribe(
       response => {
@@ -192,33 +143,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
         this.filteredBoards = this.boards;
 
-        if (!this.boards || this.boards.length === 0) {
-
-          this.isError = true;
-
-          this.errorMsg = `404 - Not Found`;
-
-        }
-
-        // this.isLoading = false;
-
       },
 
       error => {
-
-        this.isLoading = false;
-
-        this.isError = true;
-
-        if (error && error.status && error.status === 404) {
-
-          this.errorMsg = '404 - Not Found';
-
-        } else {
-
-          this.errorMsg = 'Something went wrong';
-
-        }
 
       });
 
@@ -228,34 +155,25 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    // tslint:disable-next-line:max-line-length
-    const resultsHttp = this.boardDomain ? this.resultService.getResultsByBoardDomain(this.boardDomain) : this.resultService.getLatestResults();
-
-    resultsHttp.pipe(takeWhile(this.isAlive))
+    this.resultService.getLatestResults().pipe(takeWhile(this.isAlive))
       .subscribe(
         response => {
 
-          if (response && response.data) {
+          if (response && response.data && Array.isArray(response.data) && response.data.length) {
 
-            this.results = response.data.results ? response.data.results : response.data;
+            this.results = response.data;
 
-            this.boardData = response.data.board;
+            this.filteredResults = this.results;
 
-            if (this.results) {
+            this.selectedProvince = this.provinces[0];
 
-              this.filteredResults = this.results;
+            this.totalResults = this.results && this.results.length;
 
-              this.selectedProvince = this.provinces[0];
+          } else {
 
-              this.totalResults = this.results && this.results.length;
+            this.isError = true;
 
-            } else {
-
-              this.isError = true;
-
-              this.errorMsg = '404 - Not Found';
-
-            }
+            this.errorMsg = '404 - No Result Found';
 
           }
 
@@ -274,7 +192,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
           if (error && error.status && error.status === 404) {
 
-            this.errorMsg = '404 - Not Found';
+            this.errorMsg = '404 - No Result Found';
 
           } else {
 
@@ -489,17 +407,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
       }
 
-      // tslint:disable-next-line:max-line-length
-      window.location.href = `${window.location.protocol}//${result.board.domain}.${ENV.host}/results/${result.section.title}/${examType}/${result.year}`;
+      this.router.navigate(['/results/', result.board.domain, result.section.title, examType, result.year]);
 
     }
-
-  }
-
-  viewDateSheet(dateSheet) {
-
-    // tslint:disable-next-line:max-line-length
-    window.location.href = `${window.location.protocol}//${dateSheet.board.domain}.${ENV.host}/date-sheets/${dateSheet.pageId}`;
 
   }
 

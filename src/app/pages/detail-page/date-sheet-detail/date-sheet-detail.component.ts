@@ -31,7 +31,11 @@ export class DateSheetDetailComponent implements OnInit, OnDestroy {
   commentEmail = '';
   isLoading = false;
   boardTitle: any;
-  boardDomain: string;
+  selectedClass: string;
+  selectedExamType: string;
+  selectedYear: string;
+  selectedBoardDomain: string;
+  // boardDomain: string;
   showComments = false;
   addingComment = false;
   dateSheetDescription: any;
@@ -75,15 +79,33 @@ export class DateSheetDetailComponent implements OnInit, OnDestroy {
               private dateSheetService: DateSheetService,
               private loadingBar: LoadingBarService) {
 
-    this.boardDomain = this.boardTitle = window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
+    // this.boardDomain = this.boardTitle = window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
 
     this.route.paramMap.pipe(takeWhile(this.isAlive)).subscribe((paramMap: ParamMap) => {
 
       if (paramMap) {
 
-        if (paramMap.has('pageId')) {
+        if (paramMap.has('boardDomain')) {
 
-          this.pageId = paramMap.get('pageId');
+          this.selectedBoardDomain = paramMap.get('boardDomain');
+
+        }
+
+        if (paramMap.has('classTitle')) {
+
+          this.selectedClass = paramMap.get('classTitle');
+
+        }
+
+        if (paramMap.has('year')) {
+
+          this.selectedYear = paramMap.get('year');
+
+        }
+
+        if (paramMap.has('examType')) {
+
+          this.selectedExamType = paramMap.get('examType');
 
         }
 
@@ -131,7 +153,7 @@ export class DateSheetDetailComponent implements OnInit, OnDestroy {
 
   getDateSheet() {
 
-    if (this.pageId) {
+    if (this.selectedBoardDomain && this.selectedClass && this.selectedExamType && this.selectedExamType) {
 
       this.isLoading = true;
 
@@ -139,7 +161,14 @@ export class DateSheetDetailComponent implements OnInit, OnDestroy {
 
       this.errorMsg = '';
 
-      this.dateSheetService.getDateSheetByPageId(this.pageId)
+      const payload = {
+        year: this.selectedYear,
+        board: this.selectedBoardDomain,
+        section: this.selectedClass,
+        examType: this.selectedExamType
+      };
+
+      this.dateSheetService.getDateSheet(payload)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
 

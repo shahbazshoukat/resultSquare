@@ -4,23 +4,12 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomeLayoutRoutes } from '@app/layouts/home-layout/home-layout.routing';
-import { HomeComponent,
-  ResultPageComponent,
-  BoardsListComponent,
-  BoardResultsComponent,
-  LatestResultsComponent,
-  DetailPageComponent,
+import {
+  ResultDetailPageComponent,
   DateSheetDetailComponent,
-  LatestPageComponent,
-  LatestDateSheetsComponent,
-  BoardPageComponent,
-  BoardDateSheetsComponent,
-  FilterPanelComponent,
   ResultsComponent,
   DateSheetsComponent,
   ModelPapersComponent,
-  BoardsComponent,
-  HomePageComponent,
   ModelPaperDetailComponent
 } from '@app/pages';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -31,7 +20,7 @@ import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
-import { ComponentsModule } from '@app/components/components.module';
+import {ComponentsModule} from '@app/components/components.module';
 export function playerFactory() { return player; }
 
 @NgModule({
@@ -46,30 +35,15 @@ export function playerFactory() { return player; }
         LottieModule.forRoot({player: playerFactory, useCache: true}),
         LoadingBarModule,
         NgxDocViewerModule,
-        ComponentsModule
-    ],
-    exports: [
-        FilterPanelComponent
+      ComponentsModule
     ],
     declarations: [
         SafePipe,
-        HomeComponent,
-        ResultPageComponent,
-        BoardsListComponent,
-        BoardResultsComponent,
-        LatestResultsComponent,
-        DetailPageComponent,
+        ResultDetailPageComponent,
         DateSheetDetailComponent,
-        LatestPageComponent,
-        LatestDateSheetsComponent,
-        BoardPageComponent,
-        BoardDateSheetsComponent,
-        FilterPanelComponent,
         ResultsComponent,
         DateSheetsComponent,
         ModelPapersComponent,
-        BoardsComponent,
-        HomePageComponent,
         ModelPaperDetailComponent
     ]
 })

@@ -1,12 +1,10 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {environment as ENV} from '@env/environment';
-import {PaginationInstance} from 'ngx-pagination';
-import {AnimationOptions} from 'ngx-lottie';
-import {Meta, Title} from '@angular/platform-browser';
-import {ActivatedRoute, Router} from '@angular/router';
-import {BoardService, ClassService} from '@app/services';
-import {takeWhile} from 'rxjs/operators';
-import * as Enums from '@app/app.enums';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { environment as ENV } from '@env/environment';
+import { AnimationOptions } from 'ngx-lottie';
+import { Meta, Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BoardService, ClassService } from '@app/services';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-boards',
@@ -15,18 +13,12 @@ import * as Enums from '@app/app.enums';
 })
 export class BoardsComponent implements OnInit, OnDestroy {
 
-  pages: any;
-  result: any;
   boards = [];
   alive = true;
   errorMsg = '';
-  totalBoards = 0;
   isError = false;
   isLoading = true;
-  itemsPerPage = 16;
-  selectedPageNo = 1;
   filteredBoards = [];
-  hostAddress = `${window.location.protocol}//${ENV.host}`;
 
   @Input() showFilters = true;
 
@@ -62,12 +54,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
   ];
   selectedProvince = this.provinces[0];
 
-  config: PaginationInstance = {
-    itemsPerPage: 20,
-    currentPage: 1,
-    totalItems: this.totalBoards
-  };
-
   errorAnimOptions: AnimationOptions = {
     path: '/assets/lib/error.json',
     loop: true,
@@ -93,8 +79,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
     this.title.setTitle(ENV.pageTitle);
 
-    const domain = window.location.hostname && window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
-
     this.getAllBoards();
 
   }
@@ -119,13 +103,9 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
             this.boards = response.data;
 
-            this.parseBoardsData();
-
             if (this.boards) {
 
               this.filteredBoards = this.boards;
-
-              this.totalBoards = this.boards && this.boards.length;
 
             } else {
 
@@ -161,28 +141,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
           }
 
         });
-
-  }
-
-  parseBoardsData() {
-
-    if (Array.isArray(this.boards)) {
-
-      this.boards.forEach(board => {
-
-        if (board) {
-
-          if (board.description) {
-
-            board.shortDesc = board.description.substring(0, 110) + '...';
-
-          }
-
-        }
-
-      });
-
-    }
 
   }
 
@@ -234,43 +192,9 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
   }
 
-  onPageChange(event) {
-
-    this.config.currentPage = event;
-
-  }
-
   retry() {
 
     this.getAllBoards();
-
-  }
-
-  extractExamType(exam) {
-
-    if (exam === Enums.EXAM_TYPE.ANNUAL) {
-
-      return 'Class Annual';
-
-    } else if (exam === Enums.EXAM_TYPE.SUPPLY) {
-
-      return 'Class Supply';
-
-    } else if (exam === Enums.EXAM_TYPE.TEST) {
-
-      return 'Test';
-
-    }
-
-  }
-
-  viewBoard(board) {
-
-    if (board && board.domain) {
-
-      window.location.href = `${window.location.protocol}//${board.domain}.${ENV.host}`;
-
-    }
 
   }
 
@@ -279,8 +203,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
     this.selectedProvince = province;
 
     if (this.selectedProvince) {
-
-      this.filterDateSheets();
 
       if (this.selectedProvince.key === 'all') {
 
@@ -303,38 +225,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
       }
 
     }
-
-  }
-
-  filterDateSheets() {
-
-    this.isLoading = true;
-
-    this.selectedPageNo = 1;
-
-    if (this.boards) {
-
-      this.filteredBoards = [];
-
-      for (const board of this.boards) {
-
-        if (board && (board.province === this.selectedProvince.key || this.selectedProvince.key === 'all')) {
-
-          this.filteredBoards.push(board);
-
-        }
-
-      }
-
-      this.isLoading = false;
-
-    }
-
-  }
-
-  loadMore = () => {
-
-    this.itemsPerPage = this.itemsPerPage + 4;
 
   }
 

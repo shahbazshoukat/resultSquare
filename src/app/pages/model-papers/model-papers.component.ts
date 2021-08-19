@@ -1,12 +1,12 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as Enums from '@app/app.enums';
-import {PaginationInstance} from 'ngx-pagination';
-import {AnimationOptions} from 'ngx-lottie';
-import {Meta, Title} from '@angular/platform-browser';
-import {ActivatedRoute, Router} from '@angular/router';
-import {BoardService, ClassService, ModelPaperService} from '@app/services';
-import {environment as ENV} from '@env/environment';
-import {takeWhile} from 'rxjs/operators';
+import { PaginationInstance } from 'ngx-pagination';
+import { AnimationOptions } from 'ngx-lottie';
+import { Meta, Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BoardService, ClassService, ModelPaperService } from '@app/services';
+import { environment as ENV } from '@env/environment';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-model-papers',
@@ -16,18 +16,15 @@ import {takeWhile} from 'rxjs/operators';
 export class ModelPapersComponent implements OnInit, OnDestroy {
 
   pages: any;
-  result: any;
   boards = [];
   alive = true;
   classes = [];
   modelPapers = [];
   errorMsg = '';
-  boardData: any;
   isError = false;
   isLoading = true;
   allEnums = Enums;
   itemsPerPage = 12;
-  boardDomain: string;
   totalModelPapers = 0;
   selectedPageNo = 1;
   filteredBoards = [];
@@ -35,10 +32,6 @@ export class ModelPapersComponent implements OnInit, OnDestroy {
   selectedStatus = true;
   selectedClass = 'default';
   selectedBoardKey = 'default';
-
-  @Input() showFilters = true;
-  @Input() showBadgeLinks = true;
-  @Input() showPagination = false;
 
   provinces = [
     {
@@ -105,17 +98,11 @@ export class ModelPapersComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.boardDomain = window.location.hostname && window.location.hostname.substring(0, window.location.hostname.indexOf('.'));
-
     this.title.setTitle(ENV.pageTitle);
 
-    if (this.showFilters && !this.boardDomain) {
+    this.getClasses();
 
-      this.getClasses();
-
-      this.getAllBoards();
-
-    }
+    this.getAllBoards();
 
     this.getLatestModelPapers();
 
@@ -129,14 +116,6 @@ export class ModelPapersComponent implements OnInit, OnDestroy {
 
   getClasses() {
 
-    this.isLoading = true;
-
-    this.isError = false;
-
-    this.errorMsg = '';
-
-    this.selectedClass = 'default';
-
     this.classService.getAllClasses().pipe(takeWhile(this.isAlive))
       .subscribe(
         response => {
@@ -145,44 +124,16 @@ export class ModelPapersComponent implements OnInit, OnDestroy {
 
             this.classes = response.data;
 
-            if (!this.classes || this.classes.length === 0) {
-
-              this.isError = true;
-
-              this.errorMsg = 'No Class Found';
-
-            }
-
-            // this.isLoading = false;
-
           }
 
         },
         error => {
-
-          this.isLoading = false;
-
-          this.isError = true;
-
-          if (error && error.status && error.status === 404) {
-
-            this.errorMsg = '404 - Not Found';
-
-          } else {
-
-            this.errorMsg = 'Something went wrong';
-
-          }
 
         });
 
   }
 
   getAllBoards() {
-
-    this.isError = false;
-
-    this.errorMsg = '';
 
     this.boardService.getAllBoards().pipe(takeWhile(this.isAlive)).subscribe(
       response => {
@@ -191,33 +142,9 @@ export class ModelPapersComponent implements OnInit, OnDestroy {
 
         this.filteredBoards = this.boards;
 
-        if (!this.boards || this.boards.length === 0) {
-
-          this.isError = true;
-
-          this.errorMsg = `404 - Not Found`;
-
-        }
-
-        // this.isLoading = false;
-
       },
 
       error => {
-
-        this.isLoading = false;
-
-        this.isError = true;
-
-        if (error && error.status && error.status === 404) {
-
-          this.errorMsg = '404 - Not Found';
-
-        } else {
-
-          this.errorMsg = 'Something went wrong';
-
-        }
 
       });
 
@@ -227,40 +154,31 @@ export class ModelPapersComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    const modelPapersHttp = this.boardDomain
-      ? this.modelPaperService.getModelPapersByBoardDomain(this.boardDomain) : this.modelPaperService.getLatestModelPapers();
-
-    modelPapersHttp.pipe(takeWhile(this.isAlive))
+    this.modelPaperService.getLatestModelPapers().pipe(takeWhile(this.isAlive))
       .subscribe(
         response => {
 
-          if (response && response.data) {
+          if (response && response.data && Array.isArray(response.data)) {
 
-            this.modelPapers = response.data.modelPapers ? response.data.modelPapers : response.data;
+            this.modelPapers = response.data;
 
-            this.boardData = response.data.board;
+            this.modelPapers.forEach(modelPaper => {
 
-            if (this.modelPapers) {
+              modelPaper.parsedExamType = this.extractExamType(modelPaper.examType);
 
-              this.modelPapers.forEach(modelPaper => {
+            });
 
-                modelPaper.parsedExamType = this.extractExamType(modelPaper.examType);
+            this.filteredModelPapers = this.modelPapers;
 
-              });
+            this.selectedProvince = this.provinces[0];
 
-              this.filteredModelPapers = this.modelPapers;
+            this.totalModelPapers = this.modelPapers && this.modelPapers.length;
 
-              this.selectedProvince = this.provinces[0];
+          } else {
 
-              this.totalModelPapers = this.modelPapers && this.modelPapers.length;
+            this.isError = true;
 
-            } else {
-
-              this.isError = true;
-
-              this.errorMsg = '404 - Not Found';
-
-            }
+            this.errorMsg = '404 - No Model Paper Found';
 
           }
 
@@ -279,7 +197,7 @@ export class ModelPapersComponent implements OnInit, OnDestroy {
 
           if (error && error.status && error.status === 404) {
 
-            this.errorMsg = '404 - Not Found';
+            this.errorMsg = '404 - No Model Paper Found';
 
           } else {
 
@@ -477,8 +395,7 @@ export class ModelPapersComponent implements OnInit, OnDestroy {
 
     if (modelPaper && modelPaper.section && modelPaper.section.title && modelPaper.subject) {
 
-      // tslint:disable-next-line:max-line-length
-      window.location.href = `${window.location.protocol}//${modelPaper.board.domain}.${ENV.host}/model-papers/${modelPaper.section.title}/${modelPaper.subject}`;
+      this.router.navigate(['/model-papers/', modelPaper.board.domain, modelPaper.section.title, modelPaper.subject]);
 
     }
 

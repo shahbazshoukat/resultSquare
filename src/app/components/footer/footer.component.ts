@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment as ENV } from '@env/environment';
-import {UtilService} from '@app/services';
+import { UtilService } from '@app/services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -11,7 +12,8 @@ export class FooterComponent implements OnInit {
 
   test: Date = new Date();
 
-  constructor(private utilService: UtilService) { }
+  constructor(private router: Router,
+              private utilService: UtilService) { }
 
   ngOnInit() {
   }
@@ -48,7 +50,7 @@ export class FooterComponent implements OnInit {
 
   navigateToHomePage() {
 
-    window.location.href = `${window.location.protocol}//${ENV.host}`;
+    this.router.navigate(['/']);
 
   }
 
