@@ -119,9 +119,7 @@ export class ResultDetailPageComponent implements OnInit, OnDestroy {
     this.resultTitle = '';
 
     this.getResult();
-
-    this.getResultTitleAndDescription();
-
+    
     if (this.resultPage && this.resultPage.nativeElement) {
 
       this.resultPage.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
@@ -142,14 +140,9 @@ export class ResultDetailPageComponent implements OnInit, OnDestroy {
 
       this.resultTitle = `${this.selectedClass} Result ${this.selectedYear}`;
 
-      this.resultDescription = `Result of ${this.selectedClass} ${this.selectedYear}`;
-
     } else {
 
       this.resultTitle = `${this.boardTitle} ${this.selectedClass} ${this.selectedExamType} Result ${this.selectedYear}`;
-
-      // tslint:disable-next-line:max-line-length
-      this.resultDescription = `${this.selectedExamType} result of ${this.selectedClass} class ${this.boardTitle} board ${this.selectedYear}`;
 
     }
 
