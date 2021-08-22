@@ -32,11 +32,11 @@
           <div class="col-lg-4 col-md-4 col-sm-12 result-info-tile">
             <div>
               <span class="h5">Class/Grade: </span>
-              <span class="text-sm text-muted">{{modelPaperData?.section?.title}}</span>
+              <span class="text-sm">{{modelPaperData?.section?.title}}</span>
             </div>
             <div>
               <span class="h5">Board: </span>
-              <span class="text-sm text-muted">{{boardTitle ? boardTitle : '---' }}
+              <span class="text-sm">{{boardTitle ? boardTitle : '---' }}
                 <a *ngIf="boardTitle && modelPaperData?.board?.webUrl" target="_blank" class="btn btn-link btn-sm" [href]="modelPaperData?.board?.webUrl">(Official Website)</a>
               </span>
             </div>
@@ -44,11 +44,11 @@
           <div class="col-lg-4 col-md-4 col-sm-12 result-info-tile">
             <div>
               <span class="h5">Subject: </span>
-              <span class="text-sm text-muted">{{modelPaperData?.subject ? modelPaperData?.subject : '---'}}</span>
+              <span class="text-sm">{{modelPaperData?.subject ? modelPaperData?.subject : '---'}}</span>
             </div>
             <div>
               <span class="h5">Exam type: </span>
-              <span class="text-sm text-muted">{{modelPaperData?.examTypeText ? modelPaperData?.examTypeText : '---'}}</span>
+              <span class="text-sm">{{modelPaperData?.examTypeText ? modelPaperData?.examTypeText : '---'}}</span>
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12">
@@ -69,7 +69,7 @@
           <div class="card border-0 bg-transparent">
             <div class="card-body">
               <div class="mt-4" *ngIf="modelPaperData?.description">
-                <p class="text-sm text-muted" [innerHTML]="modelPaperData?.description"></p>
+                <p [innerHTML]="modelPaperData?.description"></p>
               </div>
             </div>
           </div>

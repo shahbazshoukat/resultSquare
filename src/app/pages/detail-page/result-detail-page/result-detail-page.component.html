@@ -32,11 +32,11 @@
           <div class="col-lg-4 col-md-4 col-sm-12 result-info-tile">
             <div>
               <span class="h5">Class/Grade: </span>
-              <span class="text-sm text-muted">{{selectedClass ? selectedClass : '---' }}</span>
+              <span class="text-sm">{{selectedClass ? selectedClass : '---' }}</span>
             </div>
             <div>
               <span class="h5">Board: </span>
-              <span class="text-sm text-muted">{{boardTitle ? boardTitle : '---' }}
+              <span class="text-sm">{{boardTitle ? boardTitle : '---' }}
                 <a *ngIf="boardTitle && resultData?.board?.webUrl" target="_blank" class="btn btn-link btn-sm" [href]="resultData?.board?.webUrl">(Official Website)</a>
               </span>
             </div>
@@ -44,21 +44,21 @@
           <div class="col-lg-4 col-md-4 col-sm-12 result-info-tile">
             <div>
               <span class="h5">Year: </span>
-              <span class="text-sm text-muted">{{selectedYear ? selectedYear : '---'}}</span>
+              <span class="text-sm">{{selectedYear ? selectedYear : '---'}}</span>
             </div>
             <div>
               <span class="h5">Exam type: </span>
-              <span class="text-sm text-muted">{{selectedExamType ? selectedExamType : '---'}}</span>
+              <span class="text-sm">{{selectedExamType ? selectedExamType : '---'}}</span>
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12">
             <div>
               <span class="h5">Status: </span>
-              <span class="text-sm text-muted">{{announceStatus ? announceStatus : "---"}}</span>
+              <span class="text-sm">{{announceStatus ? announceStatus : "---"}}</span>
             </div>
             <div>
               <span class="h5">Announce date: </span>
-              <span class="text-sm text-muted">{{resultData?.announceDate && resultData?.showAnnounceDate ? (resultData?.announceDate | date: 'dd MMM, yyyy') : "---"}}</span>
+              <span class="text-sm">{{resultData?.announceDate && resultData?.showAnnouncedDate ? (resultData?.announceDate | date: 'dd MMM, yyyy') : "---"}}</span>
             </div>
           </div>
         </div>
@@ -69,7 +69,7 @@
           <div class="card border-0 bg-transparent">
             <div class="card-body">
               <div *ngIf="resultData?.board?.description">
-                <p class="text-sm text-muted" [innerHTML]="resultData?.board?.description"></p>
+                <p [innerHTML]="resultData?.board?.description"></p>
               </div>
               <div class="mt-4" *ngIf="resultData?.description">
                 <p class="text-sm text-muted" [innerHTML]="resultData?.description"></p>
@@ -90,8 +90,9 @@
               </div>
               <div class="col-12 text-center">
                 <div style="margin-top: 30px;">
-                  <span>Ohhh, result is not announced yet, please </span>
-                  <span>Keep visiting <a [routerLink]="['/']" >resultSquare.pk</a> for latest news and updates.</span>
+                  <span *ngIf="!resultData?.announceDate || !resultData?.showAnnouncedDate">Result is not announced yet.</span>
+                  <span *ngIf="resultData?.announceDate && resultData?.showAnnouncedDate">Result will be announced on <b class="text-lg">{{(resultData?.announceDate | date: 'dd MMM, yyyy')}}</b>.</span>
+                  <span>&nbsp;Please Keep visiting <a [routerLink]="['/']" >resultSquare.pk</a> for latest news and updates.</span>
                 </div>
               </div>
             </div>

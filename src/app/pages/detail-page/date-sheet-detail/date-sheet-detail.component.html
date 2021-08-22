@@ -32,11 +32,11 @@
           <div class="col-lg-4 col-md-4 col-sm-12 result-info-tile">
             <div>
               <span class="h5">Class/Grade: </span>
-              <span class="text-sm text-muted">{{dateSheetData?.section?.title}}</span>
+              <span class="text-sm">{{dateSheetData?.section?.title}}</span>
             </div>
             <div>
               <span class="h5">Board: </span>
-              <span class="text-sm text-muted">{{boardTitle ? boardTitle : '---' }}
+              <span class="text-sm">{{boardTitle ? boardTitle : '---' }}
                 <a *ngIf="boardTitle && dateSheetData?.board?.webUrl" target="_blank" class="btn btn-link btn-sm" [href]="dateSheetData?.board?.webUrl">(Official Website)</a>
               </span>
             </div>
@@ -44,11 +44,11 @@
           <div class="col-lg-4 col-md-4 col-sm-12 result-info-tile">
             <div>
               <span class="h5">Year: </span>
-              <span class="text-sm text-muted">{{dateSheetData?.year ? dateSheetData?.year : '---'}}</span>
+              <span class="text-sm">{{dateSheetData?.year ? dateSheetData?.year : '---'}}</span>
             </div>
             <div>
               <span class="h5">Exam type: </span>
-              <span class="text-sm text-muted">{{dateSheetData?.examTypeText ? dateSheetData?.examTypeText : '---'}}</span>
+              <span class="text-sm">{{dateSheetData?.examTypeText ? dateSheetData?.examTypeText : '---'}}</span>
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12">
@@ -69,7 +69,7 @@
           <div class="card border-0 bg-transparent">
             <div class="card-body">
               <div class="mt-4" *ngIf="dateSheetData?.description">
-                <p class="text-sm text-muted" [innerHTML]="dateSheetData?.description"></p>
+                <p [innerHTML]="dateSheetData?.description"></p>
               </div>
             </div>
           </div>
