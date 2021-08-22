@@ -29,3 +29,11 @@ jobs:
           registry: docker.io
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Deploy Docker Container to Prod Website
+        env:
+            WEBSITE_PRIVATE_KEY: ${{ secrets.AWS_PROD_WEBSITE_PRIVATE_KEY }}
+        run: |
+            echo "$WEBSITE_PRIVATE_KEY" > website_private_key && chmod 400 website_private_key
+            ssh -o StrictHostKeyChecking=no -i website_private_key ${{ secrets.AWS_EC2_HOST_NAME }}@${{ secrets.AWS_PROD_WEBSITE_INSTANCE_IP }} "bash ./deployWebapp.sh"
+            rm website_private_key
