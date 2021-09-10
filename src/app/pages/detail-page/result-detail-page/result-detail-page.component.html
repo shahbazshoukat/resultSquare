@@ -84,7 +84,7 @@
         <div class="col-11 mt-100" *ngIf="!isError && !isLoading">
 
           <div *ngIf="!announced">
-            <div class="card shadow border-0 bg-secondary error-wrapper">
+            <div class="card shadow border-0 error-wrapper">
               <div class="error-anim">
                 <ng-lottie containerClass="largeNgLottie" [options]="notAnnouncedAnimOptions"></ng-lottie>
               </div>
@@ -92,65 +92,48 @@
                 <div style="margin-top: 30px;">
                   <span *ngIf="!resultData?.announceDate || !resultData?.showAnnouncedDate">Result is not announced yet.</span>
                   <span *ngIf="resultData?.announceDate && resultData?.showAnnouncedDate">Result will be announced on <b class="text-lg">{{(resultData?.announceDate | date: 'dd MMM, yyyy')}}</b>.</span>
-                  <span>&nbsp;Please Keep visiting <a [routerLink]="['/']" >resultSquare.pk</a> for latest news and updates.</span>
+                  <span>&nbsp;Please Keep visiting <a [routerLink]="['/']" >resultSquare.pk</a> for latest updates.</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div *ngIf="announced && !blocked">
-            <div class="row mb-3">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 refresh-btn">
-                <button class="btn btn-success btn-sm" (click)="reload()">
-                  <span class="btn-inner--icon"><i class="ni ni-curved-next"></i></span>
-                  <span>Result Page</span>
-                </button>
+          <div *ngIf="announced">
+            <div class="card shadow border-0 error-wrapper">
+              <div class="error-anim">
+                <ng-lottie containerClass="largeNgLottie" [options]="examsOptions"></ng-lottie>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-sm link-btn">
-                Not working? <button class="btn btn-sm btn-link" (click)="navigateToBoardResultPage()">Click here</button>
+              <div class="col-12 text-center">
+                <div style="margin-top: 30px;">
+                  <span>Result is available. Click below to check yours!</span>
+                  <div class="mt-3">
+                    <button class="btn btn-primary" (click)="navigateToBoardResultPage();">
+                      Click here
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="card shadow border-0 bg-secondary">
-              <iframe target="_self" id="resultFrame" name="resultFrame" class="custom-iframe" [src]="url | safe" (change)="isLoading = true;" (load)="onPageLoad();"></iframe>
             </div>
           </div>
 
         </div>
 
         <div *ngIf="isError && !isLoading" class="col-11 mt-100">
-          <div class="card shadow border-0 bg-secondary error-wrapper">
+          <div class="card shadow border-0 error-wrapper">
             <div class="error-anim">
               <ng-lottie containerClass="largeNgLottie" [options]="errorAnimOptions"></ng-lottie>
             </div>
             <div class="col-12 text-center">
               <div style="margin-top: 30px;">
                 <span>{{errorMsg}}</span>
-                <span>, please keep visiting <a [routerLink]="['/']" >resultSquare.pk</a> for latest news and updates.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="blocked && !isLoading" class="col-11 mt-100">
-          <div class="card shadow border-0 bg-secondary error-wrapper">
-            <div class="error-anim">
-              <ng-lottie containerClass="largeNgLottie" [options]="errorAnimOptions"></ng-lottie>
-            </div>
-            <div class="col-12 text-center">
-              <div style="margin-top: 30px;">
-                <span>We are sorry, result page is not accessible, please click below to navigate to board/university website.</span>
-                <div class="mt-3">
-                  <button class="btn btn-primary" (click)="navigateToBoardResultPage();">
-                    Click here
-                  </button>
-                </div>
+                <span>, please keep visiting <a [routerLink]="['/']" >resultSquare.pk</a> for latest updates.</span>
               </div>
             </div>
           </div>
         </div>
 
         <div *ngIf="isLoading" class="col-11 mt-100">
-          <div class="card shadow border-0 bg-secondary error-wrapper">
+          <div class="card shadow border-0 error-wrapper">
             <div class="error-anim">
               <ng-lottie containerClass="smallNgLottie" [options]="dotsLoaderAnimOptions"></ng-lottie>
             </div>
