@@ -47,7 +47,7 @@
   padding-bottom: 30px;
   justify-content: center;
   align-items: flex-end;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .bgMiniWrap {
@@ -60,7 +60,7 @@
   .nav-main {
     padding-top: 0px;
     padding-bottom: 0px;
-    background-image: url(/assets/img/theme/profile-cover-15.png); background-size: cover; background-position: center top;
+    background-image: url(/assets/img/theme/profile-cover-2.jpg); background-size: cover; background-position: center top;
     // background-image: linear-gradient(331deg, rgb(0, 169, 196), rgb(57, 177, 197));
   }
 }
@@ -68,7 +68,7 @@
 @media screen and (min-width: 768px) {
   .nav-main {
     height: 500px;
-    background-image: url(/assets/img/theme/profile-cover-15.png); background-size: cover; background-position: center top;
+    background-image: url(/assets/img/theme/profile-cover-2.jpg); background-size: cover; background-position: center top;
     // background-image: linear-gradient(331deg, rgb(0, 169, 196), rgb(57, 177, 197));
   }
   .search-result-wrapper {

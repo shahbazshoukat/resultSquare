@@ -37,23 +37,26 @@
                     <th scope="col">Official website</th>
                   </tr>
                   </thead>
-                  <tbody *ngIf="boards">
-                  <tr *ngFor="let board of filteredBoards; let i = index;">
-                    <td>
-                      {{i + 1}}
-                    </td>
-                    <td>
-                      {{board.title}}
-                    </td>
-                    <td>
-                      <a href="{{board.webUrl}}" target="_blank">Official Website</a>
-                    </td>
-                  </tr>
+                  <tbody *ngIf="boards?.length && !isLoading">
+                    <tr *ngFor="let board of filteredBoards; let i = index;">
+                      <td>
+                        {{i + 1}}
+                      </td>
+                      <td>
+                        {{board.title}}
+                      </td>
+                      <td>
+                        <a href="{{board.webUrl}}" target="_blank">Official Website</a>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
               <div class="card-footer py-4">
               </div>
+            </div>
+            <div class="loadingLottie" *ngIf="isLoading">
+              <ng-lottie width="200px" height="200px" [options]="loadingAnimOptions"></ng-lottie>
             </div>
           </div>
         </div>

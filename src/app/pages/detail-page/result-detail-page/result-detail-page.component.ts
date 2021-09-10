@@ -224,12 +224,6 @@ export class ResultDetailPageComponent implements OnInit, OnDestroy {
 
             this.isLoading = false;
 
-            if (!this.isError && !this.blocked && this.announced && this.url) {
-
-              this.loadingBar.start();
-
-            }
-
             this.removeExistingTags();
 
             this.setMetaTags();
