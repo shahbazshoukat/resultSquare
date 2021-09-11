@@ -6,6 +6,7 @@ export const environment = {
   appDomain: 'resultsquare',
   twitterPageUrl: 'https://twitter.com/resultsquarepk',
   youtubePageUrl: '',
+  EMAIL_REGEX: '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$',
   pageTitle: 'Result Square - Online Results for 5th, 8th, Matric, Inter, FA, FSc, BA, BSc, MSc, Board, University',
   provinces: [
     'federal',

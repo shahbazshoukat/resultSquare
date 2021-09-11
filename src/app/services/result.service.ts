@@ -40,7 +40,7 @@ export class ResultService {
 
   addComment(resultId, comment) {
 
-    return this.http.post<APIResponse>(ENV.apiUrl + `/api/comment/${resultId}`, comment);
+    return this.http.post<APIResponse>(ENV.apiUrl + `/api/results/comment/add/${resultId}`, comment);
 
   }
 

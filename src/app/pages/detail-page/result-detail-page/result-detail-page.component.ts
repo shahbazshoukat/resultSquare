@@ -4,11 +4,10 @@ import { ResultService } from '@app/services';
 import { Location } from '@angular/common';
 import { AnimationOptions } from 'ngx-lottie';
 import { BoardService } from '@app/services';
-import { NgForm } from '@angular/forms';
 import { takeWhile } from 'rxjs/operators';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { environment as ENV } from '@env/environment';
+import * as Enums from '@app/app.enums';
 
 @Component({
   selector: 'app-result-page',
@@ -26,24 +25,18 @@ export class ResultDetailPageComponent implements OnInit, OnDestroy {
   isError = false;
   resultData: any;
   boardTitle: any;
-  commentName = '';
-  commentText = '';
   resultTitle: any;
-  commentEmail = '';
   announced = false;
   selectedYear: any;
   isLoading = false;
   selectedClass: any;
   showComments = false;
-  addingComment = false;
   selectedExamType: any;
   resultDescription: any;
   announceStatus: string;
-  isValidCommentName = false;
-  isValidCommentText = false;
-  isValidCommentEmail = false;
   selectedBoardDomain: string;
-  hostAddress = `${window.location.protocol}//${ENV.host}`;
+  websiteIntroDescription = '';
+  commentSourceEnums = Enums.COMMENT_SOURCE;
   @ViewChild('subheader', { static: false }) subheader: ElementRef;
   @ViewChild('resultPage', { static: false }) resultPage: ElementRef;
 
@@ -224,6 +217,8 @@ export class ResultDetailPageComponent implements OnInit, OnDestroy {
 
             this.isLoading = false;
 
+            this.websiteIntroDescription = this.getWebsiteIntroDescription(this.boardTitle, this.selectedClass, this.selectedExamType, this.selectedYear);
+
             this.removeExistingTags();
 
             this.setMetaTags();
@@ -363,109 +358,15 @@ export class ResultDetailPageComponent implements OnInit, OnDestroy {
 
   }
 
-  validateCommentName(event) {
+  getWebsiteIntroDescription = (boardTitle, sectionTitle, examTypeOfResult, yearOfResult) => {
 
-    if (event) {
-
-      this.commentName = event.target.value;
-
-      if (!this.commentName || this.commentName === '' || this.commentName.length < 2) {
-
-        this.isValidCommentName = false;
-
-        return;
-
-      }
-
-      this.isValidCommentName = true;
-
-    }
-
-  }
-
-  validateCommentEmail(event) {
-
-    if (event) {
-
-      this.commentEmail = event.target.value;
-
-      if (!this.commentEmail || this.commentEmail === '' || this.commentEmail.length < 2) {
-
-        this.isValidCommentEmail = false;
-
-        return;
-
-      }
-
-      this.isValidCommentEmail = true;
-
-    }
-
-  }
-
-  validateCommentText(event) {
-
-    if (event) {
-
-      this.commentText = event.target.value;
-
-      if (!this.commentText || this.commentText === '' || this.commentText.length < 2) {
-
-        this.isValidCommentText = false;
-
-        return;
-
-      }
-
-      this.isValidCommentText = true;
-
-    }
-
-  }
-
-  addComment (form: NgForm) {
-
-    if (!form || form.invalid) {
-      return;
-    }
-
-    if (this.isValidCommentName && this.isValidCommentText && this.isValidCommentEmail) {
-
-      const comment = {
-        name: this.commentName,
-        text: this.commentText,
-        email: this.commentEmail
-      };
-
-      this.addingComment = true;
-
-      this.resultService.addComment(this.resultData._id, comment)
-        .pipe(takeWhile(this.isAlive))
-        .subscribe(
-          response => {
-
-            if (response && response.data) {
-
-              this.comments.reverse();
-
-              this.comments.push(response.data);
-
-              this.comments.reverse();
-
-              form.resetForm();
-
-            }
-
-            this.addingComment = false;
-
-          },
-          error => {
-
-            this.addingComment = false;
-
-          });
-
-    }
+    return `Resultsquare.pk provides a platform for students to easily check exams/results updates. We have a simplest interface where stidents can
+    easily check their results updates. ${boardTitle} board ${sectionTitle} ${examTypeOfResult} exams ${yearOfResult} results updates are
+    uploaded on our website and we will keep it uptodate. To check your result for ${boardTitle} board ${sectionTitle} ${examTypeOfResult} exams ${yearOfResult},
+    stay tuned on our website at <a href="http:://resultsquare.pk">http://resultsquare.pk</a>. We provide educational updates for all
+    classes across all educational boards of Pakistan. To keep yourself updated please like us on Facebook
+    @ <a target="_blank" href="https://web.facebook.com/resultsquarepk">Resultsquare.pk</a> and follow us on Twitter @
+    <a target="_blank" href="https://twitter.com/resultsquarepk">Resultsquare.pk</a>.`;
 
   }
 

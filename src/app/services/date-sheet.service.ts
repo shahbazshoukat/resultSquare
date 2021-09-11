@@ -45,9 +45,9 @@ export class DateSheetService {
 
   }
 
-  addComment(resultId, comment) {
+  addComment(dateSheetId, comment) {
 
-    return this.http.post<APIResponse>(ENV.apiUrl + `/api/comment/${resultId}`, comment);
+    return this.http.post<APIResponse>(ENV.apiUrl + `/api/user/date-sheets/comment/${dateSheetId}`, comment);
 
   }
 

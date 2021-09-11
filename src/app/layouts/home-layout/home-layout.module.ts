@@ -10,7 +10,8 @@ import {
   ResultsComponent,
   DateSheetsComponent,
   ModelPapersComponent,
-  ModelPaperDetailComponent
+  ModelPaperDetailComponent,
+  CommentsComponent
 } from '@app/pages';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxPrintModule } from 'ngx-print';
@@ -35,7 +36,7 @@ export function playerFactory() { return player; }
         LottieModule.forRoot({player: playerFactory, useCache: true}),
         LoadingBarModule,
         NgxDocViewerModule,
-      ComponentsModule
+        ComponentsModule
     ],
     declarations: [
         SafePipe,
@@ -44,7 +45,8 @@ export function playerFactory() { return player; }
         ResultsComponent,
         DateSheetsComponent,
         ModelPapersComponent,
-        ModelPaperDetailComponent
+        ModelPaperDetailComponent,
+        CommentsComponent
     ]
 })
 

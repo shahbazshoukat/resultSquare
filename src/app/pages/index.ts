@@ -10,3 +10,4 @@ export * from './results/results.component';
 export * from './date-sheets/date-sheets.component';
 export * from './model-papers/model-papers.component';
 export * from './boards/boards.component';
+export * from './comments/comments.component';

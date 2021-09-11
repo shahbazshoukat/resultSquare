@@ -77,4 +77,10 @@ export const SUBJECTS = [
     label: 'General Math',
     key: 'general_math'
   }
-]
+];
+
+export enum COMMENT_SOURCE {
+  RESULT = 'RESULT',
+  DATE_SHEET = 'DATE_SHEET',
+  MODEL_PAPER = 'MODEL_PAPER'
+}

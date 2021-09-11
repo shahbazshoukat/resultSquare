@@ -1,14 +1,12 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import * as Enums from '@app/app.enums';
-import {AnimationOptions} from 'ngx-lottie';
-import {Meta, Title} from '@angular/platform-browser';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {Location} from '@angular/common';
-import {BoardService, DateSheetService} from '@app/services';
-import {LoadingBarService} from '@ngx-loading-bar/core';
-import {takeWhile} from 'rxjs/operators';
-import {NgForm} from '@angular/forms';
-import {environment as ENV} from '@env/environment';
+import { AnimationOptions } from 'ngx-lottie';
+import { Meta, Title } from '@angular/platform-browser';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { BoardService, DateSheetService } from '@app/services';
+import { LoadingBarService } from '@ngx-loading-bar/core';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-date-sheet-detail',
@@ -20,29 +18,21 @@ export class DateSheetDetailComponent implements OnInit, OnDestroy {
   url = '';
   tags = [];
   alive = true;
-  pageId: string;
   errorMsg = '';
   comments = [];
+  pageId: string;
   isError = false;
-  dateSheetData: any;
-  commentName = '';
-  commentText = '';
-  dateSheetTitle: any;
-  commentEmail = '';
-  isLoading = false;
   boardTitle: any;
-  selectedClass: string;
-  selectedExamType: string;
+  isLoading = false;
+  dateSheetData: any;
+  dateSheetTitle: any;
   selectedYear: string;
-  selectedBoardDomain: string;
-  // boardDomain: string;
   showComments = false;
-  addingComment = false;
+  selectedClass: string;
   dateSheetDescription: any;
-  isValidCommentName = false;
-  isValidCommentText = false;
-  isValidCommentEmail = false;
-  hostAddress = `${window.location.protocol}//${ENV.host}`;
+  selectedExamType: string;
+  selectedBoardDomain: string;
+  commentSourceEnums = Enums.COMMENT_SOURCE;
   @ViewChild('subheader', { static: false }) subheader: ElementRef;
   @ViewChild('resultPage', { static: false }) resultPage: ElementRef;
 
@@ -336,112 +326,6 @@ export class DateSheetDetailComponent implements OnInit, OnDestroy {
   goBack() {
 
     this.router.navigate(['']);
-
-  }
-
-  validateCommentName(event) {
-
-    if (event) {
-
-      this.commentName = event.target.value;
-
-      if (!this.commentName || this.commentName === '' || this.commentName.length < 2) {
-
-        this.isValidCommentName = false;
-
-        return;
-
-      }
-
-      this.isValidCommentName = true;
-
-    }
-
-  }
-
-  validateCommentEmail(event) {
-
-    if (event) {
-
-      this.commentEmail = event.target.value;
-
-      if (!this.commentEmail || this.commentEmail === '' || this.commentEmail.length < 2) {
-
-        this.isValidCommentEmail = false;
-
-        return;
-
-      }
-
-      this.isValidCommentEmail = true;
-
-    }
-
-  }
-
-  validateCommentText(event) {
-
-    if (event) {
-
-      this.commentText = event.target.value;
-
-      if (!this.commentText || this.commentText === '' || this.commentText.length < 2) {
-
-        this.isValidCommentText = false;
-
-        return;
-
-      }
-
-      this.isValidCommentText = true;
-
-    }
-
-  }
-
-  addComment (form: NgForm) {
-
-    if (!form || form.invalid) {
-      return;
-    }
-
-    if (this.isValidCommentName && this.isValidCommentText && this.isValidCommentEmail) {
-
-      const comment = {
-        name: this.commentName,
-        text: this.commentText,
-        email: this.commentEmail
-      };
-
-      this.addingComment = true;
-
-      this.dateSheetService.addComment(this.dateSheetData._id, comment)
-        .pipe(takeWhile(this.isAlive))
-        .subscribe(
-          response => {
-
-            if (response && response.data) {
-
-              this.comments.reverse();
-
-              this.comments.push(response.data);
-
-              this.comments.reverse();
-
-              form.resetForm();
-
-            }
-
-            this.addingComment = false;
-
-          },
-          error => {
-
-            this.addingComment = false;
-
-          });
-
-    }
 
   }
 
