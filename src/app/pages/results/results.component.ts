@@ -304,8 +304,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
         if (res && res.board && (res.board.province === this.selectedProvince.key || this.selectedProvince.key === 'all')
           && (res.board.key === this.selectedBoardKey || this.selectedBoardKey === 'default')
-          && res.section && (res.section.title === this.selectedClass || this.selectedClass === 'default')
-          && res.status === this.selectedStatus) {
+          && res.section && (res.section.title === this.selectedClass || this.selectedClass === 'default')) {
 
           this.filteredResults.push(res);
 

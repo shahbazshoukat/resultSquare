@@ -44,8 +44,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
         this.activeNavItem = `/${url && url[1]}`;
 
-        console.log(this.activeNavItem);
-
       }
 
     });
