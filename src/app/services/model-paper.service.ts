@@ -14,21 +14,9 @@ export class ModelPaperService {
 
   }
 
-  getModelPapersByBoardDomain(domain) {
-
-    return this.http.get<APIResponse>(ENV.apiUrl + `/api/board-model-papers/${domain}`);
-
-  }
-
   getModelPaper(params) {
 
     return this.http.get<APIResponse>(ENV.apiUrl + `/api/model-paper/${params.board}/${params.section}/${params.subject}`);
-
-  }
-
-  getModelPaperByPageId(pageId) {
-
-    return this.http.get<APIResponse>(ENV.apiUrl + `/api/model-papers/${pageId}`);
 
   }
 

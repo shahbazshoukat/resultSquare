@@ -3,6 +3,10 @@
   padding: 50px 0px;
 }
 
+.commentTime {
+  font-size: 12px;
+}
+
 .class-text{
   font-size: 35px;
   font-weight: bold;
@@ -118,6 +122,7 @@
   padding: 10px 10px 10px 10px;
   border: 1px solid #2dce89;
   border-radius: 5px;
+  word-break: break-word;
   // background-color: rgba(147, 231, 195, 0.5);
 }
 

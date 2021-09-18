@@ -15,12 +15,6 @@ export class DateSheetService {
 
   }
 
-  getDateSheetsByBoardDomain(domain) {
-
-    return this.http.get<APIResponse>(ENV.apiUrl + `/api/board-date-sheets/${domain}`);
-
-  }
-
   getDateSheetYears(selectedClassId, selectedBoardId) {
 
     return this.http.get<APIResponse>(ENV.apiUrl + `/api/date-sheet-year/${selectedClassId}/${selectedBoardId}`);
@@ -39,15 +33,9 @@ export class DateSheetService {
 
   }
 
-  getDateSheetByPageId(pageId) {
-
-    return this.http.get<APIResponse>(ENV.apiUrl + `/api/date-sheets/${pageId}`);
-
-  }
-
   addComment(dateSheetId, comment) {
 
-    return this.http.post<APIResponse>(ENV.apiUrl + `/api/user/date-sheets/comment/${dateSheetId}`, comment);
+    return this.http.post<APIResponse>(ENV.apiUrl + `/api/date-sheets/comment/add/${dateSheetId}`, comment);
 
   }
 

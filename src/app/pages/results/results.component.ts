@@ -1,12 +1,13 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as Enums from '@app/app.enums';
-import {PaginationInstance} from 'ngx-pagination';
-import {AnimationOptions} from 'ngx-lottie';
-import {Meta, Title} from '@angular/platform-browser';
-import {ActivatedRoute, Router} from '@angular/router';
-import {BoardService, ClassService, ResultService} from '@app/services';
-import {environment as ENV} from '@env/environment';
-import {takeWhile} from 'rxjs/operators';
+import { PaginationInstance } from 'ngx-pagination';
+import { AnimationOptions } from 'ngx-lottie';
+import { Meta, Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BoardService, ClassService, ResultService } from '@app/services';
+import { environment as ENV } from '@env/environment';
+import { takeWhile } from 'rxjs/operators';
+import { sortBy as _sortBy } from 'lodash-es';
 
 @Component({
   selector: 'app-results',
@@ -163,11 +164,17 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
             this.results = response.data;
 
+            this.parseResultsData();
+
+            this.results = _sortBy(this.results, ['minutesLeft']);
+
             this.filteredResults = this.results;
 
             this.selectedProvince = this.provinces[0];
 
             this.totalResults = this.results && this.results.length;
+
+            // this.sortResultsByAnnounceDate();
 
           } else {
 
@@ -415,6 +422,43 @@ export class ResultsComponent implements OnInit, OnDestroy {
   loadMore = () => {
 
     this.itemsPerPage = this.itemsPerPage + 4;
+
+  }
+
+  parseResultsData = () => {
+
+    if (Array.isArray(this.results)) {
+
+      this.results.forEach(result => {
+
+        if (result && result.announceDate) {
+
+          result.minutesLeft = result.showAnnouncedDate ? new Date().getMilliseconds() - new Date(result.announceDate).getMilliseconds() : 365 * 24 * 60 * 60 * 1000;
+
+          console.log(result.minutesLeft);
+
+        }
+
+      });
+
+    }
+
+  }
+
+  sortResultsByAnnounceDate = () => {
+
+    if (Array.isArray(this.filteredResults)) {
+
+      this.filteredResults.sort((a, b) => {
+
+        // @ts-ignore
+        return new Date(b.announceDate) - new Date(a.announceDate);
+
+      });
+
+      console.log(this.filteredResults);
+
+    }
 
   }
 

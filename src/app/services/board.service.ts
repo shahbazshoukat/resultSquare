@@ -21,10 +21,4 @@ export class BoardService {
 
   }
 
-  getBoardsByProvince(province: string): Observable<any> {
-
-    return this.http.get<APIResponse>(ENV.apiUrl + '/api/boards/province/' + province);
-
-  }
-
 }

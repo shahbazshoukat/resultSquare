@@ -48,6 +48,7 @@
     "font-awesome": "^4.7.0",
     "fs": "0.0.1-security",
     "jquery": "^3.4.1",
+    "lodash-es": "^4.17.21",
     "logdna-winston": "^2.2.5",
     "lottie-web": "^5.5.10",
     "ng-multiselect-dropdown": "^0.2.5",

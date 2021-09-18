@@ -14,12 +14,6 @@ export class ResultService {
 
   }
 
-  getResultsByBoardDomain(domain) {
-
-    return this.http.get<APIResponse>(ENV.apiUrl + `/api/board-results/${domain}`);
-
-  }
-
   getResultYears(selectedClassId, selectedBoardId) {
 
     return this.http.get<APIResponse>(ENV.apiUrl + `/api/result-year/${selectedClassId}/${selectedBoardId}`);

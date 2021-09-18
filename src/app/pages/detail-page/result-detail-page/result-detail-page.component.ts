@@ -107,6 +107,8 @@ export class ResultDetailPageComponent implements OnInit, OnDestroy {
 
         }
 
+        this.getResult();
+
       }
 
     });
@@ -114,10 +116,6 @@ export class ResultDetailPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-    this.resultTitle = '';
-
-    this.getResult();
 
     if (this.resultPage && this.resultPage.nativeElement) {
 
@@ -162,6 +160,12 @@ export class ResultDetailPageComponent implements OnInit, OnDestroy {
       this.errorMsg = '';
 
       this.blocked = false;
+
+      this.resultTitle = '';
+
+      this.resultData = null;
+
+      this.comments = [];
 
       this.resultService.getResult(this.selectedBoardDomain, this.selectedClass, this.selectedYear, this.selectedExamType)
         .pipe(takeWhile(this.isAlive))
