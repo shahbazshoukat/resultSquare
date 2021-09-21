@@ -64,12 +64,6 @@ export class ResultDetailPageComponent implements OnInit, OnDestroy {
     autoplay: true
   };
 
-  examsOptions: AnimationOptions = {
-    path: '/assets/lib/exams.json',
-    loop: true,
-    autoplay: true
-  };
-
   constructor(private meta: Meta,
               private title: Title,
               private router: Router,
